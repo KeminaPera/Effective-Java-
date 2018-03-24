@@ -24,7 +24,7 @@ A class can have only a single constructor with a given signature. Programmers h
 
 Because they have names, static factory methods don’t share the restriction discussed in the previous paragraph. In cases where a class seems to require multiple constructors with the same signature, replace the constructors with static factory methods and carefully chosen names to highlight their differences.
 
-比起构造器，静态工厂方法的一大优势是，它们有名字。如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为_BigInteger.probablePrime_，则能表达得更清楚。（Java4中已经添加了该方法。）
+**比起构造器，静态工厂方法的一大优势是，它们有名字。**如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为_BigInteger.probablePrime_，则能表达得更清楚。（Java4中已经添加了该方法。）
 
 一个类只能有一个带有特定签名的构造器。程序员们都知道如何避开这个限制，那就是通过提供两个构造器，而它们的参数列表只在参数类型的顺序上有所不同。这真不是个好主意。用户在面对这样的API将很难记住哪个构造器是哪个，并最终误用了错误的构造器。人们在阅读用了这些构造器的代码时，若没有参考相关类的文档，也将很难知道这些代码干了什么。
 
@@ -32,8 +32,9 @@ Because they have names, static factory methods don’t share the restriction di
 
 **A second advantage of static factory methods is that, unlike constructors, they are not required to create a new object each time they’re invoked. **This allows immutable classes \(Item 17\) to use preconstructed instances, or to cache instances as they’re constructed, and dispense them repeatedly to avoid creating unnecessary duplicate objects.
 
-The Boolean.valueOf\(boolean\)method illustrates this technique: it never creates an object. This technique is similar to the Flyweight pattern \[Gamma95\]. It can greatly improve performance if equivalent objects are requested often, especially if they are expensive to create.
+The _Boolean.valueOf\(boolean\)_method illustrates this technique: it never creates an object. This technique is similar to the Flyweight pattern \[Gamma95\]. It can greatly improve performance if equivalent objects are requested often, especially if they are expensive to create.
 
-The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled.There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton \(Item 3\) or noninstantiable \(Item 4\). Also, it allows an immutable value class \(Item 17\) to make the guarantee that no two equal instances exist:a.equals\(b\)if and only if a == b. This is the basis of the Flyweight pattern \[Gamma95\]. Enum types \(Item 34\) provide this guarantee.  
+The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled.There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton \(Item 3\) or noninstantiable \(Item 4\). Also, it allows an immutable value class \(Item 17\) to make the guarantee that no two equal instances exist:_a.equals\(b\) _if and only if _a == b_. This is the basis of the Flyweight pattern \[Gamma95\]. Enum types \(Item 34\) provide this guarantee.
 
+**静态工厂方法的第二大优势是，不像构造器，静态工厂方法不必在每次被调用时都产生一个新的对象。**
 
