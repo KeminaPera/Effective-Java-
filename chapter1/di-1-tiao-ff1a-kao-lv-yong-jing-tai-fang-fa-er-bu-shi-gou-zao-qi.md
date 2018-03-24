@@ -24,7 +24,7 @@ A class can have only a single constructor with a given signature. Programmers h
 
 Because they have names, static factory methods don’t share the restriction discussed in the previous paragraph. In cases where a class seems to require multiple constructors with the same signature, replace the constructors with static factory methods and carefully chosen names to highlight their differences.
 
-**比起构造器，静态工厂方法的一大优势是，它们有名字。**如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为_BigInteger.probablePrime_，则能表达得更清楚。（Java4中已经添加了该方法。）
+**比起构造器，静态工厂方法的一大优势是，它们有名字。**如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为_BigInteger.probablePrime_，则能表达得更清楚。（Java 4中已经添加了该方法。）
 
 一个类只能有一个带有特定签名的构造器。程序员们都知道如何避开这个限制，那就是通过提供两个构造器，而它们的参数列表只在参数类型的顺序上有所不同。这真不是个好主意。用户在面对这样的API将很难记住哪个构造器是哪个，并最终误用了错误的构造器。人们在阅读用了这些构造器的代码时，若没有参考相关类的文档，也将很难知道这些代码干了什么。
 
@@ -50,5 +50,7 @@ The Collections Framework API is much smaller than it would have been had it exp
 
 **静态工厂方法的第三大优势是，不像构造器，静态工厂方法能任意原返回类型的子类型的对象。**这让我们在选择类的返回对象时具有很大的灵活性。
 
-这种灵活性的一种应用就是，一个API可以返回对象，同时又不用使得类是公有的。在这种方式下隐藏类的实现能让API变得更简洁紧凑。这种技术适用于基于接口的框架（_interface-based frameworks_，条目20），在这种框架中，接口为静态工厂方法提供了自然的返回类型
+这种灵活性的一种应用就是，一个API可以返回对象，同时又不用使得类是公有的。在这种方式下隐藏类的实现能让API变得更简洁紧凑。这种技术适用于基于接口的框架（_interface-based frameworks_，条目20），在这种框架中，接口为静态工厂方法提供了自然的返回类型。在Java 8之前，接口不能拥有静态方法。按照Java 8之前的传统惯例，接口Type的静态工厂方法被放在了不可初始化的Types类里。例如，Java集合框架的接口有45个便利实现，提供了不可修改集合，同步集合等。几乎所有的这些实现都是通过在一个不可初始化的类（_java.util.Collections_）中导出。所有返回对象的类都是非公有的。
+
+这种集合框架API的实现方式比单独为导出45个公有类的方式要小得多，每个类对应一个便利实现。
 
