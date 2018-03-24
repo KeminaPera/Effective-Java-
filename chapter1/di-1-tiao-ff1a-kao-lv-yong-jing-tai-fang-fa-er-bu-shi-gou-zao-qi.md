@@ -24,5 +24,7 @@ A class can have only a single constructor with a given signature. Programmers h
 
 Because they have names, static factory methods don’t share the restriction discussed in the previous paragraph. In cases where a class seems to require multiple constructors with the same signature, replace the constructors with static factory methods and carefully chosen names to highlight their differences.
 
-比起构造器，静态工厂方法的一大优势是，它们有名字。如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。
+比起构造器，静态工厂方法的一大优势是，它们有名字。如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为BigInteger.probablePrime，则能表达得更清楚。（Java4中已经添加了该方法。）
+
+
 
