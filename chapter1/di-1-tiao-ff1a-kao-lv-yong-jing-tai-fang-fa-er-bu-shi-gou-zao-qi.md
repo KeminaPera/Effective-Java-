@@ -30,3 +30,10 @@ Because they have names, static factory methods don’t share the restriction di
 
 由于静态工厂方法拥有名字，所以它们不受上述限制的影响。当一个类貌似需要多个相同签名的构造器时，可以用多个静态工厂方法来替代这些构造器，并对静态工厂方法们慎重选好名字以突出它们的不同。
 
+**A second advantage of static factory methods is that, unlike constructors, they are not required to create a new object each time they’re invoked. **This allows immutable classes \(Item 17\) to use preconstructed instances, or to cache instances as they’re constructed, and dispense them repeatedly to avoid creating unnecessary duplicate objects.
+
+The Boolean.valueOf\(boolean\)method illustrates this technique: it never creates an object. This technique is similar to the Flyweight pattern \[Gamma95\]. It can greatly improve performance if equivalent objects are requested often, especially if they are expensive to create.
+
+The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled.There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton \(Item 3\) or noninstantiable \(Item 4\). Also, it allows an immutable value class \(Item 17\) to make the guarantee that no two equal instances exist:a.equals\(b\)if and only if a == b. This is the basis of the Flyweight pattern \[Gamma95\]. Enum types \(Item 34\) provide this guarantee.  
+
+
