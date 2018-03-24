@@ -26,5 +26,7 @@ Because they have names, static factory methods don’t share the restriction di
 
 比起构造器，静态工厂方法的一大优势是，它们有名字。如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为BigInteger.probablePrime，则能表达得更清楚。（Java4中已经添加了该方法。）
 
+一个类只能有一个带有特定签名的构造器。程序员们都知道如何避开这个限制，那就是通过提供两个构造器，而它们的参数列表只在参数类型的顺序上有所不同。这真不是个好主意。
+
 
 
