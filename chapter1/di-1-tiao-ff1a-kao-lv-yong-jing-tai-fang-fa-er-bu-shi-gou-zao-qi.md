@@ -67,11 +67,20 @@ As of Java 8, the restriction that interfaces cannot contain static methods was 
 
 The existence of these two implementation classes is invisible to clients. If _RegularEnumSet_ ceased to offer performance advantages for small enum types, it could be eliminated from a future release with no ill effects. Similarly, a future release could add a third or fourth implementation of _EnumSet_ if it proved beneficial for performance. Clients neither know nor care about the class of the object they get back from the factory; they care only that it is some subclass of _EnumSet_.
 
-静态工厂方法的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
+静态工厂的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
 
 _EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：若跟大多数枚举类型一样，包含64个或者更少的元素，那么静态工厂返回一个由_long_支持的_RegularEnumSet_实例；若包含了65个或者更多的元素，那么静态工厂返回一个由long数组支持的JumboEnumSet实例。
 
 这两个实现类的存在对于客户端是不可见的。假如RegularEnumSet对于小型枚举类型不再具有性能优势时，那么在未来版本中大可将RegularEnumSet去除并且不会产生任何坏的影响。类似地，在未来版本中，可以添加第三个或第四个Enumset的实现，如果这些实现被证明能提供好的性能。客户不用知道或者关心他们从工厂里拿回来的对象的类，他们只关心拿回来的是EnumSet的子类就可以了。
 
+**A fifth advantage of static factories is that the class of the returned object need not exist when the class containing the method is written. **Such flexible static factory methods form the basis of service provider frameworks, like the Java Database Connectivity API \(JDBC\). A service provider framework is a system in which providers implement a service, and the system makes the implementations available to clients, decoupling the clients from the implementations.
+
+There are three essential components in a service provider framework: a service interface, which represents an implementation; a provider registration API, which providers use to register implementations; and a service access API, which clients use to obtain instances of the service. The service access API may allow clients to specify criteria for choosing an implementation. In the absence of such criteria, the API returns an instance of a default implementation, or allows the client to cycle through all available implementations. The service access API is the flexible static factory that forms the basis of the service provider framework.
+
+An optional fourth component of a service provider framework is a service provider interface, which describes a factory object that produce instances of the service interface. In the absence of a service provider interface, implementations must be instantiated reflectively \(Item 65\). In the case of JDBC, _Connection_ plays the part of the service interface, _DriverManager.registerDriver_ is the provider registration API, DriverManager.getConnection is the service access API, and _Driver_ is the service provider interface.
+
+There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the Bridge pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoade_r, so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use _ServiceLoader_, as the former predates the latter.
+
+静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。  
 
 
