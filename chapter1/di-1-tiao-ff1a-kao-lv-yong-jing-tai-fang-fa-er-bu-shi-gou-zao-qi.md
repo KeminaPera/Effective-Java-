@@ -60,5 +60,11 @@ As of Java 8, the restriction that interfaces cannot contain static methods was 
 
 这种集合框架API的实现方式比单独为导出45个公有类的方式要小得多，每个类对应一个便利实现。这不仅API数量的减少，而且也是概念意义上的减少——程序员为了用这个API而必须掌握的概念的数量和难度。程序员知道返回的对象是由它的接口精确指定的，从而没必要再去阅读这个对象实现类的参考文档了。而且，使用这种静态工厂方法时，要求客户端通过接口来引用返回对象而不是通过实现类，这是一种好的编程实践（条目64）。
 
-对于Java 8，去除了接口不能包含静态方法的限制，所以大多数情况下没什么理由为一个接口提供一个不可实例化的伴随类。许多原本应该放在伴随类里面的静态成员现在应该放在接口里。然而要注意的是，仍然有必要将这些实现代码放在一个单独的包私有类的静态方法里面。
+对于Java 8，去除了接口不能包含静态方法的限制，所以大多数情况下没什么理由为一个接口提供一个不可实例化的伴随类。许多原本应该放在伴随类里面的静态成员现在应该放在接口里。然而要注意的是，仍然有必要将这些实现代码放在一个单独的包私有类的静态方法里面。这是因为Java 8要求接口里的所有静态成员都必须是公有的。Java 9允许接口包含私有静态方法，但静态属性和静态类成员仍需是公有的。
+
+**A fourth advantage of static factories is that the class of the returned object can vary from call to call as a function of the input parameters. **Any subtype of the declared return type is permissible. The class of the returned object can also vary from release to release.  
+ The _EnumSet_ class \(Item 36\) has no public constructors, only static factories. In the OpenJDK implementation, they return an instance of one of two subclasses, depending on the size of the underlying enum type: if it has sixty-four or fewer elements, as most enum types do, the static factories return a _RegularEnumSet_ instance, which is backed by a single _long_; if the enum type has sixty-five or more elements, the factories return _aJumboEnumSet_ instance, backed by a _long_ array.
+
+The existence of these two implementation classes is invisible to clients. If _RegularEnumSet_ ceased to offer performance advantages for small enum types, it could be eliminated from a future release with no ill effects. Similarly, a future release could add a third or fourth implementation of _EnumSet_ if it proved beneficial for performance. Clients neither know nor care about the class of the object they get back from the factory; they care only that it is some subclass of _EnumSet_.  
+
 
