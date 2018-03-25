@@ -65,6 +65,9 @@ As of Java 8, the restriction that interfaces cannot contain static methods was 
 **A fourth advantage of static factories is that the class of the returned object can vary from call to call as a function of the input parameters. **Any subtype of the declared return type is permissible. The class of the returned object can also vary from release to release.  
  The _EnumSet_ class \(Item 36\) has no public constructors, only static factories. In the OpenJDK implementation, they return an instance of one of two subclasses, depending on the size of the underlying enum type: if it has sixty-four or fewer elements, as most enum types do, the static factories return a _RegularEnumSet_ instance, which is backed by a single _long_; if the enum type has sixty-five or more elements, the factories return _aJumboEnumSet_ instance, backed by a _long_ array.
 
-The existence of these two implementation classes is invisible to clients. If _RegularEnumSet_ ceased to offer performance advantages for small enum types, it could be eliminated from a future release with no ill effects. Similarly, a future release could add a third or fourth implementation of _EnumSet_ if it proved beneficial for performance. Clients neither know nor care about the class of the object they get back from the factory; they care only that it is some subclass of _EnumSet_.  
+The existence of these two implementation classes is invisible to clients. If _RegularEnumSet_ ceased to offer performance advantages for small enum types, it could be eliminated from a future release with no ill effects. Similarly, a future release could add a third or fourth implementation of _EnumSet_ if it proved beneficial for performance. Clients neither know nor care about the class of the object they get back from the factory; they care only that it is some subclass of _EnumSet_.
 
+静态工厂方法的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
+
+_EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂
 
