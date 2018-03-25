@@ -2,7 +2,7 @@
 
 The traditional way for a class to allow a client to obtain an instance is to provide a public constructor. There is another technique that should be a part of every programmer’s toolkit. A class can provide a public static factory method, which is simply a static method that returns an instance of the class. Here’s a simple example from _Boolean_\(the boxed primitive class for _boolean_\). This method translates a _boolean_ primitive value into a _Boolean_ object reference:
 
-对于一个类，若想让一个客户端获得它的实例，一种传统的方式就是该类提供一个公有的构造器。对于此，每个程序员的工具箱里头应该还有另一种技术：一个类可以提供一个公有的静态工厂方法，而这个方法返回类该类的一个实例。这里举一个_Boolean_类（基本类型_boolean_的包装类）的例子。这个方法将一个_boolean_基本类型值转换成类一个_Boolean_对象引用：
+对于一个类，若想让一个客户端获得它的实例，一种传统的方式就是该类提供一个公有的构造器。对于此，每个程序员的工具箱里头应该还有另一种技术：一个类可以提供一个公有的静态工厂方法，而这个方法返回该类的一个实例。这里举一个_Boolean_类（基本类型_boolean_的包装类）的例子。这个方法将一个_boolean_基本类型值转换成类一个_Boolean_对象引用：
 
 ```
 public static Boolean valueOf(boolean b) { 
@@ -26,7 +26,7 @@ Because they have names, static factory methods don’t share the restriction di
 
 **比起构造器，静态工厂方法的一大优势是，它们有名字。**如果一个构造器的参数并不描述返回的对象，那么具有适当名字的静态工厂方法则更容易使用，而且产生的客户端代码也更容易阅读。例如，构造器_BigInteger\(int, int, Random\)_返回的_BigInteger_可能为素数，但假如采用一个静态工厂方法并将其命名为_BigInteger.probablePrime_，则能表达得更清楚。（Java 4中已经添加了该方法。）
 
-一个类只能有一个带有特定签名的构造器。程序员们都知道如何避开这个限制，那就是通过提供两个构造器，而它们的参数列表只在参数类型的顺序上有所不同。这真不是个好主意。用户在面对这样的API将很难记住哪个构造器是哪个，并最终误用了错误的构造器。人们在阅读用了这些构造器的代码时，若没有参考相关类的文档，也将很难知道这些代码干了什么。
+一个类只能有一个带有特定签名的构造器。程序员们都知道如何避开这个限制，那就是通过提供两个构造器，而它们的参数列表只在参数类型的顺序上有所不同。这不是个好主意。用户在面对这样的API将很难记住哪个构造器是哪个，并最终误用了错误的构造器。人们在阅读用了这些构造器的代码时，若没有参考相关类的文档，也将很难知道这些代码干了什么。
 
 由于静态工厂方法拥有名字，所以它们不受上述限制的影响。当一个类貌似需要多个相同签名的构造器时，可以用多个静态工厂方法来替代这些构造器，并对静态工厂方法们慎重选好名字以突出它们的不同。
 
@@ -56,11 +56,11 @@ As of Java 8, the restriction that interfaces cannot contain static methods was 
 
 这种灵活性的一种应用就是，一个API可以返回对象，同时又不用使得类是公有的。在这种方式下隐藏类的实现能让API变得更简洁紧凑。这种技术适用于基于接口的框架（_interface-based frameworks_，条目20），在这种框架中，接口为静态工厂方法提供了自然的返回类型。
 
-在Java 8之前，接口不能拥有静态方法。按照Java 8之前的传统惯例，接口Type的静态工厂方法被放在了不可实例化的Types类里。例如，Java集合框架的接口有45个便利实现，提供了不可修改集合，同步集合等。几乎所有的这些实现都是通过在一个不可实例化的类（_java.util.Collections_）中导出。所有返回对象的类都是非公有的。
+在Java 8之前，接口不能拥有静态方法。按照Java 8之前的传统惯例，接口Type的静态工厂方法被放在了不可实例化的伙伴类（companion class，条目4）Types类里。例如，Java集合框架的接口有45个便利实现，提供了不可修改集合，同步集合等。几乎所有的这些实现都是通过在一个不可实例化的类（_java.util.Collections_）中导出。所有返回对象的类都是非公有的。
 
 这种集合框架API的实现方式比单独为导出45个公有类的方式要小得多，每个类对应一个便利实现。这不仅API数量的减少，而且也是概念意义上的减少——程序员为了用这个API而必须掌握的概念的数量和难度。程序员知道返回的对象是由它的接口精确指定的，从而没必要再去阅读这个对象实现类的参考文档了。而且，使用这种静态工厂方法时，要求客户端通过接口来引用返回对象而不是通过实现类，这是一种好的编程实践（条目64）。
 
-对于Java 8，去除了接口不能包含静态方法的限制，所以大多数情况下没什么理由为一个接口提供一个不可实例化的伴随类。许多原本应该放在伴随类里面的静态成员现在应该放在接口里。然而要注意的是，仍然有必要将这些实现代码放在一个单独的包私有类的静态方法里面。这是因为Java 8要求接口里的所有静态成员都必须是公有的。Java 9允许接口包含私有静态方法，但静态属性和静态类成员仍需是公有的。
+对于Java 8，去除了接口不能包含静态方法的限制，所以大多数情况下没什么理由为一个接口提供一个不可实例化的伴随类。许多原本应该放在伙伴类里面的静态成员现在应该放在接口里。然而要注意的是，仍然有必要将这些实现代码放在一个单独的包私有类的静态方法里面。这是因为Java 8要求接口里的所有静态成员都必须是公有的。Java 9允许接口包含私有静态方法，但静态属性和静态类成员仍需是公有的。
 
 **A fourth advantage of static factories is that the class of the returned object can vary from call to call as a function of the input parameters. **Any subtype of the declared return type is permissible. The class of the returned object can also vary from release to release.  
  The _EnumSet_ class \(Item 36\) has no public constructors, only static factories. In the OpenJDK implementation, they return an instance of one of two subclasses, depending on the size of the underlying enum type: if it has sixty-four or fewer elements, as most enum types do, the static factories return a _RegularEnumSet_ instance, which is backed by a single _long_; if the enum type has sixty-five or more elements, the factories return _aJumboEnumSet_ instance, backed by a _long_ array.
@@ -69,5 +69,9 @@ The existence of these two implementation classes is invisible to clients. If _R
 
 静态工厂方法的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
 
-_EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：如果像大多数枚举类型包含64个或者更少的元素，
+_EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：若跟大多数枚举类型一样，包含64个或者更少的元素，那么静态工厂返回一个由_long_支持的_RegularEnumSet_实例；若包含了65个或者更多的元素，那么静态工厂返回一个由long数组支持的JumboEnumSet实例。
+
+这两个实现类的存在对于客户端是不可见的。假如RegularEnumSet对于小型枚举类型不再具有性能优势时，那么在未来版本中大可将RegularEnumSet去除并且不会产生任何坏的影响。类似地，在未来版本中，可以添加第三个或第四个Enumset的实现，如果这些实现被证明能提供好的性能。客户不用知道或者关心他们从工厂里拿回来的对象的类，他们只关心拿回来的是EnumSet的子类就可以了。
+
+
 
