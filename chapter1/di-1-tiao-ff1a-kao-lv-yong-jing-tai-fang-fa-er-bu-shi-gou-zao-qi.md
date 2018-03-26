@@ -128,7 +128,5 @@ There are many variants of the service provider framework pattern. For example, 
 
 `Object newArray = Array.newInstance(classObject, arrayLen);`
 
-• getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
-
-
+• getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
