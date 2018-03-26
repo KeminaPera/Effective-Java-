@@ -69,7 +69,7 @@ The existence of these two implementation classes is invisible to clients. If _R
 
 **静态工厂的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。**声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
 
-_EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：若跟大多数枚举类型一样，包含64个或者更少的元素，那么静态工厂返回一个由_long_支持的_RegularEnumSet_实例；若包含了65个或者更多的元素，那么静态工厂返回一个由long数组支持的JumboEnumSet实例。
+_EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：若跟大多数枚举类型一样，包含64个或者更少的元素，那么静态工厂返回一个由单个_long_支持的_RegularEnumSet_实例；若包含了65个或者更多的元素，那么静态工厂返回一个由long数组支持的JumboEnumSet实例。
 
 这两个实现类的存在对于客户端是不可见的。假如RegularEnumSet对于小型枚举类型不再具有性能优势时，那么在未来版本中大可将RegularEnumSet去除并且不会产生任何坏的影响。类似地，在未来版本中，可以添加第三个或第四个Enumset的实现，如果这些实现被证明能提供好的性能。客户不用知道或者关心他们从工厂里拿回来的对象的类，他们只关心拿回来的是EnumSet的子类就可以了。
 
@@ -81,9 +81,9 @@ An optional fourth component of a service provider framework is a service provid
 
 There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the _Bridge_ pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoader_, so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use _ServiceLoader_, as the former predates the latter.
 
-**静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。**灵活的静态工厂方法是服务提供者框架的基础，比如Java数据库连接API（JDBC）。服务提供者框架是指提供了服务实现的系统，而这个系统对客户端可用，从而使得客户端跟实现解耦。
+**静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。**这种灵活的静态工厂方法构成了服务提供者框架的基础，比如Java数据库连接API（JDBC）。服务提供者框架是指提供了服务实现的系统，而这个系统对客户端提供了多个实现，将客户端从多个实现中解耦出来。
 
-一个服务提供者框架有三个基本组件：用于展示实现的服务接口；用于给提供者注册实现的提供者注册API；用于给客户端获取服务示例的服务访问API。服务访问API允许客户端指定选择实现的标准。若没有指定标准，API则返回一个默认的实现实例，或允许客户端循环遍历所有可用的实现。服务访问API就是这些灵活的静态工厂，而这些静态工厂形成了服务提供者框架的基础。
+一个服务提供者框架有三个基本组件：用于展示实现的服务接口；用于给提供者注册实现的提供者注册API；用于给客户端获取服务实例的服务访问API。服务访问API一般允许客户端指定选择提供者的条件。若没有指定，API则返回一个默认的实现实例，或允许客户端循环遍历所有可用的实现。服务访问API就是这些灵活的静态工厂，而这些静态工厂形成了服务提供者框架的基础。
 
 除了上述三个组件外，一个可选的组件是服务提供者接口。服务提供者接口描述了生产服务接口实例的工厂对象。若没有服务提供者接口，则实现必须通过反射进行初始化（条目65）。在JDBC的例子中，_Connection_类扮演了服务接口的角色，_DriverManager.registerDriver_扮演了服务者注册API的角色，_DriverManager.getConnection_扮演了服务访问API的角色，_Driver_扮演了服务提供者接口的角色。
 
@@ -91,11 +91,11 @@ There are many variants of the service provider framework pattern. For example, 
 
 **The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. **For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance \(Item 18\), and is required for immutable types \(Item 17\).
 
-**只提供静态工厂方法的主要限制是，没有公有或者保护构造方法的类不能有子类。**例如，Java的集合框架里面的任一便利实现都无法被子类化。但另一方面，这也鼓励了程序员使用组合而不是继承（条目18），而且这也是不可变类型所需要的。从这两个角度看，也算是因祸得福了。
+**只提供静态工厂方法的主要限制在于，没有公有或者保护构造方法的类不能子类化。**例如，Java的集合框架里面的任一便利实现都无法被子类化。但另一方面，这也鼓励了程序员使用组合而不是继承（条目18），而且这也是不可变类型所需要的。从这两个角度看，也算是因祸得福了。
 
 **A second shortcoming of static factory methods is that they are hard for programmers to find. **They do not stand out in API documentation in the way that constructors do, so it can be difficult to figure out how to instantiate a class that provides static factory methods instead of constructors. The Javadoc tool may someday draw attention to static factory methods. In the meantime, you can reduce this problem by drawing attention to static factories in class or interface documentation and by adhering to common naming conventions. Here are some common names for static factory methods. This list is far from exhaustive:
 
-**静态工厂方法的第二个不足之处是程序员难以找到他们。**它们并不像构造器那样能在API文档中突显出来，因而会有点难以知道如何初始化一个只提供静态工厂方法而不是构造器的类。也许Javadoc文档工具在未来某一天会注意到这个问题。为了减少这个问题的出现，我们可以多关注类文档或接口文档里的静态工厂，同时遵守通用的命名规则。这里列举一些通用的静态工厂方法名字。当然，这个列表并非是详尽的：
+**静态工厂方法的第二个不足之处是程序员难以找到他们。**它们并不像构造器那样能在API文档中明显标示出来，因而会有点难以知道如何初始化一个只提供静态工厂方法而不是构造器的类。也许Javadoc文档工具在未来某一天会注意到这个问题。为了减少这个问题的出现，我们可以多关注类文档或接口文档里的静态工厂，同时遵守通用的命名规则。这里列举一些通用的静态工厂方法名字。当然，这个列表并非是详尽的：
 
 •_ from_—A type-conversion method that takes a single parameter and returns a corresponding instance of this type, for example:
 
@@ -128,5 +128,25 @@ There are many variants of the service provider framework pattern. For example, 
 
 `Object newArray = Array.newInstance(classObject, arrayLen);`
 
-• getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
+• _getType_—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
+
+• _getType_—类似于getInstance，但一般在工厂方法包含在不同类的情况下使用。Type是工厂方法返回的对象的类型，例如：
+
+`FileStore fs = Files.getFileStore(path);`
+
+•_newType_—Like newInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
+
+•_newType_—类似于newInstance，但一般在工厂方法包含在不同类的情况下使用。Type是工厂方法返回的对象的类型，例如：
+
+`BufferedReader br = Files.newBufferedReader(path);`
+
+•_type_—A concise alternative to _getType_ and _newType_, for example:
+
+•_type_—_getType_和_newType_简洁的替换方式，例如：
+
+`List<Complaint> litany = Collections.list(legacyLitany);`
+
+In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits. Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
+
+总的说来，静态工厂方法和公有构造器都有它们各自的用途，我们需要了解它们各自的优点。通常情况下静态工厂更可取，因此尽量避免第一反应就是用公有构造器，而不是先考虑静态工厂。
 
