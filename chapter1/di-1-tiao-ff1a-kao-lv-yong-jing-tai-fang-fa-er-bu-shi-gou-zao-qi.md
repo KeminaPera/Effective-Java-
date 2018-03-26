@@ -67,7 +67,7 @@ As of Java 8, the restriction that interfaces cannot contain static methods was 
 
 The existence of these two implementation classes is invisible to clients. If _RegularEnumSet_ ceased to offer performance advantages for small enum types, it could be eliminated from a future release with no ill effects. Similarly, a future release could add a third or fourth implementation of _EnumSet_ if it proved beneficial for performance. Clients neither know nor care about the class of the object they get back from the factory; they care only that it is some subclass of _EnumSet_.
 
-静态工厂的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
+**静态工厂的第四大优势是，可以根据调用时传入的不同参数而返回不同类的对象。**声明返回类型的任意子类型都是被允许的。返回对象的类也可以因不同发布版本而不同。
 
 _EnumSet_类（条目36）没有公有的构造器，而只有静态工厂。在OpenJDK的实现里，这些静态工厂返回两个子类中的一个实例，这取决于底层枚举类型的大小：若跟大多数枚举类型一样，包含64个或者更少的元素，那么静态工厂返回一个由_long_支持的_RegularEnumSet_实例；若包含了65个或者更多的元素，那么静态工厂返回一个由long数组支持的JumboEnumSet实例。
 
@@ -79,8 +79,11 @@ There are three essential components in a service provider framework: a service 
 
 An optional fourth component of a service provider framework is a service provider interface, which describes a factory object that produce instances of the service interface. In the absence of a service provider interface, implementations must be instantiated reflectively \(Item 65\). In the case of JDBC, _Connection_ plays the part of the service interface, _DriverManager.registerDriver_ is the provider registration API, DriverManager.getConnection is the service access API, and _Driver_ is the service provider interface.
 
-There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the Bridge pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoade_r, so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use _ServiceLoader_, as the former predates the latter.
+There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the Bridge pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoade\_r, so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use \_ServiceLoader_, as the former predates the latter.
 
-静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。  
+**静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。**灵活的静态工厂方法是服务提供者框架的基础，比如Java数据库连接API（JDBC）。服务提供者框架是指提供了服务实现的系统，而这个系统对客户端可用，从而使得客户端跟实现解耦。
+
+一个服务提供者框架有三个基本组件：用于展示实现的服务接口；用于给提供者注册实现的提供者注册API；用于给客户端获取服务示例的服务访问API。服务访问API允许客户端指定选择实现的标准。若没有指定标准，API则返回一个默认的实现实例，或允许客户端循环遍历所有可用的实现。服务访问API就是这些灵活的静态工厂，而这些静态工厂形成了服务提供者框架的基础。
+
 
 
