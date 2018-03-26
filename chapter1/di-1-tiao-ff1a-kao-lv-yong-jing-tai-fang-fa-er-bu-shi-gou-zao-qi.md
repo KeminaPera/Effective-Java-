@@ -89,5 +89,5 @@ There are many variants of the service provider framework pattern. For example, 
 
 服务提供者框架模式也有很多变种。例如，服务访问API可以向客户端返回一个比服务提供者提供的更丰富的服务接口。这是桥接模式（_Bridge_ pattern）\[Gamma95\]。依赖注入框架（条目5）可以看成是强大的服务提供者。从Java 6开始，jdk包含了一个通用的服务提供框架，_java.util.ServiceLoader，_因此你无需也不应该再自己写一个框架了（条目59）。JDBC没有使用_ServiceLoader_，因为它在Java6之前就存在了。
 
-**The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. **For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance \(Item 18\), and is required for immutable types \(Item 17\).
+**The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. **For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance \(Item 18\), and is required for immutable types \(Item 17\).
 
