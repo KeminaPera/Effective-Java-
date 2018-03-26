@@ -50,16 +50,15 @@ Typically this constructor invocation will require many parameters that you don�
 
 这个构造器的调用通常需要很多你原本不想设置的参数，但你还是不得不给这些参数传一个值进去。在上述的例子中，我们为参数fat传了0值进去。若仅仅是这6个参数，情况还好点，但随着参数的增多，很快就开始失控。
 
-In short, the telescoping constructor pattern works, but it is hard to write client code when there are many parameters, and harder still to read it. The reader is left wondering what all those values mean and must carefully count parameters to find out. Long sequences of identically typed parameters can cause subtle bugs. If the client accidentally reverses two such parameters, the compiler won’t complain, but the program will misbehave at runtime \(Item 51\).
+In short, **the telescoping constructor pattern works, but it is hard to write client code when there are many parameters, and harder still to read it.** The reader is left wondering what all those values mean and must carefully count parameters to find out. Long sequences of identically typed parameters can cause subtle bugs. If the client accidentally reverses two such parameters, the compiler won’t complain, but the program will misbehave at runtime \(Item 51\).
 
-简而言之，可伸缩构造器是可行，只是当有很多参数时，会让客户端代码很难编写，而且代码也很难阅读。读者若想知道传入的那些值代表什么，就必须得仔细地数着这些参数来一探究竟。一长串相同类型的参数还会导致一些难以察觉的错误。假如客户端不小心将两个相同类型的参数调换来位置，编译器不会报错，但程序在运行时就不会按照我们所想的去做了（条目51）。
+简而言之，**可伸缩构造器是可行，只是当有很多参数时，会让客户端代码很难编写，而且代码也很难阅读。**读者若想知道传入的那些值代表什么，就必须得仔细地数着这些参数来一探究竟。一长串相同类型的参数还会导致一些难以察觉的错误。假如客户端不小心将两个相同类型的参数调换来位置，编译器不会报错，但程序在运行时就不会按照我们所想的去做了（条目51）。
 
-A second alternative when you’re faced with many optional parameters in a constructor is the Java Beans pattern, in which you call a parameterless constructor to create the object and then call setter methods to set each required parameter and each optional parameter of interest:
+A second alternative when you’re faced with many optional parameters in a constructor is the JavaBeans pattern, in which you call a parameterless constructor to create the object and then call setter methods to set each required parameter and each optional parameter of interest:
 
-对于这种一个构造器里有很多可选参数的情况，另一种可选的方案就是采用Java Beans模式。若采用这种模式，则先调用无参构造器来创建一个对象，然后分别调用不同的setter方法来设置必要参数和可选参数：
+对于这种一个构造器里有很多可选参数的情况，另一种可选的方案就是采用JavaBeans模式。若采用这种模式，则先调用无参构造器来创建一个对象，然后分别调用不同的setter方法来设置必要参数和可选参数：
 
 ```
-
 // JavaBeans Pattern - allows inconsistency, mandates mutability
 public class NutritionFacts {
     // Parameters initialized to default values (if any)
@@ -91,6 +90,23 @@ public class NutritionFacts {
     }
 }
 ```
+
+This pattern has none of the disadvantages of the telescoping constructor pattern. It is easy, if a bit wordy, to create instances, and easy to read the resulting code:
+
+这种模式没有任一可伸缩构造器模式的缺点。说得明白一点，Java Beans创建实例简单，而且代码易于阅读：
+
+```
+NutritionFacts cocaCola = new NutritionFacts(); 
+cocaCola.setServingSize(240); 
+cocaCola.setServings(8); 
+cocaCola.setCalories(100); 
+cocaCola.setSodium(35); 
+cocaCola.setCarbohydrate(27);
+```
+
+Unfortunately, the JavaBeans pattern has serious disadvantages of its own. Because construction is split across multiple calls, **a JavaBean may be in an inconsistent state partway through its construction.**The class does not have the option of enforcing consistency merely by checking the validity of the constructor parameters. Attempting to use an object when it’s in an inconsistent state may cause failures that are far removed from the code containing the bug and hence difficult to debug. A related disadvantage is that **the JavaBeans pattern precludes the possibility of making a class immutable**\(Item 17\) and requires added effort on the part of the programmer to ensure thread safety.
+
+
 
 
 
