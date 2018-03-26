@@ -46,6 +46,10 @@ When you want to create an instance, you use the constructor with the shortest p
 NutritionFacts cocaCola = new NutritionFacts(240, 8, 100, 0, 35, 27);
 ```
 
+Typically this constructor invocation will require many parameters that you don’t want to set, but you’re forced to pass a value for them anyway. In this case, we passed a value of 0 for fat. With “only” six parameters this may not seem so bad, but it quickly gets out of hand as the number of parameters increases.
+
+这个构造器的调用通常需要很多你原本不想设置的参数，但你还是不得不给这些参数传一个值进去。在上述的例子中，我们为参数fat传了0值进去。若仅仅是这6个参数，情况还好点，但随着参数的增多，很快就开始失控。
+
 
 
 
