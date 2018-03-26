@@ -91,3 +91,7 @@ There are many variants of the service provider framework pattern. For example, 
 
 **The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. **For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance \(Item 18\), and is required for immutable types \(Item 17\).
 
+只提供静态工厂方法的主要限制是，没有公有或者保护构造方法的类不能有子类。例如，Java的集合框架里面的任一便利实现都无法被子类化。但另一方面，这也鼓励了程序员使用组合而不是继承（条目18），而且这也是不可变类型所需要的。从这两个角度看，也算是因祸得福了。
+
+
+
