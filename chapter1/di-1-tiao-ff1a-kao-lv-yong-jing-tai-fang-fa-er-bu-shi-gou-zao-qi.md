@@ -101,50 +101,66 @@ There are many variants of the service provider framework pattern. For example, 
 
 •_ from_—这种方式通过给方法传入单个参数，然后返回该类型的相应实例，例如：
 
-`Date d = Date.from(instant);`
+```
+Date d = Date.from(instant);
+```
 
 **• **_of_—An aggregation method that takes multiple parameters and returns an instance of this type that incorporates them, for  
  example:
 
 **• **_of_—这种方式通过给方法传入多个参数，然后返回一个包含了这些参数的该类型实例，例如：
 
-`Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);`
+```
+Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);
+```
 
 • _valueOf_—A more verbose alternative to _from_ and _of_, for example:
 
 • _valueOf_—_from_和_of_更为详细的替代方式，例如：
 
-`BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);`
+```
+BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);
+```
 
 • _instance or getInstance_—Returns an instance that is described by its parameters \(if any\) but cannot be said to have the same value, for example:
 
 • _instance or getInstance_—返回一个由参数（如果有的话）描述的实例，但不能说具有相同的值，例如：
 
-`StackWalker luke = StackWalker.getInstance(options);`
+```
+StackWalker luke = StackWalker.getInstance(options);
+```
 
 • _create or newInstance_—Like instance or getInstance, except that the method guarantees that each call returns a new instance, for example:
 
 • _create or newInstance_—类似于instance或getInstance, 只不过保证每次调用都返回一个新的实例，例如：
 
-`Object newArray = Array.newInstance(classObject, arrayLen);`
+```
+Object newArray = Array.newInstance(classObject, arrayLen);
+```
 
 • _getType_—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
 • _getType_—类似于getInstance，但一般在工厂方法包含在不同类的情况下使用。Type是工厂方法返回的对象的类型，例如：
 
-`FileStore fs = Files.getFileStore(path);`
+```
+FileStore fs = Files.getFileStore(path);
+```
 
 •_newType_—Like newInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
 
 •_newType_—类似于newInstance，但一般在工厂方法包含在不同类的情况下使用。Type是工厂方法返回的对象的类型，例如：
 
-`BufferedReader br = Files.newBufferedReader(path);`
+```
+BufferedReader br = Files.newBufferedReader(path);
+```
 
 •_type_—A concise alternative to _getType_ and _newType_, for example:
 
 •_type_—_getType_和_newType_简洁的替换方式，例如：
 
-`List<Complaint> litany = Collections.list(legacyLitany);`
+```
+List<Complaint> litany = Collections.list(legacyLitany);
+```
 
 In summary, static factory methods and public constructors both have their uses, and it pays to understand their relative merits. Often static factories are preferable, so avoid the reflex to provide public constructors without first considering static factories.
 
