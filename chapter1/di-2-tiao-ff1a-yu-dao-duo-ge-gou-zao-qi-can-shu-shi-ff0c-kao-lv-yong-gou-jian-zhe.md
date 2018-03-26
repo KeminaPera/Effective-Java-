@@ -38,5 +38,15 @@ public class NutritionFacts {
 }
 ```
 
+When you want to create an instance, you use the constructor with the shortest parameter list containing all the parameters you want to set:
+
+当你想创建一个实例时，就用那个包含了所有你想设置的参数而且是参数列表最短的那个构造器：
+
+```
+NutritionFacts cocaCola = new NutritionFacts(240, 8, 100, 0, 35, 27);
+```
+
+
+
 
 
