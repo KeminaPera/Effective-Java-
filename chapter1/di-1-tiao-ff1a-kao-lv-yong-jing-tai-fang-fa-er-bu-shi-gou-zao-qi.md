@@ -116,3 +116,19 @@ There are many variants of the service provider framework pattern. For example, 
 
 `BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);`
 
+• _instance or getInstance_—Returns an instance that is described by its parameters \(if any\) but cannot be said to have the same value, for example:
+
+• _instance or getInstance_—返回一个由参数（如果有的话）描述的实例，但不能说具有相同的值，例如：
+
+`StackWalker luke = StackWalker.getInstance(options);`
+
+• _create or newInstance_—Like instance or getInstance, except that the method guarantees that each call returns a new instance, for example:
+
+• _create or newInstance_—类似于instance或getInstance, 只不过保证每次调用都返回一个新的实例，例如：
+
+`Object newArray = Array.newInstance(classObject, arrayLen);`
+
+• getType—Like getInstance, but used if the factory method is in a different class. Type is the type of object returned by the factory method, for example:
+
+
+
