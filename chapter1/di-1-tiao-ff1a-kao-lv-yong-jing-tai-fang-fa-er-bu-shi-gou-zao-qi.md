@@ -110,3 +110,9 @@ There are many variants of the service provider framework pattern. For example, 
 
 `Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);`
 
+• _valueOf_—A more verbose alternative to _from_ and _of_, for example:
+
+• _valueOf_—_from_和_of_更为详细的替代方式，例如：
+
+`BigInteger prime = BigInteger.valueOf(Integer.MAX_VALUE);`
+
