@@ -1,4 +1,4 @@
-第1条：考虑用静态方法而不是构造器
+### 第1条：考虑用静态方法而不是构造器
 
 The traditional way for a class to allow a client to obtain an instance is to provide a public constructor. There is another technique that should be a part of every programmer’s toolkit. A class can provide a public static factory method, which is simply a static method that returns an instance of the class. Here’s a simple example from _Boolean_\(the boxed primitive class for _boolean_\). This method translates a _boolean_ primitive value into a _Boolean_ object reference:
 
