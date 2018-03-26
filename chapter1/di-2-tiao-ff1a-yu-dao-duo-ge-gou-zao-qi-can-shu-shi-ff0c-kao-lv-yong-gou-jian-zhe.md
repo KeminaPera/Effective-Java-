@@ -50,7 +50,47 @@ Typically this constructor invocation will require many parameters that you don�
 
 这个构造器的调用通常需要很多你原本不想设置的参数，但你还是不得不给这些参数传一个值进去。在上述的例子中，我们为参数fat传了0值进去。若仅仅是这6个参数，情况还好点，但随着参数的增多，很快就开始失控。
 
+In short, the telescoping constructor pattern works, but it is hard to write client code when there are many parameters, and harder still to read it. The reader is left wondering what all those values mean and must carefully count parameters to find out. Long sequences of identically typed parameters can cause subtle bugs. If the client accidentally reverses two such parameters, the compiler won’t complain, but the program will misbehave at runtime \(Item 51\).
 
+简而言之，可伸缩构造器是可行，只是当有很多参数时，会让客户端代码很难编写，而且代码也很难阅读。读者若想知道传入的那些值代表什么，就必须得仔细地数着这些参数来一探究竟。一长串相同类型的参数还会导致一些难以察觉的错误。假如客户端不小心将两个相同类型的参数调换来位置，编译器不会报错，但程序在运行时就不会按照我们所想的去做了（条目51）。
+
+A second alternative when you’re faced with many optional parameters in a constructor is the Java Beans pattern, in which you call a parameterless constructor to create the object and then call setter methods to set each required parameter and each optional parameter of interest:
+
+对于这种一个构造器里有很多可选参数的情况，另一种可选的方案就是采用Java Beans模式。若采用这种模式，则先调用无参构造器来创建一个对象，然后分别调用不同的setter方法来设置必要参数和可选参数：
+
+```
+
+// JavaBeans Pattern - allows inconsistency, mandates mutability
+public class NutritionFacts {
+    // Parameters initialized to default values (if any)
+    private int servingSize = -1; // Required; no default value 
+    private int servings = -1; // Required; no default value
+    private int calories = 0;
+    private int fat = 0;
+    private int sodium = 0;
+    private int carbohydrate = 0;
+    public NutritionFacts() { }
+    // Setters
+    public void setServingSize(int val) { 
+        servingSize = val; 
+    } 
+    public void setServings(int val) { 
+        servings = val; 
+    }
+    public void setCalories(int val) {
+        calories = val;
+    }
+    public void setFat(int val) {
+        fat = val;
+    }
+    public void setSodium(int val) {
+        sodium = val;
+    }
+    public void setCarbohydrate(int val) { 
+        carbohydrate = val; 
+    }
+}
+```
 
 
 
