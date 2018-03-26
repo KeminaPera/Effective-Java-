@@ -3,4 +3,5 @@
 * [Introduction](README.md)
 * [第2章 创建和销毁对象 ](chapter1.md)
   * [第1条：考虑用静态方法而不是构造器](chapter1/di-1-tiao-ff1a-kao-lv-yong-jing-tai-fang-fa-er-bu-shi-gou-zao-qi.md)
+  * [第2条：遇到多个构造器参数时，考虑用构建者](chapter1/di-2-tiao-ff1a-yu-dao-duo-ge-gou-zao-qi-can-shu-shi-ff0c-kao-lv-yong-gou-jian-zhe.md)
 
