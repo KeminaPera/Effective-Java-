@@ -79,7 +79,7 @@ There are three essential components in a service provider framework: a service 
 
 An optional fourth component of a service provider framework is a service provider interface, which describes a factory object that produce instances of the service interface. In the absence of a service provider interface, implementations must be instantiated reflectively \(Item 65\). In the case of JDBC, _Connection_ plays the part of the service interface, _DriverManager.registerDriver_ is the provider registration API, _DriverManager.getConnection_ is the service access API, and _Driver_ is the service provider interface.
 
-There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the Bridge pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoade\_r, so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use \_ServiceLoader_, as the former predates the latter.
+There are many variants of the service provider framework pattern. For example, the service access API can return a richer service interface to clients than the one furnished by providers. This is the _Bridge_ pattern \[Gamma95\]. Dependency injection frameworks \(Item 5\) can be viewed as powerful service providers. Since Java 6, the platform includes a general-purpose service provider framework, _java.util.ServiceLoader, _so you needn’t, and generally shouldn’t, write your own \(Item 59\). JDBC doesn’t use _ServiceLoader_, as the former predates the latter.
 
 **静态工厂的第五大优势是，在编写包含该方法的类时，返回对象的类不需要存在。**灵活的静态工厂方法是服务提供者框架的基础，比如Java数据库连接API（JDBC）。服务提供者框架是指提供了服务实现的系统，而这个系统对客户端可用，从而使得客户端跟实现解耦。
 
@@ -87,5 +87,5 @@ There are many variants of the service provider framework pattern. For example, 
 
 除了上述三个组件外，一个可选的组件是服务提供者接口。服务提供者接口描述了生产服务接口实例的工厂对象。若没有服务提供者接口，则实现必须通过反射进行初始化（条目65）。在JDBC的例子中，_Connection_类扮演了服务接口的角色，_DriverManager.registerDriver_扮演了服务者注册API的角色，_DriverManager.getConnection_扮演了服务访问API的角色，_Driver_扮演了服务提供者接口的角色。
 
-
+服务提供者框架模式也有很多变种。例如，服务访问API可以向客户端返回一个比服务提供者提供的更丰富的服务接口。
 
