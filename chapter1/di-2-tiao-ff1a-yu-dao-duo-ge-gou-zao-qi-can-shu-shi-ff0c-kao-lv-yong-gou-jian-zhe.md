@@ -6,5 +6,37 @@ What sort of constructors or static factories should you write for such a class?
 
 对于这样的类，我们应该如何编写构造器或者静态工厂？一般情况下，程序员会习惯于用可伸缩构造器（telescoping constructor pattern）模式。在这种模式下，程序员会先提供一个只有必要参数的构造器，然后在这个构造器的基础上，提供一个还要需要有一个可选参数的构造器，接着提供一个需要有两个可选参数的构造器，以此类推，终于在最后一个构造器的参数列表里，不仅包含了那几个必要的参数，还包含了所有的可选参数。下面有个例子。为了简单起见，它只显示4个可选属性：
 
+```
+// Telescoping constructor pattern - does not scale well!
+public class NutritionFacts {
+    private final int servingSize; // (mL) required 
+    private final int servings;    // (per container) required
+    private final int calories;    // (per serving) optional    
+    private final int fat;         // (g/serving) optional
+    private final int sodium;      // (mg/serving) optional
+    private final int carbohydrate; // (g/serving) optional
+    public NutritionFacts(int servingSize, int servings) { 
+        this(servingSize, servings, 0);
+    }
+    public NutritionFacts(int servingSize, int servings, int calories) {
+        this(servingSize, servings, calories, 0); 
+    }
+    public NutritionFacts(int servingSize, int servings, int calories, int fat) {
+        this(servingSize, servings, calories, fat, 0); 
+    }
+    public NutritionFacts(int servingSize, int servings, int calories, int fat, int sodium) {
+        this(servingSize, servings, calories, fat, sodium, 0); 
+    }
+    public NutritionFacts(int servingSize, int servings, int calories, int fat, int sodium, 
+        int carbohydrate) {
+        this.servingSize = servingSize; this.servings = servings;
+        this.calories = calories
+        this.fat = fat
+        this.sodium = sodium
+        this.carbohydrate = carbohydrate;
+    } 
+}
+```
+
 
 
