@@ -110,5 +110,5 @@ Unfortunately, the JavaBeans pattern has serious disadvantages of its own. Becau
 
 不幸的是，JavaBeans模式也有一些严重的缺陷。由于构造过程被分到了多个调用中，**一个JavaBean在其构造过程中可能处于不一致的状态。**类无法仅仅通过检查构造器参数的有效性来保证一致性。试图使用一个处于不一致状态的对象将会导致失败，而且这种失败远不像那些包含bug的代码，因此它调试起来非常困难。与此相关的另一个缺点是，JavaBeans模式阻止了把类做成不可变的可能性，这需要程序员付出额外的努力来确保线程安全。
 
-
+It is possible to reduce these disadvantages by manually “freezing” the object when its construction is complete and not allowing it to be used until frozen, but this variant is unwieldy and rarely used in practice. Moreover, it can cause errors at runtime because the compiler cannot ensure that the programmer calls the freeze method on an object before using it.
 
