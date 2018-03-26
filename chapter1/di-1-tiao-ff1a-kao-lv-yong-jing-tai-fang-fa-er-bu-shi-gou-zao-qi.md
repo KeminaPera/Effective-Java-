@@ -97,3 +97,15 @@ There are many variants of the service provider framework pattern. For example, 
 
 **静态工厂方法的第二个不足之处是程序员难以找到他们。**它们并不像构造器那样能在API文档中突显出来，因而会有点难以知道如何初始化一个只提供静态工厂方法而不是构造器的类。也许Javadoc文档工具在未来某一天会注意到这个问题。为了减少这个问题的出现，我们可以多关注类文档或接口文档里的静态工厂，同时遵守通用的命名规则。这里列举一些通用的静态工厂方法名字。当然，这个列表并非是详尽的：
 
+• **from**—A type-conversion method that takes a single parameter and returns a corresponding instance of this type, for example:
+
+• **from**—这种方式通过给方法传入单个参数，然后返回该类型的相应实例，例如：
+
+`Date d = Date.from(instant);`
+
+**• of**—An aggregation method that takes multiple parameters and returns an instance of this type that incorporates them, for example:
+
+**• of**—这种方式通过给方法传入多个参数，然后返回一个包含了这些参数的该类型实例，例如：
+
+`Set<Rank> faceCards = EnumSet.of(JACK, QUEEN, KING);`
+
