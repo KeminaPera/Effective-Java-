@@ -91,7 +91,11 @@ There are many variants of the service provider framework pattern. For example, 
 
 **The main limitation of providing only static factory methods is that classes without public or protected constructors cannot be subclassed. **For example, it is impossible to subclass any of the convenience implementation classes in the Collections Framework. Arguably this can be a blessing in disguise because it encourages programmers to use composition instead of inheritance \(Item 18\), and is required for immutable types \(Item 17\).
 
-只提供静态工厂方法的主要限制是，没有公有或者保护构造方法的类不能有子类。例如，Java的集合框架里面的任一便利实现都无法被子类化。但另一方面，这也鼓励了程序员使用组合而不是继承（条目18），而且这也是不可变类型所需要的。从这两个角度看，也算是因祸得福了。
+**只提供静态工厂方法的主要限制是，没有公有或者保护构造方法的类不能有子类。**例如，Java的集合框架里面的任一便利实现都无法被子类化。但另一方面，这也鼓励了程序员使用组合而不是继承（条目18），而且这也是不可变类型所需要的。从这两个角度看，也算是因祸得福了。
+
+**A second shortcoming of static factory methods is that they are hard for programmers to find. **They do not stand out in API documentation in the way that constructors do, so it can be difficult to figure out how to instantiate a class that provides static factory methods instead of constructors. The Javadoc tool may someday draw attention to static factory methods. In the meantime, you can reduce this problem by drawing attention to static factories in class or interface documentation and by adhering to common naming conventions. Here are some common names for static factory methods. This list is far from exhaustive:
+
+**静态工厂方法的第二个不足之处是程序员难以找到他们。**它们并不像构造器那样能在API文档中突显出来，因而会有点难以知道如何初始化一个只提供静态工厂方法而不是构造器的类。也许Javadoc文档工具在未来某一天会注意到这个问题。为了减少这个问题的出现，我们可以多关注类文档或接口文档里的静态工厂，同时遵守通用的命名规则。这里列举一些通用的静态工厂方法名字。当然，这个列表并非是详尽的：
 
 
 
