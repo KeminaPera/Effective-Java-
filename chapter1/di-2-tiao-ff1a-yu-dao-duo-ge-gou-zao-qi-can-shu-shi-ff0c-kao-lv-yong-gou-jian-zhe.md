@@ -276,7 +276,7 @@ public class Calzone extends Pizza {
 }
 ```
 
-Note that the build method in each subclass’s builder is declared to return the correct subclass: the build method of NyPizza.Builder returns NyPizza, while the one in Calzone.Builder returns Calzone. This technique, wherein a subclass method is declared to return a subtype of the return type declared in the super-class, is known as covariant return typing. It allows clients to use these builders without the need for casting. The client code for these “hierarchical builders” is essentially identical to the code for the simple NutritionFacts builder. The example client code shown next assumes static imports on enum constants for brevity:
+Note that the build method in each subclass’s builder is declared to return the correct subclass: the _build_ method of _NyPizza.Builder_ returns _NyPizza_, while the one in _Calzone.Builder_ returns _Calzone_. This technique, where in a subclass method is declared to return a subtype of the return type declared in the super-class, is known as covariant return typing. It allows clients to use these builders without the need for casting. The client code for these “hierarchical builders” is essentially identical to the code for the simple NutritionFacts builder. The example client code shown next assumes static imports on enum constants for brevity:
 
-注意，每个子类里的build方法都被声明返回正确的子类：
+注意，每个子类里的build方法都被声明返回正确的子类：NyPizza.Builder的build方法返回了NyPizza，而Calzone.Builder的build方法则返回了Calzone。
 
