@@ -114,5 +114,9 @@ It is possible to reduce these disadvantages by manually “freezing” the obje
 
 当然，为了弥补这些不足，我们可以在对象初始化完成的时候手工将它冻结，然后在冻结之前都不允许它被使用，但这种方式很不灵活，而且在实践中也很少用这种方式。不仅如此，这种做法也容易引起运行时错误，因为编译器无法确保程序员在用这个对象之前调用它的冻结方法。
 
+Luckily, there is a third alternative that combines the safety of the
 
+telescoping constructor pattern with the readability of the
+
+JavaBeans pattern. It is a form of the Builder pattern \[Gamma95\].
 
