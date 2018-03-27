@@ -276,9 +276,9 @@ public class Calzone extends Pizza {
 }
 ```
 
-Note that the build method in each subclass’s builder is declared to return the correct subclass: the _build_ method of _NyPizza.Builder_ returns _NyPizza_, while the one in _Calzone.Builder_ returns _Calzone_. This technique, where in a subclass method is declared to return a subtype of the return type declared in the super-class, is known as covariant return typing. It allows clients to use these builders without the need for casting. The client code for these “hierarchical builders” is essentially identical to the code for the simple NutritionFacts builder. The example client code shown next assumes static imports on enum constants for brevity:
+Note that the build method in each subclass’s builder is declared to return the correct subclass: the _build_ method of _NyPizza.Builder_ returns _NyPizza_, while the one in _Calzone.Builder_ returns _Calzone_. This technique, where in a subclass method is declared to return a subtype of the return type declared in the super-class, is known as _covariant return typing_. It allows clients to use these builders without the need for casting. The client code for these “hierarchical builders” is essentially identical to the code for the simple _NutritionFacts_ builder. The example client code shown next assumes static imports on enum constants for brevity:
 
-注意，每个子类里的build方法都被声明返回正确的子类：NyPizza.Builder的build方法返回了NyPizza，而Calzone.Builder的build方法则返回了Calzone。
+注意，每个子类里的build方法都被声明返回正确的子类：NyPizza.Builder的build方法返回了NyPizza，而Calzone.Builder的build方法则返回了Calzone。像这种技术我们称之为协变返回类型（_covariant return typing_）技术。在这种技术中，子类方法返回的对象类型是对应超类方法返回的对象类型的子类。这样，客户端在使用这些builder时，就不用强转了。这些“有层级的builder”的客户端代码本质上跟NutritionFacts的builder的客户端代码相同。下面是客户端的示例代码，为了简单起见，我们假定枚举常量的静态导入：
 
 ```
 NyPizza pizza = new NyPizza.Builder(SMALL).addTopping(SAUSAGE).addTopping(ONION).build();
@@ -286,4 +286,6 @@ Calzone calzone = new Calzone.Builder().addTopping(HAM).sauceInside().build();
 ```
 
 A minor advantage of builders over constructors is that builders can have multiple varargs parameters because each parameter is specified in its own method. Alternatively, builders can aggregate the parameters passed into multiple calls to a method into a single field, as demonstrated in the addToppingmethod earlier.
+
+
 
