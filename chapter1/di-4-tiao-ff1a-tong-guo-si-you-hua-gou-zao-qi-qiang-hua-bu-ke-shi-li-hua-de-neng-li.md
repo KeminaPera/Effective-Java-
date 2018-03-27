@@ -8,9 +8,22 @@ Such utility classes were not designed to be instantiated: an instance would be 
 
 这种工具类被设计成了不可实例化，实例对它没有任何意义。虽然没有显示的构造器，然而，编译器提供了一个公有的无参默认构造器。对于用户，这个构造器于其它构造器没什么区别。在一些已发布的API中，我们常常可以看到一些被无意识实例化的类。
 
-**Attempting to enforce noninstantiability by making a class abstract does not work.**The class can be subclassed and the subclass instantiated. Furthermore, it misleads the user into thinking the class was designed for inheritance \(Item 19\). There is, however, a simple idiom to ensure noninstantiability. A default constructor is generated only if a class contains no explicit constructors, soa class can be made noninstantiable by including a private constructor:
+**Attempting to enforce noninstantiability by making a class abstract does not work.**The class can be subclassed and the subclass instantiated. Furthermore, it misleads the user into thinking the class was designed for inheritance \(Item 19\). There is, however, a simple idiom to ensure noninstantiability. A default constructor is generated only if a class contains no explicit constructors, so a class can be made noninstantiable by including a private constructor:
 
+**通过将类做成抽象类以试图强制不可实例化是行不通的。**
 
+```
+// Noninstantiable utility class
+public class UtilityClass {
+// Suppress default constructor for noninstantiability
+    private UtilityClass() {
+        throw new AssertionError();
+    }
+... // Remainder omitted 
+}
+```
+
+Because the explicit constructor is private, it is inaccessible outside the class. The AssertionError isn’t strictly required, but it provides insurance in case the constructor is accidentally invoked from within the class. It guarantees the class will never be instantiated under any circumstances. This idiom is mildly counterintuitive because the constructor is provided expressly so that it cannot be invoked. It is therefore wise to include a comment, as shown earlier.
 
 
 
