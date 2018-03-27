@@ -172,13 +172,15 @@ public class NutritionFacts {
 }
 ```
 
-The NutritionFacts class is immutable, and all parameter default
+The _NutritionFacts _class is immutable, and all parameter default values are in one place. The builder’s setter methods return the
 
-values are in one place. The builder’s setter methods return the
+builder itself so that invocations can be chained, resulting in a fluent API. Here’s how the client code looks:
 
-builder itself so that invocations can be chained, resulting in
+上述例子中的_NutritionFacts_类是不可变的，所有的默认参数值也放在一个地方。builder的setter方法返回了builder本身，以便这些setter方法的调用可以链接起来，从而代码整体看起来就更流畅些。下面是客户端使用的例子：
 
-a fluent API. Here’s how the client code looks:
+```
+NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8).calories(100).sodium(35).carbohydrate(27).build();
+```
 
 
 
