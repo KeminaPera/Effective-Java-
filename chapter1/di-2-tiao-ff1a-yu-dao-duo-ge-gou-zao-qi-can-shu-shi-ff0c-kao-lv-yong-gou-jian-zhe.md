@@ -190,9 +190,9 @@ Validity checks were omitted for brevity. To detect invalid parameters as soon a
 
 为了简洁起见，例子中没有做参数有效性的检查。若想尽快发现无效参数，可以在builder的构造器和setter方法中对参数的有效性进行检查。在_builder_方法调用的构造方法中检查包含多个参数的不变性。为了保证这些不变性不被攻击，应当在将这些参数从builder那里拷贝过来后就进行校验（条目50）。若校验失败，则抛出_IllegalArgumentException_ （条目72）异常，并在异常的详情里说明哪个参数是无效的（条目75）。
 
-The Builder pattern is well suited to class hierarchies. Use a parallel hierarchy of builders, each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. For example, consider an abstract class at the root of a hierarchy representing various kinds of pizza:
+**The Builder pattern is well suited to class hierarchies.** Use a parallel hierarchy of builders, each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. For example, consider an abstract class at the root of a hierarchy representing various kinds of pizza:
 
-Builder模式很适合与类的层级结构。对于多个平行类，可以平行使用每个类对应的builder。抽象的类拥有抽象的builder；非抽象的类拥有非抽象的builder。例如，考虑这么一种情况，一个底层的抽象的类用于展示不同种类的pizza：
+**Builder模式很适合于类的层级结构。**对于多个平行类，可以平行使用每个类对应的builder。抽象的类拥有抽象的builder；非抽象的类拥有非抽象的builder。例如，考虑这么一种情况，一个底层的抽象的类用于展示不同种类的pizza：
 
 ```
 // Builder pattern for class hierarchies
@@ -289,5 +289,9 @@ A minor advantage of builders over constructors is that builders can have multip
 
 相较于构造器，builder的一个小优点是，builder能拥有多个可变参数，因为每一个参数都是在它自己的方法里指定的。或者，builder能将传入到不同方法里的参数聚合起来然后传入单个域里，就像上面的addTopping方法。
 
-The Builder pattern is quite flexible. A single builder can be used repeatedly to build multiple objects. The parameters of the builder can be tweaked between invocations of the build method to varythe objects that are created. A builder can fill in some fields automatically upon object creation, such as a serial number that increases each time an object is created.
+The Builder pattern is quite flexible. A single builder can be used repeatedly to build multiple objects. The parameters of the builder can be tweaked between invocations of the build method to vary the objects that are created. A builder can fill in some fields automatically upon object creation, such as a serial number that increases each time an object is created.
+
+Builder模式很灵活。单个builder能被用来构建多个对象。我们可以在多次的build方法之间对builder的参数进行调整，以此来改变创建的对象。builder可以在创建对象时自动填充一些值，比如序列号，每次一个新的对象被创建时，builder都能自动对其值进行增加。
+
+
 
