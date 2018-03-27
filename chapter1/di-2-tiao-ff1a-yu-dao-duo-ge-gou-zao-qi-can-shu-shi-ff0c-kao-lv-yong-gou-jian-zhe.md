@@ -285,15 +285,5 @@ NyPizza pizza = new NyPizza.Builder(SMALL).addTopping(SAUSAGE).addTopping(ONION)
 Calzone calzone = new Calzone.Builder().addTopping(HAM).sauceInside().build();
 ```
 
-A minor advantage of builders over constructors is that builders
-
-can have multiple varargs parameters because each parameter is
-
-specified in its own method. Alternatively, builders can aggregate
-
-the parameters passed into multiple calls to a method into a single
-
-field, as demonstrated in the addToppingmethod earlier.
-
-
+A minor advantage of builders over constructors is that builders can have multiple varargs parameters because each parameter is specified in its own method. Alternatively, builders can aggregate the parameters passed into multiple calls to a method into a single field, as demonstrated in the addToppingmethod earlier.
 
