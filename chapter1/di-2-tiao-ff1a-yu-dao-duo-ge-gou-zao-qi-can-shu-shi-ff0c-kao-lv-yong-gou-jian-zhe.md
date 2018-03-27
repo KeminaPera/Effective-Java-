@@ -114,23 +114,63 @@ It is possible to reduce these disadvantages by manually “freezing” the obje
 
 当然，为了弥补这些不足，我们可以在对象初始化完成的时候手工将它冻结，然后在冻结之前都不允许它被使用，但这种方式很不灵活，而且在实践中也很少用这种方式。不仅如此，这种做法也容易引起运行时错误，因为编译器无法确保程序员在用这个对象之前调用它的冻结方法。
 
-Luckily, there is a third alternative that combines the safety of the telescoping constructor pattern with the readability of the JavaBeans pattern. It is a form of the _Builder _pattern \[Gamma95\].
+Luckily, there is a third alternative that combines the safety of the telescoping constructor pattern with the readability of the JavaBeans pattern. It is a form of the \_Builder \_pattern \[Gamma95\].
 
 好在还有第三种方案，而且这种方案结合了可伸缩构造器模式的安全性和JavaBeans模式的可阅读性。它就是_Builder_模式。
 
-Instead of making the desired object directly, the client calls a
+Instead of making the desired object directly, the client calls a constructor \(or static factory\) with all of the required parameters and gets a builder object. Then the client calls setter-like methods on the builder object to set each optional parameter of interest. Finally, the client calls a parameterless build method to generate the object, which is typically immutable. The builder is typically a static member class \(Item 24\) of the class it builds. Here’s how it looks in practice:
 
-constructor \(or static factory\) with all of the required parameters
+在这种模式下，客户端并不直接创建一个目标对象，而是先调用一个包含了所有必要参数的构造器（或静态工厂）进而得到一个builder对象。接着，客户端调用builder对象提供的类似于setter的方法，并根据喜好开始设置各个想可选参数。最后，客户端通过调用没有参数的build方法生成了目标对象，这个对象通常是不可变的。通常来说，这个builder是它构建的类的一个静态内部类。下面举一个实践中的例子：
 
-and gets a builder object. Then the client calls setter-like methods
+```
+// Builder Pattern
+public class NutritionFacts {
+    private final int servingSize;
+    private final int servings;
+    private final int calories;
+    private final int fat;
+    private final int sodium;
+    private final int carbohydrate;
+    
+    public static class Builder {
+        // Required parameters
+        private final int servingSize;
+        private final int servings;
+        // Optional parameters - initialized to default values
+        private int calories = 0;
+        private int fat = 0;
+        private int sodium = 0;
+        private int carbohydrate = 0;
+        public Builder(int servingSize, int servings) {
+            this.servingSize = servingSize;
+            this.servings = servings;
+        } 
+        public Builder calories(int val){ 
+            calories = val; return this; 
+        }
+        public Builder fat(int val){ 
+            fat = val; return this; 
+        }
+        public Builder sodium(int val){ 
+            sodium = val; return this; 
+        }
+        public Builder carbohydrate(int val){ 
+            carbohydrate = val; return this; 
+        }
+        public NutritionFacts build() {
+            return new NutritionFacts(this);
+        }
+    } 
+    private NutritionFacts(Builder builder) {
+        servingSize = builder.servingSize;
+        servings = builder.servings;
+        calories = builder.calories;
+        fat = builder.fat;
+        sodium = builder.sodium;
+        carbohydrate = builder.carbohydrate;
+    }
+}
+```
 
-on the builder object to set each optional parameter of interest.
 
-Finally, the client calls a parameterless buildmethod to generate
-
-the object, which is typically immutable. The builder is typically a
-
-static member class \(Item 24\) of the class it builds. Here’s how it
-
-looks in practice:
 
