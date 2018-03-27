@@ -293,5 +293,7 @@ The Builder pattern is quite flexible. A single builder can be used repeatedly t
 
 Builder模式很灵活。单个builder能被用来构建多个对象。我们可以在多次的build方法之间对builder的参数进行调整，以此来改变创建的对象。builder可以在创建对象时自动填充一些值，比如序列号，每次一个新的对象被创建时，builder都能自动对其值进行增加。
 
+The Builder pattern has disadvantages as well. In order to create an object, you must first create its builder. While the cost of creating this builder is unlikely to be noticeable in practice, it could be a problem in performance-critical situations. Also, the Builder pattern is more verbose than the telescoping constructor pattern, so it should be used only if there are enough parameters to make it worthwhile, say four or more. But keep in mind that you may want to add more parameters in the future. But if you start out with constructors or static factories and switch to a builder when the class evolves to the point where the number of parameters gets out of hand, the obsolete constructors or static factories will stick out like a sore thumb. Therefore, it’s often better to start with a builder in the first place.
 
+当然了，Builder模式也有一些缺点。为了创建一个对象，我们必须首先创建一个对象的builder。虽然在实践中，创建builder的代价可能不被注意到，但在性能要求很高的情况下，这就有可能成问题了。而且，比起可伸缩构造器模式，Builder模式更为冗长些。所以，在足够多参数（比如4个，或者更多）的情况下，我们才会去使用它。但我们也应该记住一点，我们在将来很有可能会增加参数。
 
