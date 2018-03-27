@@ -182,7 +182,7 @@ builder itself so that invocations can be chained, resulting in a fluent API. He
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8).calories(100).sodium(35).carbohydrate(27).build();
 ```
 
-This client code is easy to write and, more importantly, easy to read. **The Builder pattern simulates named optional parameters as found in Python and Scala.** 
+This client code is easy to write and, more importantly, easy to read. **The Builder pattern simulates named optional parameters as found in Python and Scala.**
 
 上面的客户端代码就很容易编写，更重要的是，它容易阅读。**Builder模式模仿了Python和Scala中的具名可选参数。**
 
@@ -190,7 +190,13 @@ Validity checks were omitted for brevity. To detect invalid parameters as soon a
 
 为了简洁起见，例子中没有做参数有效性的检查。若想尽快发现无效参数，可以在builder的构造器和setter方法中对参数的有效性进行检查。在_builder_方法调用的构造方法中检查包含多个参数的不变性。为了保证这些不变性不被攻击，应当在将这些参数从builder那里拷贝过来后就进行校验（条目50）。若校验失败，则抛出_IllegalArgumentException_ （条目72）异常，并在异常的详情里说明哪个参数是无效的（条目75）。
 
+The Builder pattern is well suited to class hierarchies. Use
 
+a parallel hierarchy of builders, each nested in the corresponding
 
+class. Abstract classes have abstract builders; concrete classes have
 
+concrete builders. For example, consider an abstract class at the
+
+root of a hierarchy representing various kinds of pizza:
 
