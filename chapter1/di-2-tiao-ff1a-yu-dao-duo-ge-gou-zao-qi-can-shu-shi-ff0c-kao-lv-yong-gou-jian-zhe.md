@@ -190,13 +190,33 @@ Validity checks were omitted for brevity. To detect invalid parameters as soon a
 
 为了简洁起见，例子中没有做参数有效性的检查。若想尽快发现无效参数，可以在builder的构造器和setter方法中对参数的有效性进行检查。在_builder_方法调用的构造方法中检查包含多个参数的不变性。为了保证这些不变性不被攻击，应当在将这些参数从builder那里拷贝过来后就进行校验（条目50）。若校验失败，则抛出_IllegalArgumentException_ （条目72）异常，并在异常的详情里说明哪个参数是无效的（条目75）。
 
-The Builder pattern is well suited to class hierarchies. Use
+The Builder pattern is well suited to class hierarchies. Use a parallel hierarchy of builders, each nested in the corresponding class. Abstract classes have abstract builders; concrete classes have concrete builders. For example, consider an abstract class at the root of a hierarchy representing various kinds of pizza:
 
-a parallel hierarchy of builders, each nested in the corresponding
+Builder模式很适合与类的层级结构。对于多个平行类，可以平行使用每个类对应的builder。抽象的类拥有抽象的builder；非抽象的类拥有非抽象的builder。例如，考虑这么一种情况，一个底层的抽象的类用于展示不同种类的pizza：
 
-class. Abstract classes have abstract builders; concrete classes have
+```
+// Builder pattern for class hierarchies
+public abstract class Pizza {
+    public enum Topping { 
+        HAM, MUSHROOM, ONION, PEPPER,SAUSAGE 
+    }
+    final Set<Topping> toppings;
+    abstract static class Builder<T extends Builder<T>> {
+        EnumSet<Topping> toppings =
+        EnumSet.noneOf(Topping.class);
+        public T addTopping(Topping topping) {
+            toppings.add(Objects.requireNonNull(topping));
+            return self();
+        } 
+    abstract Pizza build();
+// Subclasses must override this method to return "this"
+    protected abstract T self();
+    } 
+    Pizza(Builder<?> builder) {
+        toppings = builder.toppings.clone(); // See Item 50
+    }
+}
+```
 
-concrete builders. For example, consider an abstract class at the
 
-root of a hierarchy representing various kinds of pizza:
 
