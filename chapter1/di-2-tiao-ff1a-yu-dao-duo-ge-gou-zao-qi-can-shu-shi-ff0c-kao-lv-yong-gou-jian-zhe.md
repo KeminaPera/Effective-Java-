@@ -1,4 +1,4 @@
-### 第2条：遇到多个构造器参数时，考虑用构建者
+第2条：遇到多个构造器参数时，考虑用构建者
 
 Static factories and constructors share a limitation: they do not scale well to large numbers of optional parameters. Consider the case of a class representing the Nutrition Facts label that appears on packaged foods. These labels have a few required fields—serving size, servings per container, and calories per serving—and more than twenty optional fields—total fat, saturated fat, trans fat, cholesterol, sodium, and so on. Most products have nonzero values for only a few of these optional fields.
 
