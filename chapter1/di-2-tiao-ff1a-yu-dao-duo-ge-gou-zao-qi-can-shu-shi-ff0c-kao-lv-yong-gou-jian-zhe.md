@@ -280,3 +280,10 @@ Note that the build method in each subclass’s builder is declared to return th
 
 注意，每个子类里的build方法都被声明返回正确的子类：NyPizza.Builder的build方法返回了NyPizza，而Calzone.Builder的build方法则返回了Calzone。
 
+```
+NyPizza pizza = new NyPizza.Builder(SMALL).addTopping(SAUSAGE).addTopping(ONION).build();
+Calzone calzone = new Calzone.Builder().addTopping(HAM).sauceInside().build();
+```
+
+
+
