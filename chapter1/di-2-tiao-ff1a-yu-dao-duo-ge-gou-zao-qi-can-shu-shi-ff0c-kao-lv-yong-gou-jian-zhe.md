@@ -172,7 +172,7 @@ public class NutritionFacts {
 }
 ```
 
-The _NutritionFacts _class is immutable, and all parameter default values are in one place. The builder’s setter methods return the
+The \_NutritionFacts \_class is immutable, and all parameter default values are in one place. The builder’s setter methods return the
 
 builder itself so that invocations can be chained, resulting in a fluent API. Here’s how the client code looks:
 
@@ -182,5 +182,27 @@ builder itself so that invocations can be chained, resulting in a fluent API. He
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8).calories(100).sodium(35).carbohydrate(27).build();
 ```
 
+This client code is easy to write and, more importantly, easy to
 
+read. The Builder pattern simulates named optional
+
+parameters as found in Python and Scala.
+
+Validity checks were omitted for brevity. To detect invalid
+
+parameters as soon as possible, check parameter validity in the
+
+builder’s constructor and methods. Check invariants involving
+
+multiple parameters in the constructor invoked by
+
+the build method. To ensure these invariants against attack, do the
+
+checks on object fields after copying parameters from the builder
+
+\(Item 50\). If a check fails, throw an IllegalArgumentException \(Item
+
+72\) whose detail message indicates which parameters are invalid
+
+\(Item 75\).
 
