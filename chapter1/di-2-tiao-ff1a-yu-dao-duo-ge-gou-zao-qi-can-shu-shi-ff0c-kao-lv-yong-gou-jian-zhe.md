@@ -1,4 +1,4 @@
-第2条：遇到多个构造器参数时，考虑用构建者
+### 第2条：遇到多个构造器参数时，考虑用构建者
 
 Static factories and constructors share a limitation: they do not scale well to large numbers of optional parameters. Consider the case of a class representing the Nutrition Facts label that appears on packaged foods. These labels have a few required fields—serving size, servings per container, and calories per serving—and more than twenty optional fields—total fat, saturated fat, trans fat, cholesterol, sodium, and so on. Most products have nonzero values for only a few of these optional fields.
 
@@ -300,6 +300,4 @@ The Builder pattern has disadvantages as well. In order to create an object, you
 In summary, **the Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters**, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors, and builders are much safer than JavaBeans.
 
 总的说来，在设计一个类时，而这个类的构造器或者静态工厂将会有很多参数时，Builder模式是个不错的选择，尤其是当很多参数都是可选或者是相同的类型时。比起用可伸缩构造器，通过采用builders而产生的客户端代码也更容易阅读和编写，而且，builder也比JavaBeans安全多了。
-
-
 
