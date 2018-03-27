@@ -289,3 +289,13 @@ A minor advantage of builders over constructors is that builders can have multip
 
 相较于构造器，builder的一个小优点是，builder能拥有多个可变参数，因为每一个参数都是在它自己的方法里指定的。或者，builder能将传入到不同方法里的参数聚合起来然后传入单个域里，就像上面的addTopping方法。
 
+The Builder pattern is quite flexible. A single builder can be used
+
+repeatedly to build multiple objects. The parameters of the builder
+
+can be tweaked between invocations of the build method to varythe objects that are created. A builder can fill in some fields
+
+automatically upon object creation, such as a serial number that
+
+increases each time an object is created.
+
