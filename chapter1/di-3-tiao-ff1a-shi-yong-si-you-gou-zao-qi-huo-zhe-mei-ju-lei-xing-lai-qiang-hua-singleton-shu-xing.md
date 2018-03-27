@@ -44,9 +44,35 @@ The main advantage of the public field approach is that the API makes it clear t
 
 采用第一种方式的好处是，透过API，我们能清晰地意识到这个类是个Singleton：公有静态属性是final不可变的，所以它将总是保持着相同的对象引用。而第二种方式的好处是它更简单些。
 
-One advantage of the static factory approach is that it gives you the flexibility to change your mind about whether the class is a singleton without changing its API. The factory method returns the sole instance, but it could be modified to return, say, a separate instance for each thread that invokes it. A second advantage is that you can write a generic singleton factory if your application requires it \(Item 30\). A final advantage of using a static factory is that a method reference can be used as a supplier, for example Elvis::instance is a Supplier&lt;Elvis&gt;. Unless one of these advantages is relevant, the public field approach is preferable.
+One advantage of the static factory approach is that it gives you the flexibility to change your mind about whether the class is a singleton without changing its API. The factory method returns the sole instance, but it could be modified to return, say, a separate instance for each thread that invokes it. A second advantage is that you can write a generic singleton factory if your application requires it \(Item 30\). A final advantage of using a static factory is that a method reference can be used as a supplier, for example _Elvis::instance_ is a _Supplier&lt;Elvis&gt;_. Unless one of these advantages is relevant, the public field approach is preferable.
 
-  
-  
+采用静态工厂的方式的另一个好处是，在不改变API的前提下，若想改变该类是否为Singleton的想法，它给了我们灵活性。工厂方法返回了唯一的实例，但我们也可以对其进行修改，比如改成对每个调用它的线程返回一个唯一实例。还一个好处是，如果应用有需求，我们可以写一个通用的Singleton工厂（条目30）。最后还有一个好处，就是静态工厂方法引用能作为一个Supplier，例如，_Elvis:instance_就是一个_Supplier&lt;Elvis&gt;_。除非上述这些优点的任一一个是很重要的，否则公有属性方式（即第一种方式）是更可取的。
+
+To make a singleton class that uses either of these approaches serializable\(Chapter 12\), it is not sufficient merely to add implements Serializable to its declaration. To maintain the singleton guarantee, declare all instance fields transient and provide a readResolve method \(Item 89\). Otherwise, each time a serialized instance is deserialized, a new instance will be created, leading, in the case of our example, to spurious Elvis sightings. To prevent this from happening, add this readResolve method to the Elvis class:
+
+对于采用上述任一一种方式创建的Singleton类，若要使其可序列化（第12章），仅仅在类的声明里让其实现Serializable接口是不够的。为了保证Singleton，应当将所有的实例属性声明为瞬时的（transient），并提供一个readResolve方法（条目89）。否则，每次反序列化一个已被序列化的实例时，将产生一个新的实例，在刚刚的例子中，就会产生一个假冒的Evlis实例。为了防止这个现象发生，我们可以在Elvis类里添加readResolve方法：
+
+```
+// readResolve method to preserve singleton property
+private Object readResolve() {
+// Return the one true Elvis and let the garbage collector // take care of the Elvis impersonator.
+    return INSTANCE; 
+}
+```
+
+A third way to implement a singleton is to declare a single-element enum:
+
+第三种实现Singleton的方式是声明一个包含单个元素的枚举：
+
+```
+// Enum singleton - the preferred approach
+public enum Elvis { 
+    INSTANCE;
+    public void leaveTheBuilding() { ... } 
+}
+```
+
+
+
 
 
