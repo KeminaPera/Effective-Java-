@@ -209,7 +209,7 @@ public abstract class Pizza {
             return self();
         } 
     abstract Pizza build();
-// Subclasses must override this method to return "this"
+    // Subclasses must override this method to return "this"
     protected abstract T self();
     } 
     Pizza(Builder<?> builder) {
@@ -218,6 +218,85 @@ public abstract class Pizza {
 }
 ```
 
-Note that _Pizza.Builder_ is a generic type with a recursive type parameter \(Item 30\). This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. This workaround for the fact that Java lacks a self type is known as the simulated self-type idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter, while the latter lets you specify  
+Note that _Pizza.Builder_ is a generic type with a recursive type parameter \(Item 30\). This, along with the abstract _self_ method, allows method chaining to work properly in subclasses, without the need for casts. This work around for the fact that Java lacks a self type is known as the simulated self-type idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter, while the latter lets you specify  
 whether sauce should be inside or out:
+
+注意，Pizza.Builder是一个带有递归类型参数的泛型类型（条目30）。它与抽象的_self_方法一起使得方法链在子类里能很好地运作，而且不用强转类型。Java缺乏一个self类型，而这种变通可谓是模仿self类型了的惯用方法了。以下是Pizza的两个具体的子类，一个表示纽约风味的pizza，一个是半圆形烤乳酪馅饼。纽约风味的pizza要求要有一个大小的参数，而半圆形烤乳酪馅饼则需要你指定酱汁是否要在里面：
+
+```
+public class NyPizza extends Pizza {
+    public enum Size { 
+        SMALL, MEDIUM, LARGE 
+    }
+    private final Size size;
+    
+    public static class Builder extends Pizza.Builder<Builder> {
+        private final Size size;
+        public Builder(Size size) {
+            this.size = Objects.requireNonNull(size);
+        } 
+        @Override 
+        public NyPizza build() {
+            return new NyPizza(this);
+        } 
+        @Override 
+        protected Builder self() { 
+            return this; 
+        }
+    } 
+    
+    private NyPizza(Builder builder) {
+        super(builder);
+        size = builder.size;
+    }
+} 
+    
+public class Calzone extends Pizza {
+    private final boolean sauceInside;
+        
+    public static class Builder extends Pizza.Builder<Builder> {
+        private boolean sauceInside = false; // Default
+        public Builder sauceInside() {
+            sauceInside = true;
+            return this;
+        } 
+        @Override 
+        public Calzone build() {
+            return new Calzone(this);
+        } 
+        @Override 
+        protected Builder self() { 
+            return this; 
+        }
+    }
+    private Calzone(Builder builder) {
+        super(builder);
+        sauceInside = builder.sauceInside;
+    }
+}
+```
+
+Note that the build method in each subclass’s builder is declared to
+
+return the correct subclass: the build method
+
+of NyPizza.Builder returns NyPizza, while the one
+
+in Calzone.Builder returns Calzone. This technique, wherein a
+
+subclass method is declared to return a subtype of the return type
+
+declared in the super-class, is known as covariant return typing. It
+
+allows clients to use these builders without the need for casting.
+
+The client code for these “hierarchical builders” is essentially
+
+identical to the code for the simple NutritionFacts builder. The
+
+example client code shown next assumes static imports on enum
+
+constants for brevity:
+
+
 
