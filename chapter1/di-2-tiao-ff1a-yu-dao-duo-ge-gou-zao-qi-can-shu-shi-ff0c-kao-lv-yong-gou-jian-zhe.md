@@ -182,27 +182,15 @@ builder itself so that invocations can be chained, resulting in a fluent API. He
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8).calories(100).sodium(35).carbohydrate(27).build();
 ```
 
-This client code is easy to write and, more importantly, easy to
+This client code is easy to write and, more importantly, easy to read. **The Builder pattern simulates named optional parameters as found in Python and Scala.** 
 
-read. The Builder pattern simulates named optional
+上面的客户端代码就很容易编写，更重要的是，它容易阅读。**Builder模式模仿了Python和Scala中的具名可选参数。**
 
-parameters as found in Python and Scala.
+Validity checks were omitted for brevity. To detect invalid parameters as soon as possible, check parameter validity in the builder’s constructor and methods. Check invariants involving multiple parameters in the constructor invoked by the build method. To ensure these invariants against attack, do the checks on object fields after copying parameters from the builder \(Item 50\). If a check fails, throw an _IllegalArgumentException_ \(Item72\) whose detail message indicates which parameters are invalid \(Item 75\).
 
-Validity checks were omitted for brevity. To detect invalid
+为了简洁起见，例子中没有做参数有效性的检查。若想尽快发现无效参数，可以在builder的构造器和setter方法中对参数的有效性进行检查。在_builder_方法调用的构造方法中检查包含多个参数的不变性。为了保证这些不变性不被攻击，应当在将这些参数从builder那里拷贝过来后就进行校验（条目50）。若校验失败，则抛出_IllegalArgumentException_ （条目72）异常，并在异常的详情里说明哪个参数是无效的（条目75）。
 
-parameters as soon as possible, check parameter validity in the
 
-builder’s constructor and methods. Check invariants involving
 
-multiple parameters in the constructor invoked by
 
-the build method. To ensure these invariants against attack, do the
-
-checks on object fields after copying parameters from the builder
-
-\(Item 50\). If a check fails, throw an IllegalArgumentException \(Item
-
-72\) whose detail message indicates which parameters are invalid
-
-\(Item 75\).
 
