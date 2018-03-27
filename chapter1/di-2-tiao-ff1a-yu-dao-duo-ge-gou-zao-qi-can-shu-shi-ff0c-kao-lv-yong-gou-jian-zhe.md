@@ -131,7 +131,7 @@ public class NutritionFacts {
     private final int fat;
     private final int sodium;
     private final int carbohydrate;
-    
+
     public static class Builder {
         // Required parameters
         private final int servingSize;
@@ -171,6 +171,14 @@ public class NutritionFacts {
     }
 }
 ```
+
+The NutritionFacts class is immutable, and all parameter default
+
+values are in one place. The builder’s setter methods return the
+
+builder itself so that invocations can be chained, resulting in
+
+a fluent API. Here’s how the client code looks:
 
 
 
