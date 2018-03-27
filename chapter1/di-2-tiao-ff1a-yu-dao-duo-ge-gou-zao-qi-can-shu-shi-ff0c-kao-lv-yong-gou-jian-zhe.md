@@ -114,9 +114,23 @@ It is possible to reduce these disadvantages by manually “freezing” the obje
 
 当然，为了弥补这些不足，我们可以在对象初始化完成的时候手工将它冻结，然后在冻结之前都不允许它被使用，但这种方式很不灵活，而且在实践中也很少用这种方式。不仅如此，这种做法也容易引起运行时错误，因为编译器无法确保程序员在用这个对象之前调用它的冻结方法。
 
-Luckily, there is a third alternative that combines the safety of the
+Luckily, there is a third alternative that combines the safety of the telescoping constructor pattern with the readability of the JavaBeans pattern. It is a form of the _Builder _pattern \[Gamma95\].
 
-telescoping constructor pattern with the readability of the
+好在还有第三种方案，而且这种方案结合了可伸缩构造器模式的安全性和JavaBeans模式的可阅读性。它就是_Builder_模式。
 
-JavaBeans pattern. It is a form of the Builder pattern \[Gamma95\].
+Instead of making the desired object directly, the client calls a
+
+constructor \(or static factory\) with all of the required parameters
+
+and gets a builder object. Then the client calls setter-like methods
+
+on the builder object to set each optional parameter of interest.
+
+Finally, the client calls a parameterless buildmethod to generate
+
+the object, which is typically immutable. The builder is typically a
+
+static member class \(Item 24\) of the class it builds. Here’s how it
+
+looks in practice:
 
