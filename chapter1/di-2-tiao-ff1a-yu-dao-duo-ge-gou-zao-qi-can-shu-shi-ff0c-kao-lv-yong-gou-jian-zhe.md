@@ -172,7 +172,7 @@ public class NutritionFacts {
 }
 ```
 
-The \_NutritionFacts \_class is immutable, and all parameter default values are in one place. The builder’s setter methods return the
+The _NutritionFacts_ class is immutable, and all parameter default values are in one place. The builder’s setter methods return the
 
 builder itself so that invocations can be chained, resulting in a fluent API. Here’s how the client code looks:
 
@@ -218,6 +218,6 @@ public abstract class Pizza {
 }
 ```
 
-Note that Pizza.Builder is a generic type with a recursive type parameter \(Item 30\). This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. This workaround for the fact that Java lacks a self type is known as the simulated self-type idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter, while the latter lets you specify  
+Note that _Pizza.Builder_ is a generic type with a recursive type parameter \(Item 30\). This, along with the abstract self method, allows method chaining to work properly in subclasses, without the need for casts. This workaround for the fact that Java lacks a self type is known as the simulated self-type idiom. Here are two concrete subclasses of Pizza, one of which represents a standard New-York-style pizza, the other a calzone. The former has a required size parameter, while the latter lets you specify  
 whether sauce should be inside or out:
 
