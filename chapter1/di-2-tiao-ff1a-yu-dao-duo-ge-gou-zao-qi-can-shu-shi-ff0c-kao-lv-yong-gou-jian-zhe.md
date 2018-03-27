@@ -295,5 +295,11 @@ Builder模式很灵活。单个builder能被用来构建多个对象。我们可
 
 The Builder pattern has disadvantages as well. In order to create an object, you must first create its builder. While the cost of creating this builder is unlikely to be noticeable in practice, it could be a problem in performance-critical situations. Also, the Builder pattern is more verbose than the telescoping constructor pattern, so it should be used only if there are enough parameters to make it worthwhile, say four or more. But keep in mind that you may want to add more parameters in the future. But if you start out with constructors or static factories and switch to a builder when the class evolves to the point where the number of parameters gets out of hand, the obsolete constructors or static factories will stick out like a sore thumb. Therefore, it’s often better to start with a builder in the first place.
 
-当然了，Builder模式也有一些缺点。为了创建一个对象，我们必须首先创建一个对象的builder。虽然在实践中，创建builder的代价可能不被注意到，但在性能要求很高的情况下，这就有可能成问题了。而且，比起可伸缩构造器模式，Builder模式更为冗长些。所以，在足够多参数（比如4个，或者更多）的情况下，我们才会去使用它。但我们也应该记住一点，我们在将来很有可能会增加参数。
+当然了，Builder模式也有一些缺点。为了创建一个对象，我们必须首先创建一个对象的builder。虽然在实践中，创建builder的代价可能不被注意到，但在性能要求很高的情况下，这就有可能成问题了。而且，比起可伸缩构造器模式，Builder模式更为冗长些。所以，在足够多参数（比如4个，或者更多）的情况下，我们才会去使用它。只是我们也应该记住一点，我们在将来很有可能还会增加参数。而且，假如一开始是用构造器或者静态工厂，但是随着类的演变，参数的数量开始失控时，若此时想转用builder，那些过时的构造器或者静态工厂将会显得有点尴尬。因此，最好一开始就使用builder。
+
+In summary, **the Builder pattern is a good choice when designing classes whose constructors or static factories would have more than a handful of parameters**, especially if many of the parameters are optional or of identical type. Client code is much easier to read and write with builders than with telescoping constructors, and builders are much safer than JavaBeans.
+
+总的说来，在设计一个类时，而这个类的构造器或者静态工厂将会有很多参数时，Builder模式是个不错的选择，尤其是当很多参数都是可选或者是相同的类型时。比起用可伸缩构造器，通过采用builders而产生的客户端代码也更容易阅读和编写，而且，builder也比JavaBeans安全多了。
+
+
 
