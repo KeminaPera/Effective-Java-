@@ -55,5 +55,7 @@ public class SpellChecker {
 
 The dependency injection pattern is so simple that many programmers use it for years without knowing it has a name. While our spell checker example had only a single resource \(the dictionary\), dependency injection works with an arbitrary number of resources and arbitrary dependency graphs. It preserves immutability \(Item 17\), so multiple clients can share dependent objects \(assuming the clients desire the same underlying resources\). Dependency injection is equally applicable to constructors, static factories \(Item 1\), and builders \(Item 2\).
 
-依赖注入模式是如此的简单，以至于很多程序员用了很多年都不知道它还有个名字。虽然在我们的例子中，拼写检查器只有单一的资源（字典），但依赖注入也能用于任意数量的资源依赖和任意依赖图。
+依赖注入模式是如此的简单，以至于很多程序员用了很多年都不知道它还有个名字。虽然在我们的例子中，拼写检查器只有单一的资源（字典），但依赖注入也能用于任意数量的资源依赖和任意依赖图。它保持了资源的不可变性（条目17），所以多个客户端之间可以共享相同的依赖对象（假设客户端需要用到相同的底层资源）。依赖注入不仅适用于构造器，也同样适用于静态工厂（条目1）和builder（条目2）。
+
+
 
