@@ -26,3 +26,5 @@ String s = "bikini";
 
 This version uses a single String instance, rather than creating a new one each time it is executed. Furthermore, it is guaranteed that the object will be reused by any other code running in the same virtual machine that happens to contain the same string literal \[JLS, 3.10.5\].
 
+这个版本只用了一个String实例，而不是每次执行时都创建一个新的。
+
