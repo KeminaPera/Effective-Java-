@@ -71,3 +71,5 @@ Although dependency injection greatly improves flexibility and testability, it c
 
 In summary, do not use a singleton or static utility class to implement a class that depends on one or more underlying resources whose behavior affects that of the class, and do not have the class create these resources directly. Instead, pass the resources, or factories to create them, into the constructor \(or static factory or builder\). This practice, known as dependency injection, will greatly enhance the flexibility, reusability, and testability of a class.
 
+总的说来，对于需要依赖一个或多个底层资源的类，而且这些资源的行为还会影响到类时，我们不要用Singleton或者静态工具类类实现，也不要让类自己直接去创建这些资源，而是应该将这些资源或者创建资源的工厂传入构造器（或者静态工厂和builder）。这种依赖注入的实践能大幅增强类的灵活性，复用性和可测试性。
+
