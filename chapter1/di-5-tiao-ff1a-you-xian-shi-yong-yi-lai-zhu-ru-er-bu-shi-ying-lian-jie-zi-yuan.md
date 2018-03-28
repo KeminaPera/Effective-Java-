@@ -37,7 +37,9 @@ You could try to have _SpellChecker_ support multiple dictionaries by making the
 
 你也可以尝试着将例子中的_dictionary_属性的final修饰符去掉，然后添加一个可以更改字典的方法，但这又显得笨拙，容易出错，而且在并发场景中变得不可用。**静态工具类和Singleton对于类行为需要被底层资源参数化的场景是不适用的。**
 
-What is required is the ability to support multiple instances of the class \(in our example, SpellChecker\), each of which uses the resource desired by the client \(in our example, the dictionary\). A simple pattern that satisfies this requirement is to pass the resource into the constructor when creating a new instance. This is one form of dependency injection: the dictionary is a dependencyof the spell checker and is injected into the spell checker when it is created.
+What is required is the ability to support multiple instances of the class \(in our example, _SpellChecker_\), each of which uses the resource desired by the client \(in our example, the _dictionary_\). A simple pattern that satisfies this requirement is to pass the resource into the constructor when creating a new instance. This is one form of dependency injection: the dictionary is a dependencyof the spell checker and is injected into the spell checker when it is created.
+
+我们需要的是能支持多个实例的类（例子中对应的是_SpellChecker_），每个实例使用对应客户端需要用到的资源（例子中对应的是_dictionary_）。
 
 ```
 // Dependency injection provides flexibility and testability
