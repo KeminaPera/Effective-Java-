@@ -57,15 +57,17 @@ The dependency injection pattern is so simple that many programmers use it for y
 
 依赖注入模式是如此的简单，以至于很多程序员用了很多年都不知道它还有个名字。虽然在我们的例子中，拼写检查器只有单一的资源（字典），但依赖注入也能用于任意数量的资源依赖和任意依赖图。它保持了资源的不可变性（条目17），所以多个客户端之间可以共享相同的依赖对象（假设客户端需要用到相同的底层资源）。依赖注入不仅适用于构造器，也同样适用于静态工厂（条目1）和builder（条目2）。
 
-A useful variant of the pattern is to pass a resource _factory \_to the constructor. A factory is an object that can be called repeatedly to create instances of a type. Such factories embody the \_Factory Method_ pattern \[Gamma95\]. The _Supplier&lt;T&gt;_ interface, introduced in Java 8, is perfect for representing factories. Methods that take a Supplier&lt;T&gt; on input should typically constrain the factory’s type parameter using a bounded wildcard type \(Item 31\) to allow the client to pass in a factory that creates any subtype of a specified type. For example, here is a method that makes a mosaic using a client-provided factory to produce each tile:
+A useful variant of the pattern is to pass a resource _factory \_to the constructor. A factory is an object that can be called repeatedly to create instances of a type. Such factories embody the \_Factory Method_ pattern \[Gamma95\]. The _Supplier&lt;T&gt;_ interface, introduced in Java 8, is perfect for representing factories. Methods that take a _Supplier&lt;T&gt;_ on input should typically constrain the factory’s type parameter using a _bounded wildcard type_ \(Item 31\) to allow the client to pass in a factory that creates any subtype of a specified type. For example, here is a method that makes a mosaic using a client-provided factory to produce each tile:
 
-这种模式的一个有用的变体是，往构造器里传入一个资源工厂。这个工厂是一个能被重复调用并产生某个类型实例的对象。这些工厂是工厂方法模式（_Factory Method_ pattern）\[Gamma95\]的体现。Java 8中引入的_Supplier&lt;T&gt;_接口就能很好地表示这些工厂。
+这种模式的一个有用的变体是，往构造器里传入一个资源工厂。这个工厂是一个能被重复调用并产生某个类型实例的对象。这些工厂是工厂方法模式（_Factory Method_ pattern）\[Gamma95\]的体现。Java 8中引入的_Supplier&lt;T&gt;_接口就能很好地表示这些工厂。对于将_Supplier&lt;T&gt;_作为输入的方法，我们通常应该使用有界通配符类型（_bounded wildcard type_）来限制工厂的参数类型，以允许客户端能传入一个工厂，而这个工厂能创建指定类型任意子类型实例。例如，这里有个能利用客户端提供的工厂来创建一个马赛克的方法，这个工厂会产生各个打码块：
 
 ```
 Mosaic create(Supplier<? extends Tile> tileFactory) { ... }
 ```
 
 Although dependency injection greatly improves flexibility and testability, it can clutter up large projects, which typically contain thousands of dependencies. This clutter can be all but eliminated by using a dependency injection framework, such as Dagger \[Dagger\], Guice \[Guice\], or Spring \[Spring\]. The use of these frameworks is beyond the scope of this book, but note that APIs designed for manual dependency injection are trivially adapted for use by these frameworks.
+
+
 
 In summary, do not use a singleton or static utility class to implement a class that depends on one or more underlying resources whose behavior affects that of the class, and do not have the class create these resources directly. Instead, pass the resources, or factories to create them, into the constructor \(or static factory or builder\). This practice, known as dependency injection, will greatly enhance the flexibility, reusability, and testability of a class.
 
