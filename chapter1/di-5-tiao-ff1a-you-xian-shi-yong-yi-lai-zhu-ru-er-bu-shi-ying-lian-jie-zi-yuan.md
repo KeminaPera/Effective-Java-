@@ -53,23 +53,5 @@ public class SpellChecker {
 }
 ```
 
-
-
-The dependency injection pattern is so simple that many
-
-programmers use it for years without knowing it has a name. While
-
-our spell checker example had only a single resource \(the
-
-dictionary\), dependency injection works with an arbitrary number
-
-of resources and arbitrary dependency graphs. It preserves
-
-immutability \(Item 17\), so multiple clients can share dependent
-
-objects \(assuming the clients desire the same underlying
-
-resources\). Dependency injection is equally applicable to
-
-constructors, static factories \(Item 1\), and builders \(Item 2\).
+The dependency injection pattern is so simple that many programmers use it for years without knowing it has a name. While our spell checker example had only a single resource \(the dictionary\), dependency injection works with an arbitrary number of resources and arbitrary dependency graphs. It preserves immutability \(Item 17\), so multiple clients can share dependent objects \(assuming the clients desire the same underlying resources\). Dependency injection is equally applicable to constructors, static factories \(Item 1\), and builders \(Item 2\).
 
