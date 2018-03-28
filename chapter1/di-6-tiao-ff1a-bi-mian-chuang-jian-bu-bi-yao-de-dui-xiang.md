@@ -12,7 +12,21 @@ As an extreme example of what not to do, consider this statement:
 String s = new String("bikini"); // DON'T DO THIS!
 ```
 
+The statement creates a new String instance each time it is
 
+executed, and none of those object creations is necessary. The
+
+argument to the String constructor \("bikini"\) is itself
+
+a String instance, functionally identical to all of the objects created
+
+by the constructor. If this usage occurs in a loop or in a frequently
+
+invoked method, millions of String instances can be created
+
+needlessly.
+
+The improved version is simply the following:
 
 
 
