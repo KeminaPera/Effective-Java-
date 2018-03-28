@@ -29,13 +29,5 @@ public class SpellChecker {
 }
 ```
 
-Neither of these approaches is satisfactory, because they assume
-
-that there is only one dictionary worth using. In practice, each
-
-language has its own dictionary, and special dictionaries are usedfor special vocabularies. Also, it may be desirable to use a special
-
-dictionary for testing. It is wishful thinking to assume that a single
-
-dictionary will suffice for all time.
+Neither of these approaches is satisfactory, because they assume that there is only one dictionary worth using. In practice, each language has its own dictionary, and special dictionaries are usedfor special vocabularies. Also, it may be desirable to use a special dictionary for testing. It is wishful thinking to assume that a single dictionary will suffice for all time.
 
