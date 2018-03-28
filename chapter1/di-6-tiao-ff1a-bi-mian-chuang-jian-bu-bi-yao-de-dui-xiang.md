@@ -16,3 +16,9 @@ The statement creates a new String instance each time it is executed, and none o
 
 The improved version is simply the following:
 
+```
+String s = "bikini";
+```
+
+
+
