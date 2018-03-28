@@ -30,7 +30,37 @@ This version uses a single String instance, rather than creating a new one each 
 
 You can often avoid creating unnecessary objects by using _static factory_ methods \(Item 1\) in preference to constructors on immutable classes that provide both. For example, the factory method _Boolean.valueOf\(String\)_ is preferable to the constructor _Boolean\(String\)_, which was deprecated in Java 9. The constructor must create a new object each time it’s called, while the factory method is never required to do so and won’t in practice. In addition to reusing immutable objects, you can also reuse mutable objects if you know they won’t be modified.
 
-多数情况下，当不可变类同时提供了构造器和静态工厂方法时（条目1），我们优先使用_静态工厂_方法来避免创建不必要的对象。例如，比起在Java 9中已经过时的_Boolean\(String\)_，我们优先使用工厂方法Boolean.valueOf\(String\)。构造器每次被调用时都要创建一个新的对象，而工厂方法从不要求这么做，而且实际上也不会这么做。除了复用不可变的对象，我们也可以复用那些已知不会被修改的可变对象。
+多数情况下，当不可变类同时提供了构造器和静态工厂方法时（条目1），我们优先使用_静态工厂_方法来避免创建不必要的对象。例如，比起在Java 9中已经过时的_Boolean\(String\)_，我们优先使用工厂方法_Boolean.valueOf\(String\)_。构造器每次被调用时都要创建一个新的对象，而工厂方法从不要求这么做，而且实际上也不会这么做。除了复用不可变的对象，我们也可以复用那些已知不会被修改的可变对象。
 
 Some object creations are much more expensive than others. If you’re going to need such an “expensive object” repeatedly, it may be advisable to cache it for reuse. Unfortunately, it’s not always obvious when you’re creating such an object. Suppose you want to write a method to determine whether a string is a valid Roman numeral. Here’s the easiest way to do this using a regular expression:
+
+一些对象的创建的代价要比其它的对象要大。如果我们将不断地需要这些高代价对象，一个建议就是将其缓存起来并复用。不幸的是，什么时候需要创建这种对象并不总是那么明显。假设我们要编写一个方法来确定一个字符串是否是有效的罗马数字，最简单的方式就是通过使用正则表达式，如下所示：
+
+```
+// Performance can be greatly improved!
+static boolean isRomanNumeral(String s) {
+    return s.matches("^(?=.)M*(C[MD]|D?C{0,3})" + "(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$"); 
+}
+```
+
+The problem with this implementation is that it relies on the _String.matches_ method. While String.matches is the easiest way to check if a string matches a regular expression, it’s not suitable for repeated use in performance-critical situations.The problem is that it internally creates a _Pattern_ instance for the regular expression and uses it only once, after which it becomes eligible for garbage collection. Creating a _Pattern_ instance is expensive because it requires compiling the regular expression into a finite state machine.
+
+这种实现方式的问题在于它依赖于_String.matches_方法。虽然String.matches是校验一个字符串是否符合一个正则表达式最简单的方式，但在性能要求高的情景下，若想重复使用这种方式，就显得不是那么合适了。这里的问题是，它在内部创建了一个Pattern实例来用于正则表达式然后这个实例只使用一次，使用完之后它就被垃圾回收了。创建一个Pattern实例是昂贵的，因为它需要将正则表达式编译成一个有限状态机。
+
+To improve the performance, explicitly compile the regular expression into a Pattern instance \(which is immutable\) as part of class initialization, cache it, and reuse the same instance for every invocation of the isRomanNumeral method:
+
+为了改善性能，我们可以将所需的正则表达式显式地编译进一个不可变的Pattern对象里，并让其作为类初始化的一部分，将其缓存起来。这样以后每次调用isRomanNumeral方法时，就可以复用相同的Pattern对象了：
+
+```
+// Reusing expensive object for improved performance
+public class RomanNumerals {
+    private static final Pattern ROMAN = Pattern.compile("^(?=.)M*(C[MD]|D?C{0,3})"
+                + "(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$");
+    static boolean isRomanNumeral(String s) { 
+        return ROMAN.matcher(s).matches();
+    } 
+}
+```
+
+
 
