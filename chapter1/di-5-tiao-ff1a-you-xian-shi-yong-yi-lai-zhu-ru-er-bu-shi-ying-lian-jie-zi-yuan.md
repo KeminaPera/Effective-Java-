@@ -67,7 +67,7 @@ Mosaic create(Supplier<? extends Tile> tileFactory) { ... }
 
 Although dependency injection greatly improves flexibility and testability, it can clutter up large projects, which typically contain thousands of dependencies. This clutter can be all but eliminated by using a dependency injection framework, such as Dagger \[Dagger\], Guice \[Guice\], or Spring \[Spring\]. The use of these frameworks is beyond the scope of this book, but note that APIs designed for manual dependency injection are trivially adapted for use by these frameworks.
 
-
+尽管依赖注入提高了灵活性和可测试性，但它却会对大型项目产生混乱，这些大型项目往往包含了成千上万个依赖。我们可以通过使用依赖注入框架来减少这种混乱，比如Dagger，Guice，Spring。对于这些框架的使用超出了本书的讨论范围，但请注意，那些为手动依赖注入而设计的API非常适用于这些框架。
 
 In summary, do not use a singleton or static utility class to implement a class that depends on one or more underlying resources whose behavior affects that of the class, and do not have the class create these resources directly. Instead, pass the resources, or factories to create them, into the constructor \(or static factory or builder\). This practice, known as dependency injection, will greatly enhance the flexibility, reusability, and testability of a class.
 
