@@ -47,7 +47,7 @@ The problem with this implementation is that it relies on the _String.matches_ m
 
 这种实现方式的问题在于它依赖于_String.matches_方法。虽然String.matches是校验一个字符串是否符合一个正则表达式最简单的方式，但在性能要求高的情景下，若想重复使用这种方式，就显得不是那么合适了。这里的问题是，它在内部创建了一个Pattern实例来用于正则表达式然后这个实例只使用一次，使用完之后它就被垃圾回收了。创建一个Pattern实例是昂贵的，因为它需要将正则表达式编译成一个有限状态机。
 
-To improve the performance, explicitly compile the regular expression into a Pattern instance \(which is immutable\) as part of class initialization, cache it, and reuse the same instance for every invocation of the isRomanNumeral method:
+To improve the performance, explicitly compile the regular expression into a _Pattern_ instance \(which is immutable\) as part of class initialization, cache it, and reuse the same instance for every invocation of the _isRomanNumeral_ method:
 
 为了改善性能，我们可以将所需的正则表达式显式地编译进一个不可变的Pattern对象里，并让其作为类初始化的一部分，将其缓存起来。这样以后每次调用isRomanNumeral方法时，就可以复用相同的Pattern对象了：
 
@@ -61,6 +61,18 @@ public class RomanNumerals {
     } 
 }
 ```
+
+The improved version of _isRomanNumeral_ provides significant performance gains if invoked frequently. On my machine, the original version takes 1.1 μs on an 8-character input string, while the improved version takes 0.17 μs, which is 6.5 times faster. Not only is the performance improved, but arguably, so is clarity. Making a static final field for the otherwise invisible Pattern instance allows us to give it a name, which is far more readable than the regular expression itself.
+
+在面对频繁调用时，改进版的_isRomanNumeral_得到了显著的性能提升。在我的电脑上，对于8个字符的字符串输入，原始的版本花费了1.1毫秒，而改进的版本则只花费了0.17毫秒，比原先的快了6.5倍。改进后的版本不仅性能提升了，而且可以说更清晰了，因为我们可以给静态不可改的私有Pattern实例取一个名字，而这比正则表达式本书更容易阅读。
+
+If the class containing the improved version of the _isRomanNumeral_ method is initialized but the method is never invoked, the field _ROMAN_ will be initialized needlessly. It would be possible to eliminate the initialization by lazily initializing the field \(Item 83\) the first time the _isRomanNumeral_ method is invoked, but this is not recommended. As is often the case with lazy initialization, it would complicate the implementation with no measurable performance improvement \(Item 67\).  
+
+
+
+
+  
+
 
 
 
