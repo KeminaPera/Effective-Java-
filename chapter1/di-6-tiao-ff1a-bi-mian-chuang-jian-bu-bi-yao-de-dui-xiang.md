@@ -28,5 +28,9 @@ This version uses a single String instance, rather than creating a new one each 
 
 这个版本只用了一个String实例，而不是每次执行时都创建一个新的。而且，它保证了只要在同一个虚拟机上，假如别的代码也刚好用了相同的字符串字面常量，该对象就会被复用。
 
-You can often avoid creating unnecessary objects by using static factory methods \(Item 1\) in preference to constructors on immutable classes that provide both. For example, the factory method Boolean.valueOf\(String\) is preferable to the constructor Boolean\(String\), which was deprecated in Java 9. The constructor must create a new object each time it’s called, while the factory method is never required to do so and won’t in practice. In addition to reusing immutable objects, you can also reuse mutable objects if you know they won’t be modified.
+You can often avoid creating unnecessary objects by using _static factory_ methods \(Item 1\) in preference to constructors on immutable classes that provide both. For example, the factory method _Boolean.valueOf\(String\)_ is preferable to the constructor _Boolean\(String\)_, which was deprecated in Java 9. The constructor must create a new object each time it’s called, while the factory method is never required to do so and won’t in practice. In addition to reusing immutable objects, you can also reuse mutable objects if you know they won’t be modified.
+
+多数情况下，当不可变类同时提供了构造器和静态工厂方法时（条目1），我们优先使用_静态工厂_方法来避免创建不必要的对象。例如，比起在Java 9中已经过时的_Boolean\(String\)_，我们优先使用工厂方法Boolean.valueOf\(String\)。构造器每次被调用时都要创建一个新的对象，而工厂方法从不要求这么做，而且实际上也不会这么做。除了复用不可变的对象，我们也可以复用那些已知不会被修改的可变对象。
+
+Some object creations are much more expensive than others. If you’re going to need such an “expensive object” repeatedly, it may be advisable to cache it for reuse. Unfortunately, it’s not always obvious when you’re creating such an object. Suppose you want to write a method to determine whether a string is a valid Roman numeral. Here’s the easiest way to do this using a regular expression:
 
