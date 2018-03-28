@@ -14,9 +14,22 @@ public class SpellChecker {
 }
 ```
 
-Similarly, it’s not uncommon to see them implemented as
+Similarly, it’s not uncommon to see them implemented as singletons \(Item 3\):
 
-singletons \(Item 3\):
+类似的，我们也会常常见到这种类被做成了Singleton（条目3）：
+
+```
+// Inappropriate use of singleton - inflexible & untestable!
+public class SpellChecker {
+    private final Lexicon dictionary = ...;
+    private SpellChecker(...) {}
+    public static INSTANCE = new SpellChecker(...);
+    public boolean isValid(String word) { ... }
+    public List<String> suggestions(String typo) { ... }
+}
+```
+
+
 
 
 
