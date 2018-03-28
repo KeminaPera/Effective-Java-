@@ -57,23 +57,7 @@ The dependency injection pattern is so simple that many programmers use it for y
 
 依赖注入模式是如此的简单，以至于很多程序员用了很多年都不知道它还有个名字。虽然在我们的例子中，拼写检查器只有单一的资源（字典），但依赖注入也能用于任意数量的资源依赖和任意依赖图。它保持了资源的不可变性（条目17），所以多个客户端之间可以共享相同的依赖对象（假设客户端需要用到相同的底层资源）。依赖注入不仅适用于构造器，也同样适用于静态工厂（条目1）和builder（条目2）。
 
-A useful variant of the pattern is to pass a resource factory to the
+A useful variant of the pattern is to pass a resource factory to the constructor. A factory is an object that can be called repeatedly to create instances of a type. Such factories embody the Factory Method pattern \[Gamma95\]. The Supplier&lt;T&gt; interface, introduced in Java 8, is perfect for representing factories. Methods that take a Supplier&lt;T&gt; on input should typically constrain the factory’s type parameter using a bounded wildcard type \(Item 31\) to allow the client to pass in a factory that creates any subtype of a specified type. For example, here is a method that makes a mosaic using a client-provided factory to produce each tile:
 
-constructor. A factory is an object that can be called repeatedly to
 
-create instances of a type. Such factories embody the Factory
-
-Methodpattern \[Gamma95\]. The Supplier&lt;T&gt; interface, introduced
-
-in Java 8, is perfect for representing factories. Methods that take
-
-a Supplier&lt;T&gt; on input should typically constrain the factory’s type
-
-parameter using a bounded wildcard type \(Item 31\) to allow the
-
-client to pass in a factory that creates any subtype of a specified
-
-type. For example, here is a method that makes a mosaic using a
-
-client-provided factory to produce each tile:
 
