@@ -28,23 +28,5 @@ This version uses a single String instance, rather than creating a new one each 
 
 这个版本只用了一个String实例，而不是每次执行时都创建一个新的。而且，它保证了只要在同一个虚拟机上，假如别的代码也刚好用了相同的字符串字面常量，该对象就会被复用。
 
-
-
-You can often avoid creating unnecessary objects by using static
-
-factory methods \(Item 1\) in preference to constructors on
-
-immutable classes that provide both. For example, the factory
-
-method Boolean.valueOf\(String\) is preferable to the
-
-constructor Boolean\(String\), which was deprecated in Java 9. The
-
-constructor must create a new object each time it’s called, while the
-
-factory method is never required to do so and won’t in practice. In
-
-addition to reusing immutable objects, you can also reuse mutable
-
-objects if you know they won’t be modified.
+You can often avoid creating unnecessary objects by using static factory methods \(Item 1\) in preference to constructors on immutable classes that provide both. For example, the factory method Boolean.valueOf\(String\) is preferable to the constructor Boolean\(String\), which was deprecated in Java 9. The constructor must create a new object each time it’s called, while the factory method is never required to do so and won’t in practice. In addition to reusing immutable objects, you can also reuse mutable objects if you know they won’t be modified.
 
