@@ -24,13 +24,5 @@ The improved version is simply the following:
 String s = "bikini";
 ```
 
-This version uses a single String instance, rather than creating a
-
-new one each time it is executed. Furthermore, it is guaranteedthat the object will be reused by any other code running in the
-
-same virtual machine that happens to contain the same string
-
-literal \[JLS, 3.10.5\].
-
-
+This version uses a single String instance, rather than creating a new one each time it is executed. Furthermore, it is guaranteed that the object will be reused by any other code running in the same virtual machine that happens to contain the same string literal \[JLS, 3.10.5\].
 
