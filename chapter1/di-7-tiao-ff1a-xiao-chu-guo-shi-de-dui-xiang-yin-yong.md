@@ -71,7 +71,27 @@ So when should you null out a reference? What aspect of the _Stack_ class makes 
 
 所以我们什么时候应该清空一个引用？_Stack_类的哪个地方使得它有可能发生内存泄露？简单来说，因为它自己管理它自己的内存。存储池里都是elements数组里的元素（对象引用单元，而不是对象本身）。数组里活动区域的元素都是已分配的，数组其余部分的元素都是自由的。垃圾回收器无法知道这一点，因为对于垃圾回收器，elements数组里的所有对象引用都是等同的。只有程序员才知道数组非活动区域里的元素是不重要的。当某些元素变成非活动区域的一部分时，程序员可以立即手动将其清空。通过这种方式，程序员可以有效地告诉垃圾回收器可以回收了。
 
-Generally speaking, whenever a class manages its own memory, the programmer should be alert for memory leaks. Whenever an element is freed, any object references contained in the element should be nulled out.
+Generally speaking, **whenever a class manages its own memory, the programmer should be alert for memory leaks.** Whenever an element is freed, any object references contained in the element should be nulled out.
 
-一般来说，每当一个类自己管理它的内存时，程序员就要小心内存泄露的问题了。无论什么时候，只要一个元素被释放了，这个元素包含的所有引用都应该清空。
+一般来说，**每当一个类自己管理它的内存时，程序员就要小心内存泄露的问题了。**无论什么时候，只要一个元素被释放了，这个元素包含的所有引用都应该清空。
+
+Another common source of memory leaks is caches. Once
+
+you put an object reference into a cache, it’s easy to forget that it’s
+
+there and leave it in the cache long after it becomes irrelevant.
+
+There are several solutions to this problem. If you’re lucky enough
+
+to implement a cache for which an entry is relevant exactly so long
+
+as there are references to its key outside of the cache, represent the
+
+cache as a WeakHashMap; entries will be removed automatically after
+
+they become obsolete. Remember that WeakHashMap is useful only if
+
+the desired lifetime of cache entries is determined by external
+
+references to the key, not the value.
 
