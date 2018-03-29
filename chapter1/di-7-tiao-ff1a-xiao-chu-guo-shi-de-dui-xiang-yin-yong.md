@@ -59,5 +59,9 @@ public Object pop() {
 }
 ```
 
-An added benefit of nulling out obsolete references is that if they are subsequently dereferenced by mistake, the program will immediately fail with a NullPointerException, rather than quietly doing the wrong thing. It is always beneficial to detect programming errors as quickly as possible.
+An added benefit of nulling out obsolete references is that if they are subsequently dereferenced by mistake, the program will immediately fail with a _NullPointerException_, rather than quietly doing the wrong thing. It is always beneficial to detect programming errors as quickly as possible.
+
+清空引用的一个额外好处是，假如它们后来又被误解除引用，程序将会立即抛出_NullPointerException_异常，而不是默默地错误下去。这么做通常也有利于快速地查出错误。
+
+
 
