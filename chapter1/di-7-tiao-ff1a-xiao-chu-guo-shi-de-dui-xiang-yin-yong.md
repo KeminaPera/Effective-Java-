@@ -45,11 +45,19 @@ Memory leaks in garbage-collected languages \(more properly known as unintention
 
 在支持垃圾回收的语言中，内存泄露的问题（更确切地说，是无意的对象保留）是很隐蔽的。如果一个对象的引用被无意保留了，不仅这个对象无法被回收，其它被这个对象引用的对象也无法被回收。即使只有少数几个对象引用被无意保留了，那么许许多多的对象也将跟着无法被回收，这里面潜伏着对性能重大的影响。
 
-The fix for this sort of problem is simple: null out references once
+The fix for this sort of problem is simple: null out references once they become obsolete. In the case of our Stack class, the reference to an item becomes obsolete as soon as it’s popped off the stack. The corrected version of the _pop_ method looks like this:
 
-they become obsolete. In the case of our Stack class, the reference
+这类问题的解决办法很简单：一旦一个对象过时了，只需清空对象引用就可以了。在上述的例子当中，栈里面的元素一旦被弹出，其引用就已经过时了。_pop_方法的正确版本应该像这样：
 
-to an item becomes obsolete as soon as it’s popped off the stack.
+```
+public Object pop() {
+    if (size == 0)
+        throw new EmptyStackException();
+    Object result = elements[--size];
+    elements[size] = null; // Eliminate obsolete reference
+    return result;
+}
+```
 
-The corrected version of the pop method looks like this:
+
 
