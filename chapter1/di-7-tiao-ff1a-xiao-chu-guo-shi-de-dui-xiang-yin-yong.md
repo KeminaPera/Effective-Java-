@@ -71,3 +71,11 @@ So when should you null out a reference? What aspect of the _Stack_ class makes 
 
 所以我们什么时候应该清空一个引用？_Stack_类的哪个地方使得它有可能发生内存泄露？简单来说，因为它自己管理它自己的内存。存储池里都是elements数组里的元素（对象引用单元，而不是对象本身）。数组里活动区域的元素都是已分配的，数组其余部分的元素都是自由的。垃圾回收器无法知道这一点，因为对于垃圾回收器，elements数组里的所有对象引用都是等同的。只有程序员才知道数组非活动区域里的元素是不重要的。当某些元素变成非活动区域的一部分时，程序员可以立即手动将其清空。通过这种方式，程序员可以有效地告诉垃圾回收器可以回收了。
 
+Generally speaking, whenever a class manages its own
+
+memory, the programmer should be alert for memory
+
+leaks. Whenever an element is freed, any object references
+
+contained in the element should be nulled out.
+
