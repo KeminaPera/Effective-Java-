@@ -67,5 +67,29 @@ When programmers are first stung by this problem, they may overcompensate by nul
 
 程序员第一次被内存泄露的问题困扰时，他们往往会过分小心，当每个对象引用用完之后就立即清空掉。其实这样做既没必要也不需要，这么做会给程序带来不必要的混乱。**清空对象应该是例外而不是规范行为。**消除过期引用最佳的方式是让包含这个引用的变量离开作用域。如果我们将每个变量定义在最小的作用域里，那么这种机制就会自然生效。
 
+So when should you null out a reference? What aspect of
 
+the Stack class makes it susceptible to memory leaks? Simply put,
+
+it manages its own memory. The storage pool consists of the
+
+elements of the elements array \(the object reference cells, not the
+
+objects themselves\). The elements in the active portion of the array
+
+\(as defined earlier\) are allocated, and those in the remainder of the
+
+array are free. The garbage collector has no way of knowing this; to
+
+the garbage collector, all of the object references in
+
+the elements array are equally valid. Only the programmer knows
+
+that the inactive portion of the array is unimportant. The
+
+programmer effectively communicates this fact to the garbage
+
+collector by manually nulling out array elements as soon as they
+
+become part of the inactive portion.
 
