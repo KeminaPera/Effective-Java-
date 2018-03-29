@@ -59,13 +59,5 @@ public Object pop() {
 }
 ```
 
-An added benefit of nulling out obsolete references is that if they
-
-are subsequently dereferenced by mistake, the program will
-
-immediately fail with a NullPointerException, rather than quietly
-
-doing the wrong thing. It is always beneficial to detect
-
-programming errors as quickly as possible.
+An added benefit of nulling out obsolete references is that if they are subsequently dereferenced by mistake, the program will immediately fail with a NullPointerException, rather than quietly doing the wrong thing. It is always beneficial to detect programming errors as quickly as possible.
 
