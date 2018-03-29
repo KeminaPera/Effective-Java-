@@ -41,19 +41,5 @@ So where is the memory leak? If a stack grows and then shrinks, the objects that
 
 所以代码中内存泄露的部分在哪里？如果一个栈先增长后收缩，那些被弹出栈的对象将不会被回收，即使使用栈的程序不再引用它们。这是因为栈里面包含着这些对象的过期引用（_obsolete reference_）。过期引用是指永远不会被再次解除的引用。在这个例子当中，任何在elements数组的活动部分（active portion）之外的引用都是过期的。活动部分由elements数组里面下标小于数据长度的元素组成。
 
-Memory leaks in garbage-collected languages \(more properly
-
-known as unintentional object retentions\) are insidious. If an
-
-object reference is unintentionally retained, not only is that object
-
-excluded from garbage collection, but so too are any objects
-
-referenced by that object, and so on. Even if only a few object
-
-references are unintentionally retained, many, many objects may
-
-be prevented from being garbage collected, with potentially large
-
-effects on performance.
+Memory leaks in garbage-collected languages \(more properly known as unintentional object retentions\) are insidious. If an object reference is unintentionally retained, not only is that object excluded from garbage collection, but so too are any objects referenced by that object, and so on. Even if only a few object references are unintentionally retained, many, many objects may be prevented from being garbage collected, with potentially large effects on performance.
 
