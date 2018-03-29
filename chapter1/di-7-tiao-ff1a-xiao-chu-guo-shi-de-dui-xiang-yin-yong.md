@@ -33,19 +33,5 @@ public class Stack {
 }
 ```
 
-There’s nothing obviously wrong with this program \(but see Item
-
-29 for a generic version\). You could test it exhaustively, and it
-
-would pass every test with flying colors, but there’s a problem
-
-lurking. Loosely speaking, the program has a “memory leak,”
-
-which can silently manifest itself as reduced performance due
-
-to increased garbage collector activity or increased memory
-
-footprint. In extreme cases, such memory leaks can cause diskpaging and even program failure with an OutOfMemoryError, but such
-
-failures are relatively rare.
+There’s nothing obviously wrong with this program \(but see Item 29 for a generic version\). You could test it exhaustively, and it would pass every test with flying colors, but there’s a problem lurking. Loosely speaking, the program has a “memory leak,” which can silently manifest itself as reduced performance due to increased garbage collector activity or increased memory footprint. In extreme cases, such memory leaks can cause diskpaging and even program failure with an OutOfMemoryError, but such failures are relatively rare.
 
