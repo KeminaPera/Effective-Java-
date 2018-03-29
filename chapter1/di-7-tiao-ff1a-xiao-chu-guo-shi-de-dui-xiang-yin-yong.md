@@ -43,3 +43,7 @@ So where is the memory leak? If a stack grows and then shrinks, the objects that
 
 Memory leaks in garbage-collected languages \(more properly known as unintentional object retentions\) are insidious. If an object reference is unintentionally retained, not only is that object excluded from garbage collection, but so too are any objects referenced by that object, and so on. Even if only a few object references are unintentionally retained, many, many objects may be prevented from being garbage collected, with potentially large effects on performance.
 
+在支持垃圾回收的语言中，内存泄露的问题（更确切地说，是无意的对象保留）是很隐蔽的。如果一个对象的引用被无意保留了，不仅这个对象无法被回收，其它被这个对象引用的对象也无法被回收。即使只有少数几个对象引用被无意保留了，那么许许多多的对象也将跟着无法被回收，这里面潜伏着对性能重大的影响。
+
+
+
