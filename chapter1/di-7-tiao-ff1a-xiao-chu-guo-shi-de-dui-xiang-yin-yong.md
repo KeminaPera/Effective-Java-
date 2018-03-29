@@ -39,7 +39,7 @@ There’s nothing obviously wrong with this program \(but see Item 29 for a gene
 
 So where is the memory leak? If a stack grows and then shrinks, the objects that were popped off the stack will not be garbage collected, even if the program using the stack has no more references to them. This is because the stack maintains _obsolete references_ to these objects. An obsolete reference is simply a reference that will never be dereferenced again. In this case, any references outside of the “active portion” of the element array are obsolete. The active portion consists of the elements whose index is less than size.
 
-所以代码中内存泄露的部分在哪里？如果一个栈先增长后收缩，那些被弹出栈的对象将不会被回收，即使使用栈的程序不再引用它们。这是因为栈里面包含着这些对象的过期引用（_obsolete reference_）。过期引用是指永远不会被再次解除的引用。在这个例子当中，任何在elements数组的活动部分（active portion）之外的引用都是过期的。活动部分由elements数组里面下标小于数据长度的元素组成。
+所以代码中内存泄露的部分在哪里？如果一个栈先增长后收缩，那些被弹出栈的对象将不会被回收，即使使用栈的程序不再引用它们。这是因为栈里面包含着这些对象的过期引用（_obsolete reference_）。过期引用是指永远不会被再次解除的引用。在这个例子当中，任何在elements数组的活动区域（active portion）之外的引用都是过期的。活动部分由elements数组里面下标小于数据长度的元素组成。
 
 Memory leaks in garbage-collected languages \(more properly known as unintentional object retentions\) are insidious. If an object reference is unintentionally retained, not only is that object excluded from garbage collection, but so too are any objects referenced by that object, and so on. Even if only a few object references are unintentionally retained, many, many objects may be prevented from being garbage collected, with potentially large effects on performance.
 
@@ -67,29 +67,7 @@ When programmers are first stung by this problem, they may overcompensate by nul
 
 程序员第一次被内存泄露的问题困扰时，他们往往会过分小心，当每个对象引用用完之后就立即清空掉。其实这样做既没必要也不需要，这么做会给程序带来不必要的混乱。**清空对象应该是例外而不是规范行为。**消除过期引用最佳的方式是让包含这个引用的变量离开作用域。如果我们将每个变量定义在最小的作用域里，那么这种机制就会自然生效。
 
-So when should you null out a reference? What aspect of
+So when should you null out a reference? What aspect of the _Stack_ class makes it susceptible to memory leaks? Simply put, it manages its own memory. The storage pool consists of the elements of the elements array \(the object reference cells, not the objects themselves\). The elements in the active portion of the array \(as defined earlier\) are allocated, and those in the remainder of the array are free. The garbage collector has no way of knowing this; to the garbage collector, all of the object references in the elements array are equally valid. Only the programmer knows that the inactive portion of the array is unimportant. The programmer effectively communicates this fact to the garbage collector by manually nulling out array elements as soon as they become part of the inactive portion.
 
-the Stack class makes it susceptible to memory leaks? Simply put,
-
-it manages its own memory. The storage pool consists of the
-
-elements of the elements array \(the object reference cells, not the
-
-objects themselves\). The elements in the active portion of the array
-
-\(as defined earlier\) are allocated, and those in the remainder of the
-
-array are free. The garbage collector has no way of knowing this; to
-
-the garbage collector, all of the object references in
-
-the elements array are equally valid. Only the programmer knows
-
-that the inactive portion of the array is unimportant. The
-
-programmer effectively communicates this fact to the garbage
-
-collector by manually nulling out array elements as soon as they
-
-become part of the inactive portion.
+所以我们什么时候应该清空一个引用？_Stack_类的哪个地方使得它有可能发生内存泄露？简单来说，因为它自己管理它自己的内存。存储池里都是elements数组里的元素（对象引用单元，而不是对象本身）。数组里活动区域的元素都是已分配的，数组其余部分的元素都是自由的。垃圾回收器无法知道这一点，因为对于垃圾回收器，elements数组里的所有对象引用都是等同的。只有程序员才知道数组非活动区域里的元素是不重要的。当某些元素变成非活动区域的一部分时，程序员可以立即手动将其清空。通过这种方式，程序员可以有效地告诉垃圾回收器可以回收了。
 
