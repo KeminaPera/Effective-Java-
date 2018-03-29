@@ -8,4 +8,5 @@
   * [第4条：通过私有化构造器强化不可实例化的能力](chapter1/di-4-tiao-ff1a-tong-guo-si-you-hua-gou-zao-qi-qiang-hua-bu-ke-shi-li-hua-de-neng-li.md)
   * [第5条：优先使用依赖注入而不是硬连接资源](chapter1/di-5-tiao-ff1a-you-xian-shi-yong-yi-lai-zhu-ru-er-bu-shi-ying-lian-jie-zi-yuan.md)
   * [第6条：避免创建不必要的对象](chapter1/di-6-tiao-ff1a-bi-mian-chuang-jian-bu-bi-yao-de-dui-xiang.md)
+  * [第7条：消除过时的对象引用](chapter1/di-7-tiao-ff1a-xiao-chu-guo-shi-de-dui-xiang-yin-yong.md)
 
