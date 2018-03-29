@@ -75,23 +75,7 @@ Generally speaking, **whenever a class manages its own memory, the programmer sh
 
 一般来说，**每当一个类自己管理它的内存时，程序员就要小心内存泄露的问题了。**无论什么时候，只要一个元素被释放了，这个元素包含的所有引用都应该清空。
 
-Another common source of memory leaks is caches. Once
+Another common source of memory leaks is caches. Once you put an object reference into a cache, it’s easy to forget that it’s there and leave it in the cache long after it becomes irrelevant. There are several solutions to this problem. If you’re lucky enough to implement a cache for which an entry is relevant exactly so long as there are references to its key outside of the cache, represent the cache as a WeakHashMap; entries will be removed automatically after they become obsolete. Remember that WeakHashMap is useful only if the desired lifetime of cache entries is determined by external references to the key, not the value.
 
-you put an object reference into a cache, it’s easy to forget that it’s
 
-there and leave it in the cache long after it becomes irrelevant.
-
-There are several solutions to this problem. If you’re lucky enough
-
-to implement a cache for which an entry is relevant exactly so long
-
-as there are references to its key outside of the cache, represent the
-
-cache as a WeakHashMap; entries will be removed automatically after
-
-they become obsolete. Remember that WeakHashMap is useful only if
-
-the desired lifetime of cache entries is determined by external
-
-references to the key, not the value.
 
