@@ -37,5 +37,21 @@ There’s nothing obviously wrong with this program \(but see Item 29 for a gene
 
 这段代码并没有明显的错误（它的泛型版本可参见条目29）。无论你如何测试它，它都能通过每一次测试，但这里面潜伏着一个问题。不严格地讲，这段程序里面有个“内存泄露”的问题，随着垃圾回收活动的增加或者内存占用的增多，将会逐渐显现出性能下降的现象。在极端的情况下，这种内存泄露会引发磁盘分页（disk paging），甚至还会导致程序失败并抛出_OutOfMemoryError_错误，但这种错误并不多见。
 
+So where is the memory leak? If a stack grows and then shrinks,
 
+the objects that were popped off the stack will not be garbage
+
+collected, even if the program using the stack has no more
+
+references to them. This is because the stack maintains obsolete
+
+references to these objects. An obsolete reference is simply a
+
+reference that will never be dereferenced again. In this case, any
+
+references outside of the “active portion” of the element array are
+
+obsolete. The active portion consists of the elements whose index is
+
+less than size.
 
