@@ -63,5 +63,21 @@ An added benefit of nulling out obsolete references is that if they are subseque
 
 清空引用的一个额外好处是，假如它们后来又被误解除引用，程序将会立即抛出_NullPointerException_异常，而不是默默地错误下去。这么做通常也有利于快速地查出错误。
 
+When programmers are first stung by this problem, they may
 
+overcompensate by nulling out every object reference as soon as
+
+the program is finished using it. This is neither necessary nor
+
+desirable; it clutters up the program unnecessarily. Nulling out
+
+object references should be the exception rather than the
+
+norm. The best way to eliminate an obsolete reference is to let the
+
+variable that contained the reference fall out of scope. This occurs
+
+naturally if you define each variable in the narrowest possible
+
+scope \(Item 57\).
 
