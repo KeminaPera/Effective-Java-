@@ -37,21 +37,23 @@ There’s nothing obviously wrong with this program \(but see Item 29 for a gene
 
 这段代码并没有明显的错误（它的泛型版本可参见条目29）。无论你如何测试它，它都能通过每一次测试，但这里面潜伏着一个问题。不严格地讲，这段程序里面有个“内存泄露”的问题，随着垃圾回收活动的增加或者内存占用的增多，将会逐渐显现出性能下降的现象。在极端的情况下，这种内存泄露会引发磁盘分页（disk paging），甚至还会导致程序失败并抛出_OutOfMemoryError_错误，但这种错误并不多见。
 
-So where is the memory leak? If a stack grows and then shrinks,
+So where is the memory leak? If a stack grows and then shrinks, the objects that were popped off the stack will not be garbage collected, even if the program using the stack has no more references to them. This is because the stack maintains _obsolete references_ to these objects. An obsolete reference is simply a reference that will never be dereferenced again. In this case, any references outside of the “active portion” of the element array are obsolete. The active portion consists of the elements whose index is less than size.
 
-the objects that were popped off the stack will not be garbage
+所以代码中内存泄露的部分在哪里？如果一个栈先增长后收缩，那些被弹出栈的对象将不会被回收，即使使用栈的程序不再引用它们。这是因为栈里面包含着这些对象的过期引用（_obsolete reference_）。过期引用是指永远不会被再次解除的引用。在这个例子当中，任何在elements数组的活动部分（active portion）之外的引用都是过期的。活动部分由elements数组里面下标小于数据长度的元素组成。
 
-collected, even if the program using the stack has no more
+Memory leaks in garbage-collected languages \(more properly
 
-references to them. This is because the stack maintains obsolete
+known as unintentional object retentions\) are insidious. If an
 
-references to these objects. An obsolete reference is simply a
+object reference is unintentionally retained, not only is that object
 
-reference that will never be dereferenced again. In this case, any
+excluded from garbage collection, but so too are any objects
 
-references outside of the “active portion” of the element array are
+referenced by that object, and so on. Even if only a few object
 
-obsolete. The active portion consists of the elements whose index is
+references are unintentionally retained, many, many objects may
 
-less than size.
+be prevented from being garbage collected, with potentially large
+
+effects on performance.
 
