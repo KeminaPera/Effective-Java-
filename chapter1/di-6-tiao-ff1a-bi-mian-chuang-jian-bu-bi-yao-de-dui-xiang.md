@@ -64,15 +64,9 @@ public class RomanNumerals {
 
 The improved version of _isRomanNumeral_ provides significant performance gains if invoked frequently. On my machine, the original version takes 1.1 μs on an 8-character input string, while the improved version takes 0.17 μs, which is 6.5 times faster. Not only is the performance improved, but arguably, so is clarity. Making a static final field for the otherwise invisible Pattern instance allows us to give it a name, which is far more readable than the regular expression itself.
 
-在面对频繁调用时，改进版的_isRomanNumeral_得到了显著的性能提升。在我的电脑上，对于8个字符的字符串输入，原始的版本花费了1.1毫秒，而改进的版本则只花费了0.17毫秒，比原先的快了6.5倍。改进后的版本不仅性能提升了，而且可以说更清晰了，因为我们可以给静态不可改的私有Pattern实例取一个名字，而这比正则表达式本书更容易阅读。
+在面对频繁调用时，改进版的_isRomanNumeral_得到了显著的性能提升。在我的电脑上，对于8个字符的字符串输入，原始的版本花费了1.1毫秒，而改进的版本则只花费了0.17毫秒，比原先的快了6.5倍。改进后的版本不仅性能提升了，而且可以说更清晰了，因为我们可以给静态不可改的私有Pattern实例取一个名字，而这比正则表达式本身更容易阅读。
 
-If the class containing the improved version of the _isRomanNumeral_ method is initialized but the method is never invoked, the field _ROMAN_ will be initialized needlessly. It would be possible to eliminate the initialization by lazily initializing the field \(Item 83\) the first time the _isRomanNumeral_ method is invoked, but this is not recommended. As is often the case with lazy initialization, it would complicate the implementation with no measurable performance improvement \(Item 67\).  
+If the class containing the improved version of the _isRomanNumeral_ method is initialized but the method is never invoked, the field _ROMAN_ will be initialized needlessly. It would be possible to eliminate the initialization by lazily initializing the field \(Item 83\) the first time the _isRomanNumeral_ method is invoked, but this is not recommended. As is often the case with lazy initialization, it would complicate the implementation with no measurable performance improvement \(Item 67\).
 
-
-
-
-  
-
-
-
+如果包含了改进版的_isRomanNumeral_方法的类被初始化了，但这个方法缺从没被调用过，那么_ROMAN_属性的初始化就没什么意义了。虽然我们可以在_isRomanNumeral_方法被调用时才去初始化这个属性（条目83），从而减少了无意义的初始化，但这么做是不推荐的。延迟初始化（lazy initialization）会导致实现复杂化，而性能却没有可观的改进（条目67）。
 
