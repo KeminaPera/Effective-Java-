@@ -70,3 +70,7 @@ If the class containing the improved version of the _isRomanNumeral_ method is i
 
 如果包含了改进版的_isRomanNumeral_方法的类被初始化了，但这个方法缺从没被调用过，那么_ROMAN_属性的初始化就没什么意义了。虽然我们可以在_isRomanNumeral_方法被调用时才去初始化这个属性（条目83），从而减少了无意义的初始化，但这么做是不推荐的。延迟初始化（lazy initialization）会导致实现复杂化，而性能却没有可观的改进（条目67）。
 
+When an object is immutable, it is obvious it can be reused safely, but there are other situations where it is far less obvious, even counterintuitive. Consider the case of adapters \[Gamma95\], also known as views. An adapter is an object that delegates to a backing object, providing an alternative interface. Because an adapter has no state beyond that of its backing object, there’s no need to create more than one instance of a given adapter to a given object.
+
+
+
