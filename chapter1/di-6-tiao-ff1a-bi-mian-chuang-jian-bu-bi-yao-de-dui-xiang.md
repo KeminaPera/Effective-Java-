@@ -75,5 +75,23 @@ When an object is immutable, it is obvious it can be reused safely, but there ar
 
 当一个对象是不可变时，很明显它能被安全地复用。但其它的一些情况就不是那么明显了，有时甚至还会有点违反直觉。考虑适配器（adapter\[Gamma95\]）的情形，也叫做视图。适配器是这么一个对象，它代理了后端对象（backing object），然后提供了一个转换的接口。由于适配器除了后端对象之外，没有其它的状态信息，所以对于指定的对象，创建一个指定的适配器就可以了。
 
+For example, the keySet method of the Map interface returns
 
+a Set view of the Map object, consisting of all the keys in the map.
+
+Naively, it would seem that every call to keySet would have to create
+
+a new Set instance, but every call to keySet on a given Map object may
+
+return the same Set instance. Although the returned Set instance is
+
+typically mutable, all of the returned objects are functionally
+
+identical: when one of the returned objects changes, so do all the
+
+others, because they’re all backed by the same Map instance. While
+
+it is largely harmless to create multiple instances of the keySet view
+
+object, it is unnecessary and has no benefits.
 
