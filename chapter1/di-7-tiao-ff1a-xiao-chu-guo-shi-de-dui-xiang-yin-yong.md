@@ -82,3 +82,14 @@ Generally speaking, **whenever a class manages its own memory, the programmer sh
 More commonly, the useful lifetime of a cache entry is less well defined, with entries becoming less valuable over time. Under these circumstances, the cache should occasionally be cleansed of entries that have fallen into disuse. This can be done by a background thread \(perhaps a _ScheduledThreadPoolExecutor_\) or as a side effect of adding new entries to the cache.  
 通常情况下，缓存项的生命周期是否有意义不是很好定义，随着时间推移，缓存里的项会变得越来越没价值。在这种条件下，缓存应该时不时清除掉无用的项。我们可以用后台线程（比如_ScheduledThreadPoolExecutor_）来做这件事，或者在往缓存中添加新的项时顺便清除。
 
+The _LinkedHashMap_ class facilitates the latter approach with its _removeEldestEntry_ method. For more sophisticated caches, you may need to use _java.lang.ref_ directly.
+
+_LinkedHashMap_类可以通过它的_removeEldestEntry_方法来实现刚刚说的第二种方案。对于更复杂的缓存，我们可能还得直接使用_java.lang.ref_。
+
+**A third common source of memory leaks is listeners and other callbacks.** If you implement an API where clients register callbacks but don’t deregister them explicitly, they will accumulate unless you take some action. One way to ensure that callbacks are garbage collected promptly is to store only weak references to them, for instance, by storing them only as keys in aWeakHashMap. Because memory leaks typically do not manifest themselves as obvious failures, they may remain present in a system for years.
+
+**第三种常见的缓存泄漏的来源是监听器和其它调用。**比方说我们想实现一个API，客户端能在这个API中注册回调，但假如后面既没有显式地取消注册又没有采取某些行动，那么它们将逐渐积累。
+
+They are typically discovered only as a result of careful code inspection or with the aid of a debugging tool known as a heap profiler. Therefore, it is very desirable to learn to anticipate problems like this before they occur and prevent them from happening.  
+
+
