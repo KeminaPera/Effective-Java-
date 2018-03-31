@@ -35,9 +35,14 @@ Another problem with finalizers is that an uncaught exception thrown during fina
 Normally, an uncaught exception will terminate the thread and print a stack trace, but not if it occurs in a finalizer—it won’t even print a warning. Cleaners do not have this problem because a library using a cleaner has control over its thread.  
 正常情况下，未捕获的异常会终止线程并打印错误栈，但假如这个异常出现在终结方法中就不会这么做了，甚至连警告都不会打印。清理方法不会有这个问题，因为使用清理方法的类库可以控制它自己的线程。
 
-There is a severe performance penalty for using finalizers and cleaners.On my machine, the time to create a simple AutoCloseable object, to close it using try-with-resources, and to have the garbage collector reclaim it is about 12 ns. Using a finalizer instead increases the time to 550 ns. In other words, it is about 50 times slower to create and destroy objects with finalizers.
+**There is a severe performance penalty for using finalizers and cleaners. **On my machine, the time to create a simple AutoCloseable object, to close it using try-with-resources, and to have the garbage collector reclaim it is about 12 ns. Using a finalizer instead increases the time to 550 ns. In other words, it is about 50 times slower to create and destroy objects with finalizers. This is primarily because finalizers inhibit efficient garbage collection. Cleaners are comparable in speed to finalizers if you use them to clean all instances of the class \(about 500 ns per instance on my machine\), but cleaners are much faster if you use them only as a safety net, as discussed below. Under these circumstances, creating, cleaning, and destroying an object takes about 66 ns on my machine, which means you pay a factor of five \(not fifty\) for the insurance of a safety net if you don’t use it.
 
-使用终结方法和清理方法还会导致严重的性能损失。在我的机器上，创建一个简单的AutoCloseable对象，并通过try-with-resources来关闭它，然后让垃圾回收器回收它，整个过程花费了12纳秒。而使用清理方法后这个时间就增加到550纳秒了。换句话说，用终结方法来创建和销毁对象慢了大约50倍。
+**使用终结方法和清理方法还会导致严重的性能损失。**在我的机器上，创建一个简单的AutoCloseable对象，并通过try-with-resources来关闭它，然后让垃圾回收器回收它，整个过程花费了12纳秒。而使用清理方法后这个时间就增加到550纳秒了。换句话说，用终结方法来创建和销毁对象慢了大约50倍。这主要是因为终结方法会阻碍有效的垃圾回收。如果我们使用清理方法来清理类的所有对象，则其于终结方法速度相当（在我机器上是平局每个实例500纳秒），但如果我们将清理方法当作下面讨论到的安全网（safety net）来使用，则其比终结方法快很多。在这种情况下，创建，清除和销毁对象一个对象在我机器上整个过程花费了约66纳秒，这意味着如果我们不使用它，将要为其支付5倍（不是50倍）的保险。
 
+Finalizers have a serious security problem: they open your class up to finalizer attacks.The idea behind a finalizer attack is simple: If an exception is thrown from a constructor or its serialization equivalents—the readObject and readResolve methods \(Chapter 12\)—the finalizer of a malicious subclass can run on the partially constructed object that should have “died on the vine.”
+
+终结方法还有一个严重的安全问题：它将你的类暴露于终结方法攻击。终结方法攻击的背后机制很简单：如果一个异常从构造器或者序列化中抛出（对于序列化，主要是readObject和readResolve方法，见12章），恶意子类的终结方法可以运行在本应消亡的只构造了部分的对象上。
+
+  
 
 
