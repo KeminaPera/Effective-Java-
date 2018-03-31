@@ -28,8 +28,7 @@ Don’t be seduced by the methods _System.gc_ and _System.runFinalization_. They
 
 不要被_System.gc_和_System.runFinalization_两个方法给诱惑了。这两个方法也许会增加终结方法和清理方法被执行的概率，但也并不能保证一定会执行。有两个方法可以保证一旦被调用就执行终结方法和清理方法：_System.runFinalizersOnExit_和它臭名昭著的孪生兄弟，_Runtime.runFinalizersOnExit_。这两个方法都有致命的缺陷而且很久前就已经废弃了\[ThreadStop\]。
 
-  
+Another problem with finalizers is that an uncaught exception thrown during finalization is ignored, and finalization of that object terminates\[JLS, 12.6\]. Uncaught exceptions can leave other objects in a corrupt state. If another thread attempts to use such a corrupted object, arbitrary nondeterministic behavior may result.
 
-
-
+终结方法的另一个问题是在终结过程中若有未被捕获的异常抛出，则抛出的异常会被忽略，而且该对象的终结过程也会终止\[JLS, 12.6\]。未捕获的异常会使别的对象处于破坏的状态。如果别的线程尝试着使用被破坏了的对象，那么有可能将出现任意不确定的行为。
 
