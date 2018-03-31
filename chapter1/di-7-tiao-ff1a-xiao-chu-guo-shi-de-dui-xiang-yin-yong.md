@@ -86,10 +86,11 @@ The _LinkedHashMap_ class facilitates the latter approach with its _removeEldest
 
 _LinkedHashMap_类可以通过它的_removeEldestEntry_方法来实现刚刚说的第二种方案。对于更复杂的缓存，我们可能还得直接使用_java.lang.ref_。
 
-**A third common source of memory leaks is listeners and other callbacks.** If you implement an API where clients register callbacks but don’t deregister them explicitly, they will accumulate unless you take some action. One way to ensure that callbacks are garbage collected promptly is to store only weak references to them, for instance, by storing them only as keys in aWeakHashMap. Because memory leaks typically do not manifest themselves as obvious failures, they may remain present in a system for years.
+**A third common source of memory leaks is listeners and other callbacks.** If you implement an API where clients register callbacks but don’t deregister them explicitly, they will accumulate unless you take some action. One way to ensure that callbacks are garbage collected promptly is to store only weak references to them, for instance, by storing them only as keys in a WeakHashMap. Because memory leaks typically do not manifest themselves as obvious failures, they may remain present in a system for years. They are typically discovered only as a result of careful code inspection or with the aid of a debugging tool known as a heap profiler. Therefore, it is very desirable to learn to anticipate problems like this before they occur and prevent them from happening.
 
-**第三种常见的缓存泄漏的来源是监听器和其它调用。**比方说我们想实现一个API，客户端能在这个API中注册回调，但假如后面既没有显式地取消注册又没有采取某些行动，那么它们将逐渐积累。
+**第三种常见的缓存泄漏的来源是监听器和其它调用。**比方说我们想实现一个API，客户端能在这个API中注册回调，但假如后面既没有显式地取消注册又没有采取某些行动，那么它们将逐渐积累。一种可以保证回调被及时垃圾回收的方式是，只保留对它们的弱引用。例如，我们可以将它们存储为WeakHashMap的键。由于内存泄漏通常不会表现为明显的失败，所以内存泄漏的问题可能在系统中存留好多年。它们往往只有可以通过仔细的代码检查或者在堆内存分析（heap profiler）工具的帮助下才能被发现。所以，如果我们能在内存泄漏发生之前就预测到这个问题并预防它，那就再好不过了。
 
-They are typically discovered only as a result of careful code inspection or with the aid of a debugging tool known as a heap profiler. Therefore, it is very desirable to learn to anticipate problems like this before they occur and prevent them from happening.  
+
+
 
 
