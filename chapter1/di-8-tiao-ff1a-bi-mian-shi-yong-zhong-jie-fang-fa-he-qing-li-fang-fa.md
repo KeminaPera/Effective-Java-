@@ -8,9 +8,9 @@ C++ programmers are cautioned not to think of finalizers or cleaners as Java’s
 
 C++程序员要注意的是，不要把Java的终结方法或清理方法看成是C++析构器（destructor）。在C++中，析构器是回收对象占用资源的一种常规方式。而在Java中，垃圾回收器在对象变得不可到达的时候才回收对象占用的资源，不用程序员做额外的工作。C++的析构器也可以用来回收其它非内存资源。相应地，Java中使用try-with-resources或者try-finally代码块来实现这个目的（条目9）。
 
-One shortcoming of finalizers and cleaners is that there is no guarantee they’ll be executed promptly \[JLS, 12.6\]. It can take arbitrarily long between the time that an object becomes unreachable and the time its finalizer or cleaner runs. This means that you should never do anything time-critical in a finalizer or cleaner.For example, it is a grave error to depend on a finalizer or cleaner to close files because open file descriptors are a limited resource. If many files are left open as a result of the system’s tardiness in running finalizers or cleaners, a program may fail because it can no longer open files. 
+One shortcoming of finalizers and cleaners is that there is no guarantee they’ll be executed promptly \[JLS, 12.6\]. It can take arbitrarily long between the time that an object becomes unreachable and the time its finalizer or cleaner runs. This means that you should **never do anything time-critical in a finalizer or cleaner.**For example, it is a grave error to depend on a finalizer or cleaner to close files because open file descriptors are a limited resource. If many files are left open as a result of the system’s tardiness in running finalizers or cleaners, a program may fail because it can no longer open files.
 
-终结方法和清理方法的一个缺点是无法保证它们及时地被执行\[JLS, 12.6\]。一个对象从变得不可到达开始到它的终结方法和清理方法被执行，中间可能会经过任意长的时间。这意味着，我们不应该在终结方法和清理方法中做对时间有严格要求的任务。例如，依赖终结方法或者清理方法来关闭文件资源是个严重的错误，因为打开文件的描述符是个有限的资源。如果在一段程序中很多文件都因为系统延迟执行终结方法或清理方法而停留在打开状态，那么当它再打开一个文件时就会失败。
+终结方法和清理方法的一个缺点是无法保证它们及时地被执行\[JLS, 12.6\]。一个对象从变得不可到达开始到它的终结方法和清理方法被执行，中间可能会经过任意长的时间。这意味着，我们**不应该在终结方法和清理方法中做对时间有严格要求的任务。**例如，依赖终结方法或者清理方法来关闭文件资源是个严重的错误，因为打开文件的描述符是个有限的资源。如果在一段程序中很多文件都因为系统延迟执行终结方法或清理方法而停留在打开状态，那么当它再打开一个文件时就会失败。
 
-
+The promptness with which finalizers and cleaners are executed is primarily a function of the garbage collection algorithm, which varies widely across implementations. The behavior of a program that depends on the promptness of finalizer or cleaner execution may likewise vary. It is entirely possible that such a program will run perfectly on the JVM on which you test it and then fail miserably on the one favored by your most important customer.
 
