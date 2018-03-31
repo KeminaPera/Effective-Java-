@@ -16,5 +16,7 @@ The promptness with which finalizers and cleaners are executed is primarily a fu
 
 及时地执行终结方法和清理方法是垃圾回收算法的一个主要功能。而在不同的JVM实现中，垃圾回收算法会有很大的不同。如果一个程序的行为依赖于终结方法和清理方法的执行时间点，那么在不同的JVM中这些行为也将同样会不同。那样的话完全有可能这样的一段程序在你的测试用的JVM上运行得很好，而在你最重要的客户的JVM上却根本无法运行。
 
+Tardy finalization is not just a theoretical problem. Providing a finalizer for a class can arbitrarily delay reclamation of its instances. A colleague debugged a long-running GUI application that was mysteriously dying with an OutOfMemoryError. Analysis revealed that at the time of its death, the application had thousands of graphics objects on its finalizer queue just waiting to be finalized and reclaimed. Unfortunately, the finalizer thread was running at a lower priority than another application thread, so objects weren’t getting finalized at the rate they became eligible for finalization. The language specification makes no guarantees as to which thread will execute finalizers, so there is no portable way to prevent this sort of problem other than to refrain from using finalizers. Cleaners are a bit better than finalizers in this regard because class authors have control over their own cleaner threads, but cleaners still run in the background, under the control of the garbage collector, so there can be no guarantee of prompt cleaning.
 
+延迟终结过程不仅仅只是个理论问题。为一个类提供终结方法会随意延迟其实例的回收过程。一个同事最近在调试一个长时间运行的GUI应用。该应用因为OutOfMemoryError错误而莫名其妙地死掉了。分析表明，在这个应用在死掉时，终结方法队列里有几千个图像对象在等待被终结和回收。不幸的是，终结方法线程的执行优先级比其它应用线程低，所以这些图像对象被终结的速度赶不上它们进入队列的速度。Java语言规范并没有保证哪个线程执行终结方法，
 
