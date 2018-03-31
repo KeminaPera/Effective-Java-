@@ -80,5 +80,5 @@ Generally speaking, **whenever a class manages its own memory, the programmer sh
 **缓存是内存泄露的另一个常见来源。**当你往缓存里放了一个对象引用，就很容易忘记它还在那，使得它即使不再有用后还很长一段时间留在那里。有几个办法可以解决这个问题。如果你刚好要实现这么一个缓存，只要缓存之外存在只对某个key的引用，相应的项就有意义，那么就可以用_WeakHashMap_来充当这个缓存。但缓存中的项过期后，它们就会被自动清除。不过我们要记住，只有当所要的缓存项的生命周期是由该键的外部引用而不是值来决定时，_WeakHashMap_才有用。
 
 More commonly, the useful lifetime of a cache entry is less well defined, with entries becoming less valuable over time. Under these circumstances, the cache should occasionally be cleansed of entries that have fallen into disuse. This can be done by a background thread \(perhaps a _ScheduledThreadPoolExecutor_\) or as a side effect of adding new entries to the cache.  
-通常情况下，
+通常情况下，缓存项的生命周期是否有意义不是很好定义，随着时间推移，缓存里的项会变得越来越没价值。在这种条件下，缓存应该时不时清除掉无用的项。我们可以用后台线程（比如_ScheduledThreadPoolExecutor_）来做这件事，或者在往缓存中添加新的项时顺便清除。
 
