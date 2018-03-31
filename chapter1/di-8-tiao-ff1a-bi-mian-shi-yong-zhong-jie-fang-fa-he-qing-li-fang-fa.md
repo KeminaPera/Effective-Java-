@@ -24,3 +24,12 @@ Not only does the specification provide no guarantee that finalizers or cleaners
 
 Java语言规范不仅不保证终结方法或清理方法会被及时运行，而且不保证它们最终会运行。这样的话完全有可能一个程序在终止的时候，某些已经无法访问的对象却还没被终结方法或清理方法处理。所以，我们应该永远也不依赖于终结方法或清理方法来更新持久化状态。例如，依赖于终结方法或清理方法来释放共享资源（比如数据库）的永久锁，将很容易使得整个分布式系统停止运行。
 
+Don’t be seduced by the methods _System.gc_ and _System.runFinalization_. They may increase the odds of finalizers or cleaners getting executed, but they don’t guarantee it. Two methods once claimed to make this guarantee: _System.runFinalizersOnExit_ and its evil twin, _Runtime.runFinalizersOnExit_. These methods are fatally flawed and have been deprecated for decades \[ThreadStop\].
+
+不要被_System.gc_和_System.runFinalization_两个方法给诱惑了。这两个方法也许会增加终结方法和清理方法被执行的概率，但也并不能保证一定会执行。有两个方法可以保证一旦被调用就执行终结方法和清理方法：_System.runFinalizersOnExit_和它臭名昭著的孪生兄弟，_Runtime.runFinalizersOnExit_。这两个方法都有致命的缺陷而且很久前就已经废弃了\[ThreadStop\]。
+
+  
+
+
+
+
