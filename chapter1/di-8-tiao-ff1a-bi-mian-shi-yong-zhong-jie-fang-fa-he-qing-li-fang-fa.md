@@ -2,5 +2,10 @@
 
 **Finalizers are unpredictable, often dangerous, and generally unnecessary. **Their use can cause erratic behavior, poor performance, and portability problems. Finalizers have a few valid uses, which we’ll cover later in this item, but as a rule, you should avoid them. As of Java 9, finalizers have been deprecated, but they are still being used by the Java libraries. The Java 9 replacement for finalizers is cleaners. **Cleaners are less dangerous than finalizers, but still unpredictable, slow, and generally unnecessary.**
 
-**终结方法（Finalizer）是不可预知的，很多时候是危险的，而且一般情况下是不必要的。**使用它们会导致程序行为不稳定，性能降低还有移植问题。终结方法只有少数几种用途，我们将会本条目后面谈到。但根据经验，我们应该避免使用终结方法。在Java 9中，终结方法已经被遗弃了，但它们仍被Java类库使用，相应用来替代终结方法的是清理方法（cleaner）。比起终结方法，清理方法相对安全点，但仍是不可以预知的，运行慢的，而且一般情况下是不必要的。
+**终结方法（Finalizer）是不可预知的，很多时候是危险的，而且一般情况下是不必要的。**使用它们会导致程序行为不稳定，性能降低还有移植问题。终结方法只有少数几种用途，我们将会本条目后面谈到。但根据经验，我们应该避免使用终结方法。在Java 9中，终结方法已经被遗弃了，但它们仍被Java类库使用，相应用来替代终结方法的是清理方法（cleaner）。**比起终结方法，清理方法相对安全点，但仍是不可以预知的，运行慢的，而且一般情况下是不必要的。**
+
+C++ programmers are cautioned not to think of finalizers or cleaners as Java’s analogue of C++ destructors. In C++, destructors are the normal way to reclaim the resources associated with an object, a necessary counterpart to constructors. In Java, the garbage collector reclaims the storage associated with an object when it becomes unreachable, requiring no special effort on the part of the programmer. C++ destructors are also used to reclaim other nonmemory resources. In Java, a try-with-resources or try-finally block is used for this purpose \(Item 9\).
+
+C++程序员要注意的是，不要把Java的终结方法或清理方法看成是C++析构器（destructor）。在C++中，析构器是回收对象占用资源的一种常规方式。而在Java中，垃圾回收器在对象变得不可到达的时候才回收对象占用的资源，不用程序员做额外的工作。C++的析构器也可以用来回收其它非内存资源。相应地，Java中使用try-with-resources或者try-finally代码块来实现这个目的（条目9）。  
+
 
