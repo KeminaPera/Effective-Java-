@@ -77,5 +77,5 @@ When an object is immutable, it is obvious it can be reused safely, but there ar
 
 For example, the keySet method of the Map interface returns a Set view of the Map object, consisting of all the keys in the map. Naively, it would seem that every call to keySet would have to create a new Set instance, but every call to keySet on a given Map object may return the same Set instance. Although the returned Set instance is typically mutable, all of the returned objects are functionally identical: when one of the returned objects changes, so do all the others, because they’re all backed by the same Map instance. While it is largely harmless to create multiple instances of the keySet view object, it is unnecessary and has no benefits.
 
-例如，Map接口的keySet方法返回了Map对象的Set视图，这个视图里包含了map里的所有键值。乍一看，好像每次调用keySet方法时都会创建一个新的Set实例，但其实每次调用指定的Map对象的keySet方法时，都返回了相同的Set实例。虽然所有返回的Set实例通常都是可变的，但所有返回的对象都是功能一致的，
+例如，Map接口的keySet方法返回了Map对象的Set视图，这个视图里包含了map里的所有键值。乍一看，好像每次调用keySet方法时都会创建一个新的Set实例，但其实每次调用指定的Map对象的keySet方法时，都返回了相同的Set实例。虽然所有返回的Set实例通常都是可变的，但所有返回的对象都是功能一致的：当其中一个返回的对象发生变化时，所有的其它对象也会发生变化，因为它们都由同一个Map实例支撑。虽然创建keySet视图对象的多个实例并没有什么害处，却也是没必要的，也没啥好处。
 
