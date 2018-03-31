@@ -103,6 +103,7 @@ This item should not be misconstrued to imply that object creation is expensive 
 
 Conversely, avoiding object creation by maintaining your own object pool is a bad idea unless the objects in the pool are extremely heavyweight. The classic example of an object that does justify an object pool is a database connection. The cost of establishing the connection is sufficiently high that it makes sense to reuse these objects. Generally speaking, however, maintaining your own object pools clutters your code, increases memory footprint, and harms performance. Modern JVM implementations have highly optimized garbage collectors that easily outperform such object pools on lightweight objects.
 
-  
+相反，通过维护自己的对象池来避免创建对象也不是个好的实践，除非池中的对象是及其重量级的。真正正确使用对象池的经典例子是数据库连接池。由于建立数据库连接的代价是很高的，所以复用这些连接对象就显得很有意义了。然而，一般情况下，维护你自己的对象池会把代码弄的比较混乱，增加内存占用，而且还会降低性能。现代JVM实现具有高度优化的垃圾回收器，在对轻量级对象的处理上，这些回收器比对象池表现得更好。
+
 
 
