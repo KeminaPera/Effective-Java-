@@ -79,9 +79,19 @@ For example, the keySet method of the Map interface returns a Set view of the Ma
 
 例如，Map接口的keySet方法返回了Map对象的Set视图，这个视图里包含了map里的所有键值。乍一看，好像每次调用keySet方法时都会创建一个新的Set实例，但其实每次调用指定的Map对象的keySet方法时，都返回了相同的Set实例。虽然所有返回的Set实例通常都是可变的，但所有返回的对象都是功能一致的：当其中一个返回的对象发生变化时，所有的其它对象也会发生变化，因为它们都由同一个Map实例支撑。虽然创建keySet视图对象的多个实例并没有什么害处，却也是没必要的，也没啥好处。
 
-Another way to create unnecessary objects is _autoboxing_, which allows the programmer to mix primitive and boxed primitive types, boxing and unboxing automatically as needed. Autoboxing blurs but does not erase the distinction between primitive and boxed primitive types.There are subtle semantic distinctions and not-so-subtle performance differences \(Item 61\). Consider the following method, which calculates the sum of all the positive int values. To do this, the program has to use long arithmetic because an int is not big enough to hold the sum of all the positive int values:
+Another way to create unnecessary objects is _autoboxing_, which allows the programmer to mix primitive and boxed primitive types, boxing and unboxing automatically as needed. Autoboxing blurs but does not erase the distinction between primitive and boxed primitive types.There are subtle semantic distinctions and not-so-subtle performance differences \(Item 61\). Consider the following method, which calculates the sum of all the positive _int_ values. To do this, the program has to use long arithmetic because an int is not big enough to hold the sum of all the positive int values:
 
-另一种会创建不必要对象的方式是自动装箱（_autoboxing_）， 这种方式允许程序员混用基本类型和装箱基本类型，然后按需自动装箱和解箱。
+另一种会创建不必要对象的方式是自动装箱（_autoboxing_）， 这种方式允许程序员混用基本类型和装箱基本类型，然后按需自动装箱和解箱。自动装箱模糊了基本类型和装箱基本类型之间的区别，但并没有消除这种区别。它们之间在语义上有着微妙的区别，同时在性能上有着较为明显饿差别（条目61）。我们一起来看看下面这个方法。这个方法计算了所有_int_正值的和。为了计算这个和，程序员必须采用_long_，因为一个_int_不够大，无法容纳所有_int_正值的总和：
+
+```
+// Hideously slow! Can you spot the object creation?
+private static long sum() {
+    Long sum = 0L;
+    for (long i = 0; i <= Integer.MAX_VALUE; i++)
+        sum += i;
+    return sum; 
+}
+```
 
 
 
