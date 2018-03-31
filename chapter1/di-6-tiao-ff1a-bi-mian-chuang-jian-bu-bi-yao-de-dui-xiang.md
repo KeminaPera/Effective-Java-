@@ -93,7 +93,7 @@ private static long sum() {
 }
 ```
 
-This program gets the right answer, but it is much slower than it should be, due to a one-character typographical error. The variable sum is declared as a Long instead of a long, which means that the program constructs about $$2^{31}$$ unnecessary Long instances \(roughly one for each time the long i is added to theLong sum\). Changing the declaration of sum from Long to long reduces the runtime from 6.3 seconds to 0.59 seconds on my machine. The lesson is clear:prefer primitives to boxed primitives, and watch out for unintentional autoboxing.
+This program gets the right answer, but it is much slower than it should be, due to a one-character typographical error. The variable sum is declared as a Long instead of a long, which means that the program constructs about $$2^{31}$$ unnecessary Long instances \(roughly one for each time the long i is added to the Long sum\). Changing the declaration of sum from Long to long reduces the runtime from 6.3 seconds to 0.59 seconds on my machine. The lesson is clear:prefer primitives to boxed primitives, and watch out for unintentional autoboxing.
 
-上述这段程序能获得正确的值，但它比实际情况要慢很多，因为程序里面打错了一个字符。变量sum被声明成了Long类型，而不是long，这意味着程序构造了$$2^{31}$$
+上述这段程序能获得正确的值，但它比实际情况要慢很多，因为程序里面打错了一个字符。变量sum被声明成了Long类型，而不是long，这意味着程序构造了$$2^{31}$$个不必要的Long实例（大约每次往Long类型的sum中增加long时构造一个Long实例）。
 
