@@ -105,5 +105,7 @@ Conversely, avoiding object creation by maintaining your own object pool is a ba
 
 相反，通过维护自己的对象池来避免创建对象也不是个好的实践，除非池中的对象是及其重量级的。真正正确使用对象池的经典例子是数据库连接池。由于建立数据库连接的代价是很高的，所以复用这些连接对象就显得很有意义了。然而，一般情况下，维护你自己的对象池会把代码弄的比较混乱，增加内存占用，而且还会降低性能。现代JVM实现具有高度优化的垃圾回收器，在对轻量级对象的处理上，这些回收器比对象池表现得更好。
 
+The counterpoint to this item is Item 50 on defensive copying. The present item says, “Don’t create a new object when you should reuse an existing one,” while Item 50 says, “Don’t reuse an existing object when you should create a new one.” Note that the penalty for reusing an object when defensive copying is called for is far greater than the penalty for needlessly creating a duplicate object. Failing to make defensive copies where required can lead to insidious bugs and security holes; creating objects unnecessarily merely affects style and performance.
 
+与本条目对应的是条目50，保护性拷贝。在本条目里，我们谈到“当我们应该复用现有的对象时，我们就不应该去创建它“，而在条目50里，我们将会谈到“当我们应该创建一个新的对象时，我们就不应该去复用现有的“。注意，这是因为在倡导保护性拷贝时，复用现有对象的代价要远高于创建重复的对象。在必要的时候如果没能实施保护性拷贝，将导致潜在的bug和安全漏洞，而不必要地创建对象则仅仅影响了代码的风格和性能。
 
