@@ -77,5 +77,7 @@ Generally speaking, **whenever a class manages its own memory, the programmer sh
 
 Another common source of memory leaks is caches. Once you put an object reference into a cache, it’s easy to forget that it’s there and leave it in the cache long after it becomes irrelevant. There are several solutions to this problem. If you’re lucky enough to implement a cache for which an entry is relevant exactly so long as there are references to its key outside of the cache, represent the cache as a WeakHashMap; entries will be removed automatically after they become obsolete. Remember that WeakHashMap is useful only if the desired lifetime of cache entries is determined by external references to the key, not the value.
 
-缓存是内存泄露的另一个常见来源。当你往缓存里放了一个对象引用，就很容易忘记它还在那，使得它即使不再有用后还很长一段时间留在那里。有几个办法可以解决这个问题。
+缓存是内存泄露的另一个常见来源。当你往缓存里放了一个对象引用，就很容易忘记它还在那，使得它即使不再有用后还很长一段时间留在那里。有几个办法可以解决这个问题。如果你刚好要实现这么一个缓存，只要缓存之外存在只对某个key的引用，相应的项就有意义，那么就可以用WeakHashMap来充当这个缓存。但缓存中的项过期后，它们就会被自动清除。不过我们要记住，只有当所要的缓存项的生命周期是由该键的外部引用而不是值来决定时，WeakHashMap才有用。
+
+
 
