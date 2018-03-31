@@ -35,5 +35,9 @@ Another problem with finalizers is that an uncaught exception thrown during fina
 Normally, an uncaught exception will terminate the thread and print a stack trace, but not if it occurs in a finalizer—it won’t even print a warning. Cleaners do not have this problem because a library using a cleaner has control over its thread.  
 正常情况下，未捕获的异常会终止线程并打印错误栈，但假如这个异常出现在终结方法中就不会这么做了，甚至连警告都不会打印。清理方法不会有这个问题，因为使用清理方法的类库可以控制它自己的线程。
 
+There is a severe performance penalty for using finalizers and cleaners.On my machine, the time to create a simple AutoCloseable object, to close it using try-with-resources, and to have the garbage collector reclaim it is about 12 ns. Using a finalizer instead increases the time to 550 ns. In other words, it is about 50 times slower to create and destroy objects with finalizers.
+
+使用终结方法和清理方法还会导致严重的性能损失。在我的机器上，创建一个简单的AutoCloseable对象，并通过try-with-resources来关闭它，然后让垃圾回收器回收它，整个过程花费了12纳秒。而使用清理方法后这个时间就增加到550纳秒了。换句话说，用终结方法来创建和销毁对象慢了大约50倍。
+
 
 
