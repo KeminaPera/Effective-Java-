@@ -97,5 +97,9 @@ This program gets the right answer, but it is much slower than it should be, due
 
 上述这段程序能获得正确的值，但它比实际情况要慢很多，因为程序里面打错了一个字符。变量sum被声明成了Long类型，而不是long，这意味着程序构造了$$2^{31}$$个不必要的Long实例（大约每次往Long类型的sum中增加long时构造一个Long实例）。将sum的类型从Long换成long时，在我的机器上运行时间从6.3秒减成了0.59秒。结论很明显：优先使用基本类型而不是装箱基本类型，同时小心无意识的自动装箱。
 
+This item should not be misconstrued to imply that object creation is expensive and should be avoided. On the contrary, the creation and reclamation of small objects whose constructors do little explicit work is cheap, especially on modern JVM implementations. Creating additional objects to enhance the clarity, simplicity, or power of a program is generally a good thing.
+
+但千万不要将本条目误解为“创建对象的代价很昂贵，所以我们应该避免创建对象”。相反，那些构造器做很少显示工作的小对象的创建和回收是很廉价的，特别是在现代的JVM实现上。通过创建额外的对象来加强代码的清晰、简单或者功能，这通常是件好事。
+
 
 
