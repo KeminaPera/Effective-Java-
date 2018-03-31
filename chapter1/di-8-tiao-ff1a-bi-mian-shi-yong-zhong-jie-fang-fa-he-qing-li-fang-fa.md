@@ -32,3 +32,8 @@ Another problem with finalizers is that an uncaught exception thrown during fina
 
 终结方法的另一个问题是在终结过程中若有未被捕获的异常抛出，则抛出的异常会被忽略，而且该对象的终结过程也会终止\[JLS, 12.6\]。未捕获的异常会使别的对象处于破坏的状态。如果别的线程尝试着使用被破坏了的对象，那么有可能将出现任意不确定的行为。
 
+Normally, an uncaught exception will terminate the thread and print a stack trace, but not if it occurs in a finalizer—it won’t even print a warning. Cleaners do not have this problem because a library using a cleaner has control over its thread.  
+正常情况下，未捕获的异常会终止线程并打印错误栈，但假如这个异常出现在终结方法中就不会这么做了，甚至连警告都不会打印。清理方法不会有这个问题，因为使用清理方法的类库可以控制它自己的线程。
+
+
+
