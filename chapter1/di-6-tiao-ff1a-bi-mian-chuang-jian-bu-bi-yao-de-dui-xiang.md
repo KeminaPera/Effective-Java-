@@ -101,5 +101,8 @@ This item should not be misconstrued to imply that object creation is expensive 
 
 但千万不要将本条目误解为“创建对象的代价很昂贵，所以我们应该避免创建对象”。相反，那些构造器做很少显示工作的小对象的创建和回收是很廉价的，特别是在现代的JVM实现上。通过创建额外的对象来加强代码的清晰、简单或者功能，这通常是件好事。
 
+Conversely, avoiding object creation by maintaining your own object pool is a bad idea unless the objects in the pool are extremely heavyweight. The classic example of an object that does justify an object pool is a database connection. The cost of establishing the connection is sufficiently high that it makes sense to reuse these objects. Generally speaking, however, maintaining your own object pools clutters your code, increases memory footprint, and harms performance. Modern JVM implementations have highly optimized garbage collectors that easily outperform such object pools on lightweight objects.
+
+  
 
 
