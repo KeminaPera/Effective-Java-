@@ -39,10 +39,7 @@ Normally, an uncaught exception will terminate the thread and print a stack trac
 
 **使用终结方法和清理方法还会导致严重的性能损失。**在我的机器上，创建一个简单的AutoCloseable对象，并通过try-with-resources来关闭它，然后让垃圾回收器回收它，整个过程花费了12纳秒。而使用清理方法后这个时间就增加到550纳秒了。换句话说，用终结方法来创建和销毁对象慢了大约50倍。这主要是因为终结方法会阻碍有效的垃圾回收。如果我们使用清理方法来清理类的所有对象，则其于终结方法速度相当（在我机器上是平局每个实例500纳秒），但如果我们将清理方法当作下面讨论到的安全网（safety net）来使用，则其比终结方法快很多。在这种情况下，创建，清除和销毁对象一个对象在我机器上整个过程花费了约66纳秒，这意味着如果我们不使用它，将要为其支付5倍（不是50倍）的保险。
 
-Finalizers have a serious security problem: they open your class up to finalizer attacks.The idea behind a finalizer attack is simple: If an exception is thrown from a constructor or its serialization equivalents—the readObject and readResolve methods \(Chapter 12\)—the finalizer of a malicious subclass can run on the partially constructed object that should have “died on the vine.”
+Finalizers have a serious security problem: they open your class up to finalizer attacks.The idea behind a finalizer attack is simple: If an exception is thrown from a constructor or its serialization equivalents—the readObject and readResolve methods \(Chapter 12\)—the finalizer of a malicious subclass can run on the partially constructed object that should have “died on the vine.” This finalizer can record a reference to the object in a static field, preventing it from being garbage collected. Once the malformed object has been recorded, it is a simple matter to invoke arbitrary methods on this object that should never have been allowed to exist in the first place.Throwing an exception from a constructor should be sufficient to prevent an object from coming into existence; in the presence of finalizers, it is not.Such attacks can have dire consequences. Final classes are immune to finalizer attacks because no one can write a malicious subclass of a final class.To protect nonfinal classes from finalizer attacks, write a final finalize method that does nothing.
 
-终结方法还有一个严重的安全问题：它将你的类暴露于终结方法攻击。终结方法攻击的背后机制很简单：如果一个异常从构造器或者序列化中抛出（对于序列化，主要是readObject和readResolve方法，见12章），恶意子类的终结方法可以运行在本应消亡的只构造了部分的对象上。
-
-  
-
+终结方法还有一个严重的安全问题：它将你的类暴露于终结方法攻击。终结方法攻击的背后机制很简单：如果一个异常从构造器或者序列化中抛出（对于序列化，主要是readObject和readResolve方法，见12章），恶意子类的终结方法可以运行在本应夭折的只构造了部分的对象上。终结方法可以在一个静态属性上记录对象的应用，从而阻止了这个对象被垃圾回收。
 
