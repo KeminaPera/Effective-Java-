@@ -41,5 +41,12 @@ Normally, an uncaught exception will terminate the thread and print a stack trac
 
 **Finalizers have a serious security problem: they open your class up to finalizer attacks.**The idea behind a finalizer attack is simple: If an exception is thrown from a constructor or its serialization equivalents—the readObject and readResolve methods \(Chapter 12\)—the finalizer of a malicious subclass can run on the partially constructed object that should have “died on the vine.” This finalizer can record a reference to the object in a static field, preventing it from being garbage collected. Once the malformed object has been recorded, it is a simple matter to invoke arbitrary methods on this object that should never have been allowed to exist in the first place.**Throwing an exception from a constructor should be sufficient to prevent an object from coming into existence; in the presence of finalizers, it is not.**Such attacks can have dire consequences. Final classes are immune to finalizer attacks because no one can write a malicious subclass of a final class.**To protect nonfinal classes from finalizer attacks, write a final finalize method that does nothing.**
 
-**终结方法还有一个严重的安全问题：它将你的类暴露于终结方法攻击（finalizer attack）。**终结方法攻击的背后机制很简单：如果一个异常从构造器或者序列化中抛出（对于序列化，主要是readObject和readResolve方法，见12章），恶意子类的终结方法可以运行在本应夭折的只构造了部分的对象上。终结方法可以在一个静态属性上记录对象的应用，从而阻止这个对象被垃圾回收。一旦记录了有缺陷的对象，就可以简单地调用该对象上的任意方法，而这些方法本来就不应该允许存在。**从构造方法里抛出异常应该足以防止对象被创建，但假如终结方法也存在，就不是这样了。**这种攻击会带来可怕的后果。final类能免疫于此类攻击，因为没有人能对final类进行恶意继承。为了防止非final类遭受终结方法攻击，我们可以写一个什么都不做而且是final的终结方法。
+**终结方法还有一个严重的安全问题：它将你的类暴露于终结方法攻击（finalizer attack）。**终结方法攻击的背后机制很简单：如果一个异常从构造器或者序列化中抛出（对于序列化，主要是readObject和readResolve方法，见12章），恶意子类的终结方法可以运行在本应夭折的只构造了部分的对象上。终结方法可以在一个静态属性上记录对象的应用，从而阻止这个对象被垃圾回收。一旦记录了有缺陷的对象，就可以简单地调用该对象上的任意方法，而这些方法本来就不应该允许存在。**从构造方法里抛出异常应该足以防止对象被创建，但假如终结方法也存在，就不是这样了。**这种攻击会带来可怕的后果。final类能免疫于此类攻击，因为没有人能对final类进行恶意继承。**为了防止非final类遭受终结方法攻击，我们可以写一个什么都不做而且是final的终结方法。**
+
+So what should you do instead of writing a finalizer or cleaner for a class whose objects encapsulate resources that require termination, such as files or threads? Just have your class implement AutoCloseable, and require its clients to invoke the close method on each instance when it is no longer needed, typically using try-with-resources to ensure termination even in the face of exceptions \(Item 9\). One detail worth mentioning is that the instance must keep track of whether it has been closed: the close method must record in a field that the object is no longer valid, and other methods must check this field and throw an IllegalStateException if they are called after the object has been closed.
+
+  
+
+
+
 
