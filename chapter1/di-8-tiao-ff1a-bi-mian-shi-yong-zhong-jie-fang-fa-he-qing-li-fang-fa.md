@@ -51,3 +51,23 @@ So what, if anything, are cleaners and finalizers good for? They have perhaps tw
 
 那么清理方法或者终结方法有什么好处呢？它们可能有两种合法用途。一种用途是作为安全网，以防资源拥有者忘了调用资源的_close_方法。虽然清理方法或者终结方法并不保证会被及时执行（或根本就不运行），但晚释放总比客户端忘了释放好。如果你正考虑写一个这样的作为安全网的终结方法，应该想长远点，想想这层保护是否值得。一些Java类库，如_FileInputStream_，_FileOutputStream_，_ThreadPoolExecutor_，还有_java.sql.Connection_，都有作为安全网的终结方法。
 
+A second legitimate use of cleaners concerns objects with native
+
+peers. A native peer is a native \(non-Java\) object to which a normal
+
+object delegates via native methods. Because a native peer is not a
+
+normal object, the garbage collector doesn’t know about it and
+
+can’t reclaim it when its Java peer is reclaimed. A cleaner or
+
+finalizer may be an appropriate vehicle for this task, assuming the
+
+performance is acceptable and the native peer holds no critical
+
+resources. If the performance is unacceptable or the native peer
+
+holds resources that must be reclaimed promptly, the class should
+
+have a close method, as described earlier.
+
