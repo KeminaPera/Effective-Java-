@@ -51,7 +51,9 @@ So what, if anything, are cleaners and finalizers good for? They have perhaps tw
 
 那么清理方法或者终结方法有什么好处呢？它们可能有两种合法用途。一种用途是作为安全网，以防资源拥有者忘了调用资源的_close_方法。虽然清理方法或者终结方法并不保证会被及时执行（或根本就不运行），但晚释放总比客户端忘了释放好。如果你正考虑写一个这样的作为安全网的终结方法，应该想长远点，想想这层保护是否值得。一些Java类库，如_FileInputStream_，_FileOutputStream_，_ThreadPoolExecutor_，还有_java.sql.Connection_，都有作为安全网的终结方法。
 
-A second legitimate use of cleaners concerns objects with native peers. A native peer is a native \(non-Java\) object to which a normal object delegates via native methods. Because a native peer is not a normal object, the garbage collector doesn’t know about it and can’t reclaim it when its Java peer is reclaimed. A cleaner or finalizer may be an appropriate vehicle for this task, assuming the performance is acceptable and the native peer holds no critical resources. If the performance is unacceptable or the native peer holds resources that must be reclaimed promptly, the class should have a close method, as described earlier.
+A second legitimate use of cleaners concerns objects with native peers. A native peer is a native \(non-Java\) object to which a normal object delegates via native methods. Because a native peer is not a normal object, the garbage collector doesn’t know about it and can’t reclaim it when its Java peer is reclaimed. A cleaner or finalizer may be an appropriate vehicle for this task, assuming the performance is acceptable and the native peer holds no critical resources. If the performance is unacceptable or the native peer holds resources that must be reclaimed promptly, the class should have a _close_ method, as described earlier.
 
-清理方法的第二种合法用途与对象的本地对等体（native peer）有关。本地对等体是指非Java实现的本地对象，普通对象通过本地方法代理给本地对象。由于本地对等体不是普通的对象，垃圾回收器并不知道它的存在进而当Java对等体被回收时也不会去回收它。
+清理方法的第二种合法用途与对象的本地对等体（native peer）有关。本地对等体是指非Java实现的本地对象，普通对象通过本地方法代理给本地对象。由于本地对等体不是普通的对象，垃圾回收器并不知道它的存在进而当Java对等体被回收时也不会去回收它。而清理方法或终结方法正是适合完成这件事的工具，但前提条件是接受其性能并且本地对等体不持有关键资源。假如性能问题无法接受或者本地对等体持有的资源必须被及时回收，那么我们的类还是应该实现一个_close_方法，就如我们一开始提到。
+
+
 
