@@ -81,7 +81,8 @@ public class Room implements AutoCloseable {
         state = new State(numJunkPiles);
         cleanable = cleaner.register(this, state);
     } 
-    @Override public void close() {
+    @Override 
+    public void close() {
         cleanable.clean();
     }
 }
