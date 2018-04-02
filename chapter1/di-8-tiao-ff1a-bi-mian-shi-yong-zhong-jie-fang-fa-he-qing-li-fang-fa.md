@@ -55,5 +55,15 @@ A second legitimate use of cleaners concerns objects with native peers. A native
 
 清理方法的第二种合法用途与对象的本地对等体（native peer）有关。本地对等体是指非Java实现的本地对象，普通对象通过本地方法代理给本地对象。由于本地对等体不是普通的对象，垃圾回收器并不知道它的存在进而当Java对等体被回收时也不会去回收它。而清理方法或终结方法正是适合完成这件事的工具，但前提条件是接受其性能并且本地对等体不持有关键资源。假如性能问题无法接受或者本地对等体持有的资源必须被及时回收，那么我们的类还是应该实现一个_close_方法，就如我们一开始提到。
 
+Cleaners are a bit tricky to use. Below is a simple Room class
 
+demonstrating the facility. Let’s assume that rooms must be
+
+cleaned before they are reclaimed. The Room class
+
+implements AutoCloseable; the fact that its automatic cleaning
+
+safety net uses a cleaner is merely an implementation detail.
+
+Unlike finalizers, cleaners do not pollute a class’s public API:
 
