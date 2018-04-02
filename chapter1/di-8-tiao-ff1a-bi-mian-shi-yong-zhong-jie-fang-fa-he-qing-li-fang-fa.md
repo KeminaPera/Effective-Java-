@@ -55,15 +55,37 @@ A second legitimate use of cleaners concerns objects with native peers. A native
 
 清理方法的第二种合法用途与对象的本地对等体（native peer）有关。本地对等体是指非Java实现的本地对象，普通对象通过本地方法代理给本地对象。由于本地对等体不是普通的对象，垃圾回收器并不知道它的存在进而当Java对等体被回收时也不会去回收它。而清理方法或终结方法正是适合完成这件事的工具，但前提条件是接受其性能并且本地对等体不持有关键资源。假如性能问题无法接受或者本地对等体持有的资源必须被及时回收，那么我们的类还是应该实现一个_close_方法，就如我们一开始提到。
 
-Cleaners are a bit tricky to use. Below is a simple Room class
+Cleaners are a bit tricky to use. Below is a simple _Room_ class demonstrating the facility. Let’s assume that rooms must be cleaned before they are reclaimed. The Room class implements AutoCloseable; the fact that its automatic cleaning safety net uses a cleaner is merely an implementation detail. Unlike finalizers, cleaners do not pollute a class’s public API:
 
-demonstrating the facility. Let’s assume that rooms must be
+清理方法在使用上会有点棘手。下面的代码是一个简单的Room类，其演示了清理方法的功能。让我们来假设room实例在回收前必须被清理。Room类实现了AutoCloseable接口。它的自动清理安全网使用的是清理方法，这仅仅是个实现细节。不像终结方法，清理方法不污染类的公有API：
 
-cleaned before they are reclaimed. The Room class
+```
+// An autocloseable class using a cleaner as a safety net
+public class Room implements AutoCloseable {
+    private static final Cleaner cleaner = Cleaner.create();
+    // Resource that requires cleaning. Must not refer to Room!
+    private static class State implements Runnable {
+        int numJunkPiles; // Number of junk piles in this room
+        State(int numJunkPiles) {
+            this.numJunkPiles = numJunkPiles;
+        }// Invoked by close method or cleaner
+        @Override public void run() {
+            System.out.println("Cleaning room");
+            numJunkPiles = 0;
+        }
+    } // The state of this room, shared with our cleanable
+    private final State state;
+    // Our cleanable. Cleans the room when it’s eligible for gc
+    private final Cleaner.Cleanable cleanable;
+    public Room(int numJunkPiles) {
+        state = new State(numJunkPiles);
+        cleanable = cleaner.register(this, state);
+    } 
+    @Override public void close() {
+        cleanable.clean();
+    }
+}
+```
 
-implements AutoCloseable; the fact that its automatic cleaning
 
-safety net uses a cleaner is merely an implementation detail.
-
-Unlike finalizers, cleaners do not pollute a class’s public API:
 
