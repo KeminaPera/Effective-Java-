@@ -47,21 +47,7 @@ So what should you do instead of writing a finalizer or cleaner for a class whos
 
 所以，对于封装了需要终止使用的资源（比如文件或者线程），我们应该怎么做才能不用编写终止方法或者清理方法呢？我们只需**让类继承**_**AutoCloseable**_**接口**即可，并要求使用这个类的客户端在每个类实例都不再需要时就调用_close_方法，一般都是运用_try-with-resources_来保证资源的终止使用，即使抛出了异常，也能正确终止（条目9）。这里有个细节值得提到，实例必须能对其是否被关闭保持追踪：_close_方法必须在一个属性里声明此对象不再有效，其它方法必须校验这个属性，如果对象被关闭后它们还被调用，就要抛出一个_IllegalStateException_异常。
 
-So what, if anything, are cleaners and finalizers good for? They
+So what, if anything, are cleaners and finalizers good for? They have perhaps two legitimate uses. One is to act as a safety net in case the owner of a resource neglects to call its _close_ method. While there’s no guarantee that the cleaner or finalizer will run promptly \(or at all\), it is better to free the resource late than never if the client fails to do so. If you’re considering writing such a safety-net finalizer, think long and hard about whether the protection is worth the cost. Some Java library classes, such as _FileInputStream_, _FileOutputStream_, _ThreadPoolExecutor_, and _java.sql.Connection_, have finalizers that serve as safety nets.
 
-have perhaps two legitimate uses. One is to act as a safety net in
-
-case the owner of a resource neglects to call its close method. While
-
-there’s no guarantee that the cleaner or finalizer will run promptly
-
-\(or at all\), it is better to free the resource late than never if the
-
-client fails to do so. If you’re considering writing such a safety-netfinalizer, think long and hard about whether the protection is
-
-worth the cost. Some Java library classes, such
-
-as FileInputStream, FileOutputStream, ThreadPoolExecutor,
-
-and java.sql.Connection, have finalizers that serve as safety nets.
+那么清理方法或者终结方法有什么好处呢？它们可能有两种合法用途。一种用途是作为安全网，以防资源拥有者忘了调用资源的_close_方法。虽然清理方法或者终结方法并不保证会被及时执行（或根本就不运行），但晚释放总比客户端忘了释放好。如果你正考虑写一个这样的作为安全网的终结方法，应该想长远点，想想这层保护是否值得。一些Java类库，如_FileInputStream_，_FileOutputStream_，_ThreadPoolExecutor_，还有_java.sql.Connection_，都有作为安全网的终结方法。
 
