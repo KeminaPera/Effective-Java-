@@ -53,5 +53,5 @@ So what, if anything, are cleaners and finalizers good for? They have perhaps tw
 
 A second legitimate use of cleaners concerns objects with native peers. A native peer is a native \(non-Java\) object to which a normal object delegates via native methods. Because a native peer is not a normal object, the garbage collector doesn’t know about it and can’t reclaim it when its Java peer is reclaimed. A cleaner or finalizer may be an appropriate vehicle for this task, assuming the performance is acceptable and the native peer holds no critical resources. If the performance is unacceptable or the native peer holds resources that must be reclaimed promptly, the class should have a close method, as described earlier.
 
-
+清理方法的第二种合法用途与对象的本地对等体（native peer）有关。本地对等体是指非Java实现的本地对象，普通对象通过本地方法代理给本地对象。由于本地对等体不是普通的对象，垃圾回收器并不知道它的存在进而当Java对等体被回收时也不会去回收它。
 
