@@ -50,7 +50,47 @@ Even the correct code for closing resources with try-finally statements, as illu
 
 即使对于正确使用了try-finally语句的代码，如前面所示，也有个不起眼的缺点。无论是try里面的代码还是finally里面的代码，都有可能抛出异常。例如，在firstLineOfFile方法里，如果底层物理设备出了故障，则在调用readLine方法时会抛出异常，而且由于相同的原因，调用close方法也会失败。
 
+Under these circumstances, the second exception completely obliterates the first one. There is no record of the first exception in the exception stack trace, which can greatly complicate debugging in real systems—usually it’s the first exception that you want to see in order to diagnose the problem. While it is possible to write code to suppress the second exception in favor of the first, virtually no one did because it’s just too verbose.
 
+All of these problems were solved in one fell swoop when Java 7 introduced the try-with-resources statement \[JLS, 14.20.3\]. To be usable with this construct, a resource must implement the AutoCloseable interface, which consists of a single void-returning close method. Many classes and interfaces in the Java libraries and in third-party libraries now implement or extend AutoCloseable. If you write a class that represents a resource that must be closed, your class should implement AutoCloseable too.
 
+Here’s how our first example looks using try-with-resources:
 
+```
+// try-with-resources - the the best way to close resources!
+static String firstLineOfFile(String path) throws IOException { try (BufferedReader br = new BufferedReader(
+new FileReader(path))) { return br.readLine();
+} }
+```
+
+And here’s how our second example looks using try-with-resources:
+
+```
+// try-with-resources on multiple resources - short and sweet
+static void copy(String src, String dst) throws IOException {
+try (InputStream in = new FileInputStream(src); OutputStream out = new FileOutputStream(dst)) {
+byte[] buf = new byte[BUFFER_SIZE]; int n;
+while ((n = in.read(buf)) >= 0)
+out.write(buf, 0, n); }
+}
+```
+
+Not only are thetry-with-resources versions shorter and more readable than the originals, but they provide far better diagnostics. Consider thefirstLineOfFilemethod. If exceptions are thrown by both thereadLinecall and the \(invisible\)close, the latter exception issuppressedin favor of the former. In fact, multiple exceptions may be suppressed in order to preserve the exception that you
+
+actually want to see. These suppressed exceptions are not merely discarded; they are printed in the stack trace with a notation saying that they were suppressed. You can also access them programmatically with thegetSuppressedmethod, which was added toThrowablein Java 7.
+
+You can put catch clauses ontry-with-resources statements, just as you can on regulartry-finallystatements. This allows you to handle exceptions without sullying your code with another layer of nesting. As a slightly contrived example, here’s a version
+
+ourfirstLineOfFilemethod that does not throw exceptions, but takes a default value to return if it can’t open the file or read from it:
+
+```
+// try-with-resources with a catch clause
+static String firstLineOfFile(String path, String defaultVal) { try (BufferedReader br = new BufferedReader(
+new FileReader(path))) { return br.readLine();
+} catch (IOException e) { return defaultVal;
+} }
+```
+
+The lesson is clear: Always usetry-with-resources in preference  
+ totry-finallywhen working with resources that must be closed. The resulting code is shorter and clearer, and the exceptions that it generates are more useful. Thetry-with-resources statement makes it easy to write correct code using resources that must be closed, which was practically impossible usingtry-finally.
 
