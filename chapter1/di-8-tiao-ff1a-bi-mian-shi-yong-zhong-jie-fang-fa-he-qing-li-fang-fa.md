@@ -47,3 +47,21 @@ So what should you do instead of writing a finalizer or cleaner for a class whos
 
 所以，对于封装了需要终止使用的资源（比如文件或者线程），我们应该怎么做才能不用编写终止方法或者清理方法呢？我们只需**让类继承**_**AutoCloseable**_**接口**即可，并要求使用这个类的客户端在每个类实例都不再需要时就调用_close_方法，一般都是运用_try-with-resources_来保证资源的终止使用，即使抛出了异常，也能正确终止（条目9）。这里有个细节值得提到，实例必须能对其是否被关闭保持追踪：_close_方法必须在一个属性里声明此对象不再有效，其它方法必须校验这个属性，如果对象被关闭后它们还被调用，就要抛出一个_IllegalStateException_异常。
 
+So what, if anything, are cleaners and finalizers good for? They
+
+have perhaps two legitimate uses. One is to act as a safety net in
+
+case the owner of a resource neglects to call its close method. While
+
+there’s no guarantee that the cleaner or finalizer will run promptly
+
+\(or at all\), it is better to free the resource late than never if the
+
+client fails to do so. If you’re considering writing such a safety-netfinalizer, think long and hard about whether the protection is
+
+worth the cost. Some Java library classes, such
+
+as FileInputStream, FileOutputStream, ThreadPoolExecutor,
+
+and java.sql.Connection, have finalizers that serve as safety nets.
+
