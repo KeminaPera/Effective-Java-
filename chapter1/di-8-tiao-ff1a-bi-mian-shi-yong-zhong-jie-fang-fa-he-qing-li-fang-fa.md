@@ -69,7 +69,8 @@ public class Room implements AutoCloseable {
         State(int numJunkPiles) {
             this.numJunkPiles = numJunkPiles;
         }// Invoked by close method or cleaner
-        @Override public void run() {
+        @Override 
+        public void run() {
             System.out.println("Cleaning room");
             numJunkPiles = 0;
         }
