@@ -178,7 +178,7 @@ public boolean equals(Object o) {
 
 The problem with this method is that you might get different results when comparing a point to a color point and vice versa. The former comparison ignores color, while the latter comparison always returns false because the type of the argument is incorrect. To make this concrete, let’s create one point and one color point:
 
-
+这个方法的问题在于，当一个普通点和一个有色点做比较（或者反过来）时，我们可能会得到不同的值。前一种比较方法忽略了颜色属性，而后一种比较方法却总是返回false，因为参数的类型不正确。为了更直观地说明这个问题，让我们来创建一个普通点和一个有色点：
 
 ```
 Point p = new Point(1, 2);
@@ -186,6 +186,8 @@ ColorPoint cp = new ColorPoint(1, 2, Color.RED);
 ```
 
 Then p.equals\(cp\) returns true, while cp.equals\(p\) returns false. You might try to fix the problem by having ColorPoint.equals ignore color when doing “mixed comparisons”:
+
+在这里，p.equals\(cp\)返回true，而cp.equals\(p\)却返回false。你可能会想着通过这种方式来修复这个问题：当要做混合类型的比较时，让ColorPoint的equals方法忽略color属性：
 
 ```
 // Broken - violates transitivity!
@@ -202,6 +204,8 @@ public boolean equals(Object o) {
 ```
 
 This approach does provide symmetry, but at the expense of transitivity:
+
+这种方式虽然保证了对称性，但却牺牲了传递性：
 
 ```
 ColorPoint p1 = new ColorPoint(1, 2, Color.RED);
