@@ -606,3 +606,14 @@ doing the cast, the method must use the instanceof operator to
 
 check that its argument is of the correct type:
 
+```
+@Override public boolean equals(Object o) {
+if (!(o instanceof MyType))
+return false;
+MyType mt = (MyType) o;
+...
+}
+```
+
+
+
