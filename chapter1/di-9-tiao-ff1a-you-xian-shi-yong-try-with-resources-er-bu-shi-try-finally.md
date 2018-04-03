@@ -58,9 +58,13 @@ Here’s how our first example looks using try-with-resources:
 
 ```
 // try-with-resources - the the best way to close resources!
-static String firstLineOfFile(String path) throws IOException { try (BufferedReader br = new BufferedReader(
-new FileReader(path))) { return br.readLine();
-} }
+static String firstLineOfFile(String path) throws IOException { 
+    try (
+        BufferedReader br = new BufferedReader(new FileReader(path))
+    ) { 
+        return br.readLine();
+    } 
+}
 ```
 
 And here’s how our second example looks using try-with-resources:
@@ -68,10 +72,14 @@ And here’s how our second example looks using try-with-resources:
 ```
 // try-with-resources on multiple resources - short and sweet
 static void copy(String src, String dst) throws IOException {
-try (InputStream in = new FileInputStream(src); OutputStream out = new FileOutputStream(dst)) {
-byte[] buf = new byte[BUFFER_SIZE]; int n;
-while ((n = in.read(buf)) >= 0)
-out.write(buf, 0, n); }
+    try (
+        InputStream in = new FileInputStream(src); 
+        OutputStream out = new FileOutputStream(dst)
+    ) {
+        byte[] buf = new byte[BUFFER_SIZE]; int n;
+        while ((n = in.read(buf)) >= 0)
+            out.write(buf, 0, n); 
+    }
 }
 ```
 
@@ -85,10 +93,15 @@ ourfirstLineOfFilemethod that does not throw exceptions, but takes a default val
 
 ```
 // try-with-resources with a catch clause
-static String firstLineOfFile(String path, String defaultVal) { try (BufferedReader br = new BufferedReader(
-new FileReader(path))) { return br.readLine();
-} catch (IOException e) { return defaultVal;
-} }
+static String firstLineOfFile(String path, String defaultVal) { 
+    try (
+        BufferedReader br = new BufferedReader(new FileReader(path))
+    ) { 
+        return br.readLine();
+    } catch (IOException e) { 
+        return defaultVal;
+    } 
+}
 ```
 
 The lesson is clear: Always usetry-with-resources in preference  
