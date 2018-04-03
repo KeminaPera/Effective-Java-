@@ -21,9 +21,9 @@ public boolean equals(Object o) {
 }
 ```
 
-So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally thecase for value classes. A value class is simply a class that represents a value, such as Integer or String. A programmer who compares references to value objects using the equals method expects to find out whether they are logically equivalent, not whether they refer to the same object. Not only is overriding the equals method necessary to satisfy programmer expectations, it enables instances to serve as map keys or set elements with predictable, desirable behavior.
+So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally the case for value classes. A value class is simply a class that represents a value, such as Integer or String. A programmer who compares references to value objects using the equals method expects to find out whether they are logically equivalent, not whether they refer to the same object. Not only is overriding the equals method necessary to satisfy programmer expectations, it enables instances to serve as map keys or set elements with predictable, desirable behavior.
 
-所以什么时候才适合覆盖equals方法呢？
+所以什么时候才适合覆盖equals方法呢？如果一个类有自己的逻辑相等概念而不仅仅是对象相等，而且超类没有覆盖equals方法时，我们就应该去覆盖。这通常属于“值类”的情形。值类是指那些表示一个值的类，如Integer或者String。程序员使用equals方法来比较两个值对象的引用时总是希望看它们是否逻辑相等，而不是看它们是否指向同一个对象。覆盖equals方法不仅能满足程序员的需求，而且能
 
 One kind of value class that does not require the equals method to
 
