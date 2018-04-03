@@ -187,3 +187,10 @@ symmetry. Suppose you put a case-insensitive string into a
 
 collection:
 
+```
+List<CaseInsensitiveString> list = new ArrayList<>();
+list.add(cis);
+```
+
+
+
