@@ -827,5 +827,23 @@ public boolean equals(MyClass o) {
 }
 ```
 
+The problem is that this method does not override Object.equals,
 
+whose argument is of type Object, but overloads it instead \(Item
+
+52\). It is unacceptable to provide such a “strongly
+
+typed” equalsmethod even in addition to the normal one, because it
+
+can cause Override annotations in subclasses to generate false
+
+positives and provide a false sense of security.
+
+Consistent use of the Override annotation, as illustrated throughout
+
+this item, will prevent you from making this mistake \(Item 40\).
+
+This equals method won’t compile, and the error message will tell
+
+you exactly what is wrong:
 
