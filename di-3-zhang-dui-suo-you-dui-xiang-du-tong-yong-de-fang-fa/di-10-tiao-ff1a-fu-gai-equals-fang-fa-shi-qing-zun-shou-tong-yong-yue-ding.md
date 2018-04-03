@@ -109,9 +109,9 @@ List<CaseInsensitiveString> list = new ArrayList<>();
 list.add(cis);
 ```
 
-What does list.contains\(s\) return at this point? Who knows? In the current OpenJDK implementation, it happens to return false, but that’s just an implementation artifact. In another implementation, it could just as easily return true or throw a runtime exception. Once you’ve violated the equals contract, you simply don’t know how other objects will behave when confronted with your object.
+What does list.contains\(s\) return at this point? Who knows? In the current OpenJDK implementation, it happens to return false, but that’s just an implementation artifact. In another implementation, it could just as easily return true or throw a runtime exception. **Once you’ve violated the equals contract, you simply don’t know how other objects will behave when confronted with your object.**
 
-在这个时候，list.contains\(s\)会返回什么？没人知道。 在当前的OpenJDK实现中，它恰巧返回了false， 但这只是一个特定实现的返回结果。在别的实现里，它有可能会返回true或抛出一个运行时异常。你一旦违反了equals约定，你将不知道别的对象在面对你的对象时会产生什么行为。
+在这个时候，list.contains\(s\)会返回什么？没人知道。 在当前的OpenJDK实现中，它恰巧返回了false， 但这只是一个特定实现的返回结果。在别的实现里，它有可能会返回true或抛出一个运行时异常。**你一旦违反了equals约定，你将不知道别的对象在面对你的对象时会产生什么行为。**
 
 To eliminate the problem, merely remove the ill-conceived attempt to interoperate with String from the equals method. Once you do this, you can refactor the method into a single return statement:
 
@@ -213,7 +213,17 @@ Point p2 = new Point(1, 2);
 ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);
 ```
 
-Now p1.equals\(p2\) and p2.equals\(p3\) return true, while p1.equals\(p3\) returns false, a clear violation of transitivity. The first two comparisons are “color-blind,” while the third takes color into account. Also, this approach can cause infinite recursion: Suppose there are two subclasses of Point, say ColorPoint and SmellPoint, each with thissort of equals method. Then a call to myColorPoint.equals\(mySmellPoint\) will throw a StackOverflowError. So what’s the solution? It turns out that this is a fundamental problem of equivalence relations in object-oriented languages. There is no way to extend an instantiable class and add a value component while preserving the equals contract, unless you’re willing to forgo the benefits of object-oriented abstraction. You may hear it said that you can extend an instantiable class and add a value component while preserving the equals contract by using a getClass test in place of the instanceof test in the equals method:
+Now p1.equals\(p2\) and p2.equals\(p3\) return true, while p1.equals\(p3\) returns false, a clear violation of transitivity. The first two comparisons are “color-blind,” while the third takes color into account. 
+
+现在p1.equals\(p2\)和p2.equals\(p3\)d都返回了true，但p1.equals\(p3\)却返回了false，显然，这违反了传递性。前两个比较是不比较颜色的，但第三个比较却比较了颜色。
+
+Also, this approach can cause infinite recursion: Suppose there are two subclasses of Point, say ColorPoint and SmellPoint, each with this sort of equals method. Then a call to myColorPoint.equals\(mySmellPoint\) will throw a StackOverflowError. So what’s the solution? It turns out that this is a fundamental problem of equivalence relations in object-oriented languages. **There is no way to extend an instantiable class and add a value component while preserving the equals contract**, unless you’re willing to forgo the benefits of object-oriented abstraction. 
+
+不仅如此，这种方式还会引起无限递归：假设有两个Point子类，我们称之为ColorPoint和SmellPoint，每个子类都有这种方式下的equals方法。那么当我们调用myColorPoint.equals\(mySmellPoint\)时将会抛出一个StackOverflowError异常。所以解决办法是什么？这恰恰是面向对象语言中关于等价关系的一个基本问题。我们无法在扩展一个类的同时，既增加一个值组件，又要保留equals约定，除非我们放弃面向对象的抽象带来的好处。
+
+You may hear it said that you can extend an instantiable class and add a value component while preserving the equals contract by using a getClass test in place of the instanceof test in the equals method:
+
+你可能听说，在equals方法中通过使用getClass测试替代instanceof测试，可以在继承一个可实例化的类并添加一个值组件的同时，遵守equals约定：
 
 ```
 // Broken - violates Liskov substitution principle (page 43)
