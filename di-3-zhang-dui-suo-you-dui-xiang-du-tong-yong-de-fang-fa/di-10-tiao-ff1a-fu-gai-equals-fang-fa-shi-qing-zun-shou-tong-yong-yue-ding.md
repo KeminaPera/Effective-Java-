@@ -29,41 +29,27 @@ One kind of value class that does not require the equals method to be overridden
 
 有一类值类（value class）不要求覆盖equals方法，这些类采用了实例控制（条目1）技术来确保同一值的对象最多只有一个。枚举类型（条目34）就属于这种。在这种情况下，逻辑相等与对象相等是等价的，所以Object的equals方法就可以作为逻辑相等方法（logical equals method）。
 
-When you override the equals method, you must adhere to its
-
-general contract. Here is the contract, from the specification
+When you override the equals method, you must adhere to its general contract. Here is the contract, from the specification
 
 for Object :
 
-The equals method implements an equivalence relation. It has
+在覆盖equals方法时，我们必须遵守它的通用约定。下面的约定来自于Object的规范：
 
-these properties:
+The equals method implements an equivalence relation. It has these properties:
 
-• Reflexive: For any non-null reference value x, x.equals\(x\) must
+* _Reflexive_: For any non-null reference value x, x.equals\(x\) must return true.
+* _Symmetric_: For any non-null reference values x and y, x.equals\(y\) must return true if and only if y.equals\(x\) returns true.
+* Transitive: For any non-null reference values x, y, z, if x.equals\(y\) returns true and y.equals\(z\) returns true, then x.equals\(z\) must return true.
+* _Consistent_: For any non-null reference values x and y, multiple invocations of x.equals\(y\) must consistently return true or consistently return false, provided no information used in equals comparisons is modified.
+* For any non-null reference value x, x.equals\(null\) must return false.
 
-return true.
+equals方法实现了等价关系（equivalence relation）。等价关系包含了以下几个性质：
 
-• Symmetric: For any non-null reference
-
-values x and y, x.equals\(y\) must return true if and only
-
-if y.equals\(x\) returns true.• Transitive: For any non-null reference values x, y, z,
-
-if x.equals\(y\) returns true and y.equals\(z\) returns true,
-
-then x.equals\(z\) must return true.
-
-• Consistent: For any non-null reference values x and y, multiple
-
-invocations of x.equals\(y\) must consistently return true or
-
-consistently return false, provided no information used
-
-in equals comparisons is modified.
-
-• For any non-null reference value x, x.equals\(null\) must
-
-return false.
+* 自反性：对于任意非空引用值x，x.equals\(x\)必须返回true。
+* 对称性：对于任意非空引用值x和y，x.equals\(y\)必须返回true，当且仅当y.equals\(x\)返回true。
+* 传递性：对于任意非空引用值x，y，z，如果x.equals\(y\)返回true而且y.equals\(z\)也返回true，那么x.equals\(z\)必须返回true。
+* 一致性：对于任意非空引用值x和y，只要equals方法中使用的信息没有被修改，那么不管多少次调用x.equals\(y\)都必须一致性地返回true或者false。
+* 对于任意非空引用值x，x.equals\(null\)必须返回false。
 
 Unless you are mathematically inclined, this might look a bit scary,
 
