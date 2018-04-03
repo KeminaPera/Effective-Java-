@@ -111,7 +111,11 @@ list.add(cis);
 
 What does list.contains\(s\) return at this point? Who knows? In the current OpenJDK implementation, it happens to return false, but that’s just an implementation artifact. In another implementation, it could just as easily return true or throw a runtime exception. Once you’ve violated the equals contract, you simply don’t know how other objects will behave when confronted with your object.
 
+在这个时候，list.contains\(s\)会返回什么？没人知道。 在当前的OpenJDK实现中，它恰巧返回了false， 但这只是一个特定实现的返回结果。在别的实现里，它有可能会返回true或抛出一个运行时异常。你一旦违反了equals约定，你将不知道别的对象在面对你的对象时会产生什么行为。
+
 To eliminate the problem, merely remove the ill-conceived attempt to interoperate with String from the equals method. Once you do this, you can refactor the method into a single return statement:
+
+为了消除这个问题，只需将把企图与String互操作的代码从equals方法里删掉就可以了。这么做之后，你就可以将这个方法重构成一条单独的返回语句：
 
 ```
 @Override 
@@ -120,107 +124,84 @@ public boolean equals(Object o) {
 }
 ```
 
-**Transitivity**—The third requirement of the equals contract says that if one object is equal to a second and the second object is equal to a third, then the first object must be equal to the third. Again,it’s not hard to imagine violating this requirement unintentionally.
+**Transitivity**—The third requirement of the equals contract says that if one object is equal to a second and the second object is equal to a third, then the first object must be equal to the third. Again, it’s not hard to imagine violating this requirement unintentionally. Consider the case of a subclass that adds a new value component to its superclass. In other words, the subclass adds a piece of information that affects equals comparisons. Let’s start with a simple immutable two-dimensional integer point class:
 
-Consider the case of a subclass that adds a new value
-
-component to its superclass. In other words, the subclass adds a
-
-piece of information that affects equals comparisons. Let’s start
-
-with a simple immutable two-dimensional integer point class:
+**传递性**—equals约定第三条的内容是，如果第一个对象与第二个对象相等，第二个对象与第三个对象相等，那么第一个对象必须与第三个对象相等。同样地，我们也不难想象无意识违反这条约定的情况。考虑这么一种情况，子类往父类里添加一个新的值组件。换句话说，子类添加的信息会影响到equals的比较结果。我们先用一个简单的不可变的二维整数型的Point类作为开始：
 
 ```
 public class Point {
-private final int x;
-private final int y;
-public Point(int x, int y) {
-this.x = x;
-this.y = y;
-} @
-Override public boolean equals(Object o) {
-if (!(o instanceof Point))
-return false;
-Point p = (Point)o;
-return p.x == x && p.y == y;
-} ..
-. // Remainder omitted
+    private final int x;
+    private final int y;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    } 
+    @Override 
+    public boolean equals(Object o) {
+        if (!(o instanceof Point))
+            return false;
+        Point p = (Point)o;
+        return p.x == x && p.y == y;
+    } 
+    ... // Remainder omitted
 }
 ```
 
-Suppose you want to extend this class, adding the notion of color to
+Suppose you want to extend this class, adding the notion of color to a point:
 
-a point:
+假设我们想扩展这个类，为一个点（Point）添加颜色信息：
 
 ```
 public class ColorPoint extends Point {
-private final Color color;public ColorPoint(int x, int y, Color color) {
-super(x, y);
-this.color = color;
-} ..
-. // Remainder omitted
+    private final Color color;
+    public ColorPoint(int x, int y, Color color) {
+        super(x, y);
+        this.color = color;
+    } 
+    ... // Remainder omitted
 }
 ```
 
-How should the equals method look? If you leave it out entirely, the
+How should the equals method look? If you leave it out entirely, the implementation is inherited from Point and color information is ignored in equals comparisons. While this does not violate the equals contract, it is clearly unacceptable. Suppose you write an equals method that returns true only if its argument is another color point with the same position and color:
 
-implementation is inherited from Point and color information is
-
-ignored in equals comparisons. While this does not violate
-
-the equals contract, it is clearly unacceptable. Suppose you write
-
-an equals method that returns trueonly if its argument is another
-
-color point with the same position and color:
+那么equals方法应该变得怎样？如果不去覆盖它，只是从Point类继承过来，那么在做equals比较时颜色信息就被忽略掉了。虽然这样不违反equals约定，但很显然这也是不可接受的。假如我们写了一个equals方法，当且仅当两个相同位置的点的颜色相同时才返回true。
 
 ```
 // Broken - violates symmetry!
-@Override public boolean equals(Object o) {
-if (!(o instanceof ColorPoint))
-return false;
-return super.equals(o) && ((ColorPoint) o).color ==
-color;
+@Override 
+public boolean equals(Object o) {
+    if (!(o instanceof ColorPoint))
+        return false;
+    return super.equals(o) && ((ColorPoint) o).color == color;
 }
 ```
 
-The problem with this method is that you might get different
+The problem with this method is that you might get different results when comparing a point to a color point and vice versa. The former comparison ignores color, while the latter comparison always returns false because the type of the argument is incorrect. To make this concrete, let’s create one point and one color point:
 
-results when comparing a point to a color point and vice versa. The
 
-former comparison ignores color, while the latter comparison
-
-always returns false because the type of the argument is incorrect.
-
-To make this concrete, let’s create one point and one color point:
 
 ```
 Point p = new Point(1, 2);
 ColorPoint cp = new ColorPoint(1, 2, Color.RED);
 ```
 
-Then p.equals\(cp\) returns true, while cp.equals\(p\) returns false. You
-
-might try to fix the problem by having ColorPoint.equals ignore
-
-color when doing “mixed comparisons”:
+Then p.equals\(cp\) returns true, while cp.equals\(p\) returns false. You might try to fix the problem by having ColorPoint.equals ignore color when doing “mixed comparisons”:
 
 ```
 // Broken - violates transitivity!
-@Override public boolean equals(Object o) {
-if (!(o instanceof Point))
-return false;
+@Override 
+public boolean equals(Object o) {
+    if (!(o instanceof Point))
+        return false;
 // If o is a normal Point, do a color-blind comparison
-if (!(o instanceof ColorPoint))
-return o.equals(this);
+    if (!(o instanceof ColorPoint))
+        return o.equals(this);
 // o is a ColorPoint; do a full comparison
-return super.equals(o) && ((ColorPoint) o).color == color;
+    return super.equals(o) && ((ColorPoint) o).color == color;
 }
 ```
 
-This approach does provide symmetry, but at the expense of
-
-transitivity:
+This approach does provide symmetry, but at the expense of transitivity:
 
 ```
 ColorPoint p1 = new ColorPoint(1, 2, Color.RED);
@@ -228,91 +209,43 @@ Point p2 = new Point(1, 2);
 ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);
 ```
 
-Now p1.equals\(p2\) and p2.equals\(p3\) return true,
-
-while p1.equals\(p3\) returns false, a clear violation of transitivity.
-
-The first two comparisons are “color-blind,” while the third takes
-
-color into account.
-
-Also, this approach can cause infinite recursion: Suppose there are
-
-two subclasses of Point, say ColorPoint and SmellPoint, each with thissort of equals method. Then a call
-
-to myColorPoint.equals\(mySmellPoint\) will throw a StackOverflowError.
-
-So what’s the solution? It turns out that this is a fundamental
-
-problem of equivalence relations in object-oriented
-
-languages. There is no way to extend an instantiable class
-
-and add a value component while preserving
-
-the equals contract, unless you’re willing to forgo the benefits of
-
-object-oriented abstraction.
-
-You may hear it said that you can extend an instantiable class and
-
-add a value component while preserving the equals contract by
-
-using a getClass test in place of the instanceof test in
-
-the equals method:
+Now p1.equals\(p2\) and p2.equals\(p3\) return true, while p1.equals\(p3\) returns false, a clear violation of transitivity. The first two comparisons are “color-blind,” while the third takes color into account. Also, this approach can cause infinite recursion: Suppose there are two subclasses of Point, say ColorPoint and SmellPoint, each with thissort of equals method. Then a call to myColorPoint.equals\(mySmellPoint\) will throw a StackOverflowError. So what’s the solution? It turns out that this is a fundamental problem of equivalence relations in object-oriented languages. There is no way to extend an instantiable class and add a value component while preserving the equals contract, unless you’re willing to forgo the benefits of object-oriented abstraction. You may hear it said that you can extend an instantiable class and add a value component while preserving the equals contract by using a getClass test in place of the instanceof test in the equals method:
 
 ```
 // Broken - violates Liskov substitution principle (page 43)
-@Override public boolean equals(Object o) {
-if (o == null || o.getClass() != getClass())
-return false;
-Point p = (Point) o;
-return p.x == x && p.y == y;
+@Override 
+public boolean equals(Object o) {
+    if (o == null || o.getClass() != getClass())
+        return false;
+    Point p = (Point) o;
+    return p.x == x && p.y == y;
 }
 ```
 
-This has the effect of equating objects only if they have the same
-
-implementation class. This may not seem so bad, but the
-
-consequences are unacceptable: An instance of a subclass
-
-of Point is still a Point, and it still needs to function as one, but it
-
-fails to do so if you take this approach! Let’s suppose we want to
-
-write a method to tell whether a point is on the unit circle. Here is
-
-one way we could do it:
+This has the effect of equating objects only if they have the same implementation class. This may not seem so bad, but the consequences are unacceptable: An instance of a subclass of Point is still a Point, and it still needs to function as one, but it fails to do so if you take this approach! Let’s suppose we want to write a method to tell whether a point is on the unit circle. Here is one way we could do it:
 
 ```
 // Initialize unitCircle to contain all Points on the unit
 circleprivate static final Set<Point> unitCircle = Set.of(
-new Point( 1, 0), new Point( 0, 1),
-new Point(-1, 0), new Point( 0, -1));
+                                new Point( 1, 0), new Point( 0, 1),
+                                new Point(-1, 0), new Point( 0, -1));
 public static boolean onUnitCircle(Point p) {
-return unitCircle.contains(p);
+    return unitCircle.contains(p);
 }
 ```
 
-While this may not be the fastest way to implement the
-
-functionality, it works fine. Suppose you extend Point in some
-
-trivial way that doesn’t add a value component, say, by having its
-
-constructor keep track of how many instances have been created:
+While this may not be the fastest way to implement the functionality, it works fine. Suppose you extend Point in some trivial way that doesn’t add a value component, say, by having its constructor keep track of how many instances have been created:
 
 ```
 public class CounterPoint extends Point {
-private static final AtomicInteger counter =
-new AtomicInteger();
-public CounterPoint(int x, int y) {
-super(x, y);
-counter.incrementAndGet();
-} p
-ublic static int numberCreated() { return counter.get(); }
+    private static final AtomicInteger counter = new AtomicInteger();
+    public CounterPoint(int x, int y) {
+        super(x, y);
+        counter.incrementAndGet();
+    } 
+    public static int numberCreated() { 
+        return counter.get(); 
+    }
 }
 ```
 
