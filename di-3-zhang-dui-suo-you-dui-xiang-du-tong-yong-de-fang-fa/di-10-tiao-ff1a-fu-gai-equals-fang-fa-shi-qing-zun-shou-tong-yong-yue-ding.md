@@ -389,3 +389,21 @@ write a method to tell whether a point is on the unit circle. Here is
 
 one way we could do it:
 
+```
+// Initialize unitCircle to contain all Points on the unit
+circleprivate static final Set<Point> unitCircle = Set.of(
+new Point( 1, 0), new Point( 0, 1),
+new Point(-1, 0), new Point( 0, -1));
+public static boolean onUnitCircle(Point p) {
+return unitCircle.contains(p);
+}
+```
+
+While this may not be the fastest way to implement the
+
+functionality, it works fine. Suppose you extend Point in some
+
+trivial way that doesn’t add a value component, say, by having its
+
+constructor keep track of how many instances have been created:
+
