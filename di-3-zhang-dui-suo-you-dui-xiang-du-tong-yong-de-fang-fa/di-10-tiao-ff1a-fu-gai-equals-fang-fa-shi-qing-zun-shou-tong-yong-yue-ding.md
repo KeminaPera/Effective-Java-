@@ -287,5 +287,13 @@ color;
 }
 ```
 
+The problem with this method is that you might get different
 
+results when comparing a point to a color point and vice versa. The
+
+former comparison ignores color, while the latter comparison
+
+always returns false because the type of the argument is incorrect.
+
+To make this concrete, let’s create one point and one color point:
 
