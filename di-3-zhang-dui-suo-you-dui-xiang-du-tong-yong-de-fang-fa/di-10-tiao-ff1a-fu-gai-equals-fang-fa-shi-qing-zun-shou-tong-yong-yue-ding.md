@@ -164,5 +164,9 @@ return false;
 }
 ```
 
+The well-intentioned equals method in this class naively attempts
 
+to interoperate with ordinary strings. Let’s suppose that we have
+
+one case-insensitive string and one ordinary one:
 
