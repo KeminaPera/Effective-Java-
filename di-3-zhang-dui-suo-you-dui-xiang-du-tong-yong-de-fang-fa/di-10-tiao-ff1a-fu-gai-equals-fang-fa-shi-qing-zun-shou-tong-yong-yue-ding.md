@@ -641,7 +641,7 @@ reference to this object. If so, return true. This is just aperformance optimiza
 
 comparison is potentially expensive.
 
-2. Use the instanceof operator to check if the argument has
+1. Use the instanceof operator to check if the argument has
 
 the correct type. If not, return false. Typically, the correct type is
 
@@ -657,11 +657,11 @@ Collection interfaces such as Set, List, Map, and Map.Entry have this
 
 property.
 
-3. Cast the argument to the correct type. Because this cast
+1. Cast the argument to the correct type. Because this cast
 
 was preceded by an instanceoftest, it is guaranteed to succeed.
 
-4. For each “significant” field in the class, check if that
+1. For each “significant” field in the class, check if that
 
 field of the argument matches the corresponding field of
 
@@ -768,4 +768,33 @@ also satisfy the other two properties \(reflexivity and non-nullity\),
 but these two usually take care of themselves.An equals method constructed according to the previous recipe is
 
 shown in this simplistic PhoneNumber class:
+
+```
+// Class with a typical equals method
+public final class PhoneNumber {
+private final short areaCode, prefix, lineNum;
+public PhoneNumber(int areaCode, int prefix, int lineNum) {
+this.areaCode = rangeCheck(areaCode, 999, "area code");
+this.prefix = rangeCheck(prefix, 999, "prefix");
+this.lineNum = rangeCheck(lineNum, 9999, "line num");
+} p
+rivate static short rangeCheck(int val, int max, String arg) {
+if (val < 0 || val > max)
+throw new IllegalArgumentException(arg + ": " + val);
+return (short) val;
+} @
+Override public boolean equals(Object o) {
+if (o == this)
+return true;
+if (!(o instanceof PhoneNumber))
+return false;
+PhoneNumber pn = (PhoneNumber)o;
+return pn.lineNum == lineNum && pn.prefix == prefix
+&& pn.areaCode == areaCode;
+} ..
+. // Remainder omitted
+}
+```
+
+
 
