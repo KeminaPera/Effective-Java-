@@ -65,8 +65,7 @@ So what is an equivalence relation? Loosely speaking, it’s an operator that pa
 
 **Reflexivity**—The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.
 
-**自反性**—  
-第一条要求仅仅说明一个对象必须与其自身相等。很难想像谁会在无意识的情况下去违反这条要求。如果你想违反它并往集合（collection）里添加了你的类的一个实例，那么集合的contains方法将会告诉你集合里不包含你刚添加的那个实例。
+**自反性**—第一条要求仅仅说明一个对象必须与其自身相等。很难想像谁会在无意识的情况下去违反这条要求。如果你想违反它并往集合（collection）里添加了你的类的一个实例，那么集合的contains方法将会告诉你集合里不包含你刚添加的那个实例。
 
 **Symmetry**—The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
 
@@ -102,6 +101,8 @@ String s = "polish";
 ```
 
 As expected, cis.equals\(s\) returns true. The problem is that while the equals method in CaseInsensitiveString knows about ordinary strings, the equals method in String is oblivious to case-insensitive strings. Therefore, s.equals\(cis\) returns false, a clear violation of symmetry. Suppose you put a case-insensitive string into a collection:
+
+正如所料，cis.equals\(s\)返回了true。问题是，虽然CaseInsensitiveString类的equals方法知道普通的字符串，但String类的equals方法却对大小写不敏感的字符串一无所知。因此，s.equals\(cis\)返回false， 这显然违反了对称性。设想我们将一个大小写不敏感的字符串放入一个集合里：
 
 ```
 List<CaseInsensitiveString> list = new ArrayList<>();
