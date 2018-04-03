@@ -175,5 +175,15 @@ CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
 String s = "polish";
 ```
 
+As expected, cis.equals\(s\) returns true. The problem is that while
 
+the equals method in CaseInsensitiveString knows about ordinary
+
+strings, the equals method in String is oblivious to case-insensitive
+
+strings. Therefore, s.equals\(cis\) returns false, a clear violation of
+
+symmetry. Suppose you put a case-insensitive string into a
+
+collection:
 
