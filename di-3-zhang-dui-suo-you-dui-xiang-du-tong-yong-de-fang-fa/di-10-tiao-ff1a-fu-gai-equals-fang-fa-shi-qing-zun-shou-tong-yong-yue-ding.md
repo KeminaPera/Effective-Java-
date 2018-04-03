@@ -10,7 +10,7 @@ Overriding the equals method seems simple, but there are many ways to get it wro
 覆盖equals方法看起来好像挺简单的，但其实有许多覆盖方式会导致错误，并且会导致严重的后果。避免这些问题最简单的方式是不覆盖equals方法，在这种情况下，类的每个实例只跟它自己等价。如果满足以下任一条件，那么我们做的就是所期望的：
 
 * **类的每个实例本质上都是独一无二的。**这一点对于那些代表活动实体而不是值的类来说的确如此。Object类提供的equals方法实现正是这些类的正确行为。
-* **无需为类提供"逻辑相等”测试。**例如，java.util.regex.Pattern本可以通过覆盖equals方法来校验两个Pattern实例是否表示相同正则表达式，但设计者们并不认为客户端需要这个功能。
+* **无需为类提供"逻辑相等”测试。**例如，java.util.regex.Pattern本可以通过覆盖equals方法来校验两个Pattern实例是否表示相同正则表达式，但设计者们并不认为客户端需要这个功能。在这种情况下，equals方法直接继承自Object类就已经足够了。
 
 ```
 @Override 
