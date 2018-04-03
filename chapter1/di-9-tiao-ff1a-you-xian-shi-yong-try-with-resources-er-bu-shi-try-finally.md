@@ -46,11 +46,9 @@ It may be hard to believe, but even good programmers got this wrong most of the 
 
 这可能会有点难以置信，但即使是好的程序员在很多时候也会犯这个错误。首先，我在Java Puzzlers\[Bloch05\]这本书的第88页上搞错了，而且很多年过去了也没人发现。事实上，2007年的Java类库里三分之二的close方法都用错了。
 
-Even the correct code for closing resources with try-finally statements, as illustrated in the previous two code examples, has a subtle deficiency. The code in both the try block and the finally block is capable of throwing exceptions. For example, in the firstLineOfFile method, the call to readLine could throw an exception due to a failure in the underlying physical device, and the call to close could then fail for the same reason.
+Even the correct code for closing resources with try-finally statements, as illustrated in the previous two code examples, has a subtle deficiency. The code in both the try block and the finally block is capable of throwing exceptions. For example, in the firstLineOfFile method, the call to readLine could throw an exception due to a failure in the underlying physical device, and the call to close could then fail for the same reason. Under these circumstances, the second exception completely obliterates the first one. There is no record of the first exception in the exception stack trace, which can greatly complicate debugging in real systems—usually it’s the first exception that you want to see in order to diagnose the problem. While it is possible to write code to suppress the second exception in favor of the first, virtually no one did because it’s just too verbose.
 
-即使对于正确使用了try-finally语句的代码，如前面所示，也有个不起眼的缺点。无论是try里面的代码还是finally里面的代码，都有可能抛出异常。例如，在firstLineOfFile方法里，如果底层物理设备出了故障，则在调用readLine方法时会抛出异常，而且由于相同的原因，调用close方法也会失败。
-
-Under these circumstances, the second exception completely obliterates the first one. There is no record of the first exception in the exception stack trace, which can greatly complicate debugging in real systems—usually it’s the first exception that you want to see in order to diagnose the problem. While it is possible to write code to suppress the second exception in favor of the first, virtually no one did because it’s just too verbose.
+即使对于正确使用了try-finally语句的代码，如前面所示，也有个不起眼的缺点。无论是try里面的代码还是finally里面的代码，都有可能抛出异常。例如，在firstLineOfFile方法里，如果底层物理设备出了故障，则在调用readLine方法时会抛出异常，而且由于相同的原因，调用close方法也会失败。在这种情况下，第二种异常覆盖了第一种异常。在异常错误栈里将没有第一种异常的记录，这会使实际系统的调试变得很复杂，因为很多时候你是想查看第一种异常来诊断问题。虽然我们可以通过编写代码抑制第二种异常来让第一种异常显现出来，但几乎没人会这么做，因为这样的话代码就变得太冗长了。
 
 All of these problems were solved in one fell swoop when Java 7 introduced the try-with-resources statement \[JLS, 14.20.3\]. To be usable with this construct, a resource must implement the AutoCloseable interface, which consists of a single void-returning close method. Many classes and interfaces in the Java libraries and in third-party libraries now implement or extend AutoCloseable. If you write a class that represents a resource that must be closed, your class should implement AutoCloseable too.
 
@@ -83,13 +81,9 @@ static void copy(String src, String dst) throws IOException {
 }
 ```
 
-Not only are thetry-with-resources versions shorter and more readable than the originals, but they provide far better diagnostics. Consider thefirstLineOfFilemethod. If exceptions are thrown by both thereadLinecall and the \(invisible\)close, the latter exception issuppressedin favor of the former. In fact, multiple exceptions may be suppressed in order to preserve the exception that you
+Not only are thetry-with-resources versions shorter and more readable than the originals, but they provide far better diagnostics. Consider the firstLineOfFile method. If exceptions are thrown by both thereadLinecall and the \(invisible\)close, the latter exception issuppressedin favor of the former. In fact, multiple exceptions may be suppressed in order to preserve the exception that you actually want to see. These suppressed exceptions are not merely discarded; they are printed in the stack trace with a notation saying that they were suppressed. You can also access them programmatically with thegetSuppressedmethod, which was added toThrowable in Java 7.
 
-actually want to see. These suppressed exceptions are not merely discarded; they are printed in the stack trace with a notation saying that they were suppressed. You can also access them programmatically with thegetSuppressedmethod, which was added toThrowablein Java 7.
-
-You can put catch clauses ontry-with-resources statements, just as you can on regulartry-finallystatements. This allows you to handle exceptions without sullying your code with another layer of nesting. As a slightly contrived example, here’s a version
-
-ourfirstLineOfFilemethod that does not throw exceptions, but takes a default value to return if it can’t open the file or read from it:
+You can put catch clauses ontry-with-resources statements, just as you can on regulartry-finallystatements. This allows you to handle exceptions without sullying your code with another layer of nesting. As a slightly contrived example, here’s a version our firstLineOfFile method that does not throw exceptions, but takes a default value to return if it can’t open the file or read from it:
 
 ```
 // try-with-resources with a catch clause
@@ -104,6 +98,5 @@ static String firstLineOfFile(String path, String defaultVal) {
 }
 ```
 
-The lesson is clear: Always usetry-with-resources in preference  
- totry-finallywhen working with resources that must be closed. The resulting code is shorter and clearer, and the exceptions that it generates are more useful. Thetry-with-resources statement makes it easy to write correct code using resources that must be closed, which was practically impossible usingtry-finally.
+The lesson is clear: Always use try-with-resources in preference to try-finallywhen working with resources that must be closed. The resulting code is shorter and clearer, and the exceptions that it generates are more useful. The try-with-resources statement makes it easy to write correct code using resources that must be closed, which was practically impossible using try-finally.
 
