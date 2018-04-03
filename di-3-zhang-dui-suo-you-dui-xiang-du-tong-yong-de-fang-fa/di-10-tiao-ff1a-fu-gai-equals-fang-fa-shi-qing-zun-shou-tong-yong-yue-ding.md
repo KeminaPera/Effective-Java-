@@ -615,5 +615,157 @@ MyType mt = (MyType) o;
 }
 ```
 
+If this type check were missing and the equals method were passed
 
+an argument of the wrong type, the equals method would throw
+
+a ClassCastException, which violates the equals contract. But
+
+the instanceof operator is specified to return false if its first
+
+operand is null, regardless of what type appears in the second
+
+operand \[JLS, 15.20.2\]. Therefore, the type check will
+
+return false if null is passed in, so you don’t need an
+
+explicit null check.
+
+Putting it all together, here’s a recipe for a
+
+high-quality equals method:
+
+1. Use the == operator to check if the argument is a
+
+reference to this object. If so, return true. This is just aperformance optimization but one that is worth doing if the
+
+comparison is potentially expensive.
+
+2. Use the instanceof operator to check if the argument has
+
+the correct type. If not, return false. Typically, the correct type is
+
+the class in which the method occurs. Occasionally, it is some
+
+interface implemented by this class. Use an interface if the class
+
+implements an interface that refines the equals contract to permit
+
+comparisons across classes that implement the interface.
+
+Collection interfaces such as Set, List, Map, and Map.Entry have this
+
+property.
+
+3. Cast the argument to the correct type. Because this cast
+
+was preceded by an instanceoftest, it is guaranteed to succeed.
+
+4. For each “significant” field in the class, check if that
+
+field of the argument matches the corresponding field of
+
+this object. If all these tests succeed, return true; otherwise,
+
+return false. If the type in Step 2 is an interface, you must access
+
+the argument’s fields via interface methods; if the type is a class,
+
+you may be able to access the fields directly, depending on their
+
+accessibility.
+
+For primitive fields whose type is not float or double, use
+
+the == operator for comparisons; for object reference fields, call
+
+the equals method recursively; for float fields, use the
+
+static Float.compare\(float, float\) method; and for double fields,
+
+use Double.compare\(double, double\). The special treatment
+
+of float and double fields is made necessary by the existence
+
+of Float.NaN, -0.0f and the analogous double values; see JLS 15.21.1
+
+or the documentation of Float.equals for details. While you could
+
+compare float and double fields with the static
+
+methods Float.equalsand Double.equals, this would entail
+
+autoboxing on every comparison, which would have poor
+
+performance. For array fields, apply these guidelines to each
+
+element. If every element in an array field is significant, use one of
+
+the Arrays.equals methods.Some object reference fields may legitimately contain null. To
+
+avoid the possibility of a NullPointerException, check such fields for
+
+equality using the static method Objects.equals\(Object, Object\).
+
+For some classes, such as CaseInsensitiveString above, field
+
+comparisons are more complex than simple equality tests. If this is
+
+the case, you may want to store a canonical form of the field so
+
+the equals method can do a cheap exact comparison on canonical
+
+forms rather than a more costly nonstandard comparison. This
+
+technique is most appropriate for immutable classes \(Item 17\); if
+
+the object can change, you must keep the canonical form up to
+
+date.
+
+The performance of the equals method may be affected by the order
+
+in which fields are compared. For best performance, you should
+
+first compare fields that are more likely to differ, less expensive to
+
+compare, or, ideally, both. You must not compare fields that are
+
+not part of an object’s logical state, such as lock fields used to
+
+synchronize operations. You need not compare derived fields,
+
+which can be calculated from “significant fields,” but doing so may
+
+improve the performance of the equals method. If a derived field
+
+amounts to a summary description of the entire object, comparing
+
+this field will save you the expense of comparing the actual data if
+
+the comparison fails. For example, suppose you have a Polygon class,
+
+and you cache the area. If two polygons have unequal areas, you
+
+needn’t bother comparing their edges and vertices.
+
+When you are finished writing your equals method, ask
+
+yourself three questions: Is it symmetric? Is it transitive?
+
+Is it consistent? And don’t just ask yourself; write unit tests to
+
+check, unless you used AutoValue \(page 49\) to generate
+
+your equals method, in which case you can safely omit the tests. If
+
+the properties fail to hold, figure out why, and modify
+
+the equals method accordingly. Of course your equals method must
+
+also satisfy the other two properties \(reflexivity and non-nullity\),
+
+but these two usually take care of themselves.An equals method constructed according to the previous recipe is
+
+shown in this simplistic PhoneNumber class:
 
