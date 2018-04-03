@@ -796,5 +796,27 @@ return pn.lineNum == lineNum && pn.prefix == prefix
 }
 ```
 
+Here are a few final caveats:• Always override hashCode when you override equals \(Item
 
+11\).
+
+• Don’t try to be too clever. If you simply test fields for equality,
+
+it’s not hard to adhere to the equals contract. If you are overly
+
+aggressive in searching for equivalence, it’s easy to get into trouble.
+
+It is generally a bad idea to take any form of aliasing into account.
+
+For example, the File class shouldn’t attempt to equate symbolic
+
+links referring to the same file. Thankfully, it doesn’t.
+
+• Don’t substitute another type for Object in
+
+the equals declaration. It is not uncommon for a programmer to
+
+write an equals method that looks like this and then spend hours
+
+puzzling over why it doesn’t work properly:
 
