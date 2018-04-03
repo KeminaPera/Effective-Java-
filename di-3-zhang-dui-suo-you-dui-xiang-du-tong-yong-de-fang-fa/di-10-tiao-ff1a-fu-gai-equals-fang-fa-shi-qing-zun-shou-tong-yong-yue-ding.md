@@ -55,47 +55,15 @@ Unless you are mathematically inclined, this might look a bit scary, but do not 
 
 除非你喜欢数学，否则上面那些性质可能会看起来有点可怕，但千万别忽视它们！如果你违反了它们，你将会发现你的程序表现得不正常，甚至崩溃了，而且要排查失败的源头也是很困难。用John Donne的话来说就是，没有哪一个类是孤立的。一个类的实例经常被传递给另一个。很多类（包括所有的集合类）都依赖于传给它们的对象，而这些传入的对象必须遵守equals约定。
 
-Now that you are aware of the dangers of violating
+Now that you are aware of the dangers of violating the equals contract, let’s go over the contract in detail. The good news is that, appearances notwithstanding, it really isn’t very complicated. Once you understand it, it’s not hard to adhere to it. 
 
-the equals contract, let’s go over the contract in detail. The good
+现在我们知道了违反这些equals约定会有什么可怕后果，接下来让我们来详细过一遍这些约定。有个好消息是，这些约定虽然看起来可怕，但实际上并不复杂。
 
-news is that, appearances notwithstanding, it really isn’t very
+So what is an equivalence relation? Loosely speaking, it’s an operator that partitions a set of elements into subsets whose elements are deemed equal to one another. These subsets are known as equivalence classes. For an equals method to be useful, all of the elements in each equivalence class must be interchangeable from the perspective of the user. Now let’s examine the five requirements in turn:
 
-complicated. Once you understand it, it’s not hard to adhere to it.
+一旦我们了解了它们，遵守它们并不难。所以什么是等价关系？笼统地说，它是一个运算符，这个运算符将一组元素划分为彼此元素相等的子集，这些子集被称为等价类。为了让equals方法有用，从用户角度来说每个等价类里面的元素都必须是不可变的。现在让我们来按顺序逐一查看刚提到的等价性质的5个属性：
 
-So what is an equivalence relation? Loosely speaking, it’s an
-
-operator that partitions a set of elements into subsets whose
-
-elements are deemed equal to one another. These subsets are
-
-known as equivalence classes. For an equals method to be useful,
-
-all of the elements in each equivalence class must be
-
-interchangeable from the perspective of the user. Now let’s
-
-examine the five requirements in turn:
-
-Reflexivity—The first requirement says merely that an object
-
-must be equal to itself. It’s hard to imagine violating this one
-
-unintentionally. If you were to violate it and then add an instance
-
-of your class to a collection, the contains method might well say
-
-that the collection didn’t contain the instance that you just added.Symmetry—The second requirement says that any two objects
-
-must agree on whether they are equal. Unlike the first requirement,
-
-it’s not hard to imagine violating this one unintentionally. For
-
-example, consider the following class, which implements a
-
-case-insensitive string. The case of the string is preserved
-
-by toString but ignored in equals comparisons:
+**Reflexivity**—The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.Symmetry—The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
 
 ```
 // Broken - violates symmetry!
