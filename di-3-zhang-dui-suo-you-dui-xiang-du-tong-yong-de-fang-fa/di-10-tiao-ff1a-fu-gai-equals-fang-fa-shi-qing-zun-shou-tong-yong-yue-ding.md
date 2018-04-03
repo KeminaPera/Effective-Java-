@@ -25,17 +25,9 @@ So when is it appropriate to override equals? It is when a class has a notion of
 
 所以什么时候才适合覆盖equals方法呢？如果一个类有自己的逻辑相等概念而不仅仅是对象相等，而且超类没有覆盖equals方法时，我们就应该去覆盖。这通常属于“值类”的情形。值类是指那些表示一个值的类，如Integer或者String。程序员使用equals方法来比较两个值对象的引用时总是希望看它们是否逻辑相等，而不是看它们是否指向同一个对象。覆盖equals方法不仅能满足程序员的需求，而且能将对应的实例作为映射表（map）的键（key）或者集合（set）的元素，使得映射表或集合表现出预期的行为。
 
-One kind of value class that does not require the equals method to
+One kind of value class that does not require the equals method to be overridden is a class that uses instance control \(Item 1\) to ensure that at most one object exists with each value. Enum types \(Item 34\) fall into this category. For these classes, logical equality is the same as object identity, so Object’s equals method functions as a logical equals method.
 
-be overridden is a class that uses instance control \(Item 1\) to
-
-ensure that at most one object exists with each value. Enum types
-
-\(Item 34\) fall into this category. For these classes, logical equality
-
-is the same as object identity, so Object’s equals method functions
-
-as a logical equals method.
+有一类值类（value class）不要求覆盖equals方法，这些类采用了实例控制（条目1）技术来确保同一值的对象最多只有一个。枚举类型（条目34）就属于这种。在这种情况下，逻辑相等与对象相等是等价的，所以Object的equals方法就可以作为逻辑相等方法（logical equals method）。
 
 When you override the equals method, you must adhere to its
 
