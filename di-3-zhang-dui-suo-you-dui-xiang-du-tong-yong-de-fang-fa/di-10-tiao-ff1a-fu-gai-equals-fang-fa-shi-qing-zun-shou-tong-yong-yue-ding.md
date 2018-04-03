@@ -588,3 +588,13 @@ Many classes have equalsmethods that guard against it with an
 
 explicit test for null:
 
+```
+@Override public boolean equals(Object o) {
+if (o == null)
+return false;
+...
+}
+```
+
+
+
