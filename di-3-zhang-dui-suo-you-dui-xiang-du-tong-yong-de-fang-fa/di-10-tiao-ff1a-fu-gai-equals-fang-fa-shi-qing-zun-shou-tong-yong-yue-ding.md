@@ -255,3 +255,15 @@ Suppose you want to extend this class, adding the notion of color to
 
 a point:
 
+```
+public class ColorPoint extends Point {
+private final Color color;public ColorPoint(int x, int y, Color color) {
+super(x, y);
+this.color = color;
+} ..
+. // Remainder omitted
+}
+```
+
+
+
