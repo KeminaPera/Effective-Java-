@@ -820,3 +820,12 @@ write an equals method that looks like this and then spend hours
 
 puzzling over why it doesn’t work properly:
 
+```
+// Broken - parameter type must be Object!
+public boolean equals(MyClass o) {
+...
+}
+```
+
+
+
