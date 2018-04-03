@@ -366,7 +366,6 @@ using a getClass test in place of the instanceof test in
 the equals method:
 
 ```
-
 // Broken - violates Liskov substitution principle (page 43)
 @Override public boolean equals(Object o) {
 if (o == null || o.getClass() != getClass())
@@ -376,5 +375,17 @@ return p.x == x && p.y == y;
 }
 ```
 
+This has the effect of equating objects only if they have the same
 
+implementation class. This may not seem so bad, but the
+
+consequences are unacceptable: An instance of a subclass
+
+of Point is still a Point, and it still needs to function as one, but it
+
+fails to do so if you take this approach! Let’s suppose we want to
+
+write a method to tell whether a point is on the unit circle. Here is
+
+one way we could do it:
 
