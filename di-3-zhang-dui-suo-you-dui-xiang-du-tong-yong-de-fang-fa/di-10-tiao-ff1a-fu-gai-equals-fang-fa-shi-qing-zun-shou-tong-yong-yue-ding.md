@@ -596,5 +596,13 @@ return false;
 }
 ```
 
+This test is unnecessary. To test its argument for equality,
 
+the equals method must first cast its argument to an appropriate
+
+type so its accessors can be invoked or its fields accessed. Before
+
+doing the cast, the method must use the instanceof operator to
+
+check that its argument is of the correct type:
 
