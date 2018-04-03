@@ -212,3 +212,12 @@ to interoperate with String from the equals method. Once you do
 
 this, you can refactor the method into a single return statement:
 
+```
+@Override public boolean equals(Object o) {
+return o instanceof CaseInsensitiveString &&
+((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
+}
+```
+
+
+
