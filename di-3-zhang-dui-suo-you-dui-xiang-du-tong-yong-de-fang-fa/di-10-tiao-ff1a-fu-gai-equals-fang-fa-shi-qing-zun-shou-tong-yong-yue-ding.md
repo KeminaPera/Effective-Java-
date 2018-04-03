@@ -302,5 +302,9 @@ Point p = new Point(1, 2);
 ColorPoint cp = new ColorPoint(1, 2, Color.RED);
 ```
 
+Then p.equals\(cp\) returns true, while cp.equals\(p\) returns false. You
 
+might try to fix the problem by having ColorPoint.equals ignore
+
+color when doing “mixed comparisons”:
 
