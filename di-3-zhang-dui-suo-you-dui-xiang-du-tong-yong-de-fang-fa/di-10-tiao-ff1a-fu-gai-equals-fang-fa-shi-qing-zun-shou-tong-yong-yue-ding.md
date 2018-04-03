@@ -251,5 +251,7 @@ return p.x == x && p.y == y;
 }
 ```
 
+Suppose you want to extend this class, adding the notion of color to
 
+a point:
 
