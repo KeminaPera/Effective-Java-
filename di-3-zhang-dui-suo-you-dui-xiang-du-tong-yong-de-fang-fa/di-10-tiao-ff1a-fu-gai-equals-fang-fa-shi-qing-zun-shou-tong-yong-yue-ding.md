@@ -419,5 +419,45 @@ ublic static int numberCreated() { return counter.get(); }
 }
 ```
 
+The Liskov substitution principle says that any important property
 
+of a type should also hold for all its subtypes so that any method
+
+written for the type should work equally well on its subtypes
+
+\[Liskov87\]. This is the formal statement of our earlier claim that a
+
+subclass of Point \(such as CounterPoint\) is still a Point and must act
+
+as one. But suppose we pass a CounterPoint to
+
+the onUnitCirclemethod. If the Point class uses
+
+a getClass-based equals method, the onUnitCircle method willreturn false regardless of
+
+the CounterPoint instance’s x and y coordinates. This is so because
+
+most collections, including the HashSet used by
+
+the onUnitCircle method, use the equals method to test for
+
+containment, and no CounterPoint instance is equal to any Point. If,
+
+however, you use a proper instanceof-based equals method on Point,
+
+the same onUnitCircle method works fine when presented with
+
+a CounterPoint instance.
+
+While there is no satisfactory way to extend an instantiable class
+
+and add a value component, there is a fine workaround: Follow the
+
+advice of Item 18, “Favor composition over inheritance.” Instead of
+
+having ColorPoint extend Point, give ColorPoint a private Point field
+
+and a public view method \(Item 6\) that returns the point at the
+
+same position as this color point:
 
