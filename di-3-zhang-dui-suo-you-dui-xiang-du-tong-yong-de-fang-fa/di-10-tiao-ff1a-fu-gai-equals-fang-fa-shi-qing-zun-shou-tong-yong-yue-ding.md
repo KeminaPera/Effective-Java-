@@ -11,6 +11,8 @@ Overriding the equals method seems simple, but there are many ways to get it wro
 
 * **类的每个实例本质上都是独一无二的。**这一点对于那些代表活动实体而不是值的类来说的确如此。Object类提供的equals方法实现正是这些类的正确行为。
 * **无需为类提供"逻辑相等”测试。**例如，java.util.regex.Pattern本可以通过覆盖equals方法来校验两个Pattern实例是否表示相同正则表达式，但设计者们并不认为客户端需要这个功能。在这种情况下，equals方法直接继承自Object类就已经足够了。
+* **若超类已经覆盖equals方法，那么超类的行为对于子类也是适用的。**例如，大多数Set的equals方法的实现都是继承自AbstractSet，类似地，List继承自AbstractList，Map继承自AbstractMap。
+* **如果一个类是私有的或者是包私有的，那么我们可以确定它的equals方法将永远不会被调用。**如果你很害怕风险，那么你也可以覆盖equals方法来保证它不会被意外调用：
 
 ```
 @Override 
@@ -20,6 +22,8 @@ public boolean equals(Object o) {
 ```
 
 So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally thecase for value classes. A value class is simply a class that represents a value, such as Integer or String. A programmer who compares references to value objects using the equals method expects to find out whether they are logically equivalent, not whether they refer to the same object. Not only is overriding the equals method necessary to satisfy programmer expectations, it enables instances to serve as map keys or set elements with predictable, desirable behavior.
+
+所以什么时候才适合覆盖equals方法呢？
 
 One kind of value class that does not require the equals method to
 
