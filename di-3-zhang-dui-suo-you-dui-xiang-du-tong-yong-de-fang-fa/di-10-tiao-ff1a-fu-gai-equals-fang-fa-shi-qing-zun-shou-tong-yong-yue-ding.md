@@ -65,7 +65,8 @@ So what is an equivalence relation? Loosely speaking, it’s an operator that pa
 
 **Reflexivity**—The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.
 
-**自反性**—第一条要求仅仅说明一个对象必须与其自身相等。很难想像谁会在无意识的情况下去违反这条要求。如果你想违反它并往集合（collection）里添加了你的类的一个实例，那么集合的contains方法将会告诉你集合里不包含你刚添加的那个实例。
+**自反性**—  
+第一条要求仅仅说明一个对象必须与其自身相等。很难想像谁会在无意识的情况下去违反这条要求。如果你想违反它并往集合（collection）里添加了你的类的一个实例，那么集合的contains方法将会告诉你集合里不包含你刚添加的那个实例。
 
 **Symmetry**—The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
 
@@ -92,6 +93,8 @@ public final class CaseInsensitiveString {
 ```
 
 The well-intentioned equals method in this class naively attempts to interoperate with ordinary strings. Let’s suppose that we have one case-insensitive string and one ordinary one:
+
+上面类中的equals方法意图很好，它企图与正常的字符串进行互操作。让我们来假设我们同时有一个大小写不敏感字符串和一个普通的字符串：
 
 ```
 CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
