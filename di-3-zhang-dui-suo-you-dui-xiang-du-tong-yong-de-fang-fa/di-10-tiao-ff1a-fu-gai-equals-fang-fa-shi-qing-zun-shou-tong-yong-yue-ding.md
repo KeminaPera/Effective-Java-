@@ -331,5 +331,37 @@ Point p2 = new Point(1, 2);
 ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);
 ```
 
+Now p1.equals\(p2\) and p2.equals\(p3\) return true,
 
+while p1.equals\(p3\) returns false, a clear violation of transitivity.
+
+The first two comparisons are “color-blind,” while the third takes
+
+color into account.
+
+Also, this approach can cause infinite recursion: Suppose there are
+
+two subclasses of Point, say ColorPoint and SmellPoint, each with thissort of equals method. Then a call
+
+to myColorPoint.equals\(mySmellPoint\) will throw a StackOverflowError.
+
+So what’s the solution? It turns out that this is a fundamental
+
+problem of equivalence relations in object-oriented
+
+languages. There is no way to extend an instantiable class
+
+and add a value component while preserving
+
+the equals contract, unless you’re willing to forgo the benefits of
+
+object-oriented abstraction.
+
+You may hear it said that you can extend an instantiable class and
+
+add a value component while preserving the equals contract by
+
+using a getClass test in place of the instanceof test in
+
+the equals method:
 
