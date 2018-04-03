@@ -847,3 +847,11 @@ This equals method won’t compile, and the error message will tell
 
 you exactly what is wrong:
 
+```
+// Still broken, but won’t compile
+@Override public boolean equals(MyClass o) {...
+}
+```
+
+
+
