@@ -265,5 +265,15 @@ this.color = color;
 }
 ```
 
+How should the equals method look? If you leave it out entirely, the
 
+implementation is inherited from Point and color information is
+
+ignored in equals comparisons. While this does not violate
+
+the equals contract, it is clearly unacceptable. Suppose you write
+
+an equals method that returns trueonly if its argument is another
+
+color point with the same position and color:
 
