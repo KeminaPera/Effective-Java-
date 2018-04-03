@@ -407,3 +407,17 @@ trivial way that doesn’t add a value component, say, by having its
 
 constructor keep track of how many instances have been created:
 
+```
+public class CounterPoint extends Point {
+private static final AtomicInteger counter =
+new AtomicInteger();
+public CounterPoint(int x, int y) {
+super(x, y);
+counter.incrementAndGet();
+} p
+ublic static int numberCreated() { return counter.get(); }
+}
+```
+
+
+
