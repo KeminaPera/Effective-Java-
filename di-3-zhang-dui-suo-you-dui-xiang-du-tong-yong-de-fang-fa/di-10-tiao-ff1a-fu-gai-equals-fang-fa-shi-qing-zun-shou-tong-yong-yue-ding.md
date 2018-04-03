@@ -192,5 +192,23 @@ List<CaseInsensitiveString> list = new ArrayList<>();
 list.add(cis);
 ```
 
+What does list.contains\(s\) return at this point? Who knows? In the
 
+current OpenJDK implementation, it happens to return false, but
+
+that’s just an implementation artifact. In another implementation,
+
+it could just as easily return true or throw a runtime
+
+exception. Once you’ve violated the equals contract, you
+
+simply don’t know how other objects will behave when
+
+confronted with your object.
+
+To eliminate the problem, merely remove the ill-conceived attempt
+
+to interoperate with String from the equals method. Once you do
+
+this, you can refactor the method into a single return statement:
 
