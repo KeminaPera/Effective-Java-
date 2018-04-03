@@ -55,7 +55,7 @@ Unless you are mathematically inclined, this might look a bit scary, but do not 
 
 除非你喜欢数学，否则上面那些性质可能会看起来有点可怕，但千万别忽视它们！如果你违反了它们，你将会发现你的程序表现得不正常，甚至崩溃了，而且要排查失败的源头也是很困难。用John Donne的话来说就是，没有哪一个类是孤立的。一个类的实例经常被传递给另一个。很多类（包括所有的集合类）都依赖于传给它们的对象，而这些传入的对象必须遵守equals约定。
 
-Now that you are aware of the dangers of violating the equals contract, let’s go over the contract in detail. The good news is that, appearances notwithstanding, it really isn’t very complicated. Once you understand it, it’s not hard to adhere to it. 
+Now that you are aware of the dangers of violating the equals contract, let’s go over the contract in detail. The good news is that, appearances notwithstanding, it really isn’t very complicated. Once you understand it, it’s not hard to adhere to it.
 
 现在我们知道了违反这些equals约定会有什么可怕后果，接下来让我们来详细过一遍这些约定。有个好消息是，这些约定虽然看起来可怕，但实际上并不复杂。
 
@@ -63,88 +63,60 @@ So what is an equivalence relation? Loosely speaking, it’s an operator that pa
 
 一旦我们了解了它们，遵守它们并不难。所以什么是等价关系？笼统地说，它是一个运算符，这个运算符将一组元素划分为彼此元素相等的子集，这些子集被称为等价类。为了让equals方法有用，从用户角度来说每个等价类里面的元素都必须是不可变的。现在让我们来按顺序逐一查看刚提到的等价性质的5个属性：
 
-**Reflexivity**—The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.Symmetry—The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
+**Reflexivity**—The first requirement says merely that an object must be equal to itself. It’s hard to imagine violating this one unintentionally. If you were to violate it and then add an instance of your class to a collection, the contains method might well say that the collection didn’t contain the instance that you just added.
+
+**自反性**—第一条要求仅仅说明一个对象必须与其自身相等。很难想像谁会在无意识的情况下去违反这条要求。如果你想违反它并往集合（collection）里添加了你的类的一个实例，那么集合的contains方法将会告诉你集合里不包含你刚添加的那个实例。
+
+**Symmetry**—The second requirement says that any two objects must agree on whether they are equal. Unlike the first requirement, it’s not hard to imagine violating this one unintentionally. For example, consider the following class, which implements a case-insensitive string. The case of the string is preserved by toString but ignored in equals comparisons:
+
+**对称性**—第二条要求里提到，两个对象对于它们是否相等的问题必须达成一致。与第一条要求不同，若有谁无意中违反了这一条，是不难想象的。例如，考虑下面这个类，这个类实现了一个大小写不敏感的字符串。字符串由toString保存，但在equals方法中被忽略：
 
 ```
 // Broken - violates symmetry!
 public final class CaseInsensitiveString {
-private final String s;
-public CaseInsensitiveString(String s) {
-this.s = Objects.requireNonNull(s);
-} /
-/ Broken - violates symmetry!
-@Override public boolean equals(Object o) {
-if (o instanceof CaseInsensitiveString)
-return s.equalsIgnoreCase(
-((CaseInsensitiveString) o).s);
-if (o instanceof String) // One-way interoperability!
-return s.equalsIgnoreCase((String) o);
-return false;
-} ..
-. // Remainder omitted
+    private final String s;
+    public CaseInsensitiveString(String s) {
+        this.s = Objects.requireNonNull(s);
+    } 
+    // Broken - violates symmetry!
+    @Override 
+    public boolean equals(Object o) {
+        if (o instanceof CaseInsensitiveString)
+            return s.equalsIgnoreCase(((CaseInsensitiveString) o).s);
+        if (o instanceof String) // One-way interoperability!
+            return s.equalsIgnoreCase((String) o);
+        return false;
+    } 
+    ... // Remainder omitted
 }
 ```
 
-The well-intentioned equals method in this class naively attempts
-
-to interoperate with ordinary strings. Let’s suppose that we have
-
-one case-insensitive string and one ordinary one:
+The well-intentioned equals method in this class naively attempts to interoperate with ordinary strings. Let’s suppose that we have one case-insensitive string and one ordinary one:
 
 ```
 CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
 String s = "polish";
 ```
 
-As expected, cis.equals\(s\) returns true. The problem is that while
-
-the equals method in CaseInsensitiveString knows about ordinary
-
-strings, the equals method in String is oblivious to case-insensitive
-
-strings. Therefore, s.equals\(cis\) returns false, a clear violation of
-
-symmetry. Suppose you put a case-insensitive string into a
-
-collection:
+As expected, cis.equals\(s\) returns true. The problem is that while the equals method in CaseInsensitiveString knows about ordinary strings, the equals method in String is oblivious to case-insensitive strings. Therefore, s.equals\(cis\) returns false, a clear violation of symmetry. Suppose you put a case-insensitive string into a collection:
 
 ```
 List<CaseInsensitiveString> list = new ArrayList<>();
 list.add(cis);
 ```
 
-What does list.contains\(s\) return at this point? Who knows? In the
+What does list.contains\(s\) return at this point? Who knows? In the current OpenJDK implementation, it happens to return false, but that’s just an implementation artifact. In another implementation, it could just as easily return true or throw a runtime exception. Once you’ve violated the equals contract, you simply don’t know how other objects will behave when confronted with your object.
 
-current OpenJDK implementation, it happens to return false, but
-
-that’s just an implementation artifact. In another implementation,
-
-it could just as easily return true or throw a runtime
-
-exception. Once you’ve violated the equals contract, you
-
-simply don’t know how other objects will behave when
-
-confronted with your object.
-
-To eliminate the problem, merely remove the ill-conceived attempt
-
-to interoperate with String from the equals method. Once you do
-
-this, you can refactor the method into a single return statement:
+To eliminate the problem, merely remove the ill-conceived attempt to interoperate with String from the equals method. Once you do this, you can refactor the method into a single return statement:
 
 ```
-@Override public boolean equals(Object o) {
-return o instanceof CaseInsensitiveString &&
-((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
+@Override 
+public boolean equals(Object o) {
+    return o instanceof CaseInsensitiveString && ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
 }
 ```
 
-Transitivity—The third requirement of the equals contract says
-
-that if one object is equal to a second and the second object is equal
-
-to a third, then the first object must be equal to the third. Again,it’s not hard to imagine violating this requirement unintentionally.
+**Transitivity**—The third requirement of the equals contract says that if one object is equal to a second and the second object is equal to a third, then the first object must be equal to the third. Again,it’s not hard to imagine violating this requirement unintentionally.
 
 Consider the case of a subclass that adds a new value
 
