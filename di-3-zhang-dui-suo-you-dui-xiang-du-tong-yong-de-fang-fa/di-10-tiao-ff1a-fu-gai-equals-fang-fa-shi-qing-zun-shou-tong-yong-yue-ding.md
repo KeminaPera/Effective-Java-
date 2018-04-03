@@ -277,3 +277,15 @@ an equals method that returns trueonly if its argument is another
 
 color point with the same position and color:
 
+```
+// Broken - violates symmetry!
+@Override public boolean equals(Object o) {
+if (!(o instanceof ColorPoint))
+return false;
+return super.equals(o) && ((ColorPoint) o).color ==
+color;
+}
+```
+
+
+
