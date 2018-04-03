@@ -321,5 +321,9 @@ return super.equals(o) && ((ColorPoint) o).color == color;
 }
 ```
 
+This approach does provide symmetry, but at the expense of
+
+transitivity:
+
 
 
