@@ -170,3 +170,10 @@ to interoperate with ordinary strings. Let’s suppose that we have
 
 one case-insensitive string and one ordinary one:
 
+```
+CaseInsensitiveString cis = new CaseInsensitiveString("Polish");
+String s = "polish";
+```
+
+
+
