@@ -51,19 +51,9 @@ equals方法实现了等价关系（equivalence relation）。等价关系包含
 * 一致性：对于任意非空引用值x和y，只要equals方法中使用的信息没有被修改，那么不管多少次调用x.equals\(y\)都必须一致性地返回true或者false。
 * 对于任意非空引用值x，x.equals\(null\)必须返回false。
 
-Unless you are mathematically inclined, this might look a bit scary,
+Unless you are mathematically inclined, this might look a bit scary, but do not ignore it! If you violate it, you may well find that your program behaves erratically or crashes, and it can be very difficult to pin down the source of the failure. To paraphrase John Donne, no class is an island. Instances of one class are frequently passed to another. Many classes, including all collections classes, depend on the objects passed to them obeying the equals contract.
 
-but do not ignore it! If you violate it, you may well find that your
-
-program behaves erratically or crashes, and it can be very difficult
-
-to pin down the source of the failure. To paraphrase John Donne,
-
-no class is an island. Instances of one class are frequently passed to
-
-another. Many classes, including all collections classes, depend on
-
-the objects passed to them obeying the equals contract.
+除非你喜欢数学，否则上面那些性质可能会看起来有点可怕，但千万别忽视它们！如果你违反了它们，你将会发现你的程序表现得不正常，甚至崩溃了，而且要排查失败的源头也是很困难。用John Donne的话来说就是，没有哪一个类是孤立的。一个类的实例经常被传递给另一个。很多类（包括所有的集合类）都依赖于传给它们的对象，而这些传入的对象必须遵守equals约定。
 
 Now that you are aware of the dangers of violating
 
