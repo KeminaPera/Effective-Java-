@@ -297,3 +297,10 @@ always returns false because the type of the argument is incorrect.
 
 To make this concrete, let’s create one point and one color point:
 
+```
+Point p = new Point(1, 2);
+ColorPoint cp = new ColorPoint(1, 2, Color.RED);
+```
+
+
+
