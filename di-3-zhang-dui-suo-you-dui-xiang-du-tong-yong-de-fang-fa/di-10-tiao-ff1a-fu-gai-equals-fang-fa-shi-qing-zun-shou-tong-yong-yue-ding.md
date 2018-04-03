@@ -9,7 +9,8 @@ Overriding the equals method seems simple, but there are many ways to get it wro
 
 覆盖equals方法看起来好像挺简单的，但其实有许多覆盖方式会导致错误，并且会导致严重的后果。避免这些问题最简单的方式是不覆盖equals方法，在这种情况下，类的每个实例只跟它自己等价。如果满足以下任一条件，那么我们做的就是所期望的：
 
-* **类的每个实例本质上都是独一无二的。**
+* **类的每个实例本质上都是独一无二的。**这一点对于那些代表活动实体而不是值的类来说的确如此。Object类提供的equals方法实现正是这些类的正确行为。
+* **无需为类提供"逻辑相等”测试。**例如，java.util.regex.Pattern本可以通过覆盖equals方法来校验两个Pattern实例是否表示相同正则表达式，但设计者们并不认为客户端需要这个功能。
 
 ```
 @Override 
@@ -19,8 +20,6 @@ public boolean equals(Object o) {
 ```
 
 So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally thecase for value classes. A value class is simply a class that represents a value, such as Integer or String. A programmer who compares references to value objects using the equals method expects to find out whether they are logically equivalent, not whether they refer to the same object. Not only is overriding the equals method necessary to satisfy programmer expectations, it enables instances to serve as map keys or set elements with predictable, desirable behavior.
-
-
 
 One kind of value class that does not require the equals method to
 
