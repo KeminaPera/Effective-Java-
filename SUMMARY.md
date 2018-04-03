@@ -11,4 +11,5 @@
   * [第7条：消除过时的对象引用](chapter1/di-7-tiao-ff1a-xiao-chu-guo-shi-de-dui-xiang-yin-yong.md)
   * [第8条：避免使用终结方法和清理方法](chapter1/di-8-tiao-ff1a-bi-mian-shi-yong-zhong-jie-fang-fa-he-qing-li-fang-fa.md)
   * [第9条：优先使用try-with-resources而不是try-finally](chapter1/di-9-tiao-ff1a-you-xian-shi-yong-try-with-resources-er-bu-shi-try-finally.md)
+* [第3章 对所有对象都通用的方法](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa.md)
 
