@@ -18,27 +18,9 @@ public boolean equals(Object o) {
 }
 ```
 
-So when is it appropriate to override equals? It is when a class has a
+So when is it appropriate to override equals? It is when a class has a notion of logical equality that differs from mere object identity and a superclass has not already overridden equals. This is generally thecase for value classes. A value class is simply a class that represents a value, such as Integer or String. A programmer who compares references to value objects using the equals method expects to find out whether they are logically equivalent, not whether they refer to the same object. Not only is overriding the equals method necessary to satisfy programmer expectations, it enables instances to serve as map keys or set elements with predictable, desirable behavior.
 
-notion of logical equality that differs from mere object identity and
 
-a superclass has not already overridden equals. This is generally the
-
-case for value classes. A value class is simply a class that
-
-represents a value, such as Integer or String. A programmer who
-
-compares references to value objects using the equals method
-
-expects to find out whether they are logically equivalent, not
-
-whether they refer to the same object. Not only is overriding
-
-the equals method necessary to satisfy programmer expectations, it
-
-enables instances to serve as map keys or set elements with
-
-predictable, desirable behavior.
 
 One kind of value class that does not require the equals method to
 
