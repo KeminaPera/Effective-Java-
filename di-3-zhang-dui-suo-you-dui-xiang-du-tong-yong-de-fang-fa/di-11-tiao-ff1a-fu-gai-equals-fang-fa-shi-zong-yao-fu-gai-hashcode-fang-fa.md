@@ -42,5 +42,15 @@ public int hashCode() {
 }
 ```
 
+It’s legal because it ensures that equal objects have the same hash
 
+code. It’s atrocious because it ensures that every object has the
+
+same hash code. Therefore, every object hashes to the same bucket,
+
+and hash tables degenerate to linked lists. Programs that should
+
+run in linear time instead run in quadratic time. For large hash
+
+tables, this is the difference between working and not working.
 
