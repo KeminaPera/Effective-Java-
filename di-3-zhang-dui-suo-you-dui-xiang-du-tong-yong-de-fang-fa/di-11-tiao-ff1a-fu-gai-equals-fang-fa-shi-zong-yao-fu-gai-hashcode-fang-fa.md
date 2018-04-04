@@ -99,17 +99,9 @@ public int hashCode() {
 }
 ```
 
-Because this method returns the result of a simple deterministic
+Because this method returns the result of a simple deterministic computation whose only inputs are the three significant fields in a PhoneNumber instance, it is clear that equal PhoneNumber instances have equal hash codes. This method is, in fact, a perfectly good hashCode implementation for PhoneNumber, on par with those in the Java platform libraries. It is simple, is reasonably fast, and does a reasonable job of dispersing unequal phone numbers into different hash buckets.
 
-computation whose only inputs are the three significant fields in
+在上面的代码里，hashCode用到的只是PhoneNumber实例的三个重要属性，并通过确定的计算返回了result。很明显，相等的PhoneNumber实例拥有相等的哈希码。事实上，PhoneNumber的这个hashCode方法的实现是很棒的，相当于Java类库的实现。这个方法简单，快，而且能把不相等的电话号码分布到不同的哈希桶里。
 
-a PhoneNumber instance, it is clear that equal PhoneNumber instances
 
-have equal hash codes. This method is, in fact, a perfectly
-
-good hashCode implementation for PhoneNumber, on par with those in
-
-the Java platform libraries. It is simple, is reasonably fast, anddoes a reasonable job of dispersing unequal phone numbers into
-
-different hash buckets.
 
