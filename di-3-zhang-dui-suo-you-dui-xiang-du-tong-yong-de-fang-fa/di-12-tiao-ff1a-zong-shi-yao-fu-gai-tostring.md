@@ -64,3 +64,17 @@ public String toString() {
 
 If you decide not to specify a format, the documentation comment should read something like this:
 
+如果决定不指定格式，则文档注释应该是像这样子的：
+
+```
+/**
+ * Returns a brief description of this potion. The exact details
+ * of the representation are unspecified and subject to change,
+ * but the following may be regarded as typical: *
+ * "[Potion #9: type=love, smell=turpentine, look=india ink]" 
+ */
+@Override public String toString() { ... }
+```
+
+
+
