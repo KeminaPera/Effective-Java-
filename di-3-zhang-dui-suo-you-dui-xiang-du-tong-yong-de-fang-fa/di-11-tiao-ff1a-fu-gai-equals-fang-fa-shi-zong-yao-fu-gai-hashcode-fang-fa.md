@@ -80,27 +80,7 @@ You must exclude any fields that are not used in equals comparisons, or you risk
 
 我们一定要将equals比较过程中用不到的属性排除在外，不然将违反hashCode约定中的第二条。
 
-The multiplication in step 2.b makes the result depend on the
+The multiplication in step 2.b makes the result depend on the order of the fields, yielding a much better hash function if the class has multiple similar fields. For example, if the multiplication were omitted from a String hash function, all anagrams would have identical hash codes. The value 31 was chosen because it is an odd prime. If it were even and the multiplication overflowed, information would be lost, because multiplication by 2 is equivalent to shifting. The advantage of using a prime is less clear, but it is traditional. A nice property of 31 is that the multiplication can be replaced by a shift and a subtraction for better performance on some architectures: 31 \* i == \(i &lt;&lt; 5\) - i. Modern VMs do this sort of optimization automatically.
 
-order of the fields, yielding a much better hash function if the class
 
-has multiple similar fields. For example, if the multiplication were
-
-omitted from a String hash function, all anagrams would have
-
-identical hash codes. The value 31 was chosen because it is an odd
-
-prime. If it were even and the multiplication overflowed,
-
-information would be lost, because multiplication by 2 is
-
-equivalent to shifting. The advantage of using a prime is less clear,
-
-but it is traditional. A nice property of 31 is that the multiplication
-
-can be replaced by a shift and a subtraction for better performance
-
-on some architectures: 31 \* i == \(i &lt;&lt; 5\) - i. Modern VMs do this sort
-
-of optimization automatically.
 
