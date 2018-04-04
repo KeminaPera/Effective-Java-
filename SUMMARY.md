@@ -13,4 +13,5 @@
   * [第9条：优先使用try-with-resources而不是try-finally](chapter1/di-9-tiao-ff1a-you-xian-shi-yong-try-with-resources-er-bu-shi-try-finally.md)
 * [第3章 对所有对象都通用的方法](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa.md)
   * [第10条：覆盖equals方法时请遵守通用约定](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-10-tiao-ff1a-fu-gai-equals-fang-fa-shi-qing-zun-shou-tong-yong-yue-ding.md)
+  * [第11条：覆盖equals方法时总要覆盖hashCode方法](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-11-tiao-ff1a-fu-gai-equals-fang-fa-shi-zong-yao-fu-gai-hashcode-fang-fa.md)
 
