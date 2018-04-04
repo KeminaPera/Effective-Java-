@@ -32,31 +32,5 @@ Programmers will generate diagnostic messages in this fashion whether or not you
 Assertion failure: expected {abc, 123}, but was {abc, 123}.
 ```
 
-One important decision you’ll have to make when implementing
-
-a toString method is whether to specify the format of the return
-
-value in the documentation. It is recommended that you do this
-
-for value classes, such as phone number or matrix. The advantage
-
-of specifying the format is that it serves as a standard,
-
-unambiguous, human-readable representation of the object. This
-
-representation can be used for input and output and in persistent
-
-human-readable data objects, such as CSV files. If you specify the
-
-format, it’s usually a good idea to provide a matching static factory
-
-or constructor so programmers can easily translate back and forth
-
-between the object and its string representation. This approach is
-
-taken by many value classes in the Java platform libraries,
-
-including BigInteger, BigDecimal, and most of the boxed primitive
-
-classes.
+One important decision you’ll have to make when implementing a toString method is whether to specify the format of the return value in the documentation. It is recommended that you do this for value classes, such as phone number or matrix. The advantage of specifying the format is that it serves as a standard, unambiguous, human-readable representation of the object. This representation can be used for input and output and in persistent human-readable data objects, such as CSV files. If you specify the format, it’s usually a good idea to provide a matching static factory or constructor so programmers can easily translate back and forth between the object and its string representation. This approach is taken by many value classes in the Java platform libraries, including BigInteger, BigDecimal, and most of the boxed primitive classes.
 
