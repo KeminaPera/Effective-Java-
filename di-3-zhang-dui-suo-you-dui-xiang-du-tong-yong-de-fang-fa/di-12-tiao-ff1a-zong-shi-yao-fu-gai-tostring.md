@@ -34,5 +34,5 @@ Assertion failure: expected {abc, 123}, but was {abc, 123}.
 
 One important decision you’ll have to make when implementing a toString method is whether to specify the format of the return value in the documentation. It is recommended that you do this for value classes, such as phone number or matrix. The advantage of specifying the format is that it serves as a standard, unambiguous, human-readable representation of the object. This representation can be used for input and output and in persistent human-readable data objects, such as CSV files. If you specify the format, it’s usually a good idea to provide a matching static factory or constructor so programmers can easily translate back and forth between the object and its string representation. This approach is taken by many value classes in the Java platform libraries, including BigInteger, BigDecimal, and most of the boxed primitive classes.
 
-
+在实现toString方法时，我们必须做一个很重要的决定，那就是是否要在文档中指定返回值的格式。对于值类（value class），如电话号码或矩阵，是推荐这么做的。指定格式的好处是，它可以被用作标准的，明确的，可阅读的对象表示法。这种表示法可以被用于输入和输出，以及用在人类可阅读的数据对象上，如CSV文件。如果你指定了这个格式，最好再提供一个相匹配的静态工厂或者构造器，这样程序员能方便地在对象和它的字符串展示之间来回转换。Java类库里很多值类都采取了这种方式，包括BigInteger，BigDecimal和大多数装箱基础类。
 
