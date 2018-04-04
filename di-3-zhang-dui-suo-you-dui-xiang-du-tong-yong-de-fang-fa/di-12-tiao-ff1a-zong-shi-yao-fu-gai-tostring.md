@@ -20,19 +20,7 @@ If you’ve provided a good toString method for PhoneNumber, generating a useful
 System.out.println("Failed to connect to " + phoneNumber);
 ```
 
+Programmers will generate diagnostic messages in this fashion whether or not you override toString, but the messages won’t be useful unless you do. The benefits of providing a good toString method extend beyond instances of the class to objects containing references to these instances, especially collections. Which would you rather see when printing a map, {Jenny=PhoneNumber@163b91} or {Jenny=707-867-5309}?
 
-
-Programmers will generate diagnostic messages in this fashion
-
-whether or not you override toString, but the messages won’t be
-
-useful unless you do. The benefits of providing a
-
-good toString method extend beyond instances of the class to
-
-objects containing references to these instances, especially
-
-collections. Which would you rather see when printing a
-
-map, {Jenny=PhoneNumber@163b91} or {Jenny=707-867-5309}?
+无论是否覆盖toString方法，程序员都将以这种方式来生成诊断信息，但如果不覆盖的话生成的信息将会变得用途不大。提供一个好的toString方法的好处是，不仅有益于该类的实例，而且有益于包含这些实例的引用的对象，尤其是集合。在打印一个map的时候，你更想看到哪一个结果，{Jenny=PhoneNumber@163b91} 还是{Jenny=707-867-5309}？
 
