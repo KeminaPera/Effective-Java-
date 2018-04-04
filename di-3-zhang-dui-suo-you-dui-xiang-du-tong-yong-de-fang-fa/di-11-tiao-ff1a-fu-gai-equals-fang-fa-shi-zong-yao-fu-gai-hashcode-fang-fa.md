@@ -86,3 +86,30 @@ The multiplication in step 2.b makes the result depend on the order of the field
 
 Let’s apply the previous recipe to the PhoneNumber class:
 
+接下来让我们将前面讨论的方法用在PhoneNumber类上：
+
+```
+// Typical hashCode method
+@Override 
+public int hashCode() {
+    int result = Short.hashCode(areaCode);
+    result = 31 * result + Short.hashCode(prefix);
+    result = 31 * result + Short.hashCode(lineNum);
+    return result;
+}
+```
+
+Because this method returns the result of a simple deterministic
+
+computation whose only inputs are the three significant fields in
+
+a PhoneNumber instance, it is clear that equal PhoneNumber instances
+
+have equal hash codes. This method is, in fact, a perfectly
+
+good hashCode implementation for PhoneNumber, on par with those in
+
+the Java platform libraries. It is simple, is reasonably fast, anddoes a reasonable job of dispersing unequal phone numbers into
+
+different hash buckets.
+
