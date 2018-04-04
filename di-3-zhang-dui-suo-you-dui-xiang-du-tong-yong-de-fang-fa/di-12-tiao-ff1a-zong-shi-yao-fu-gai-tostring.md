@@ -8,25 +8,5 @@ The toString contract goes on to say, “It is recommended that all subclasses o
 
 toString方法的通用约定接着说道，“建议所有的子类都覆盖这个方法”。这的确是条好的建议！
 
-While it isn’t as critical as obeying the equals and hashCode contracts
-
-\(Items 10 and 11\), providing a good toString implementation
-
-makes your class much more pleasant to use and makes
-
-systems using the class easier to debug. The toString method
-
-is automatically invoked when an object is passed to println, printf,
-
-the string concatenation operator, or assert, or is printed by a
-
-debugger. Even if you never call toString on an object, others may.
-
-For example, a component that has a reference to your object may
-
-include the string representation of the object in a logged error
-
-message. If you fail to override toString, the message may be all but
-
-useless.
+While it isn’t as critical as obeying the equals and hashCode contracts \(Items 10 and 11\), providing a good toString implementation makes your class much more pleasant to use and makes systems using the class easier to debug. The toString method is automatically invoked when an object is passed to println, printf, the string concatenation operator, or assert, or is printed by a debugger. Even if you never call toString on an object, others may. For example, a component that has a reference to your object may include the string representation of the object in a logged error message. If you fail to override toString, the message may be all but useless.
 
