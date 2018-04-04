@@ -76,3 +76,9 @@ You may exclude derived fields from the hash code computation. In other words, y
 
 在哈希码的计算过程中，我们可以将派生字段排除在外。换句话说，我们可以忽略一些属性，这些属性的值可以根据计算过程中所用到的属性计算出来。
 
+You must exclude any fields that are not used
+
+in equals comparisons, or you risk violating the second provision of
+
+the hashCode contract.
+
