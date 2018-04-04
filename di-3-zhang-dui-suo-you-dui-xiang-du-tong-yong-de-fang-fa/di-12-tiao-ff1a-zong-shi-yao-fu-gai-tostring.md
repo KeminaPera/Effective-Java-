@@ -24,13 +24,39 @@ Programmers will generate diagnostic messages in this fashion whether or not you
 
 无论是否覆盖toString方法，程序员都将以这种方式来生成诊断信息，但如果不覆盖的话生成的信息将会变得用途不大。提供一个好的toString方法的好处是，不仅有益于该类的实例，而且有益于包含这些实例的引用的对象，尤其是集合。在打印一个map的时候，你更想看到哪一个结果，{Jenny=PhoneNumber@163b91} 还是{Jenny=707-867-5309}？
 
-When practical, the toString method should return all of the interesting information contained in the object, as shown in the phone number example. It is impractical if the object is large or if it contains state that is not conducive to string representation. Under these circumstances, toString should return a summary such as Manhattan residential phone directory \(1487536 listings\) or Thread\[main,5,main\]. Ideally, the string should be self-explanatory. \(The Thread example flunks this test.\) Aparticularly annoying penalty for failing to include all of an object’s interesting information in its string representation is test failure reports that look like this:
+**When practical, the toString method should return all of the interesting information contained in the object**, as shown in the phone number example. It is impractical if the object is large or if it contains state that is not conducive to string representation. Under these circumstances, toString should return a summary such as Manhattan residential phone directory \(1487536 listings\) or Thread\[main,5,main\]. Ideally, the string should be self-explanatory. \(The Thread example flunks this test.\) Aparticularly annoying penalty for failing to include all of an object’s interesting information in its string representation is test failure reports that look like this:
 
-在实际应用当中，toString方法应该返回类里面所有有用的信息，就像前面所示的电话号码一样。如果对象太大或者对象中包含的状态信息难以用字符串表述，这么做就有点不切实际。在这种情况下，toString方法应该返回一个摘要信息，例如"Manhattan residential phone directory\(1487536 listings\)"或者“Thread\[main,5,main\]”。理想状态下，一个字符串应该是能自解释的。（Thread的例子不满足这个要求。）
+**在实际应用当中，toString方法应该返回类里面所有有用的信息**，就像前面所示的电话号码一样。如果对象太大或者对象中包含的状态信息难以用字符串表述，这么做就有点不切实际。在这种情况下，toString方法应该返回一个摘要信息，例如"Manhattan residential phone directory\(1487536 listings\)"或者“Thread\[main,5,main\]”。理想状态下，一个字符串应该是能自解释的。（Thread的例子不满足这个要求。）
 
 ```
 Assertion failure: expected {abc, 123}, but was {abc, 123}.
 ```
 
+One important decision you’ll have to make when implementing
 
+a toString method is whether to specify the format of the return
+
+value in the documentation. It is recommended that you do this
+
+for value classes, such as phone number or matrix. The advantage
+
+of specifying the format is that it serves as a standard,
+
+unambiguous, human-readable representation of the object. This
+
+representation can be used for input and output and in persistent
+
+human-readable data objects, such as CSV files. If you specify the
+
+format, it’s usually a good idea to provide a matching static factory
+
+or constructor so programmers can easily translate back and forth
+
+between the object and its string representation. This approach is
+
+taken by many value classes in the Java platform libraries,
+
+including BigInteger, BigDecimal, and most of the boxed primitive
+
+classes.
 
