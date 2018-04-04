@@ -15,4 +15,5 @@
   * [第10条：覆盖equals方法时请遵守通用约定](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-10-tiao-ff1a-fu-gai-equals-fang-fa-shi-qing-zun-shou-tong-yong-yue-ding.md)
   * [第11条：覆盖equals方法时总要覆盖hashCode方法](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-11-tiao-ff1a-fu-gai-equals-fang-fa-shi-zong-yao-fu-gai-hashcode-fang-fa.md)
   * [第12条：始终要覆盖toString](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-12-tiao-ff1a-zong-shi-yao-fu-gai-tostring.md)
+  * [第13条：谨慎地覆盖clone](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-13-tiao-ff1a-jin-shen-di-fu-gai-clone.md)
 
