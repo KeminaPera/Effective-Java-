@@ -119,25 +119,5 @@ public int hashCode() {
 }
 ```
 
-If a class is immutable and the cost of computing the hash code is
-
-significant, you might consider caching the hash code in the object
-
-rather than recalculating it each time it is requested. If you believe
-
-that most objects of this type will be used as hash keys, then you
-
-should calculate the hash code when the instance is created.
-
-Otherwise, you might choose to lazily initialize the hash code the
-
-first time hash-Code is invoked. Some care is required to ensure that
-
-the class remains thread-safe in the presence of a lazily initializedfield \(Item 83\). Our PhoneNumber class does not merit this treatment,
-
-but just to show you how it’s done, here it is. Note that the initial
-
-value for the hashCode field \(in this case, 0\) should not be the hash
-
-code of a commonly created instance:
+If a class is immutable and the cost of computing the hash code is significant, you might consider caching the hash code in the object rather than recalculating it each time it is requested. If you believe that most objects of this type will be used as hash keys, then you should calculate the hash code when the instance is created. Otherwise, you might choose to lazily initialize the hash code the first time hash-Code is invoked. Some care is required to ensure that the class remains thread-safe in the presence of a lazily initializedfield \(Item 83\). Our PhoneNumber class does not merit this treatment, but just to show you how it’s done, here it is. Note that the initial value for the hashCode field \(in this case, 0\) should not be the hash code of a commonly created instance:
 
