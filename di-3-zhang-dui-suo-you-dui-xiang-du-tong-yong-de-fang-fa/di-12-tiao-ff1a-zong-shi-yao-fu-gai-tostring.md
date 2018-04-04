@@ -22,3 +22,17 @@ System.out.println("Failed to connect to " + phoneNumber);
 
 
 
+Programmers will generate diagnostic messages in this fashion
+
+whether or not you override toString, but the messages won’t be
+
+useful unless you do. The benefits of providing a
+
+good toString method extend beyond instances of the class to
+
+objects containing references to these instances, especially
+
+collections. Which would you rather see when printing a
+
+map, {Jenny=PhoneNumber@163b91} or {Jenny=707-867-5309}?
+
