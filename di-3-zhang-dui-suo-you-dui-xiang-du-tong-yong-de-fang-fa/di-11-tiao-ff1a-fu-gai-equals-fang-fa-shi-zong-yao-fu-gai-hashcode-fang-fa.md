@@ -151,5 +151,21 @@ This is not just a theoretical problem. Prior to Java 2, the String hash functio
 
 **不要为hashCode返回的值提供详细的规范，这样的话客户端将不能合理地依赖它，而且不提供的话将能让你灵活地去做出改变。**Java类库里的很多类，如String和Integer，都把它们的hashCode方法返回的值指定为该实例值的一个函数。这并不是一个好主意，因为它强制我们必须去使用它：在未来的版本中，这也限制了它改进的能力。如果没有规定细节，而且当发现一个哈希函数的缺陷时，或者发现了一个更好的哈希函数时，我们就能在接下来的版本去做更改。
 
+In summary, you must override hashCode every time you
 
+override equals, or your program will not run correctly.
+
+Your hashCode method must obey the general contract specified
+
+in Object and must do a reasonable job assigning unequal hash
+
+codes to unequal instances. This is easy to achieve, if slightly
+
+tedious, using the recipe on page 51. As mentioned in Item 10, the
+
+AutoValue framework provides a fine alternative to
+
+writing equals and hashCode methods manually, and IDEs also
+
+provide some of this functionality.
 
