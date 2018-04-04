@@ -103,15 +103,7 @@ Because this method returns the result of a simple deterministic computation who
 
 在上面的代码里，hashCode用到的只是PhoneNumber实例的三个重要属性，并通过确定的计算返回了result。很明显，相等的PhoneNumber实例拥有相等的哈希码。事实上，PhoneNumber的这个hashCode方法的实现是很棒的，相当于Java类库的实现。这个方法简单，快，而且能把不相等的电话号码分布到不同的哈希桶里。
 
-While the recipe in this item yields reasonably good hash functions,
+While the recipe in this item yields reasonably good hash functions, they are not state-of-the-art. They are comparable in quality to the hash functions found in the Java platform libraries’ value types and are adequate for most uses. If you have a bona fide need for hash functions less likely to produce collisions, see Guava’s com.google.common.hash.Hashing \[Guava\].
 
-they are not state-of-the-art. They are comparable in quality to the
-
-hash functions found in the Java platform libraries’ value types
-
-and are adequate for most uses. If you have a bona fide need for
-
-hash functions less likely to produce collisions, see
-
-Guava’s com.google.common.hash.Hashing \[Guava\].
+虽然依据本条目中的方法能生成合理的不错的哈希函数，但它们还不是最先进的。它们在质量上和Java类库的值类型的哈希函数相当，而且对大多数用途也足够了。如果你对哈希函数有真正的需求，希望其产生更少的冲突，请详阅Guava的com.google.common.hash.Hashing\[Guava\]。
 
