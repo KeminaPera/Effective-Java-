@@ -48,16 +48,37 @@ It’s legal because it ensures that equal objects have the same hash code. It�
 
 A good hash function tends to produce unequal hash codes for unequal instances. This is exactly what is meant by the third part of the hashCode contract. Ideally, a hash function should distribute any reasonable collection of unequal instances uniformly across all int values. Achieving this ideal can be difficult. Luckily it’s not too hard to achieve a fair approximation. Here is a simple recipe:
 
-1. Declare an int variable named result, and initialize it to the hash code c for the first significant field in your object, as computed instep 2.a. \(Recall from Item 10 that a significant field is a field that affects equals comparisons.\)
+1. Declare an int variable named result, and initialize it to the hash code c for the first significant field in your object, as computed in step 2.a. \(Recall from Item 10 that a significant field is a field that affects equals comparisons.\)
 2. For every remaining significant field f in your object, do the following:
-
-   a. Compute an int hash code c for the field:  
+    a. Compute an int hash code c for the field:  
     i. If the field is of a primitive type, compute Type.hashCode\(f\), where Type is the boxed primitive class corresponding to f’s type.  
     ii. If the field is an object reference and this class’s equals method compares the field by recursively invoking equals, recursively invoke hashCode on the field. If a more complex comparison is required, compute a “canonical representation” for this field and invoke hashCode on the canonical representation. If the value of the field is null, use 0 \(or some other constant, but 0 is traditional\).  
     iii. If the field is an array, treat it as if each significant element were a separate field. That is, compute a hash code for each significant element by applying these rules recursively, and combine the values per step 2.b. If the array has no significant elements, use a constant, preferably not 0. If all elements are significant, use Arrays.hashCode.  
     b. Combine the hash code c computed in step 2.a into result as follows: result = 31 \* result + c
-
 3. Return result.
 
+一个好的哈希函数会为不相等的实例生成不相等的哈希码。这也正是hashCode约定的第三部分的内容。理想的情况下，哈希函数应该在所有的int值上均匀分布任意不等实例的集合。要达到这种理想状态比较困难。但幸运的是，若我们想近似地达到这种理想状态倒不难。下面给出一种简单的办法：
 
+1. 声明一个叫result的int类型变量，然后将它初始化成对象里第一个重要属性的哈希码c，如步骤2.a里面计算的那样。（回顾条目10，重要属性是指影响equals进行比较的属性）
+2. 对于对象中剩下的每一个重要属性f，完成以下步骤：
+    a. 为这个属性计算一个int型的哈希码c：
+    i.  如果这个属性是基础类型的，计算Type.hashCode\(f\)，Type是f的类型对应的封箱基础类型。
+    ii. 如果这个属性是个对象引用，而且这个对象所属类的equals方法通过递归调用equals方法来比较这个属性，则递归调用hashCode方法。如果需要更复杂的比较，则为这个属性计算一个“范式（canonical representation）”，然后针对这个范式调用hashCode方法。如果这个属性的值为null，则返回0（或者其它常量，但一般都是用0）。
+    iii. 如果这个属性是个数组，则将它的每一个元素都当成重要属性来处理。也就是说，通过递归的应用这些规则来给每个元素计算出一个哈希码，然后按照步骤2.b将这些值合并起来。如果数组没有重要元素，则返回一个常量，最好不要用0。如果所有的元素都是重要的，则使用Arrays.hashCode。
+    b. 将步骤2.a计算出来的哈希码c通过接下来的公式合并到result里去：result = 31\*result + c
+3. 返回result。
+
+
+
+When you are finished writing the hashCode method, ask yourself
+
+whether equal instances have equal hash codes. Write unit tests to
+
+verify your intuition \(unless you used AutoValue to generate
+
+your equals and hashCode methods, in which case you can safely omit
+
+these tests\). If equal instances have unequal hash codes, figure out
+
+why and fix the problem.
 
