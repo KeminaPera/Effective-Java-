@@ -84,3 +84,5 @@ The multiplication in step 2.b makes the result depend on the order of the field
 
 步骤2.b中的乘法部分使得result依赖于属性的顺序，如果类中有多个相似属性，则会产生更好的哈希函数。例如，如果String的哈希函数忽略了这个乘法，则所有只是字母顺序不同的字符串将会有相同的哈希码。我们之所以用31，是因为它是个奇素数。如果这个数是偶数并且乘法溢出的话，信息将被丢失，因为与2相乘其实是相当于位移。虽然使用素数的好处不是太明显，但这是一种习惯。31有个很好的特性，在一些体系结构中，可以通过位移和减法，31\*i == \(i&lt;&lt;5\) - i，来替代这个乘法，以取得更好的性能。现代的虚拟机都自动做了这类优化。
 
+Let’s apply the previous recipe to the PhoneNumber class:
+
