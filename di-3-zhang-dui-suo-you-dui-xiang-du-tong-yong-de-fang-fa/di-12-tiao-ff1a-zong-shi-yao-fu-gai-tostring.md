@@ -38,3 +38,7 @@ One important decision you’ll have to make when implementing a toString method
 
 The disadvantage of specifying the format of the toString return value is that once you’ve specified it, you’re stuck with it for life, assuming your class is widely used. Programmers will write code to parse the representation, to generate it, and to embed it into persistent data. If you change the representation in a future release, you’ll break their code and data, and they will yowl. By choosing not to specify a format, you preserve the flexibility to add information or improve the format in a subsequent release.
 
+指定toString返回值的格式的缺点是，如果这个类已经被广泛使用，那么一旦指定了这个格式，接下来都很难摆脱它。程序员将编写程序来解析这种字符串表示，生成字符串表示，以及把字符串表示嵌入持久化数据里。如果在未来版本中你改变了这种表示法，你将会破坏他们的代码和数据，那样的话他们会咆哮起来的。若选择不指明格式，那我们就仍然持有添加信息或者在未来版本改善格式的灵活性。
+
+
+
