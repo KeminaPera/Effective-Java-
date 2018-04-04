@@ -36,3 +36,5 @@ One important decision you’ll have to make when implementing a toString method
 
 在实现toString方法时，我们必须做一个很重要的决定，那就是是否要在文档中指定返回值的格式。对于值类（value class），如电话号码或矩阵，是推荐这么做的。指定格式的好处是，它可以被用作标准的，明确的，可阅读的对象表示法。这种表示法可以被用于输入和输出，以及用在人类可阅读的数据对象上，如CSV文件。如果你指定了这个格式，最好再提供一个相匹配的静态工厂或者构造器，这样程序员能方便地在对象和它的字符串展示之间来回转换。Java类库里很多值类都采取了这种方式，包括BigInteger，BigDecimal和大多数装箱基础类。
 
+The disadvantage of specifying the format of the toString return value is that once you’ve specified it, you’re stuck with it for life, assuming your class is widely used. Programmers will write code to parse the representation, to generate it, and to embed it into persistent data. If you change the representation in a future release, you’ll break their code and data, and they will yowl. By choosing not to specify a format, you preserve the flexibility to add information or improve the format in a subsequent release.
+
