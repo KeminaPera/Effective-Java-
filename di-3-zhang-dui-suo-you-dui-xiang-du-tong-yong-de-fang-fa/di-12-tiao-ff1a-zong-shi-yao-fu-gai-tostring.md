@@ -40,5 +40,27 @@ The disadvantage of specifying the format of the toString return value is that o
 
 指定toString返回值的格式的缺点是，如果这个类已经被广泛使用，那么一旦指定了这个格式，接下来都很难摆脱它。程序员将编写程序来解析这种字符串表示，生成字符串表示，以及把字符串表示嵌入持久化数据里。如果在未来版本中你改变了这种表示法，你将会破坏他们的代码和数据，那样的话他们会咆哮起来的。若选择不指明格式，那我们就仍然持有添加信息或者在未来版本改善格式的灵活性。
 
+**Whether or not you decide to specify the format, you should clearly document your intentions.**If you specify the format, you should do so precisely. For example, here’s a toString method to go with the PhoneNumber class inItem 11:
 
+**无论我们是否决定要指明格式，我们都应该清晰地在文档中表达我们的意图。**如果我们指定了格式，则应该严格地去这样做。例如，下面是条目11里提到的PhoneNumber类的toString方法：
+
+```
+/**
+ * Returns the string representation of this phone number.
+ * The string consists of twelve characters whose format is
+ * "XXX-YYY-ZZZZ", where XXX is the area code, YYY is the
+ * prefix, and ZZZZ is the line number. Each of the capital
+ * letters represents a single decimal digit. *
+ * If any of the three parts of this phone number is too small
+ * to fill up its field, the field is padded with leading zeros.
+ * For example, if the value of the line number is 123, the last
+ * four characters of the string representation will be "0123". 
+ */
+@Override 
+public String toString() {
+    return String.format("%03d-%03d-%04d",areaCode, prefix, lineNum); 
+}
+```
+
+If you decide not to specify a format, the documentation comment should read something like this:
 
