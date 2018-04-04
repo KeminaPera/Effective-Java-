@@ -147,3 +147,23 @@ This is not just a theoretical problem. Prior to Java 2, the String hash functio
 
 这不只是一个理论问题。在Java 2之前，String的哈希函数最多使用16个字符，从第一个字符开始，在整个字符串均匀地获取。对于层次状名字的大型集合，如URL，这个函数就产生了前面提到的病态行为。
 
+Don’t provide a detailed specification for the value
+
+returned by hashCode, so clients can’t reasonably depend on
+
+it; this gives you the flexibility to change it. Many classes in
+
+the Java libraries, such as String and Integer, specify the exact value
+
+returned by their hashCodemethod as a function of the instance
+
+value. This is not a good idea but a mistake that we’re forced to live
+
+with: It impedes the ability to improve the hash function in future
+
+releases. If you leave the details unspecified and a flaw is found in
+
+the hash function or a better hash function is discovered, you can
+
+change it in a subsequent release.
+
