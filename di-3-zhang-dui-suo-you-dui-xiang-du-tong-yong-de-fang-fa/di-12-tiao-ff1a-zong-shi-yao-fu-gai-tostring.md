@@ -80,5 +80,11 @@ After reading this comment, programmers who produce code or persistent data that
 
 对于那些依赖于格式细节进行编程或者持久化数据的程序员，在读完这段注释后，一旦格式改变了，则只能自己承担后果。
 
+Whether or not you specify the format, provide programmatic access to the information contained in the value returned by toString. For example, the PhoneNumber class should contain accessors for the area code, prefix, and line number. If you fail to do this, you force programmers who need this information to parse the string. Besides reducing performance and making unnecessary work for programmers, this process is error-prone and results in fragile systems that break if you change the format. By failing to provide accessors, you turn the string format into a de facto API, even if you’ve specified that it’s subject to change.
+
+无论是否指定格式，我们都应该为toString方法返回值中包含的所有信息提供一个编程式的访问途径。例如，PhoneNumber类应该包含area code，prefix和line number的访问方法。如果不这么做，将会强制需要这些信息的程序员去解析返回的字符串。除了降低性能和让程序员做不必要的工作外，这个解析过程还容易出错，而且还会导致系统变得脆弱，如果字符串格式变动了，系统甚至崩溃了。如果不提供这些访问方法，即使你已经说明了字符串的格式会变化，这个字符串格式也成了事实上的API。
+
+It makes no sense to write a toString method in a static utility class \(Item 4\). Nor should you write a toString method in most enum types \(Item 34\) because Java provides a perfectly good one for you. You should, however, write a toString method in any abstract class whose subclasses share a common string representation. For example, the toString methods on most collection implementations are inherited from the abstract collection classes.
+
 
 
