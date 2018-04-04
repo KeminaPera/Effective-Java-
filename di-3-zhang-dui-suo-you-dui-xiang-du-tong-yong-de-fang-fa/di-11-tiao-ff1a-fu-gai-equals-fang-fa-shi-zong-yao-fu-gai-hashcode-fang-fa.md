@@ -14,5 +14,21 @@
 * 若两个对象根据equals\(Object\)方法比较是相等的，那么分别调用这两个对象的hashCode方法时必须产生相同的整型数值。
 * 若两个对象根据equals\(Object\)方法比较是不等的，那么分别调用这两个对象的hashCode方法时不一定要产生不同的数值。只是程序员应该知道，对于不等的对象若能产生不同的哈希值，有助于提高哈希表的性能。
 
+The key provision that is violated when you fail to
+
+override hashCode is the second one: equal objects must
+
+have equal hash codes. Two distinct instances may be logically
+
+equal according to a class’s equals method, but
+
+to Object’s hashCode method, they’re just two objects with nothing
+
+much in common. Therefore, Object’s hashCode method returns two
+
+seemingly random numbers instead of two equal numbers as
+
+required by the contract.
+
 
 
