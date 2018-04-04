@@ -68,17 +68,9 @@ A good hash function tends to produce unequal hash codes for unequal instances. 
     b. 将步骤2.a计算出来的哈希码c通过接下来的公式合并到result里去：result = 31\*result + c
 3. 返回result。
 
+When you are finished writing the hashCode method, ask yourself whether equal instances have equal hash codes. Write unit tests to verify your intuition \(unless you used AutoValue to generate your equals and hashCode methods, in which case you can safely omit these tests\). If equal instances have unequal hash codes, figure out why and fix the problem.
+
+当我们完成hashCode方法的编写后，可以问下我们自己，是否相等的实例拥有相等的哈希码。我们可以写单元测试来验证下我们的判断（除非你需要Google的AutoValue来生成equals方法和hashCode方法，在这种情况下可以不用做这些测试）。如果相等的实例却没有相等的哈希码，查明原因后修复这个问题。
 
 
-When you are finished writing the hashCode method, ask yourself
-
-whether equal instances have equal hash codes. Write unit tests to
-
-verify your intuition \(unless you used AutoValue to generate
-
-your equals and hashCode methods, in which case you can safely omit
-
-these tests\). If equal instances have unequal hash codes, figure out
-
-why and fix the problem.
 
