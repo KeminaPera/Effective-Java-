@@ -27,29 +27,5 @@ Map<PhoneNumber, String> m = new HashMap<>();
 m.put(new PhoneNumber(707, 867, 5309), "Jenny");
 ```
 
-At this point, you might expect m.get\(new
-
-PhoneNumber\(707, 867, 5309\)\) to return "Jenny", but instead, it
-
-returns null. Notice that two PhoneNumber instances are involved: one
-
-is used for insertion into the HashMap, and a second, equal instance
-
-is used for \(attempted\) retrieval. The PhoneNumber class’s failure to
-
-override hashCode causes the two equal instances to have unequalhash codes, in violation of the hashCode contract. Therefore,
-
-the get method is likely to look for the phone number in a different
-
-hash bucket from the one in which it was stored by the put method.
-
-Even if the two instances happen to hash to the same bucket,
-
-the get method will almost certainly return null,
-
-because HashMap has an optimization that caches the hash code
-
-associated with each entry and doesn’t bother checking for object
-
-equality if the hash codes don’t match.
+At this point, you might expect m.get\(new PhoneNumber\(707, 867, 5309\)\) to return "Jenny", but instead, it returns null. Notice that two PhoneNumber instances are involved: one is used for insertion into the HashMap, and a second, equal instance is used for \(attempted\) retrieval. The PhoneNumber class’s failure to override hashCode causes the two equal instances to have unequal hash codes, in violation of the hashCode contract. Therefore, the get method is likely to look for the phone number in a different hash bucket from the one in which it was stored by the put method. Even if the two instances happen to hash to the same bucket, the get method will almost certainly return null, because HashMap has an optimization that caches the hash code associated with each entry and doesn’t bother checking for object equality if the hash codes don’t match.
 
