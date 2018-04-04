@@ -12,7 +12,13 @@ While it isn’t as critical as obeying the equals and hashCode contracts \(Item
 
 虽然遵守toString方法的约定不像遵守equals和hashCode（条目10和条目11）的那么重要，但提供一个好的toString方法实现能让我们的类用起来更舒适，而且让使用这个类的系统更好调试。当一个对象被传入到println，printf方法时，toString方法就自动被调用，遇到字符串连接符（+）或者assert或者调试器打印，这个方法同样被调用。即使我们自己不调用对象上的toString方法，别人也会调用。例如，某个引用了我们开发的对象的组件可能会在错误日志中包含这个对象的字符串信息。如果没有覆盖toString方法，那么这条信息可能会变得没什么用。
 
-If you’ve provided a good toString method for PhoneNumber,
+If you’ve provided a good toString method for PhoneNumber, generating a useful diagnostic message is as easy as this:
 
-generating a useful diagnostic message is as easy as this:
+如果我们能够为PhoneNumber提供一个好的toString方法，那么生成一个有用的诊断信息将会变得很容易：
+
+```
+System.out.println("Failed to connect to " + phoneNumber);
+```
+
+
 
