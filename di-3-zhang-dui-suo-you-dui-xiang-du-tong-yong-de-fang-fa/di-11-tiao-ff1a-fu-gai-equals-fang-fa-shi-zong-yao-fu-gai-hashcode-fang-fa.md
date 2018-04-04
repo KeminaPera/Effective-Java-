@@ -72,5 +72,9 @@ When you are finished writing the hashCode method, ask yourself whether equal in
 
 当我们完成hashCode方法的编写后，可以问下我们自己，是否相等的实例拥有相等的哈希码。我们可以写单元测试来验证下我们的判断（除非你需要Google的AutoValue来生成equals方法和hashCode方法，在这种情况下可以不用做这些测试）。如果相等的实例却没有相等的哈希码，查明原因后修复这个问题。
 
+You may exclude derived fields from the hash code computation.
 
+In other words, you may ignore any field whose value can be
+
+computed from fields included in the computation.
 
