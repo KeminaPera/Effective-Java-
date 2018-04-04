@@ -18,7 +18,9 @@ The key provision that is violated when you fail to override hashCode is the sec
 
 因没有覆盖hashCode方法而违反约定的关键条约是第二条：相等的对象必须有着相同的哈希码（hash code）。根据类的equals方法，两个截然不同的实例在逻辑上可以是相等的，但对于Object的hashCode方法来说，它们也只是两个没有共同之处的对象。因此，Object的hashCode方法会根据两个对象分别返回两个看起来随机的数值，而不是像约定要求的那样返回两个相等的数值。
 
-For example, suppose you attempt to use instances of
+For example, suppose you attempt to use instances of the PhoneNumber class from Item 10 as keys in a HashMap:
 
-the PhoneNumber class from Item 10 as keys in a HashMap:
+例如，假设我们想将条目10里的PhoneNumber类的实例作为一个HashMap的键：
+
+
 
