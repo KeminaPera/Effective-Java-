@@ -139,21 +139,15 @@ public int hashCode() {
 }
 ```
 
-Do not be tempted to exclude significant fields from the
+**Do not be tempted to exclude significant fields from the hash code computation to improve performance.** While the resulting hash function may run faster, its poor quality may degrade hash tables’ performance to the point where they become unusable. In particular, the hash function may be confronted with a large collection of instances that differ mainly in regions you’ve chosen to ignore. If this happens, the hash function will map all these instances to a few hash codes, and programs that should run in linear time will instead run in quadratic time.
 
-hash code computation to improve performance. While the
+**不要为了提高性能而试图在哈希码的计算过程中将重要的属性排除掉。**这样做虽然会让哈希函数运行得更快，但其随之变差的质量可能会导致哈希表慢到无法用。特别是，哈希函数可能会面临大量的实例，而这些实例主要的区别在于你选择忽视了的那些属性上。如果这种情况发生了，哈希函数将会把这些实例映射到少数的几个哈希码上，程序也将以线性时间运行，而不是平方时间。
 
-resulting hash function may run faster, its poor quality may
+This is not just a theoretical problem. Prior to Java 2,
 
-degrade hash tables’ performance to the point where they become
+the String hash function used at most sixteen characters evenly
 
-unusable. In particular, the hash function may be confronted with
+spaced throughout the string, starting with the first character. Forlarge collections of hierarchical names, such as URLs, this function
 
-a large collection of instances that differ mainly in regions you’ve
-
-chosen to ignore. If this happens, the hash function will map all
-
-these instances to a few hash codes, and programs that should run
-
-in linear time will instead run in quadratic time.
+displayed exactly the pathological behavior described earlier.
 
