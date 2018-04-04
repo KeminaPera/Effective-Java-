@@ -86,5 +86,7 @@ Whether or not you specify the format, provide programmatic access to the inform
 
 It makes no sense to write a toString method in a static utility class \(Item 4\). Nor should you write a toString method in most enum types \(Item 34\) because Java provides a perfectly good one for you. You should, however, write a toString method in any abstract class whose subclasses share a common string representation. For example, the toString methods on most collection implementations are inherited from the abstract collection classes.
 
+在静态工具类（条目4）里编写toString方法是无意义的。同时我们也不应该在大多数的枚举类型（条目34）里编写toString方法，因为Java为我们提供了一个很棒的实现。然而，我们应该为那些子类共享一个字符串表示的抽象类编写一个toString方法。例如，大多数集合实现的toString方法都是继承自抽象的集合类。
+
 
 
