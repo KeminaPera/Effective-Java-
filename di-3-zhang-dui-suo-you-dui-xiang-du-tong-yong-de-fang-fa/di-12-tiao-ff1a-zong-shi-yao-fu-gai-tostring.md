@@ -76,5 +76,9 @@ If you decide not to specify a format, the documentation comment should read som
 @Override public String toString() { ... }
 ```
 
+After reading this comment, programmers who produce code or persistent data that depends on the details of the format will have no one but themselves to blame when the format is changed.
+
+对于那些依赖于格式细节进行编程或者持久化数据的程序员，在读完这段注释后，一旦格式改变了，则只能自己承担后果。
+
 
 
