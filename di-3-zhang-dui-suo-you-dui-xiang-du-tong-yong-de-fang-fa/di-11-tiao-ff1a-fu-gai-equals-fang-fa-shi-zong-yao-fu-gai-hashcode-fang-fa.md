@@ -42,15 +42,9 @@ public int hashCode() {
 }
 ```
 
-It’s legal because it ensures that equal objects have the same hash
+It’s legal because it ensures that equal objects have the same hash code. It’s atrocious because it ensures that every object has the same hash code. Therefore, every object hashes to the same bucket, and hash tables degenerate to linked lists. Programs that should run in linear time instead run in quadratic time. For large hash tables, this is the difference between working and not working.
 
-code. It’s atrocious because it ensures that every object has the
+上面的例子是合法的，因为它保证了相同对象拥有相同的哈希码。但它也保证了每个对象都拥有相同的哈希码，这就糟糕了。因此，每个对象都哈希进了相同的桶，哈希表也退化成链表了。本来程序应该以线性级时间运行的，这下变成了以平方级时间运行。对于大规模的哈希表，这关乎到哈希表能否正常工作。
 
-same hash code. Therefore, every object hashes to the same bucket,
 
-and hash tables degenerate to linked lists. Programs that should
-
-run in linear time instead run in quadratic time. For large hash
-
-tables, this is the difference between working and not working.
 
