@@ -107,7 +107,17 @@ While the recipe in this item yields reasonably good hash functions, they are no
 
 虽然依据本条目中的方法能生成合理的不错的哈希函数，但它们还不是最先进的。它们在质量上和Java类库的值类型的哈希函数相当，而且对大多数用途也足够了。如果你对哈希函数有真正的需求，希望其产生更少的冲突，请详阅Guava的com.google.common.hash.Hashing\[Guava\]。
 
-The Objects class has a static method that takes an arbitrary number of objects and returns a hash code for them. This method, named hash, lets you write one-line hashCode methods whose quality is comparable to those written according to the recipe in this item. Unfortunately, they run more slowly because they entail array creation to pass a variable number of arguments, as well as boxing and unboxing if any of the arguments are of primitive type. This style of hash function is recommended for use only in situations where performance is not critical. Here is a hash function for PhoneNumberwritten using this technique:
+The Objects class has a static method that takes an arbitrary number of objects and returns a hash code for them. This method, named hash, lets you write one-line hashCode methods whose quality is comparable to those written according to the recipe in this item. Unfortunately, they run more slowly because they entail array creation to pass a variable number of arguments, as well as boxing and unboxing if any of the arguments are of primitive type. This style of hash function is recommended for use only in situations where performance is not critical. Here is a hash function for PhoneNumber written using this technique:
+
+Objects类里有一个静态方法，这个方法接受任意数量的object对象，然后返回一个哈希值。这个名叫hash的方法能让我们写出只有一行的hashCode方法，而且其质量和根据上述方法写出的方法相当。不幸的是，它们的运行得比较慢，因为它们需要创建数组来传入一个动态参数列表，如果这些参数里面还有基础类型，那还要做装箱和解装箱的动作。这种哈希函数建议仅用在对性能要求不高的场景。下面这个PhoneNumber的哈希函数就使用了这种技术：
+
+```
+// One-line hashCode method - mediocre performance
+@Override 
+public int hashCode() {
+    return Objects.hash(lineNum, prefix, areaCode);
+}
+```
 
 
 
