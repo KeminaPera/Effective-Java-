@@ -121,5 +121,39 @@ public int hashCode() {
 
 If a class is immutable and the cost of computing the hash code is significant, you might consider caching the hash code in the object rather than recalculating it each time it is requested. If you believe that most objects of this type will be used as hash keys, then you should calculate the hash code when the instance is created. Otherwise, you might choose to lazily initialize the hash code the first time hash-Code is invoked. Some care is required to ensure that the class remains thread-safe in the presence of a lazily initializedfield \(Item 83\). Our PhoneNumber class does not merit this treatment, but just to show you how it’s done, here it is. Note that the initial value for the hashCode field \(in this case, 0\) should not be the hash code of a commonly created instance:
 
-如果一个类是不可变的，而且计算哈希码的代价很重要，我们也许应该考虑将哈希码缓存在对象里，而不是每次都去计算。
+如果一个类是不可变的，而且计算哈希码的代价很重要，我们也许应该考虑将哈希码缓存在对象里，而不是每次都去计算。如果你觉得某个类型的大多数对象将会被当做键来使用，那么你必须在实例被创建出来时就计算出哈希码。或者，你也可以选择延迟初始化（lazyily initialize）哈希码，即在hashCode方法第一次被调用时才进行生成动作。需要注意的是，在使用延迟初始化时，要确保类是线程安全的（条目83）。我们还不知道PhoneNumber类是否值得这么处理，但用来展示该如何实现。注意，hashCode属性的初始值（在这里是0）不应该是创建的实例的哈希码：
+
+```
+// hashCode method with lazily initialized cached hash code
+private int hashCode; // Automatically initialized to 0
+@Override 
+public int hashCode() {
+    int result = hashCode;
+    if (result == 0) {
+        result = Short.hashCode(areaCode);
+        result = 31 * result + Short.hashCode(prefix);
+        result = 31 * result + Short.hashCode(lineNum);
+        hashCode = result;
+    } 
+    return result;
+}
+```
+
+Do not be tempted to exclude significant fields from the
+
+hash code computation to improve performance. While the
+
+resulting hash function may run faster, its poor quality may
+
+degrade hash tables’ performance to the point where they become
+
+unusable. In particular, the hash function may be confronted with
+
+a large collection of instances that differ mainly in regions you’ve
+
+chosen to ignore. If this happens, the hash function will map all
+
+these instances to a few hash codes, and programs that should run
+
+in linear time will instead run in quadratic time.
 
