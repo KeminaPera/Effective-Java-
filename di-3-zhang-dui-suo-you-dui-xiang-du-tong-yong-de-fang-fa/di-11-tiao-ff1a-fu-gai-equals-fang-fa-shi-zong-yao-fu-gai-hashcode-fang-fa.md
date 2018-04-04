@@ -36,7 +36,10 @@ Fixing this problem is as simple as writing a proper hashCode method for PhoneNu
 修复这个问题很简单，只需为PhoneNumber写一个恰当的hashCode方法即可。所以应该如何编写这个hashCode方法？写一个不好的那还不容易。下面这个就是一个合法但永远不会被使用的例子：
 
 ```
-
+@Override 
+public int hashCode() { 
+    return 42; 
+}
 ```
 
 
