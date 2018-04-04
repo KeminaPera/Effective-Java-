@@ -107,3 +107,23 @@ While the recipe in this item yields reasonably good hash functions, they are no
 
 虽然依据本条目中的方法能生成合理的不错的哈希函数，但它们还不是最先进的。它们在质量上和Java类库的值类型的哈希函数相当，而且对大多数用途也足够了。如果你对哈希函数有真正的需求，希望其产生更少的冲突，请详阅Guava的com.google.common.hash.Hashing\[Guava\]。
 
+The Objects class has a static method that takes an arbitrary
+
+number of objects and returns a hash code for them. This method,
+
+named hash, lets you write one-line hashCode methods whose quality
+
+is comparable to those written according to the recipe in this item.
+
+Unfortunately, they run more slowly because they entail array
+
+creation to pass a variable number of arguments, as well as boxing
+
+and unboxing if any of the arguments are of primitive type. This
+
+style of hash function is recommended for use only in situations
+
+where performance is not critical. Here is a hash function
+
+for PhoneNumberwritten using this technique:
+
