@@ -46,5 +46,63 @@ It’s legal because it ensures that equal objects have the same hash code. It�
 
 上面的例子是合法的，因为它保证了相同对象拥有相同的哈希码。但它也保证了每个对象都拥有相同的哈希码，这就糟糕了。因此，每个对象都哈希进了相同的桶，哈希表也退化成链表了。本来程序应该以线性级时间运行的，这下变成了以平方级时间运行。对于大规模的哈希表，这关乎到哈希表能否正常工作。
 
+A good hash function tends to produce unequal hash codes for
 
+unequal instances. This is exactly what is meant by the third part
+
+of the hashCode contract. Ideally, a hash function should distribute
+
+any reasonable collection of unequal instances uniformly across
+
+all int values. Achieving this ideal can be difficult. Luckily it’s not
+
+too hard to achieve a fair approximation. Here is a simple recipe:
+
+1. Declare an int variable named result, and initialize it to the hash
+
+code c for the first significant field in your object, as computed instep 2.a. \(Recall from Item 10 that a significant field is a field that
+
+affects equals comparisons.\)
+
+2. For every remaining significant field f in your object, do the
+
+following:
+
+a. Compute an int hash code c for the field:
+
+i. If the field is of a primitive type, compute Type.hashCode\(f\),
+
+where Type is the boxed primitive class corresponding to f’s type.
+
+ii. If the field is an object reference and this class’s equals method
+
+compares the field by recursively invoking equals, recursively
+
+invoke hashCode on the field. If a more complex comparison is
+
+required, compute a “canonical representation” for this field and
+
+invoke hashCode on the canonical representation. If the value of the
+
+field is null, use 0 \(or some other constant, but 0 is traditional\).
+
+iii. If the field is an array, treat it as if each significant element were
+
+a separate field. That is, compute a hash code for each significant
+
+element by applying these rules recursively, and combine the
+
+values per step 2.b. If the array has no significant elements, use a
+
+constant, preferably not 0. If all elements are significant,
+
+use Arrays.hashCode.
+
+b. Combine the hash code c computed in step 2.a into result as
+
+follows:
+
+result = 31 \* result + c;
+
+3. Return result.
 
