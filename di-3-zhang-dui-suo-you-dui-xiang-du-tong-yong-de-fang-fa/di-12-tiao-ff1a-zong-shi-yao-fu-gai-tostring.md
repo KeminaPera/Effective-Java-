@@ -88,5 +88,13 @@ It makes no sense to write a toString method in a static utility class \(Item 4\
 
 在静态工具类（条目4）里编写toString方法是无意义的。同时我们也不应该在大多数的枚举类型（条目34）里编写toString方法，因为Java为我们提供了一个很棒的实现。然而，我们应该为那些子类共享一个字符串表示的抽象类编写一个toString方法。例如，大多数集合实现的toString方法都是继承自抽象的集合类。
 
+Google’s open source AutoValue facility, discussed in Item 10, will generate a toString method for you, as will most IDEs. These methods are great for telling you the contents of each field but aren’t specialized to the meaning of the class. So, for example, it would be inappropriate to use an automatically generated toString method for our PhoneNumber class \(as phone numbers have a standard string representation\), but it would be perfectly acceptable for our Potion class. That said, an automatically generated toString method is far preferable to the one inherited from Object, which tells you nothing about an object’s value.
+
+在条目10里我们谈论到的Google 的开源工具AutoValue，会为我们生成一个toString方法，大多数IDE也会。这些方法非常适合告诉我们每个属性的内容，但并不是专门针对类的意义。例如，使用为PhoneNumber类自动生成的toString方法是不合适的（就像电话号码有一个标准的字符串表示），但对于Potion类来说，是完全可以接受的。也就是说，自动生成的toString方法要比从Object那里继承过来的版本要好得多，毕竟继承过来的方法不会告诉我们任何关于对象的信息。
+
+To recap, override Object’s toString implementation in every instantiable class you write, unless a superclass has already done so. It makes classes much more pleasant to use and aids in debugging. The toString method should return a concise, useful description of the object, in an aesthetically pleasing format.
+
+我们来回顾一下，Object的toString方法实现在我们编写的每个可实例化的类中都应该被覆盖，除非超类已经这么做了。覆盖toString方法使得类用起来更舒服，而且有助于调试。toString方法应该以一种美观的格式返回类的简洁，有用的描述。
+
 
 
