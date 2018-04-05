@@ -54,6 +54,5 @@ In order for this method to work, the class declaration for PhoneNumber would ha
 
 The call to super.clone is contained in a try-catch block. This is because Object declares its clone method to throw CloneNotSupportedException, which is a checked exception. Because PhoneNumber implements Cloneable, we know the call to super.clone will succeed. The need for this boilerplate indicates that CloneNotSupportedException should have been unchecked \(Item 71\).
 
-例子中的super.clone调用被包含在一个try-catch代码块里。这是因为，Object声明了它的clone方法会抛出CloneNotSupportedException异常，而这是个检查时异常。由于PhoneNumber实现了Cloneable接口，所以我们知道super.clone调用将会是成功的。  
-
+例子中的super.clone调用被包含在一个try-catch代码块里。这是因为，Object声明了它的clone方法会抛出CloneNotSupportedException异常，而这是个检查时异常。由于PhoneNumber实现了Cloneable接口，所以我们知道super.clone调用将会是成功的。但例子中还是需要这个样板，这表明CloneNotSupportedException异常不应该是要检查的（条目71）。
 
