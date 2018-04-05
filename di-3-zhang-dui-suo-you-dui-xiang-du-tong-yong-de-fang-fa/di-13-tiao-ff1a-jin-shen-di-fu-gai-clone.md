@@ -16,9 +16,21 @@ The general contract for the clone method is weak. Here it is, copied from the O
 
 clone方法的通用约定是非常弱的，下面是来自Object规范的约定内容：
 
-Creates and returns a copy of this object. The precise meaning of “copy” may depend on the class of the object. The general intent is that, for any object x, the expression _x.clone\(\) != x _will be true, and the expression _x.clone\(\).getClass\(\) == x.getClass\(\)_ will be true, but these are not absolute requirements. While it is typically the case that _x.clone\(\).equals\(x\)_ will be true, this is not an absolute requirement. 
+Creates and returns a copy of this object. The precise meaning of “copy” may depend on the class of the object. The general intent is that, for any object x, the expression _x.clone\(\) != x \_will be true, and the expression \_x.clone\(\).getClass\(\) == x.getClass\(\)_ will be true, but these are not absolute requirements. While it is typically the case that _x.clone\(\).equals\(x\)_ will be true, this is not an absolute requirement.
 
 创建和返回对象的一个拷贝。“拷贝”的精确含义依赖于对象所属的类。一般的含义是，对于任意对象x，表达式_x.clone\(\) != x_将会是true，表达式_x.clone\(\).getClass\(\) == x.getClass\(\)_也将会是true，但这些并不是绝对的要求。虽然通常情况下，_x.clone\(\).equals\(x\)_将会是true，但在也不是个绝对的要求。
 
-By convention, the object returned by this method should be obtained by calling super.clone. If a class and all of its superclasses \(except Object\) obey this convention, it will be the case that _x.clone\(\).getClass\(\) == x.getClass\(\)_. By convention, the returned object should be independent of the object being cloned. To achieve this independence, it may be necessary to modify one or more fields of the object returned by super.clone before returning it.
+By convention, the object returned by this method should be obtained by calling _super.clone_. If a class and all of its superclasses \(except Object\) obey this convention, it will be the case that _x.clone\(\).getClass\(\) == x.getClass\(\)_. 
+
+按照惯例，clone方法返回的对象应该通过调用_super.clone_获得。如果一个类及其所有的父类（除了Object）都遵循了这个惯例，那么就可以做到_x.clone\(\).getClass\(\) == x.getClass\(\)。_
+
+By convention, the returned object should be independent of the object being cloned. To achieve this independence, it may be necessary to modify one or more fields of the object returned by _super.clone_ before returning it.
+
+按照惯例，clone方法返回的对象应该独立于被克隆的对象。为了得到这个独立性，在方法返回之前，可能需要对_super.clone_返回对象的一个或多个属性进行修改。
+
+This mechanism is vaguely similar to constructor chaining, except that it isn’t enforced: if a class’s clone method returns an instance that is not obtained by calling super.clone but by calling a constructor, the compiler won’t complain, but if a subclass of that class calls super.clone, the resulting object will have the wrong class, preventing the subclass from clone method from working properly. If a class that overrides clone is final, this convention may be safely ignored, as there are no subclasses to worry about. But if a final class has a clone method that does not invoke super.clone, there is no reason for the class to implement Cloneable, as it doesn’t rely on the behavior of Object’s clone implementation.
+
+这种机制有点类似于构造器的调用链，只是这种机制不是强制执行的：如果一个类的clone方法返回了一个实例，但这个实例不是通过调用super.clone获得而是通过调用构造器获得，编译器也不会抱怨，但如果这个类的一个子类调用了super.clone，那么返回的对象将包含错误的类，使得通过clone方法获得的子类不能正常运转。如果一个覆盖了clone方法的类是final型的，这个惯例可以安全地被忽视，因为这个类不会有子类。但如果一个final型的类有一个并不调用super.clone的clone方法时，那么也没有理由为这个类实现Cloneable接口，因为它并不依赖于Object的clone实现的行为。
+
+
 
