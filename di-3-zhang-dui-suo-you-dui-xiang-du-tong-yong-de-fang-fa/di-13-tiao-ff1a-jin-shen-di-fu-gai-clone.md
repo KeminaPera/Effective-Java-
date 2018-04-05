@@ -52,3 +52,8 @@ In order for this method to work, the class declaration for PhoneNumber would ha
 
 为了让这个方法运转，PhoneNumber的类声明必须得做点修改，即声明其实现了Cloneable接口。虽然Object的clone方法返回的结果是Object类型，但这里的clone方法返回的是PhoneNumber类型。这么做是合法并且也是我们期待的，因为Java支持协变返回类型（covariant return types）。换句话说，一个覆盖方法的返回类型可以是被覆盖方法返回类型的子类。这样，客户端就不必进行强转了。在返回之前，我们必须将super.clone的结果转成PhoneNumber，但这个转型要保证是成功的。
 
+The call to super.clone is contained in a try-catch block. This is because Object declares its clone method to throw CloneNotSupportedException, which is a checked exception. Because PhoneNumber implements Cloneable, we know the call to super.clone will succeed. The need for this boilerplate indicates that CloneNotSupportedException should have been unchecked \(Item 71\).
+
+例子中的super.clone调用被包含在一个try-catch代码块里。这是因为，Object声明了它的clone方法会抛出CloneNotSupportedException异常，而这是个检查时异常。由于PhoneNumber实现了Cloneable接口，所以我们知道super.clone调用将会是成功的。  
+
+
