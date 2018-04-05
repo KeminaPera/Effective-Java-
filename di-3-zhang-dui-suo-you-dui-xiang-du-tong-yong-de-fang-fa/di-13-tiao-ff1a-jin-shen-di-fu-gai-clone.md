@@ -108,5 +108,8 @@ public Stack clone() {
 }
 ```
 
+Note that we do not have to cast the result of elements.clone to Object\[\]. Calling clone on an array returns an array whose runtime and compile-time types are identical to those of the array being cloned. This is the preferred idiom to duplicate an array. In fact, arrays are the sole compelling use of the clone facility.
+
+现在我们不用将elements.clone返回的结果转成Object\[\]。在一个数组上调用clone方法  
 
 
