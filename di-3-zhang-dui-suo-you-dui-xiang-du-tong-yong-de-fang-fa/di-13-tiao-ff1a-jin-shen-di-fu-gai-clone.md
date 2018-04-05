@@ -48,5 +48,7 @@ public PhoneNumber clone() {
 }
 ```
 
+In order for this method to work, the class declaration for PhoneNumber would have to be modified to indicate that it implements Cloneable. Though Object’s clone method returns Object, this clone method returns PhoneNumber. It is legal and desirable to do this because Java supports covariant return types. In other words, an overriding method’s return type can be a subclass of the overridden method’s return type. This eliminates the need for casting in the client. We must cast the result of super.clone from Object to PhoneNumber before returning it, but the cast is guaranteed to succeed.
 
+为了让这个方法运转，PhoneNumber的类声明必须得做点修改，即声明其实现了Cloneable接口。虽然Object的clone方法返回的结果是Object类型，但这里的clone方法返回的是PhoneNumber类型。这么做是合法并且也是我们期待的，因为Java支持协变返回类型（covariant return types）。换句话说，一个覆盖方法的返回类型可以是被覆盖方法返回类型的子类。这样，客户端就不必进行强转了。在返回之前，我们必须将super.clone的结果转成PhoneNumber，但这个转型要保证是成功的。
 
