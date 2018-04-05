@@ -88,3 +88,5 @@ public class Stack {
 
 Suppose you want to make this class cloneable. If the clone method merely returns super.clone\(\), the resulting Stack instance will have the correct value in its size field, but its elements field will refer to the same array as the original Stack instance. Modifying the original will destroy the invariants in the clone and vice versa. You will quickly find that your program produces nonsensical results or throws a NullPointerException.
 
+假设我们要让这个类可以被克隆。如果clone方法仅仅是返回super.clone\(\)，那么其返回的Stack对象将会有个相同的size属性值，但它的elements属性却将引用原始Stack实例的数组。修改原始实例将会破坏clone方法里的不变量，反之亦然。很快你就会发现，你的程序会产生荒谬的结果，或者抛出NullPointerException异常。
+
