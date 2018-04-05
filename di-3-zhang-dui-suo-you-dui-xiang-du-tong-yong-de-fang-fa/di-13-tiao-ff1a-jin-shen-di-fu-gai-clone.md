@@ -10,5 +10,5 @@ So what does Cloneable do, given that it contains no methods? It determines the 
 
 Though the specification doesn’t say it, in practice, a class implementing Cloneable is expected to provide a properly functioning public clone method. In order to achieve this, the class and all of its superclasses must obey a complex, unenforceable, thinly documented protocol. The resulting mechanism is fragile, dangerous, and extralinguistic: it creates objects without calling a constructor.
 
-
+虽然在规范中没有明说，但实际中，一个实现了Cloneable的类通常被期望能提供一个运转良好的公有clone方法。为了做到这一点，该类和它所有的父类都必须遵守一个复杂，不可实施的，并且基本没有文档说明的协议。由此产生的机制是脆弱，危险而且不受语言影响的：它不用调用构造器就创建了对象。
 
