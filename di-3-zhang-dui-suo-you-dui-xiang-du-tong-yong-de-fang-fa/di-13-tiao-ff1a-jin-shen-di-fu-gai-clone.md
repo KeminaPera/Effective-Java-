@@ -8,7 +8,17 @@ So what does Cloneable do, given that it contains no methods? It determines the 
 
 所以既然Cloneable接口不包含任何方法，那么它是拿来干嘛的？它决定了Object中受保护的clone方法的实现的行为：如果一个类实现了Cloneable接口，Object的clone方法将返回一个属性逐一拷贝的对象，否则它就抛出一个CloneNotSupportedException异常。这是接口一种及其典型的用法，也不值得被效仿。通常情况下，实现一个接口意味着这个类能为客户端做某些事情。但对于Cloenable的情况，它改变了父类受保护方法的行为。
 
-Though the specification doesn’t say it, in practice, a class implementing Cloneable is expected to provide a properly functioning public clone method. In order to achieve this, the class and all of its superclasses must obey a complex, unenforceable, thinly documented protocol. The resulting mechanism is fragile, dangerous, and extralinguistic: it creates objects without calling a constructor.
+Though the specification doesn’t say it, **in practice, a class implementing Cloneable is expected to provide a properly functioning public clone method.** In order to achieve this, the class and all of its superclasses must obey a complex, unenforceable, thinly documented protocol. The resulting mechanism is fragile, dangerous, and extralinguistic: it creates objects without calling a constructor.
 
-虽然在规范中没有明说，但实际中，一个实现了Cloneable的类通常被期望能提供一个运转良好的公有clone方法。为了做到这一点，该类和它所有的父类都必须遵守一个复杂，不可实施的，并且基本没有文档说明的协议。由此产生的机制是脆弱，危险而且不受语言影响的：它不用调用构造器就创建了对象。
+虽然在规范中没有明说，但**实际中，一个实现了Cloneable的类通常被期望能提供一个运转良好的公有clone方法。**为了做到这一点，该类和它所有的父类都必须遵守一个复杂，不可实施的，并且基本没有文档说明的协议。由此产生的机制是脆弱，危险而且不受语言影响的：它不用调用构造器就创建了对象。
+
+The general contract for the clone method is weak. Here it is, copied from the Object specification :
+
+clone方法的通用约定是非常弱的，下面是来自Object规范的约定内容：
+
+Creates and returns a copy of this object. The precise meaning of “copy” may depend on the class of the object. The general intent is that, for any object x, the expression _x.clone\(\) != x _will be true, and the expression _x.clone\(\).getClass\(\) == x.getClass\(\)_ will be true, but these are not absolute requirements. While it is typically the case that _x.clone\(\).equals\(x\)_ will be true, this is not an absolute requirement. 
+
+创建和返回对象的一个拷贝。“拷贝”的精确含义依赖于对象所属的类。一般的含义是，对于任意对象x，表达式_x.clone\(\) != x_将会是true，表达式_x.clone\(\).getClass\(\) == x.getClass\(\)_也将会是true，但这些并不是绝对的要求。虽然通常情况下，_x.clone\(\).equals\(x\)_将会是true，但在也不是个绝对的要求。
+
+By convention, the object returned by this method should be obtained by calling super.clone. If a class and all of its superclasses \(except Object\) obey this convention, it will be the case that _x.clone\(\).getClass\(\) == x.getClass\(\)_. By convention, the returned object should be independent of the object being cloned. To achieve this independence, it may be necessary to modify one or more fields of the object returned by super.clone before returning it.
 
