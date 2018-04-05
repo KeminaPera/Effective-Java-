@@ -88,5 +88,25 @@ public class Stack {
 
 Suppose you want to make this class cloneable. If the clone method merely returns super.clone\(\), the resulting Stack instance will have the correct value in its size field, but its elements field will refer to the same array as the original Stack instance. Modifying the original will destroy the invariants in the clone and vice versa. You will quickly find that your program produces nonsensical results or throws a NullPointerException.
 
-假设我们要让这个类可以被克隆。如果clone方法仅仅是返回super.clone\(\)，那么其返回的Stack对象将会有个相同的size属性值，但它的elements属性却将引用原始Stack实例的数组。修改原始实例将会破坏clone方法里的不变量，反之亦然。很快你就会发现，你的程序会产生荒谬的结果，或者抛出NullPointerException异常。
+假设我们要让这个类可以被克隆。如果clone方法仅仅是返回super.clone\(\)，那么其返回的Stack对象将会有个相同的size属性值，但它的elements属性却将引用原始Stack实例的数组。修改原始实例将会破坏clone方法里的约束条件，反之亦然。很快你就会发现，你的程序会产生荒谬的结果，或者抛出NullPointerException异常。
+
+This situation could never occur as a result of calling the sole constructor in the Stack class. **In effect, the clone method functions as a constructor; you must ensure that it does no harm to the original object and that it properly establishes invariants on the clone. **In order for the clone method on Stack to work properly, it must copy the internals of the stack. The easiest way to do this is to call clone recursively on the elements array:
+
+如果调用Stack类唯一的构造器，则这种情况将永远不会发生。**实际上，clone方法就是另一个构造器，我们必须保证它不会破坏原始对象而且能恰当创建被克隆对象的约束条件。**为了让Stack上的clone方法能正常工作，它必须复制Stack的内部信息。最简单的办法是，在elements数组中递归地调用clone方法。
+
+```
+// Clone method for class with references to mutable state
+@Override 
+public Stack clone() {
+    try {
+        Stack result = (Stack) super.clone(); 
+        result.elements = elements.clone(); 
+        return result;
+    } catch (CloneNotSupportedException e) { 
+        throw new AssertionError();
+    } 
+}
+```
+
+
 
