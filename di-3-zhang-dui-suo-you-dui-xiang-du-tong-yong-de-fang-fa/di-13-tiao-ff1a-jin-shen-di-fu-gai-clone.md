@@ -58,5 +58,33 @@ The call to super.clone is contained in a try-catch block. This is because Objec
 
 If an object contains fields that refer to mutable objects, the simple clone implementation shown earlier can be disastrous. For example, consider the Stack class in Item 7:
 
-如果一个对象包含了应用可变对象的属性，那么如果继续采用前面提到的简单clone
+如果一个对象包含了应用可变对象的属性，那么如果继续采用前面提到的简单的clone方法实现将会导致灾难性的后果。例如，考虑条目7的Stack类：
+
+```
+public class Stack {
+    private Object[] elements;
+    private int size = 0;
+    private static final int DEFAULT_INITIAL_CAPACITY = 16;
+    public Stack() {
+        this.elements = new Object[DEFAULT_INITIAL_CAPACITY];
+    }
+    public void push(Object e) { 
+        ensureCapacity(); 
+        elements[size++] = e;
+    }
+    public Object pop() { 
+        if (size == 0)
+            throw new EmptyStackException();
+        Object result = elements[--size];
+        elements[size] = null; // Eliminate obsolete reference return result;
+    }
+    // Ensure space for at least one more element. 
+    private void ensureCapacity() {
+        if (elements.length == size)
+            elements = Arrays.copyOf(elements, 2 * size + 1);
+    } 
+}
+```
+
+Suppose you want to make this class cloneable. If the clone method merely returns super.clone\(\), the resulting Stack instance will have the correct value in its size field, but its elements field will refer to the same array as the original Stack instance. Modifying the original will destroy the invariants in the clone and vice versa. You will quickly find that your program produces nonsensical results or throws a NullPointerException.
 
