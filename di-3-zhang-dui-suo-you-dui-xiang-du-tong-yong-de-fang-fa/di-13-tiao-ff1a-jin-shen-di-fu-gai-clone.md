@@ -20,7 +20,7 @@ Creates and returns a copy of this object. The precise meaning of “copy” may
 
 创建和返回对象的一个拷贝。“拷贝”的精确含义依赖于对象所属的类。一般的含义是，对于任意对象x，表达式_x.clone\(\) != x_将会是true，表达式_x.clone\(\).getClass\(\) == x.getClass\(\)_也将会是true，但这些并不是绝对的要求。虽然通常情况下，_x.clone\(\).equals\(x\)_将会是true，但在也不是个绝对的要求。
 
-By convention, the object returned by this method should be obtained by calling _super.clone_. If a class and all of its superclasses \(except Object\) obey this convention, it will be the case that _x.clone\(\).getClass\(\) == x.getClass\(\)_. 
+By convention, the object returned by this method should be obtained by calling _super.clone_. If a class and all of its superclasses \(except Object\) obey this convention, it will be the case that _x.clone\(\).getClass\(\) == x.getClass\(\)_.
 
 按照惯例，clone方法返回的对象应该通过调用_super.clone_获得。如果一个类及其所有的父类（除了Object）都遵循了这个惯例，那么就可以做到_x.clone\(\).getClass\(\) == x.getClass\(\)。_
 
@@ -31,6 +31,22 @@ By convention, the returned object should be independent of the object being clo
 This mechanism is vaguely similar to constructor chaining, except that it isn’t enforced: if a class’s clone method returns an instance that is not obtained by calling super.clone but by calling a constructor, the compiler won’t complain, but if a subclass of that class calls super.clone, the resulting object will have the wrong class, preventing the subclass from clone method from working properly. If a class that overrides clone is final, this convention may be safely ignored, as there are no subclasses to worry about. But if a final class has a clone method that does not invoke super.clone, there is no reason for the class to implement Cloneable, as it doesn’t rely on the behavior of Object’s clone implementation.
 
 这种机制有点类似于构造器的调用链，只是这种机制不是强制执行的：如果一个类的clone方法返回了一个实例，但这个实例不是通过调用super.clone获得而是通过调用构造器获得，编译器也不会抱怨，但如果这个类的一个子类调用了super.clone，那么返回的对象将包含错误的类，使得通过clone方法获得的子类不能正常运转。如果一个覆盖了clone方法的类是final型的，这个惯例可以安全地被忽视，因为这个类不会有子类。但如果一个final型的类有一个并不调用super.clone的clone方法时，那么也没有理由为这个类实现Cloneable接口，因为它并不依赖于Object的clone实现的行为。
+
+Suppose you want to implement Cloneable in a class whose superclass provides a well-behaved clone method. First call super.clone. The object you get back will be a fully functional replica of the original. Any fields declared in your class will have values identical to those of the original. If every field contains a primitive value or a reference to an immutable object, the returned object may be exactly what you need, in which case no further processing is necessary. This is the case, for example, for the PhoneNumber class in Item 11, but note that immutable classes should never provide a clone method because it would merely encourage wasteful copying. With that caveat, here’s how a clone method for PhoneNumber would look:
+
+假设我们需要为一个类实现Cloneable接口，这个类的父类提供了一个良好的clone方法。我们从super.clone中得到的对象将会是原始对象的一个完整克隆。类中声明的任一属性的值将会和原始类对应的属性的值相等。如果每个属性包含了基本类型值或者不过变对象的引用，那么返回的对象可能正是我们要的，在这种情况下，不需要进一步的处理。在某些情况下，如条目11中的PhoneNumber类，我们要注意的是，不可变的类应该永远都不提供clone方法，因为它只会造成无意义的拷贝。根据这个警告，PhoneNumber的clone方法应该是下面那样子的：
+
+```
+// Clone method for class with no references to mutable state
+@Override 
+public PhoneNumber clone() {
+    try {
+        return (PhoneNumber) super.clone();
+    } catch (CloneNotSupportedException e) { 
+        throw new AssertionError(); // Can't happen
+    } 
+}
+```
 
 
 
