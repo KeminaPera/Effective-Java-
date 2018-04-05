@@ -56,3 +56,7 @@ The call to super.clone is contained in a try-catch block. This is because Objec
 
 例子中的super.clone调用被包含在一个try-catch代码块里。这是因为，Object声明了它的clone方法会抛出CloneNotSupportedException异常，而这是个检查时异常。由于PhoneNumber实现了Cloneable接口，所以我们知道super.clone调用将会是成功的。但例子中还是需要这个样板，这表明CloneNotSupportedException异常不应该是要检查的（条目71）。
 
+If an object contains fields that refer to mutable objects, the simple clone implementation shown earlier can be disastrous. For example, consider the Stack class in Item 7:
+
+如果一个对象包含了应用可变对象的属性，那么如果继续采用前面提到的简单clone
+
