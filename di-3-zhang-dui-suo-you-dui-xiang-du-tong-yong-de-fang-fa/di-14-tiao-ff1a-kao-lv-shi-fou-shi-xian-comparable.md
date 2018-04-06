@@ -40,5 +40,8 @@ Compares this object with the specified object for order. Returns a negative int
 
 一个对象在与指定的对象比较顺序时，当该对象小于，等于或者大于指定的对象时，相应地返回一个负的整型值，0或者正的整型值。
 
+Throws ClassCastException if the specified object’s type prevents it from being compared to this object.  
+若指定对象的类型不能与发起比较的对象进行比较，则抛出ClassCastException异常：
+
 
 
