@@ -58,3 +58,7 @@ Don’t be put off by the mathematical nature of this contract. Like the equals 
 
 不要被上述约定的数学特性给吓到了。就像equals方法的约定（条目10），这里的约定也不像它看起来的那么复杂。与equals方法不同的是，compareTo方法可以不用做跨类比较，即当遇到不同类型的对象时，compareTo方法可以抛出ClassCastException异常，而equals方法则对所有对象都做了等价关系的判断。通常，这正是compareTo在这种情况下应该做的事，约定的确是允许不同类型之间进行比较，这种比较定义在一个接口中，而被比较的两个对象则实现了这个接口。就像一个类假如违反了hashCode方法约定将破坏其它基于哈希的类一样，一个违反了compareTo方法约定的类也将破坏其它基于比较的类。基于比较的类包括一些有序集合如TreeSet和TreeMap，还有一些工具类如Collections和Arrays，它们内部都包含了查找和排序算法。
 
+Let’s go over the provisions of the compareTo contract. The first provision says that if you reverse the direction of a comparison between two object references, the expected thing happens: if the first object is less than the second, then the second must be greater than the first; if the first object is equal to the second, then the second must be equal to the first; and if the first object is greater than the second, then the second must be less than the first. The second provision says that if one object is greater than a second and the second is greater than a third, then the first must be greater than the third. The final provision says that all objects that compare as equal must yield the same results when compared to any other object.
+
+让我们再来过一遍compareTo方法约定的内容。第一条约定里说到，如果调换了两个对象应用之间的比较方向，那么将会发生以下的情况：如果第一个对象小于第二个对象，那么第二个对象一定大于第一个对象；如果第一个对象等于第二个对象，那么第二个对象一定等于第一个对象；如果第一个对象大于第二个对象，那么第二个对象一定小于第一个对象。第二条约定里说到，如果第一个对象大于第二个对象，而且第二个对象大于第三个对象，那么第一个对象一定大于第三个对象。最后一条约定里说到，若两个对象的比较结果是相等，那么这两个对象在分别与别的对象进行比较时，分别产生的比较结果也是一样的。
+
