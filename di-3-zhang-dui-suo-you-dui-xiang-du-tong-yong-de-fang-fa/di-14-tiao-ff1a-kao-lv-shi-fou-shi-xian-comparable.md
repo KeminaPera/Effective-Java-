@@ -24,6 +24,8 @@ public class WordList {
 
 By implementing Comparable, you allow your class to interoperate with all of the many generic algorithms and collection implementations that depend on this interface. You gain a tremendous amount of power for a small amount of effort. Virtually all of the value classes in the Java platform libraries, as well as all enum types \(Item 34\), implement Comparable. If you are writing a value class with an obvious natural ordering, such as alphabetical order, numerical order, or chronological order, you should implement the Comparable interface:
 
+通过实现Comparable接口，我们的类能与许多范型算法（generic algorithm）以及依赖于该接口的集合实现进行协作。我们只要付出点小小的努力就可以获得很多很强的功能。事实上，几乎所有的Java类库，包括枚举类型（条目34），都实现了Comparable接口。如果你正在写一个明显具有自然顺序的值类，如字母顺序，数字大小顺序或者时间先后顺序，那么你就应该实现Comparable接口：
+
 ```
 public interface Comparable<T> { 
     int compareTo(T t);
