@@ -10,3 +10,15 @@ Arrays.sort(a);
 
 It is similarly easy to search, compute extreme values, and maintain automatically sorted collections of Comparable objects. For example, the following program, which relies on the fact that String implements Comparable, prints an alphabetized list of its command-line arguments with duplicates eliminated:
 
+```
+public class WordList {
+    public static void main(String[] args) {
+        Set<String> s = new TreeSet<>(); 
+        Collections.addAll(s, args); 
+        System.out.println(s);
+    } 
+}
+```
+
+
+
