@@ -10,6 +10,8 @@ Arrays.sort(a);
 
 It is similarly easy to search, compute extreme values, and maintain automatically sorted collections of Comparable objects. For example, the following program, which relies on the fact that String implements Comparable, prints an alphabetized list of its command-line arguments with duplicates eliminated:
 
+同样地，对存储在集合中的Comparable对象进行搜索，计算极限值和自动维护也是很简单的。例如，下面的程序依赖于String实现了Comparable接口，它去掉了重复的命令行参数，然后根据字母顺序打印出来：
+
 ```
 public class WordList {
     public static void main(String[] args) {
