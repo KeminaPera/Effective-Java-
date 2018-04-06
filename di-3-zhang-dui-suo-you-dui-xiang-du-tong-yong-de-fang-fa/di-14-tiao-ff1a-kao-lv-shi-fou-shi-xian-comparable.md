@@ -32,5 +32,10 @@ public interface Comparable<T> {
 }
 ```
 
+The general contract of the compareTo method is similar to that of equals:
+
+compareTo方法的通用约定与equals方法的相类似：
+
+  
 
 
