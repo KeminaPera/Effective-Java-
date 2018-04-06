@@ -56,8 +56,5 @@ In the following description, the notation sgn\(expression\) designates the math
 
 Don’t be put off by the mathematical nature of this contract. Like the equals contract \(Item 10\), this contract isn’t as complicated as it looks. Unlike the equals method, which imposes a global equivalence relation on all objects, compareTo doesn’t have to work across objects of different types: when confronted with objects of different types, compareTo is permitted to throw ClassCastException. Usually, that is exactly what it does. The contract does permit intertype comparisons, which are typically defined in an interface implemented by the objects being compared. Just as a class that violates the hashCode contract can break other classes that depend on hashing, a class that violates the compareTo contract can break other classes that depend on comparison. Classes that depend on comparison include the sorted collections TreeSet and TreeMap and the utility classes Collections and Arrays, which contain searching and sorting algorithms.
 
-  
-
-
-
+不要被上述约定的数学特性给吓到了。就像equals方法的约定（条目10），这里的约定也不像它看起来的那么复杂。与equals方法不同的是，comepareTo方法可以不用做跨类比较，即当遇到不同类型的对象时，compareTo方法可以抛出ClassCastException异常，而equals方法则对所有对象都做了等价关系的判断。
 
