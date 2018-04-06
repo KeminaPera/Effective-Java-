@@ -112,5 +112,8 @@ Note that we do not have to cast the result of elements.clone to Object\[\]. Cal
 
 现在我们不用将elements.clone返回的结果转成Object\[\]。在一个数组上调用clone方法而返回的数组，其运行时和编译时的类型都和被克隆的数组一致。这是复制数组首选的手法。事实上，数组复制是克隆机制唯一有用的地方。
 
+Note also that the earlier solution would not work if the elements field were final because clone would be prohibited from assigning a new value to the field. This is a fundamental problem: like serialization, the Cloneable architecture is incompatible with normal use of final fields referring to mutable objects, except in cases where the mutable objects may be safely shared between an object and its clone. In order to make a class cloneable, it may be necessary to remove final modifiers from some fields.
+
+要注意的是，如果elements数组是final型的，那么上述方式也将不起作用，因为克隆将被禁止向这个属性赋值。  
 
 
