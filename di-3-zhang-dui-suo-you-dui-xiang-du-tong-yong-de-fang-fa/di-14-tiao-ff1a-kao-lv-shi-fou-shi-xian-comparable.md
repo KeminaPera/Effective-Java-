@@ -36,12 +36,28 @@ The general contract of the compareTo method is similar to that of equals:
 
 compareTo方法的通用约定与equals方法的相类似：
 
-Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object. Throws ClassCastException if the specified object’s type prevents it from being compared to this object.
 
-一个对象在与指定的对象比较顺序时，当该对象小于，等于或者大于指定的对象时，相应地返回一个负的整型值，0或者正的整型值。
+一个对象在与指定的对象比较顺序时，当该对象小于，等于或者大于指定的对象时，相应地返回一个负的整型值，0或者正的整型值。若指定对象的类型不能与发起比较的对象进行比较，则抛出ClassCastException异常。
 
-Throws ClassCastException if the specified object’s type prevents it from being compared to this object.  
-若指定对象的类型不能与发起比较的对象进行比较，则抛出ClassCastException异常：
+In the following description, the notation sgn\(expression\) designates the mathematical signum function, which is defined to return-1, 0, or 1, according to whether the value of expression is negative, zero, or positive.
+
+* The implementor must ensure that sgn\(x.compareTo\(y\)\) == -sgn\(y. compareTo\(x\)\) for all x and y. \(This implies that x.compareTo\(y\) must throw an exception if and only if y.compareTo\(x\) throws an exception.\)
+* The implementor must also ensure that the relation is transitive: \(x. compareTo\(y\) &gt; 0 && y.compareTo\(z\) &gt; 0\) implies x.compareTo\(z\) &gt; 0.
+* Finally, the implementor must ensure that x.compareTo\(y\) == 0 implies that sgn\(x.compareTo\(z\)\) == sgn\(y.compareTo\(z\)\), for all z.
+* It is strongly recommended, but not required, that\(x.compareTo\(y\) == 0\) == \(x.equals\(y\)\). Generally speaking, any class that implements the Comparable interface and violates this condition should clearly indicate this fact. The recommended language is “Note: This class has a natural ordering that is inconsistent with equals.”
+
+在下面的表述中，符号sgn（expression）表示数学中的signum函数，返回值为-1，0，1，分别代表表达式的值为负数，0或者正数。
+
+* 实现类必须确保对于所有的x和y，sgn\(x.compareTo\(y\)\) == -sgn\(y. compareTo\(x\)\)成立。（这意味着，当且仅当y.compareTo\(x\)抛出了异常，x.compareTo\(y\)也必须抛出异常。）
+* 实现类必须确保关系的传递性：若\(x. compareTo\(y\) &gt; 0 && y.compareTo\(z\) &gt; 0\)，则x.compareTo\(z\)&gt;0。
+* 最后，实现类必须确保若x.compareTo\(y\) == 0，则对于所有的z，sgn\(x.compareTo\(z\)\) == sgn\(y.compareTo\(z\)\)成立。
+* 强烈建议\(x.compareTo\(y\) == 0\) == \(x.equals\(y\)\)成立，但这并不是必须的，通常来说，任何实现了Comparable接口的类如果违反了这个条件，那么应该做个说明。推荐的说法是“注意：该类具有自然排序，但是与equals方法不一致。”
+
+Don’t be put off by the mathematical nature of this contract. Like the equals contract \(Item 10\), this contract isn’t as complicated as it looks. Unlike the equals method, which imposes a global equivalence relation on all objects, compareTo doesn’t have to work across objects of different types: when confronted with objects of different types, compareTo is permitted to throw ClassCastException. Usually, that is exactly what it does. The contract does permit intertype comparisons, which are typically defined in an interface implemented by the objects being compared. Just as a class that violates the hashCode contract can break other classes that depend on hashing, a class that violates the compareTo contract can break other classes that depend on comparison. Classes that depend on comparison include the sorted collections TreeSet and TreeMap and the utility classes Collections and Arrays, which contain searching and sorting algorithms.
+
+  
+
 
 
 
