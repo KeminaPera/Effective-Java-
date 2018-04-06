@@ -22,5 +22,13 @@ public class WordList {
 }
 ```
 
+By implementing Comparable, you allow your class to interoperate with all of the many generic algorithms and collection implementations that depend on this interface. You gain a tremendous amount of power for a small amount of effort. Virtually all of the value classes in the Java platform libraries, as well as all enum types \(Item 34\), implement Comparable. If you are writing a value class with an obvious natural ordering, such as alphabetical order, numerical order, or chronological order, you should implement the Comparable interface:
+
+```
+public interface Comparable<T> { 
+    int compareTo(T t);
+}
+```
+
 
 
