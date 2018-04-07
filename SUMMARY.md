@@ -17,4 +17,5 @@
   * [第12条：始终要覆盖toString](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-12-tiao-ff1a-zong-shi-yao-fu-gai-tostring.md)
   * [第13条：谨慎地覆盖clone](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-13-tiao-ff1a-jin-shen-di-fu-gai-clone.md)
   * [第14条：考虑是否实现comparable](di-3-zhang-dui-suo-you-dui-xiang-du-tong-yong-de-fang-fa/di-14-tiao-ff1a-kao-lv-shi-fou-shi-xian-comparable.md)
+* [第4章：类和接口](di-4-zhang-ff1a-lei-he-jie-kou.md)
 
