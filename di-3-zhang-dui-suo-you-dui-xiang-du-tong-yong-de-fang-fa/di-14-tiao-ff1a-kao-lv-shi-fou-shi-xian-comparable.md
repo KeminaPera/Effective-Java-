@@ -139,5 +139,38 @@ If two phone numbers have the same area code, we need to further refine the comp
 
 如果两个电话号码的区域代码相同，那么我们需要继续比较下去，这正是第二个比较器构造方法，thenComparingInt，做的事。它是Comparator的实例方法，要求输入一个int类型键提取函数，并返回一个比较器，这个比较器先应用第一层比较器，然后使用提取出来的键来进行最终的比较。只要你喜欢，你可以往上叠加任意多的thenComparingInt调用，从而产生一个字典排序。在上面的例子中，我们叠加了两次thenComparingInt调用，产生了一个排序，这个排序的第二个键是prefix，第三个键是line number。注意到，我们在在往thenComparingInt传参时，不用指明键提取函数的参数类型：Java的类型推断足够智能来推断出此处的参数类型。
 
+The Comparator class has a full complement of construction methods. There are analogues to comparingInt and thenComparingInt for the primitive types long and double. The int versions can also be used for narrower integral types, such as short, as in our PhoneNumber example. The double versions can also be used for float. This provides coverage of all of Java’s numerical primitive types.
 
+There are also comparator construction methods for object reference types. The static method, named comparing, has two overloadings. One takes a key extractor and uses the keys’ natural order. The second takes both a key extractor and a comparator to be used on the extracted keys. There are three overloadings of the instance method, which is named thenComparing. One overloading takes only a comparator and uses it to provide a secondary order. A second overloading takes only a key extractor and uses the key’s natural order as a secondary order. The final overloading takes both a key extractor and a comparator to be used on the extracted keys.
+
+Occasionally you may see compareTo or compare methods that rely on the fact that the difference between two values is negative if the first value is less than the second, zero if the two values are equal, and positive if the first value is greater. Here is an example:
+
+```
+// BROKEN difference-based comparator - violates transitivity!
+static Comparator<Object> hashCodeOrder = new Comparator<>() {
+    public int compare(Object o1, Object o2) { 
+        return o1.hashCode() - o2.hashCode();
+    } 
+};
+```
+
+Do not use this technique. It is fraught with danger from integer overflow and IEEE 754 floating point arithmetic artifacts \[JLS 15.20.1, 15.21.1\]. Furthermore, the resulting methods are unlikely to be significantly faster than those written using the techniques described in this item. Use either a static compare method:
+
+```
+// Comparator based on static compare method
+static Comparator<Object> hashCodeOrder = new Comparator<>() {
+    public int compare(Object o1, Object o2) {
+        return Integer.compare(o1.hashCode(), o2.hashCode());
+    } 
+};
+```
+
+or a comparator construction method:
+
+```
+// Comparator based on Comparator construction method
+static Comparator<Object> hashCodeOrder = Comparator.comparingInt(o -> o.hashCode());
+```
+
+In summary, whenever you implement a value class that has a sensible ordering, you should have the class implement the Comparable interface so that its instances can be easily sorted, searched, and used in comparison-based collections. When comparing field values in the implementations of the compareTo methods, avoid the use of the&lt;and&gt;operators. Instead, use the static compare methods in the boxed primitive classes or the comparator construction methods in the Comparator interface.
 
