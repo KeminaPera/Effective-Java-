@@ -76,7 +76,11 @@ For example, consider the BigDecimal class, whose compareTo method is inconsiste
 
 Writing a compareTo method is similar to writing an equals method, but there are a few key differences. Because the Comparable interface is parameterized, the compareTo method is statically typed, so you don’t need to type check or cast its argument. If the argument is of the wrong type, the invocation won’t even compile. If the argument is null, the invocation should throw a NullPointerException, and it will, as soon as the method attempts to access its members.
 
+编写compareTo方法与编写equals方法相类似，但也有几个关键的不同点。因为Comparable接口是参数化的，compareTo方法是静态的类型，所以我们不用进行类型检查或者对参数进行转型。如果参数不是要求的类型，那么调用不会被编译通过。如果参数是null，那么在调用时，方法一旦访问参数的成员，将立马抛出NullPointerException异常。
+
 In a compareTo method, fields are compared for order rather than equality. To compare object reference fields, invoke the compareTo method recursively. If a field does not implement Comparable or you need a nonstandard ordering, use a Comparator instead. You can write your own comparator or use an existing one, as in this compareTo method for CaseInsensitiveString in Item 10:
+
+在compareTo方法里，我们对属性进行比较是为了得到一个顺序而不是看其是否相等。为了比较对象引用的属性，我们可以递归地调用compareTo方法。如果一个属性没有实现Comparable接口或者我们需要一个非标准的顺序，可以使用Comparator来替代。我们可以写一个我们自己的comparator或直接使用现有的，下面例子中的compareTo方法就是为条目10的CaseInsensitiveString类而编写的：
 
 ```
 // Single-field Comparable with object reference field
@@ -88,5 +92,10 @@ public final class CaseInsensitiveString implements Comparable<CaseInsensitiveSt
 }
 ```
 
+Note that CaseInsensitiveString implements Comparable&lt;CaseInsensitiveString&gt;. This means that a CaseInsensitiveString reference can be compared only to another CaseInsensitiveString reference. This is the normal pattern to follow when declaring a class to implement Comparable.
+
+注意到，CaseInsensitiveString实现了Comparable&lt;CaseInsensitiveString&gt;接口。这意味着，CaseInsensitiveString引用只能被另一个CaseInsensitiveString引用进行比较。声明一个类实现了Comparable接口是常见的模式。
+
+  
 
 
