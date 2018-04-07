@@ -141,6 +141,8 @@ If two phone numbers have the same area code, we need to further refine the comp
 
 The Comparator class has a full complement of construction methods. There are analogues to comparingInt and thenComparingInt for the primitive types long and double. The int versions can also be used for narrower integral types, such as short, as in our PhoneNumber example. The double versions can also be used for float. This provides coverage of all of Java’s numerical primitive types.
 
+Comparator类有着完备的构建方法。对于基础类型long和double，它也有类似于comparingInt和thenComparingInt的方法。在Comparator里，int相关的方法同样适用于范围更小的整型类型，如short，例子可参见PhoneNumber。同样地，double相关的方法也适用于float类型。这些方法覆盖了Java里所有的数值基本类型。
+
 There are also comparator construction methods for object reference types. The static method, named comparing, has two overloadings. One takes a key extractor and uses the keys’ natural order. The second takes both a key extractor and a comparator to be used on the extracted keys. There are three overloadings of the instance method, which is named thenComparing. One overloading takes only a comparator and uses it to provide a secondary order. A second overloading takes only a key extractor and uses the key’s natural order as a secondary order. The final overloading takes both a key extractor and a comparator to be used on the extracted keys.
 
 Occasionally you may see compareTo or compare methods that rely on the fact that the difference between two values is negative if the first value is less than the second, zero if the two values are equal, and positive if the first value is greater. Here is an example:
