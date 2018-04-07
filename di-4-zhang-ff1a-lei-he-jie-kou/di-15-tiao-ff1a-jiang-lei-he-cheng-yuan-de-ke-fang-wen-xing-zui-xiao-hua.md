@@ -10,3 +10,7 @@ Java has many facilities to aid in information hiding. The access control mechan
 
 The rule of thumb is simple: **make each class or member as inaccessible as possible.**In other words, use the lowest possible access level consistent with the proper functioning of the software that you are writing.
 
+For top-level \(non-nested\) classes and interfaces, there are only two possible access levels: package-private and public. If you declare a top-level class or interface with the public modifier, it will be public; otherwise, it will be package-private. If a top-level class or interface can be made package-private, it should be. By making it package-private, you make it part of the implementation rather than the exported API, and you can modify it, replace it, or eliminate it in a subsequent release without fear of harming existing clients. If you make it public, you are obligated to support it forever to maintain compatibility.
+
+If a package-private top-level class or interface is used by only one class, consider making the top-level class a private static nested class of the sole class that uses it \(Item 24\). This reduces its accessibility from all the classes in its package to the one class that uses it. But it is far more important to reduce the accessibility of a gratuitously public class than of a package-private top-level class: the public class is part of the package’s API, while the package-private top-level class is already part of its implementation.
+
