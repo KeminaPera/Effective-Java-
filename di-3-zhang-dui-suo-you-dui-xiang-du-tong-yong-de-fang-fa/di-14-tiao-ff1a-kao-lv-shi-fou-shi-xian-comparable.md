@@ -104,6 +104,32 @@ If a class has multiple significant fields, the order in which you compare them 
 
 如果一个类里有很多个重要属性，那么我们对于属性的比较顺序也是很重要的。我们从最重要的属性开始逐个进行比较。中途任意一个属性的比较结果不是0（即相等），我们的比较就算完成了，返回该比较结果即可。如果最重要的属性相等，则比较次重要的属性，依此类推，直到我们找到一个不等的属性或比较到了最不重要的属性。下面是为条目11中的PhoneNumber类编写的compareTo方法就说明了上述方法：
 
-**  
-**
+```
+// Multiple-field Comparable with primitive fields
+public int compareTo(PhoneNumber pn) {
+    int result = Short.compare(areaCode, pn.areaCode); 
+    if (result == 0) {
+        result = Short.compare(prefix, pn.prefix); 
+        if (result == 0)
+            result = Short.compare(lineNum, pn.lineNum); 
+    }
+    return result; 
+}
+```
+
+In Java 8, the Comparator interface was outfitted with a set of comparator construction methods, which enable fluent construction of comparators. These comparators can then be used to implement a compareTo method, as required by the Comparable interface. Many programmers prefer the conciseness of this approach, though it does come at a modest performance cost: sorting arrays of PhoneNumber instances is about 10% slower on my machine. When using this approach, consider using Java’s static import facility so you can refer to static comparator construction methods by their simple names for clarity and brevity. Here’s how the compareTo method for PhoneNumber looks using this approach:
+
+在Java 8中，Comparator接口提供了一系列的Comparator构建方法，这些构建方法能流畅地构建Comparator。然后这些构建出来的比较器能被用在compareTo方法里，就像Comparable接口里要求的那样。许多程序员喜欢这种简洁的方式，虽然这种方式的性能比较一般：在我的电脑上对PhoneNumber实例数组进行排序，大约慢了10%。在使用这种方式时，可以考虑使用Java的静态导入机制，这样我们就可以简洁明了通过他们的名字来使用静态Comparator构建方法。
+
+```
+// Comparable with comparator construction methods
+private static final Comparator<PhoneNumber> COMPARATOR = comparingInt((PhoneNumber pn) -> pn.areaCode)
+.thenComparingInt(pn -> pn.prefix)  
+.thenComparingInt(pn -> pn.lineNum);
+public int compareTo(PhoneNumber pn) { 
+    return COMPARATOR.compare(this, pn);
+}
+```
+
+
 
