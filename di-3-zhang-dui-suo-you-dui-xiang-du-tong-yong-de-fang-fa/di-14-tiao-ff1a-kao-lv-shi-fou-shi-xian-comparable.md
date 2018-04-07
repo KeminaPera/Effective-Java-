@@ -137,3 +137,7 @@ This implementation builds a comparator at class initialization time, using two 
 
 If two phone numbers have the same area code, we need to further refine the comparison, and that’s exactly what the second comparator construction method, thenComparingInt, does. It is an instance method on Comparator that takes an int key extractor function, and returns a comparator that first applies the original comparator and then uses the extracted key to break ties. You can stack up as many calls to thenComparingInt as you like, resulting in a lexicographic ordering. In the example above, we stack up two calls to thenComparingInt, resulting in an ordering whose secondary key is the prefix and whose tertiary key is the line number. Note that we did not have to specify the parameter type of the key extractor function passed to either of the calls to thenComparingInt: Java’s type inference was smart enough to figure this one out for itself.
 
+如果两个电话号码的区域代码相同，那么我们需要继续比较下去，这正是第二个比较器构造方法，thenComparingInt，做的事。它是Comparator的实例方法，要求输入一个int类型键提取函数，并返回一个比较器，这个比较器先应用第一层比较器，然后使用提取出来的键来进行最终的比较。只要你喜欢，你可以往上叠加任意多的thenComparingInt调用，从而产生一个字典排序。在上面的例子中，我们叠加了两次thenComparingInt调用，产生了一个排序，这个排序的第二个键是prefix，第三个键是line number。注意到，我们在在往thenComparingInt传参时，不用指明键提取函数的参数类型：Java的类型推断足够智能来推断出此处的参数类型。
+
+
+
