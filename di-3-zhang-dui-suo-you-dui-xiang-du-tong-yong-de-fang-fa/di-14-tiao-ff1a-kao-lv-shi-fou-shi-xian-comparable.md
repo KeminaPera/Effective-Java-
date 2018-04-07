@@ -135,5 +135,5 @@ This implementation builds a comparator at class initialization time, using two 
 
 上述实现在类的初始化时通过使用两个Comparator构建方法创建了一个比较器。第一个是comparingInt，它是个静态方法，要求传入一个键提取函数，这个函数能将一个对象引用映射为一个int类型的键。这个静态方法返回一个比较器，这个比较器依据提取出来的键对实例进行排序。在上面的例子当中，comparingInt要求传入一个lambda\(\)，通过它将区域代码（area code）从PhoneNumber中提取出来，然后返回Comparator&lt;PhoneNumber&gt;，其可以依据区域代码对电话号码进行排序。注意，这里的lambda表达式显式指定了它所需的参数\(PhoneNumber pn\)。这是因为在这种情况下，Java的类型推断功能还不够强大，所以我们不得不显式指定参数类型来让它能编译通过。
 
-
+If two phone numbers have the same area code, we need to further refine the comparison, and that’s exactly what the second comparator construction method, thenComparingInt, does. It is an instance method on Comparator that takes an int key extractor function, and returns a comparator that first applies the original comparator and then uses the extracted key to break ties. You can stack up as many calls to thenComparingInt as you like, resulting in a lexicographic ordering. In the example above, we stack up two calls to thenComparingInt, resulting in an ordering whose secondary key is the prefix and whose tertiary key is the line number. Note that we did not have to specify the parameter type of the key extractor function passed to either of the calls to thenComparingInt: Java’s type inference was smart enough to figure this one out for itself.
 
