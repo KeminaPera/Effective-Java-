@@ -131,5 +131,9 @@ public int compareTo(PhoneNumber pn) {
 }
 ```
 
+This implementation builds a comparator at class initialization time, using two comparator construction methods. The first is comparingInt. It is a static method that takes a key extractor function that maps an object reference to a key of type int and returns a comparator that orders instances according to that key. In the previous example, comparingInt takes a lambda\(\) that extracts the area code from a PhoneNumber and returns a Comparator&lt;PhoneNumber&gt; that orders phone numbers according to their area codes. Note that the lambda explicitly specifies the type of its input parameter \(PhoneNumber pn\). It turns out that in this situation, Java’s type inference isn’t powerful enough to figure the type out for itself, so we’re forced to help it in order to make the program compile.
+
+上述实现在类的初始化时通过使用两个Comparator构建方法创建了一个比较器。第一个是comparingInt，它是个静态方法，要求传入一个键提取函数，这个函数能将一个对象引用映射为一个int类型的键。这个静态方法返回一个比较器，这个比较器依据提取出来的键对实例进行排序。在上面的例子当中，comparingInt要求传入一个lambda\(\)，通过它将区域代码（area code）从PhoneNumber中提取出来，然后返回Comparator&lt;PhoneNumber&gt;，其可以依据区域代码对电话号码进行排序。注意，这里的lambda表达式显式指定了它所需的参数\(PhoneNumber pn\)。这是因为在这种情况下，Java的类型推断功能还不够强大，所以我们不得不显式指定参数类型来让它能编译通过。
+
 
 
