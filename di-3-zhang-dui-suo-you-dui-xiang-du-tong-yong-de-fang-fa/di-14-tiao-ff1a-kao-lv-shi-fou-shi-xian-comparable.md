@@ -98,6 +98,12 @@ Note that CaseInsensitiveString implements Comparable&lt;CaseInsensitiveString&g
 
 Prior editions of this book recommended that compareTo methods compare integral primitive fields using the relational operators &lt; and &gt;, and floating point primitive fields using the static methods Double.compare and Float.compare. In Java 7, static compare methods were added to all of Java’s boxed primitive classes. **Use of the relational operators &lt; and &gt; in compareTo methods is verbose and error-prone and no longer recommended.**
 
-本书的上一版中提到，在比较整型基本类型时，推荐使用关系运算符 &lt; 和 &gt;，在比较浮点基本类型时，推荐使用静态方法Double.compare和Float.compare。在Java 7中，静态比较方法被添加到所有的Java装箱基本类里了。**在compareTo方法中使用关系运算符 &lt; 和 &gt; 会显得冗余并且易于出错，不再推荐。  
+本书的上一版中提到，在比较整型基本类型时，推荐使用关系运算符 &lt; 和 &gt;，在比较浮点基本类型时，推荐使用静态方法Double.compare和Float.compare。在Java 7中，静态比较方法被添加到所有的Java装箱基本类里了。**在compareTo方法中使用关系运算符 &lt; 和 &gt; 会显得冗余并且易于出错，不再推荐。**
+
+If a class has multiple significant fields, the order in which you compare them is critical. Start with the most significant field and work your way down. If a comparison results in anything other than zero \(which represents equality\), you’re done; just return the result. If the most significant field is equal, compare the next-most-significant field, and so on, until you find an unequal field or compare the least significant field. Here is a compareTo method for the PhoneNumber class in Item 11demonstrating this technique:**  **
+
+如果一个类里有很多个重要属性，那么我们对于属性的比较顺序也是很重要的。我们从最重要的属性开始逐个进行比较。中途任意一个属性的比较结果不是0（即相等），我们的比较就算完成了，返回该比较结果即可。如果最重要的属性相等，则比较次重要的属性，依此类推，直到我们找到一个不等的属性或比较到了最不重要的属性。下面是为条目11中的PhoneNumber类编写的compareTo方法就说明了上述方法：
+
+**  
 **
 
