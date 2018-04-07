@@ -6,7 +6,7 @@ The single most important factor that distinguishes a well-designed component fr
 
 Information hiding is important for many reasons, most of which stem from the fact that it decouples the components that comprise a system, allowing them to be developed, tested, optimized, used, understood, and modified in isolation. This speeds up system development because components can be developed in parallel. It eases the burden of maintenance because components can be understood more quickly and debugged or replaced with little fear of harming other components. While information hiding does not, in and of itself, cause good performance, it enables effective performance tuning: once a system is complete and profiling has determined which components are causing performance problems \(Item 67\), those components can be optimized without affecting the correctness of others. Information hiding increases software reuse because components that aren’t tightly coupled often prove useful in other contexts besides the ones for which they were developed. Finally, information hiding decreases the risk in building large systems because individual components may prove successful even if the system does not.
 
-  
-  
+Java has many facilities to aid in information hiding. The access control mechanism \[JLS, 6.6\] specifies the accessibility of classes, interfaces, and members. The accessibility of an entity is determined by the location of its declaration and by which, if any, of the access modifiers \(private, protected, and public\) is present on the declaration. Proper use of these modifiers is essential to information hiding.
 
+The rule of thumb is simple: **make each class or member as inaccessible as possible.**In other words, use the lowest possible access level consistent with the proper functioning of the software that you are writing.
 
