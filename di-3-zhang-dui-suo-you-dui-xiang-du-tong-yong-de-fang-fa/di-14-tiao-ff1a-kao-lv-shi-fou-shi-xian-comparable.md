@@ -96,6 +96,8 @@ Note that CaseInsensitiveString implements Comparable&lt;CaseInsensitiveString&g
 
 注意到，CaseInsensitiveString实现了Comparable&lt;CaseInsensitiveString&gt;接口。这意味着，CaseInsensitiveString引用只能被另一个CaseInsensitiveString引用进行比较。声明一个类实现了Comparable接口是常见的模式。
 
-  
+Prior editions of this book recommended that compareTo methods compare integral primitive fields using the relational operators &lt; and &gt;, and floating point primitive fields using the static methods Double.compare and Float.compare. In Java 7, static compare methods were added to all of Java’s boxed primitive classes. **Use of the relational operators &lt; and &gt; in compareTo methods is verbose and error-prone and no longer recommended.**
 
+本书的上一版中提到，在比较整型基本类型时，推荐使用关系运算符 &lt; 和 &gt;，在比较浮点基本类型时，推荐使用静态方法Double.compare和Float.compare。在Java 7中，静态比较方法被添加到所有的Java装箱基本类里了。**在compareTo方法中使用关系运算符 &lt; 和 &gt; 会显得冗余并且易于出错，不再推荐。  
+**
 
