@@ -145,7 +145,11 @@ Comparator类有着完备的构建方法。对于基础类型long和double，它
 
 There are also comparator construction methods for object reference types. The static method, named comparing, has two overloadings. One takes a key extractor and uses the keys’ natural order. The second takes both a key extractor and a comparator to be used on the extracted keys. There are three overloadings of the instance method, which is named thenComparing. One overloading takes only a comparator and uses it to provide a secondary order. A second overloading takes only a key extractor and uses the key’s natural order as a secondary order. The final overloading takes both a key extractor and a comparator to be used on the extracted keys.
 
+Comparator里也为对象引用类型提供了比较器构造方法。静态方法comparing有两个重载。第一个重载将一个键提取函数作为参数并使用键的自然顺序。第二个重载不仅需要将一个键提取函数作为参数，还需要输入一个比较器用来比较提取出来的键。实例方法thenComparing有三个重载。第一个重载将一个比较器作为参数，并把它作为第二层比较。第二个重载将一个键提取函数作为参数并使用键的自然顺序作为第二层比较。第三个重载则需要输入一个键提取函数和一个比较器，并把比较器用来比较提取出来的键。
+
 Occasionally you may see compareTo or compare methods that rely on the fact that the difference between two values is negative if the first value is less than the second, zero if the two values are equal, and positive if the first value is greater. Here is an example:
+
+有时你可能会发现有些compareTo或compare方法依赖于两个值之间的差值，若第一个值小于第二个值，则为负，若两个值相等，则为0，若第一个值大于第二个值，则为正。下面举一个例子：
 
 ```
 // BROKEN difference-based comparator - violates transitivity!
@@ -158,6 +162,8 @@ static Comparator<Object> hashCodeOrder = new Comparator<>() {
 
 Do not use this technique. It is fraught with danger from integer overflow and IEEE 754 floating point arithmetic artifacts \[JLS 15.20.1, 15.21.1\]. Furthermore, the resulting methods are unlikely to be significantly faster than those written using the techniques described in this item. Use either a static compare method:
 
+不要这么做，因为它有可能会导致整型溢出和IEEE 754浮点运算失真\[JLS 15.20.1, 15.21.1\]。不仅如此，编写出来的方法还不比依据本条目提到的技术来编写的方法快多少。我们可以使用静态比较方法：
+
 ```
 // Comparator based on static compare method
 static Comparator<Object> hashCodeOrder = new Comparator<>() {
@@ -169,10 +175,14 @@ static Comparator<Object> hashCodeOrder = new Comparator<>() {
 
 or a comparator construction method:
 
+或者先构建一个比较器再进行比较：
+
 ```
 // Comparator based on Comparator construction method
 static Comparator<Object> hashCodeOrder = Comparator.comparingInt(o -> o.hashCode());
 ```
 
-In summary, whenever you implement a value class that has a sensible ordering, you should have the class implement the Comparable interface so that its instances can be easily sorted, searched, and used in comparison-based collections. When comparing field values in the implementations of the compareTo methods, avoid the use of the&lt;and&gt;operators. Instead, use the static compare methods in the boxed primitive classes or the comparator construction methods in the Comparator interface.
+In summary, whenever you implement a value class that has a sensible ordering, you should have the class implement the Comparable interface so that its instances can be easily sorted, searched, and used in comparison-based collections. When comparing field values in the implementations of the compareTo methods, avoid the use of the &lt; and &gt; operators. Instead, use the static compare methods in the boxed primitive classes or the comparator construction methods in the Comparator interface.
+
+总的说来，任何时候我们实现了具有合理排序的值类，我们都应该让这个类实现Comparable接口，这样它的实例就能方便的被排序，查询，以及用于基于排序的集合。在实现compareTo方法时，避免使用 &lt; 和 &gt; 运算符来进行属性值的比较。相反，我们应该使用封箱基本类型的静态比较方法，或者Comparator接口里的比较器构造方法。
 
