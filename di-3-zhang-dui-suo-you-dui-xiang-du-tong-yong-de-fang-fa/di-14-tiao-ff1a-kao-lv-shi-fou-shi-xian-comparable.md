@@ -74,5 +74,19 @@ For example, consider the BigDecimal class, whose compareTo method is inconsiste
 
 例如，BigDecimal类的compareTo方法就与equals方法的同等性测试结果不一样。如果我们创建了一个空的HashSet实例，然后往里添加new BigDecimal\("1.0"\)和new BidDecimal\("1.00"\)，那么这个集合将会包含两个元素，因为这两个添加进去的BigDecimal实例通过equals方法做比较时是不相等的。然而，如果我们一开始使用的是TreeSet而不是HashSet，那么这个集合将包含一个元素，因为这两个BigDecimal元素通过compareTo方法做比较时是相等的。（详情请见BidDecimal文档。）
 
+Writing a compareTo method is similar to writing an equals method, but there are a few key differences. Because the Comparable interface is parameterized, the compareTo method is statically typed, so you don’t need to type check or cast its argument. If the argument is of the wrong type, the invocation won’t even compile. If the argument is null, the invocation should throw a NullPointerException, and it will, as soon as the method attempts to access its members.
+
+In a compareTo method, fields are compared for order rather than equality. To compare object reference fields, invoke the compareTo method recursively. If a field does not implement Comparable or you need a nonstandard ordering, use a Comparator instead. You can write your own comparator or use an existing one, as in this compareTo method for CaseInsensitiveString in Item 10:
+
+```
+// Single-field Comparable with object reference field
+public final class CaseInsensitiveString implements Comparable<CaseInsensitiveString> {
+    public int compareTo(CaseInsensitiveString cis) {
+        return String.CASE_INSENSITIVE_ORDER.compare(s, cis.s);
+    }
+... // Remainder omitted 
+}
+```
+
 
 
