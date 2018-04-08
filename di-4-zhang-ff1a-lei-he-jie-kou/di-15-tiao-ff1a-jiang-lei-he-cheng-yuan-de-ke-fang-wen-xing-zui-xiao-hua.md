@@ -56,7 +56,11 @@ To facilitate testing your code, you may be tempted to make a class, interface, 
 
 **Instance fields of public classes should rarely be public**\(Item 16\). If an instance field is nonfinal or is a reference to a mutable object, then by making it public, you give up the ability to limit the values that can be stored in the field. This means you give up the ability to enforce invariants involving the field. Also, you give up the ability to take any action when the field is modified, so **classes with public mutable fields are not generally thread-safe. **Even if a field is final and refers to an immutable object, by making it public you give up the flexibility to switch to a new internal data representation in which the field does not exist.
 
+公有类的实例域应该尽量不要是公有的（条目16）。如果一个实例域不是final型或者是一个指向可变对象的引用，而且还被设为公有的话，那么你就放弃了对存储在这个域中的值进行限制的能力。这意味着，你放弃了强制将这个域设为不可变的的能力。不仅如此，当该域被修改时，你还无法对其采取任何行动，所以若一个类包含着公有的可变域，它通常不是线程安全的。即使一个域是final型或者是指向一个不可变对象，同时将其设为公有，你也放弃了切换到不存在属性的新的内部数据表示的灵活性。
+
 The same advice applies to static fields, with one exception. You can expose constants via public static final fields, assuming the constants form an integral part of the abstraction provided by the class. By convention, such fields have names consisting of capital letters, with words separated by underscores \(Item 68\). It is critical that these fields contain either primitive values or references to immutable objects \(Item 17\). a field containing a reference to a mutable object has all the disadvantages of a nonfinal field. While the reference cannot be modified, the referenced object can be modified—with disastrous results.
+
+同样的建议也适用于静态域，只是有一种例外。假设常量是类抽象的一部分，我们可以通过域设为public static final来将其暴露出去。按照惯例，这些域的名称由大写字母组成，单词之间通过下划线隔开（条目68）。
 
 Note that a nonzero-length array is always mutable, so it is wrong for a class to have a public static final array field, or an accessor that returns such a field.If a class has such a field or accessor, clients will be able to modify the contents of the array. This is a frequent source of security holes:
 
