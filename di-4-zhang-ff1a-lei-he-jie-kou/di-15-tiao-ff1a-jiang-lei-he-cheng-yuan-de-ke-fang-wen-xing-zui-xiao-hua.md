@@ -60,9 +60,11 @@ To facilitate testing your code, you may be tempted to make a class, interface, 
 
 The same advice applies to static fields, with one exception. You can expose constants via public static final fields, assuming the constants form an integral part of the abstraction provided by the class. By convention, such fields have names consisting of capital letters, with words separated by underscores \(Item 68\). It is critical that these fields contain either primitive values or references to immutable objects \(Item 17\). a field containing a reference to a mutable object has all the disadvantages of a nonfinal field. While the reference cannot be modified, the referenced object can be modified—with disastrous results.
 
-同样的建议也适用于静态域，只是有一种例外。假设常量是类抽象的一部分，我们可以通过域设为public static final来将其暴露出去。按照惯例，这些域的名称由大写字母组成，单词之间通过下划线隔开（条目68）。
+同样的建议也适用于静态域，只是有一种例外。假设常量是类抽象的一部分，我们可以通过域设为公有静态final（public static final）来将其暴露出去。按照惯例，这些域的名称由大写字母组成，单词之间通过下划线隔开（条目68）。很重要的一点是，这些域要么包含基本类型的值，要么是不可变对象的引用（条目17）。一个若包含指向可变对象的引用，那么它也将包含所有域非final型域的缺点。虽然引用不会被修改，但引用指向的对象可以被修改，而这将导致灾难性的后果。
 
-Note that a nonzero-length array is always mutable, so it is wrong for a class to have a public static final array field, or an accessor that returns such a field.If a class has such a field or accessor, clients will be able to modify the contents of the array. This is a frequent source of security holes:
+Note that a nonzero-length array is always mutable, so **it is wrong for a class to have a public static final array field, or an accessor that returns such a field. **If a class has such a field or accessor, clients will be able to modify the contents of the array. This is a frequent source of security holes:
+
+注意到长度不为0的数组总是可变的，所以**让一个类具有公有静态final数组域，或者返回这种域的访问方法，这总是错的。**如果一个类有这种域或者访问方法，客户端将可以修改数组的内容。这是安全漏洞的一个常见来源：
 
 ```
 // Potential security hole!
