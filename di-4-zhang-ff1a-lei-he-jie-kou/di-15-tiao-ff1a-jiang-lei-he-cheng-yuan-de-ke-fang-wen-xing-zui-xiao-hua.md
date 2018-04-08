@@ -73,12 +73,16 @@ public static final Thing[] VALUES = { ... };
 
 Beware of the fact that some IDEs generate accessors that return references to private array fields, resulting in exactly this problem. There are two ways to fix the problem. You can make the public array private and add a public immutable list:
 
+要注意，许多IDE会生成能返回私有数组域引用的访问方法，这样就会产生上述的问题。有两种方式可以解决这个问题。我们可以将公有数组改成私有，同时添加一个公有的不可变数组：
+
 ```
 private static final Thing[] PRIVATE_VALUES = { ... }; 
 public static final List<Thing> VALUES = Collections.unmodifiableList(Arrays.asList(PRIVATE_VALUES)) ;
 ```
 
 Alternatively, you can make the array private and add a public method that returns a copy of a private array:
+
+或者，我们也可以将这个数组私有化，然后添加一个公有方法来返回这个私有数组的拷贝：
 
 ```
 private static final Thing[] PRIVATE_VALUES = { ... }; 
