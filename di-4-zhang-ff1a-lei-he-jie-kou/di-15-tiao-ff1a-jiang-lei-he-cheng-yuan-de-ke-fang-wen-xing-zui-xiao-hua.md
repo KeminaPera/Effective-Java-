@@ -93,11 +93,21 @@ public static final Thing[] values() {
 
 To choose between these alternatives, think about what the client is likely to do with the result. Which return type will be more convenient? Which will give better performance?
 
+在这两种方式之间做选择时，可以先思考下客户端可能会怎么处理这个结果。哪种返回类型会更方便？哪种会得到更好的性能？
+
 As of Java 9, there are two additional, implicit access levels introduced as part of the module system. A module is a grouping of packages, like a package is a grouping of classes. A module may explicitly export some of its packages via export declarations in its module declaration\(which is by convention contained in a source file named module-info.java\). Public and protected members of unexported packages in a module are inaccessible outside the module; within the module, accessibility is unaffected by export declarations. Using the module system allows you to share classes among packages within a module without making them visible to the entire world. Public and protected members of public classes in unexported packages give rise to the two implicit access levels, which are intramodular analogues of the normal public and protected levels. The need for this kind of sharing is relatively rare and can often be eliminated by rearranging the classes within your packages.
+
+Java  9在中，作为模块系统（module system）引入了两种额外的隐式访问级别。一个模块就是一组包，就像一个包是一组类一样。一个模块可以通过在它的模块声明（一般包含在module-info.java的源文件中）的导出声明显式地导出它的一些包。模块的非导出包的公有和受保护成员在模块外部是无法访问的，而在模块内部，访问性不受导出声明的影响。使用模块系统允许我们在模块内部在包之间进行类的共享，而不用让它们对谁都可见。非导出包的公有类的公有和受保护成员会产生两个隐式访问级别，这两个级别有点类似于普通的公有级别和受保护级别，只不过它们是模块内部的。这种共享的需求比较少，并且通常可以通过重新调整包内的类来消除。
 
 Unlike the four main access levels, the two module-based levels are largely advisory. If you place a module’s JAR file on your application’s class path instead of its module path, the packages in the module revert to their non-modular behavior: all of the public and protected members of the packages’ public classes have their normal accessibility, regardless of whether the packages are exported by the module \[Reinhold, 1.2\]. The one place where the newly introduced access levels are strictly enforced is the JDK itself: the unexported packages in the Java libraries are truly inaccessible outside of their modules.
 
+与四种主要的的访问级别不同，上述两种基于模块的访问级别很大程度上只是作为参考。如果你将模块的JAR文件放在你应用的类路径下，而不是模块路径下，那么模块中的包将恢复为非模块化行为：包内的公有类的所有公有和受保护成员都将恢复为普通的可访问性，无论这个包是否由模块导出\[Reinhold, 1.2\]。JDK本身严格执行了新引入的访问级别：Java类库中未导出的包在所处模块外不能被访问。
+
 Not only is the access protection afforded by modules of limited utility to the typical Java programmer, and largely advisory in nature; in order to take advantage of it, you must group your packages into modules, make all of their dependencies explicit in module declarations, rearrange your source tree, and take special actions to accommodate any access to non-modularized packages from within your modules \[Reinhold, 3\]. It is too early to say whether modules will achieve widespread use outside of the JDK itself. In the meantime, it seems best to avoid them unless you have a compelling need.
 
+对于典型的Java程序员来说，模块所提供的访问保护不仅是有限的，而且本质上主要是作为参考。为了利用它，我们必须将包组合成模块，在模块声明中明确所有的依赖，重新调整源代码层级，同时还要采取措施来适应模块内任何对非模块化包的访问\[Reinhold, 3\]。现在就说在JDK之外模块化是否会被广泛接受还有点为时过早。同时，除非你有迫切需要，否则似乎最好是避免使用它们。
+
 To summarize, you should reduce accessibility of program elements as much as possible \(within reason\). After carefully designing a minimal public API, you should prevent any stray classes, interfaces, or members from becoming part of the API. With the exception of public static final fields, which serve as constants, public classes should have no public fields. Ensure that objects referenced by public static final fields are immutable.
+
+总的来说，我们应该尽量减少程序元素的可访问性（在合理范围内）。在仔细设计好最小公共API后，我们应该防止任何散乱的类，接口或者成员成为API的一部分。除了作为常量的公有静态final域，公有类不应该有公有域。同时还要确保被公有静态final域引用的对象是不可变的。
 
