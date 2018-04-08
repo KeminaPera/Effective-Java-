@@ -2,6 +2,8 @@
 
 Occasionally, you may be tempted to write degenerate classes that serve no purpose other than to group instance fields:
 
+有时，你可能需要编写只是组合了实例域的类：
+
 ```
 // Degenerate classes like this should not be public!
 class Point { 
@@ -11,6 +13,8 @@ class Point {
 ```
 
 Because the data fields of such classes are accessed directly, these classes do not offer the benefits of encapsulation\(Item 15\). You can’t change the representation without changing the API, you can’t enforce invariants, and you can’t take auxiliary action when a field is accessed. Hard-line object-oriented programmers feel that such classes are anathema and should always be replaced by classes with private fields and public accessor methods\(getters\) and, for mutable classes, mutators\(setters\):
+
+由于这种类的数据域可以直接被访问，所以这些类不具有封装的优势（条目15）。你无法更改其表示形式，除非更改API。你也无法强加任何约束条件。当域被访问时，你也无法采取辅助的措施。坚持面向对象的程序员对这种类深恶痛绝，认为应该用包含私有域和公有访问方法（getter）的类来代替，对于可变类来说，还应包含设置方法（setter）。
 
 ```
 // Encapsulation of data by accessor methods and mutators
