@@ -155,9 +155,5 @@ Set<Instant> times = new InstrumentedSet<>(new TreeSet<>(cmp));
 Set<E> s = new InstrumentedSet<>(new HashSet<>(INIT_CAPACITY));
 ```
 
-The InstrumentedSet class can even be used to temporarily
-
-instrument a set instance that has already been used without
-
-instrumentation:
+The InstrumentedSet class can even be used to temporarily instrument a set instance that has already been used without instrumentation:
 
