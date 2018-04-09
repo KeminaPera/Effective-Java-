@@ -148,5 +148,27 @@ public class ForwardingSet<E> implements Set<E> {
 }
 ```
 
+The design of the InstrumentedSet class is enabled by the existence of
 
+the Set interface, which captures the functionality of
+
+the HashSet class. Besides being robust, this design is extremely
+
+flexible. The InstrumentedSet class implements the Set interface and
+
+has a single constructor whose argument is also of type Set. In
+
+essence, the class transforms one Set into another, adding the
+
+instrumentation functionality. Unlike the inheritance-based
+
+approach, which works only for a single concrete class and requires
+
+a separate constructor for each supported constructor in the
+
+superclass, the wrapper class can be used to instrument
+
+any Set implementation and will work in conjunction with any
+
+preexisting constructor:
 
