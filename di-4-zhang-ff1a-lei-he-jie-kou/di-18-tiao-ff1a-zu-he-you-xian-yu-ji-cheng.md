@@ -55,5 +55,25 @@ We could “fix” the subclass by eliminating its override of the addAll method
 
 我们只要去掉覆盖的addAll方法，就可以“修复”这个问题。虽然这样做之后类可以工作了，但它的正常运作却依赖于这么一个事实：HashSet的addAll方法是基于它的add方法的。这种“自用性（self-use）”是一种实现细节，并不保证在Java平台的所有实现中都是这样，而且受制于版本之间的不同。因此，这样编写出来的InstrumentedHashSet类将是脆弱的。
 
+It would be slightly better to override the addAll method to iterate
 
+over the specified collection, calling the add method once for each
+
+element. This would guarantee the correct result whether or
+
+not HashSet’s addAll method were implemented atop its add method
+
+because HashSet’s addAll implementation would no longer be
+
+invoked. This technique, however, does not solve all our problems.
+
+It amounts to reimplementing superclass methods that may or
+
+may not result in self-use, which is difficult, time-consuming,
+
+error-prone, and may reduce performance. Additionally, it isn’t
+
+always possible because some methods cannot be implemented
+
+without access to private fields inaccessible to the subclass.
 
