@@ -21,4 +21,5 @@
   * [第15条：最小化类和成员的可访问性](di-4-zhang-ff1a-lei-he-jie-kou/di-15-tiao-ff1a-jiang-lei-he-cheng-yuan-de-ke-fang-wen-xing-zui-xiao-hua.md)
   * [第16条：在公有类中使用访问方法，而不是公有域](di-4-zhang-ff1a-lei-he-jie-kou/di-16-tiao-ff1a-zai-gong-you-lei-zhong-shi-yong-fang-wen-fang-fa-ff0c-er-bu-shi-gong-you-shu-xing.md)
   * [第17条：使可变性最小化](di-4-zhang-ff1a-lei-he-jie-kou/di-17-tiao-ff1a-shi-ke-bian-xing-zui-xiao-hua.md)
+  * [第18条：组合优先于继承](di-4-zhang-ff1a-lei-he-jie-kou/di-18-tiao-ff1a-zu-he-you-xian-yu-ji-cheng.md)
 
