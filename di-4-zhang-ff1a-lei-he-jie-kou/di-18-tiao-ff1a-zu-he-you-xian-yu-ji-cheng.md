@@ -164,5 +164,21 @@ static void walk(Set<Dog> dogs) {
 }
 ```
 
+The InstrumentedSet class is known as a wrapper class because
 
+each InstrumentedSet instance contains \(“wraps”\)
+
+another Set instance. This is also known as the Decorator pattern
+
+\[Gamma95\] because the InstrumentedSet class “decorates” a set by
+
+adding instrumentation. Sometimes the combination of
+
+composition and forwarding is loosely referred to
+
+as delegation. Technically it’s not delegation unless the wrapper
+
+object passes itself to the wrapped object \[Lieberman86;
+
+Gamma95\].
 
