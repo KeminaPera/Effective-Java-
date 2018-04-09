@@ -174,23 +174,5 @@ If you use inheritance where composition is appropriate, you needlessly expose i
 
 There is one last set of questions you should ask yourself before deciding to use inheritance in place of composition. Does the class that you contemplate extending have any flaws in its API? If so, are you comfortable propagating those flaws into your class’s API? Inheritance propagates any flaws in the superclass’s API, while composition lets you design a new API that hides these flaws.
 
-To summarize, inheritance is powerful, but it is problematic
-
-because it violates encapsulation. It is appropriate only when a
-
-genuine subtype relationship exists between the subclass and the
-
-superclass. Even then, inheritance may lead to fragility if the
-
-subclass is in a different package from the superclass and the
-
-superclass is not designed for inheritance. To avoid this fragility,
-
-use composition and forwarding instead of inheritance, especially
-
-if an appropriate interface to implement a wrapper class exists. Not
-
-only are wrapper classes more robust than subclasses, they are also
-
-more powerful.
+To summarize, inheritance is powerful, but it is problematic because it violates encapsulation. It is appropriate only when a genuine subtype relationship exists between the subclass and the superclass. Even then, inheritance may lead to fragility if the subclass is in a different package from the superclass and the superclass is not designed for inheritance. To avoid this fragility, use composition and forwarding instead of inheritance, especially if an appropriate interface to implement a wrapper class exists. Not only are wrapper classes more robust than subclasses, they are also more powerful.
 
