@@ -47,25 +47,7 @@ InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
 s.addAll(List.of("Snap", "Crackle", "Pop"));
 ```
 
-We would expect the getAddCount method to return three at this
+We would expect the getAddCount method to return three at this point, but it returns six. What went wrong? Internally, HashSet’s addAll method is implemented on top of its add method, although HashSet, quite reasonably, does not document this implementation detail. The addAll method in InstrumentedHashSet added three to addCount and then invoked HashSet’s addAll implementation using super.addAll. This in turn invoked the add method, as overridden in InstrumentedHashSet, once for each element. Each of these three invocations added one more to addCount, for a total increase of six: each element added with the addAll method is double-counted.
 
-point, but it returns six. What went wrong?
-
-Internally, HashSet’s addAll method is implemented on top of
-
-its add method, although HashSet, quite reasonably, does not
-
-document this implementation detail. The addAll method
-
-in Instrumented-HashSet added three to addCount and then
-
-invoked HashSet’s addAll implementation using super.addAll. This in
-
-turn invoked the add method, as overridden in InstrumentedHashSet,
-
-once for each element. Each of these three invocations added one
-
-more to addCount, for a total increase of six: each element added
-
-with the addAll method is double-counted.
+此时，我们期待着getAddCount方法会返回3，但实际上它返回了6。哪里出错了？在HashSet内部，addAll方法是基于它的add方法来实现的，虽然HashSet并没有在文档里说明这个实现细节，但这是合理的。InstrumentedHashSet的addAll方法里
 
