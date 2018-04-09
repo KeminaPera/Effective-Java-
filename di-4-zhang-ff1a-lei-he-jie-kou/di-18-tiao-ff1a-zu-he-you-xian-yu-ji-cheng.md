@@ -38,5 +38,13 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
 }
 ```
 
+This class looks reasonable, but it doesn’t work. Suppose we create
 
+an instance and add three elements using the addAll method.
+
+Incidentally, note that we create a list using the static factory
+
+method List.of, which was added in Java 9; if you’re using an
+
+earlier release, use Arrays.asList instead:
 
