@@ -170,3 +170,39 @@ The disadvantages of wrapper classes are few. One caveat is that wrapper classes
 
 Inheritance is appropriate only in circumstances where the subclass really is a subtype of the superclass. In other words, a class B should extend a class A only if an “is-a” relationship exists between the two classes. If you are tempted to have a class B extend a class A, ask yourself the question: Is every Breallyan A? If you cannot truthfully answer yes to this question, B should not extend A. If the answer is no, it is often the case that B should contain a private instance of A and expose a different API: A is not an essential part of B, merely a detail of its implementation. There are a number of obvious violations of this principle in the Java platform libraries. For example, a stack is not a vector, so Stack should not extend Vector. Similarly, a property list is not a hash table, so Properties should not extend Hashtable. In both cases, composition would have been preferable.
 
+If you use inheritance where composition is appropriate, you
+
+needlessly expose implementation details. The resulting API ties
+
+you to the original implementation, forever limiting the
+
+performance of your class. More seriously, by exposing the
+
+internals you let clients access them directly. At the very least, it
+
+can lead to confusing semantics. For example, if p refers to
+
+a Properties instance, then p.getProperty\(key\) may yield different
+
+results from p.get\(key\): the former method takes defaults into
+
+account, while the latter method, which is inherited from Hashtable,
+
+does not. Most seriously, the client may be able to corrupt
+
+invariants of the subclass by modifying the superclass directly. In
+
+the case of Properties, the designers intended that only strings be
+
+allowed as keys and values, but direct access to the
+
+underlying Hashtable allows this invariant to be violated. Once
+
+violated, it is no longer possible to use other parts of
+
+the Properties API \(load and store\). By the time this problem was
+
+discovered, it was too late to correct it because clients depended on
+
+the use of non-string keys and values.
+
