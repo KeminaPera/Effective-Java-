@@ -61,5 +61,31 @@ It would be slightly better to override the addAll method to iterate over the sp
 
 A related cause of fragility in subclasses is that their superclass can acquire new methods in subsequent releases. Suppose a program depends for its security on the fact that all elements inserted into some collection satisfy some predicate. This can be guaranteed by subclassing the collection and overriding each method capable of adding an element to ensure that the predicate is satisfied before adding the element. This works fine until a new method capable of inserting an element is added to the superclass in a subsequent release. Once this happens, it becomes possible to add an “illegal” element merely by invoking the new method, which is not overridden in the subclass. This is not a purely theoretical problem. Several security holes of this nature had to be fixed when Hashtable and Vectorwere retrofitted to participate in the Collections Framework.
 
+导致子类脆弱的一个相关原因是它们的父类在后续的版本中添加新的方法。假设一个程序的安全性依赖于这么一个事实：所有插入集合的元素都要满足一些先决条件。
 
+Both of these problems stem from overriding methods. You might
+
+think that it is safe to extend a class if you merely add new
+
+methods and refrain from overriding existing methods. While this
+
+sort of extension is much safer, it is not without risk. If the
+
+superclass acquires a new method in a subsequent release and you
+
+have the bad luck to have given the subclass a method with the
+
+same signature and a different return type, your subclass will no
+
+longer compile \[JLS, 8.4.8.3\]. If you’ve given the subclass amethod with the same signature and return type as the new
+
+superclass method, then you’re now overriding it, so you’re subject
+
+to the problems described earlier. Furthermore, it is doubtful that
+
+your method will fulfill the contract of the new superclass method,
+
+because that contract had not yet been written when you wrote the
+
+subclass method.
 
