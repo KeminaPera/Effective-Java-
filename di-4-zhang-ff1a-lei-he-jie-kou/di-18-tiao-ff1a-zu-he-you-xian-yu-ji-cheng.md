@@ -59,31 +59,5 @@ It would be slightly better to override the addAll method to iterate over the sp
 
 稍微好点的做法是，覆盖addAll方法，在方法内部遍历指定的集合，对每个元素都调用add方法。这样做可以保证，无论HashSet的addAll方法的实现是否依赖于add方法，都会得到正确的结果，因为HashSet的addAll实现不会被调用。然而，这种技术并不能解决我们所有的问题。这么做相当于重新实现一遍父类的方法，这些父类方法还不知是不是自用（self-use）的，而且。重新实现一遍不仅有难度，耗时，容易出错，而且还有可能还会降低性能。不仅如此，有时可能还无法这么做，因为有些方法不能在子类里访问某些父类的私有属性而导致其不能被实现。
 
-A related cause of fragility in subclasses is that their superclass can
-
-acquire new methods in subsequent releases. Suppose a program
-
-depends for its security on the fact that all elements inserted into
-
-some collection satisfy some predicate. This can be guaranteed by
-
-subclassing the collection and overriding each method capable of
-
-adding an element to ensure that the predicate is satisfied before
-
-adding the element. This works fine until a new method capable of
-
-inserting an element is added to the superclass in a subsequent
-
-release. Once this happens, it becomes possible to add an “illegal”
-
-element merely by invoking the new method, which is not
-
-overridden in the subclass. This is not a purely theoretical problem.
-
-Several security holes of this nature had to be fixed
-
-when Hashtable and Vectorwere retrofitted to participate in the
-
-Collections Framework.
+A related cause of fragility in subclasses is that their superclass can acquire new methods in subsequent releases. Suppose a program depends for its security on the fact that all elements inserted into some collection satisfy some predicate. This can be guaranteed by subclassing the collection and overriding each method capable of adding an element to ensure that the predicate is satisfied before adding the element. This works fine until a new method capable of inserting an element is added to the superclass in a subsequent release. Once this happens, it becomes possible to add an “illegal” element merely by invoking the new method, which is not overridden in the subclass. This is not a purely theoretical problem. Several security holes of this nature had to be fixed when Hashtable and Vectorwere retrofitted to participate in the Collections Framework.
 
