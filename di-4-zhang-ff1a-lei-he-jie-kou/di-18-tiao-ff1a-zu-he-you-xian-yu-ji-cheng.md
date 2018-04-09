@@ -157,3 +157,12 @@ Set<E> s = new InstrumentedSet<>(new HashSet<>(INIT_CAPACITY));
 
 The InstrumentedSet class can even be used to temporarily instrument a set instance that has already been used without instrumentation:
 
+```
+static void walk(Set<Dog> dogs) {
+    InstrumentedSet<Dog> iDogs = new InstrumentedSet<>(dogs);
+    ... // Within this method use iDogs instead of dogs
+}
+```
+
+
+
