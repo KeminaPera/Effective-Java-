@@ -51,19 +51,9 @@ We would expect the getAddCount method to return three at this point, but it ret
 
 此时，我们期待着getAddCount方法会返回3，但实际上它返回了6。哪里出错了？在HashSet内部，addAll方法是基于它的add方法来实现的，虽然HashSet并没有在文档里说明这个实现细节，但这是合理的。InstrumentedHashSet的addAll方法对addCount加3，然后再通过super.addAll语句调用HashSet的addAll方法。但调用HashSet的addAll方法时又去调用又调用在InstrumentedHashSet类中重写的add方法，每个元素调用一次。这三次调用每次都将addCount加1，最终addCount总共加了6：add方法加了3次1，addAll方法加了3，也就是每个元素都算了两次。
 
-We could “fix” the subclass by eliminating its override of
+We could “fix” the subclass by eliminating its override of the addAll method. While the resulting class would work, it would depend for its proper function on the fact that HashSet’s addAll method is implemented on top of its add method. This “self-use” is an implementation detail, not guaranteed to hold in all implementations of the Java platform and subject to change from release to release. Therefore, the resulting InstrumentedHashSet class would be fragile.
 
-the addAll method. While the resulting class would work, it would
+我们只要去掉覆盖的addAll方法，就可以“修复”这个问题。虽然这样做之后类可以工作了，但它的正常运作却依赖于这么一个事实：HashSet的addAll方法是基于它的add方法的。这种“自用性（self-use）”是一种实现细节，并不保证在Java平台的所有实现中都是这样，而且受制于版本之间的不同。因此，这样编写出来的InstrumentedHashSet类将是脆弱的。
 
-depend for its proper function on the fact
 
-that HashSet’s addAll method is implemented on top of
-
-its add method. This “self-use” is an implementation detail, not
-
-guaranteed to hold in all implementations of the Java platform and
-
-subject to change from release to release. Therefore, the
-
-resulting InstrumentedHashSet class would be fragile.
 
