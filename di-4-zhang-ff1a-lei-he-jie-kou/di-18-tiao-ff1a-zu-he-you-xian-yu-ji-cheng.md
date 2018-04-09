@@ -38,13 +38,34 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
 }
 ```
 
-This class looks reasonable, but it doesn’t work. Suppose we create
+This class looks reasonable, but it doesn’t work. Suppose we create an instance and add three elements using the addAll method. Incidentally, note that we create a list using the static factory method List.of, which was added in Java 9; if you’re using an earlier release, use Arrays.asList instead:
 
-an instance and add three elements using the addAll method.
+上述这个类看起来是合理的，但它无法工作。假设我们创建了一个实例并通过addAll方法添加了三个元素进去。顺便说一下，注意到我们创建列表时，使用了Java 9就开始添加进来的静态工厂方法List.of。如果你使用了更早的JDK版本，请用Arrays.asList来替换：
 
-Incidentally, note that we create a list using the static factory
+```
+InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
+s.addAll(List.of("Snap", "Crackle", "Pop"));
+```
 
-method List.of, which was added in Java 9; if you’re using an
+We would expect the getAddCount method to return three at this
 
-earlier release, use Arrays.asList instead:
+point, but it returns six. What went wrong?
+
+Internally, HashSet’s addAll method is implemented on top of
+
+its add method, although HashSet, quite reasonably, does not
+
+document this implementation detail. The addAll method
+
+in Instrumented-HashSet added three to addCount and then
+
+invoked HashSet’s addAll implementation using super.addAll. This in
+
+turn invoked the add method, as overridden in InstrumentedHashSet,
+
+once for each element. Each of these three invocations added one
+
+more to addCount, for a total increase of six: each element added
+
+with the addAll method is double-counted.
 
