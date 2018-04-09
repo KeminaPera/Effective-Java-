@@ -65,3 +65,35 @@ A related cause of fragility in subclasses is that their superclass can acquire 
 
 Both of these problems stem from overriding methods. You might think that it is safe to extend a class if you merely add new methods and refrain from overriding existing methods. While this sort of extension is much safer, it is not without risk. If the superclass acquires a new method in a subsequent release and you have the bad luck to have given the subclass a method with the same signature and a different return type, your subclass will no longer compile \[JLS, 8.4.8.3\]. If you’ve given the subclass amethod with the same signature and return type as the new superclass method, then you’re now overriding it, so you’re subject to the problems described earlier. Furthermore, it is doubtful that your method will fulfill the contract of the new superclass method, because that contract had not yet been written when you wrote the subclass method.
 
+Luckily, there is a way to avoid all of the problems described above.
+
+Instead of extending an existing class, give your new class a private
+
+field that references an instance of the existing class. This design is
+
+called composition because the existing class becomes a
+
+component of the new one. Each instance method in the new class
+
+invokes the corresponding method on the contained instance of the
+
+existing class and returns the results. This is known as forwarding,
+
+and the methods in the new class are known as forwarding
+
+methods. The resulting class will be rock solid, with no
+
+dependencies on the implementation details of the existing class.
+
+Even adding new methods to the existing class will have no impact
+
+on the new class. To make this concrete, here’s a replacement
+
+for InstrumentedHashSetthat uses the composition-and-forwarding
+
+approach. Note that the implementation is broken into two pieces,
+
+the class itself and a reusable forwarding class, which contains all
+
+of the forwarding methods and nothing else:
+
