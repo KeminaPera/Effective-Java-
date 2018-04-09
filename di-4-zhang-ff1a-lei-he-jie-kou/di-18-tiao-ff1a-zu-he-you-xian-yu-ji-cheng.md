@@ -172,3 +172,15 @@ Inheritance is appropriate only in circumstances where the subclass really is a 
 
 If you use inheritance where composition is appropriate, you needlessly expose implementation details. The resulting API ties you to the original implementation, forever limiting the performance of your class. More seriously, by exposing the internals you let clients access them directly. At the very least, it can lead to confusing semantics. For example, if p refers to a Properties instance, then p.getProperty\(key\) may yield different results from p.get\(key\): the former method takes defaults into account, while the latter method, which is inherited from Hashtable, does not. Most seriously, the client may be able to corrupt invariants of the subclass by modifying the superclass directly. In the case of Properties, the designers intended that only strings be allowed as keys and values, but direct access to the underlying Hashtable allows this invariant to be violated. Once violated, it is no longer possible to use other parts of the Properties API \(load and store\). By the time this problem was discovered, it was too late to correct it because clients depended on the use of non-string keys and values.
 
+There is one last set of questions you should ask yourself before
+
+deciding to use inheritance in place of composition. Does the class
+
+that you contemplate extending have any flaws in its API? If so, are
+
+you comfortable propagating those flaws into your class’s API?
+
+Inheritance propagates any flaws in the superclass’s API, while
+
+composition lets you design a new API that hides these flaws.
+
