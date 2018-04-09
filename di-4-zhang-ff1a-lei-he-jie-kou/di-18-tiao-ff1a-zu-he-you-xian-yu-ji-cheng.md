@@ -166,3 +166,31 @@ static void walk(Set<Dog> dogs) {
 
 The InstrumentedSet class is known as a wrapper class because each InstrumentedSet instance contains \(“wraps”\) another Set instance. This is also known as the Decorator pattern \[Gamma95\] because the InstrumentedSet class “decorates” a set by adding instrumentation. Sometimes the combination of composition and forwarding is loosely referred to as delegation. Technically it’s not delegation unless the wrapper object passes itself to the wrapped object \[Lieberman86; Gamma95\].
 
+The disadvantages of wrapper classes are few. One caveat is that
+
+wrapper classes are not suited for use in callback frameworks,
+
+wherein objects pass self-references to other objects for
+
+subsequent invocations \(“callbacks”\). Because a wrapped object
+
+doesn’t know of its wrapper, it passes a reference to itself \(this\)
+
+and callbacks elude the wrapper. This is known as the SELF
+
+problem \[Lieberman86\]. Some people worry about the
+
+performance impact of forwarding method invocations or the
+
+memory footprint impact of wrapper objects. Neither turn out to
+
+have much impact in practice. It’s tedious to write forwarding
+
+methods, but you have to write the reusable forwarding class for
+
+each interface only once, and forwarding classes may be provided
+
+for you. For example, Guava provides forwarding classes for all of
+
+the collection interfaces \[Guava\].
+
