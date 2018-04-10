@@ -17,9 +17,11 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 2. **确保这个类不能被扩展。**这防止了粗心或者恶意的子类通过改变对象的状态，从而破坏类的不可变行为。一般情况下，可以通过将类设为final，从而防止被继承，但也有另一种方式，我们后面会讨论到。
 3. **将所有域设为final。**通过这种系统强制的方式，可以清晰表达我们的意图。而且，如果一个指向新创建的实例的引用在缺乏同步机制的情况下从一个线程传入另一个线程，就必须确保正确的行为，正如内存模型（memory model）里描述的那样\[JLS, 17.5; Goetz06, 16\]。
 4. **将所有域设为私有。**这防止客户端获得访问被域引用的可变对象的权限，从而防止了这些可变对象被直接修改。虽然从技术上可以让可变类的公有final域包含基础类型值或指向不可变对象的引用，但这么做也是不推荐的，因为这妨碍了在未来的发布版本中修改类的内部展示。
-5. **确保对任何可变组件的互斥访问。**如果类里包含了指向可变对象的域，则要确保类的客户端不能包含指向这些对象的引用。永远不要用客户端提供的对象引用来初始化这些域，也不要从访问方法中返回该对象引用。
+5. **确保对任何可变组件的互斥访问。**如果类里包含了指向可变对象的域，则要确保类的客户端不能包含指向这些对象的引用。永远不要用客户端提供的对象引用来初始化这些域，也不要从访问方法中返回该对象引用。在构造器，访问方法和readObject方法（条目88）中，请使用保护性拷贝（defensive copies，条目50）。
 
 Many of the example classes in previous items are immutable. One such class is PhoneNumber in Item 11, which has accessors for each attribute but no corresponding mutators. Here is a slightly more complex example:
+
+在前面的条目里，很多示例类都是不可变的。如条目11的PhoneNumber类，这个类为每个属性都写了一个访问方法，但是没有相应的设置方法。下面是个稍微复杂点的例子：
 
 ```
 // Immutable complex number class 
@@ -70,4 +72,6 @@ public final class Complex {
 ```
 
 This class represents a complex number\(a number with both real and imaginary parts\). In addition to the standard Object methods, it provides accessors for the real and imaginary parts and provides the four basic arithmetic operations: addition, subtraction, multiplication, and division. Notice how the arithmetic operations create and return a new Complex instance rather than modifying this instance. This pattern is known as the functional approach because methods return the result of applying a function to their operand, without modifying it. Contrast it to the procedural or imperative approach in which methods apply a procedure to their operand, causing its state to change. Note that the method names are prepositions \(such as plus\) rather than verbs \(such as add\). This emphasizes the fact that methods don’t change the values of the objects. The BigInteger and BigDecimal classes did not obey this naming convention, and it led to many usage errors.
+
+这个类表示了一个复数（复数包含了实数部分和虚数部分）。除了标准的对象方法，它还为实数部分和虚数部分分别提供了访问方法，同时还提供了四个基本基本运算：加法，减法，乘法和除法。注意看这些基本运算是如何被创建的，以及为什么是返回一个新的Complex实例而不是去修改原有的实例。这种模式被称为函数式方法（functional approach），因为方法返回了操作数作用于函数上的结果，而不是去修改这个操作数。
 
