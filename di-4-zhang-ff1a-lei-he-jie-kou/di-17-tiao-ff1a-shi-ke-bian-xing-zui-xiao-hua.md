@@ -75,3 +75,27 @@ This class represents a complex number\(a number with both real and imaginary pa
 
 这个类表示了一个复数（复数包含了实数部分和虚数部分）。除了标准的对象方法，它还为实数部分和虚数部分分别提供了访问方法，同时还提供了四个基本基本运算：加法，减法，乘法和除法。注意看这些基本运算是如何被创建的，以及为什么是返回一个新的Complex实例而不是去修改原有的实例。这种模式被称为函数式方法（functional approach），因为方法返回了操作数作用于函数上的结果，而不是去修改这个操作数。
 
+The functional approach may appear unnatural if you’re not
+
+familiar with it, but it enables immutability, which has many
+
+advantages. Immutable objects are simple. An immutable
+
+object can be in exactly one state, the state in which it was created.
+
+If you make sure that all constructors establish class invariants,
+
+then it is guaranteed that these invariants will remain true for all
+
+time, with no further effort on your part or on the part of the
+
+programmer who uses the class. Mutable objects, on the other
+
+hand, can have arbitrarily complex state spaces. If the
+
+documentation does not provide a precise description of the state
+
+transitions performed by mutator methods, it can be difficult or
+
+impossible to use a mutable class reliably.
+
