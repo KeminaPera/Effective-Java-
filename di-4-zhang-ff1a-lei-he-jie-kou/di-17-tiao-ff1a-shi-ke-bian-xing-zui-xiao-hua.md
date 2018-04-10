@@ -17,7 +17,7 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 2. **确保这个类不能被扩展。**这防止了粗心或者恶意的子类通过改变对象的状态，从而破坏类的不可变行为。一般情况下，可以通过将类设为final，从而防止被继承，但也有另一种方式，我们后面会讨论到。
 3. **将所有域设为final。**通过这种系统强制的方式，可以清晰表达我们的意图。而且，如果一个指向新创建的实例的引用在缺乏同步机制的情况下从一个线程传入另一个线程，就必须确保正确的行为，正如内存模型（memory model）里描述的那样\[JLS, 17.5; Goetz06, 16\]。
 4. **将所有域设为私有。**这防止客户端获得访问被域引用的可变对象的权限，从而防止了这些可变对象被直接修改。虽然从技术上可以让可变类的公有final域包含基础类型值或指向不可变对象的引用，但这么做也是不推荐的，因为这妨碍了在未来的发布版本中修改类的内部展示。
-5. **确保对任何可变组件的互斥访问。**如果类里包含了指向可变对象的域，则要确保类的客户端不能包含指向这些对象的引用。
+5. **确保对任何可变组件的互斥访问。**如果类里包含了指向可变对象的域，则要确保类的客户端不能包含指向这些对象的引用。永远不要用客户端提供的对象引用来初始化这些域，也不要从访问方法中返回该对象引用。
 
 Many of the example classes in previous items are immutable. One such class is PhoneNumber in Item 11, which has accessors for each attribute but no corresponding mutators. Here is a slightly more complex example:
 
