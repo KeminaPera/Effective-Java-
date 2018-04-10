@@ -91,17 +91,5 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 **Not only can you share immutable objects, but they can share their internals.** For example, the BigInteger class uses a sign-magnitude representation internally. The sign is represented by an int, and the magnitude is represented by an int array. The negate method produces a new BigInteger of like magnitude and opposite sign. It does not need to copy the array even though it is mutable; the newly created BigInteger points to the same internal array as the original.
 
-Immutable objects make great building blocks for other
-
-objects, whether mutable or immutable. It’s much easier to
-
-maintain the invariants of a complex object if you know that itscomponent objects will not change underneath it. A special case of
-
-this principle is that immutable objects make great map keys and
-
-set elements: you don’t have to worry about their values changing
-
-once they’re in the map or set, which would destroy the map or
-
-set’s invariants.
+Immutable objects make great building blocks for other objects, whether mutable or immutable. It’s much easier to maintain the invariants of a complex object if you know that itscomponent objects will not change underneath it. A special case of this principle is that immutable objects make great map keys and set elements: you don’t have to worry about their values changing once they’re in the map or set, which would destroy the map or set’s invariants.
 
