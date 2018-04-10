@@ -85,21 +85,5 @@ public static final Complex ONE = new Complex(1, 0);
 public static final Complex I = new Complex(0, 1);
 ```
 
-This approach can be taken one step further. An immutable class
-
-can provide static factories \(Item 1\) that cache frequently
-
-requested instances to avoid creating new instances when existing
-
-ones would do. All the boxed primitive classes and BigInteger do
-
-this. Using such static factories causes clients to share instances
-
-instead of creating new ones, reducing memory footprint and
-
-garbage collection costs. Opting for static factories in place of
-
-public constructors when designing a new class gives you the
-
-flexibility to add caching later, without modifying clients.
+This approach can be taken one step further. An immutable class can provide static factories \(Item 1\) that cache frequently requested instances to avoid creating new instances when existing ones would do. All the boxed primitive classes and BigInteger do this. Using such static factories causes clients to share instances instead of creating new ones, reducing memory footprint and garbage collection costs. Opting for static factories in place of public constructors when designing a new class gives you the flexibility to add caching later, without modifying clients.
 
