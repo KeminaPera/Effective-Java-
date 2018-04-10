@@ -89,19 +89,5 @@ This approach can be taken one step further. An immutable class can provide stat
 
 A consequence of the fact that immutable objects can be shared freely is that you never have to make defensive copies of them \(Item 50\). In fact, you never have to make any copies at all because the copies would be forever equivalent to the originals. Therefore, you need not and should not provide a clonemethod or copy constructor \(Item 13\) on an immutable class. This was not well understood in the early days of the Java platform, so the String class does have a copy constructor, but it should rarely, if ever, be used \(Item 6\).
 
-Not only can you share immutable objects, but they can
-
-share their internals. For example, the BigInteger class uses a
-
-sign-magnitude representation internally. The sign is represented
-
-by an int, and the magnitude is represented by an int array.
-
-The negate method produces a new BigInteger of like magnitude and
-
-opposite sign. It does not need to copy the array even though it is
-
-mutable; the newly created BigInteger points to the same internal
-
-array as the original.
+Not only can you share immutable objects, but they can share their internals. For example, the BigInteger class uses a sign-magnitude representation internally. The sign is represented by an int, and the magnitude is represented by an int array. The negate method produces a new BigInteger of like magnitude and opposite sign. It does not need to copy the array even though it is mutable; the newly created BigInteger points to the same internal array as the original.
 
