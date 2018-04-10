@@ -87,3 +87,21 @@ public static final Complex I = new Complex(0, 1);
 
 This approach can be taken one step further. An immutable class can provide static factories \(Item 1\) that cache frequently requested instances to avoid creating new instances when existing ones would do. All the boxed primitive classes and BigInteger do this. Using such static factories causes clients to share instances instead of creating new ones, reducing memory footprint and garbage collection costs. Opting for static factories in place of public constructors when designing a new class gives you the flexibility to add caching later, without modifying clients.
 
+A consequence of the fact that immutable objects can be shared
+
+freely is that you never have to make defensive copies of them
+
+\(Item 50\). In fact, you never have to make any copies at all because
+
+the copies would be forever equivalent to the originals. Therefore,
+
+you need not and should not provide a clonemethod or copy
+
+constructor \(Item 13\) on an immutable class. This was not well
+
+understood in the early days of the Java platform, so
+
+the String class does have a copy constructor, but it should rarely, if
+
+ever, be used \(Item 6\).
+
