@@ -107,13 +107,5 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 Immutable objects provide failure atomicity for free \(Item 76\). Their state never changes, so there is no possibility of a temporary inconsistency.
 
-The major disadvantage of immutable classes is that they
-
-require a separate object for each distinct value. Creating
-
-these objects can be costly, especially if they are large. For example,
-
-suppose that you have a million-bit BigInteger and you want to
-
-change its low-order bit:
+The major disadvantage of immutable classes is that they require a separate object for each distinct value. Creating these objects can be costly, especially if they are large. For example, suppose that you have a million-bit BigInteger and you want to change its low-order bit:
 
