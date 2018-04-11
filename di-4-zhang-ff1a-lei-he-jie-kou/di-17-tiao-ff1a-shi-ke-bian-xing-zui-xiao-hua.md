@@ -105,9 +105,15 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 **不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**如果你知道一个复杂对象的内部组件不会改变，那么维护它的约束条件也简单很多。
 
-Immutable objects provide failure atomicity for free \(Item
+Immutable objects provide failure atomicity for free \(Item 76\). Their state never changes, so there is no possibility of a temporary inconsistency.
 
-76\). Their state never changes, so there is no possibility of a
+The major disadvantage of immutable classes is that they
 
-temporary inconsistency.
+require a separate object for each distinct value. Creating
+
+these objects can be costly, especially if they are large. For example,
+
+suppose that you have a million-bit BigInteger and you want to
+
+change its low-order bit:
 
