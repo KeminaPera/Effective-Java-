@@ -93,7 +93,9 @@ This approach can be taken one step further. An immutable class can provide stat
 
 这方式可以被进一步扩展。不可变类可以提供静态工厂（条目1）将频繁被请求的实例缓存起来，从而避免重复创建现有实例。所有的装箱基础类和BigInteger都采用了这种方式。使用这种静态工厂让客户端共享了实例，而不用创建新的实例，减少了内存占用和垃圾回收的成本。在设计一个新的类时，用静态工厂来替代公有构造方法能让方便我们以后添加缓存，同时还不用修改客户端。
 
-A consequence of the fact that immutable objects can be shared freely is that you never have to make defensive copies of them \(Item 50\). In fact, you never have to make any copies at all because the copies would be forever equivalent to the originals. Therefore, you need not and should not provide a clonemethod or copy constructor \(Item 13\) on an immutable class. This was not well understood in the early days of the Java platform, so the String class does have a copy constructor, but it should rarely, if ever, be used \(Item 6\).
+A consequence of the fact that immutable objects can be shared freely is that you never have to make defensive copies of them \(Item 50\). In fact, you never have to make any copies at all because the copies would be forever equivalent to the originals. Therefore, you need not and should not provide a clone method or copy constructor \(Item 13\) on an immutable class. This was not well understood in the early days of the Java platform, so the String class does have a copy constructor, but it should rarely, if ever, be used \(Item 6\).
+
+“不可变对象可以自由地被共享”这一点还有个好处，那就是我们永远都不用进行保护性拷贝（条目50）。实际上，我们永远都不用做任何拷贝，因为这些拷贝始终等于原对象。因而，你不用也无需为一个不可变类提供克隆方法或者用于复制的构造器（条目13）。在早期的Java平台中，这一点不是很好理解，所以String类提供了一个用于复制的构造器，但它应该尽量少地被用到。
 
 **Not only can you share immutable objects, but they can share their internals.** For example, the BigInteger class uses a sign-magnitude representation internally. The sign is represented by an int, and the magnitude is represented by an int array. The negate method produces a new BigInteger of like magnitude and opposite sign. It does not need to copy the array even though it is mutable; the newly created BigInteger points to the same internal array as the original.
 
