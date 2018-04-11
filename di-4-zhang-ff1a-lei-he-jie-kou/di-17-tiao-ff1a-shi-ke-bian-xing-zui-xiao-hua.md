@@ -129,7 +129,7 @@ moby.flip(0);
 
 The performance problem is magnified if you perform a multistep operation that generates a new object at every step, eventually discarding all objects except the final result. There are two approaches to coping with this problem. The first is to guess which multistep operations will be commonly required and to providethem as primitives. If a multistep operation is provided as a primitive, the immutable class does not have to create a separate object at each step. Internally, the immutable class can be arbitrarily clever. For example, BigInteger has a package-private mutable “companion class” that it uses to speed up multistep operations such as modular exponentiation. It is much harder to use the mutable companion class than to use BigInteger, for all of the reasons outlined earlier. Luckily, you don’t have to use it: the implementors of BigInteger did the hard work for you.
 
-如果你执行一个多步骤的操作，这个操作的每一步都会生成一个新的对象，同时除了最终生成的对象之外其余的都丢弃，那么前面说的性能问题还将被放大。
+如果你执行一个多步骤的操作，这个操作的每一步都会生成一个新的对象，同时除了最终生成的对象之外其余的都丢弃，那前面说的性能问题还将被放大。
 
 The package-private mutable companion class approach works fine if you can accurately predict which complex operations clients will want to perform on your immutable class. If not, then your best bet is to provide a public mutable companion class. The main example of this approach in the Java platform libraries is the String class, whose mutable companion is StringBuilder \(and its obsolete predecessor, StringBuffer\).
 
