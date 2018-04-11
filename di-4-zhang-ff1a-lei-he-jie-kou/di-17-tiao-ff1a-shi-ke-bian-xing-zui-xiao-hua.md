@@ -145,3 +145,23 @@ public class Complex {
 
 This approach is often the best alternative. It is the most flexible because it allows the use of multiple package-private implementation classes. To its clients that reside outside its package, the immutable class is effectively final because it is impossible to extend a class that comes from another package and that lacks a public or protected constructor. Besides allowing the flexibility of multiple implementation classes, this approach makes it possible to tune the performance of the class in subsequent releases by improving the object-caching capabilities of the static factories.
 
+It was not widely understood that immutable classes had to be
+
+effectively final when BigInteger and BigDecimal were written, so all
+
+of their methods may be overridden. Unfortunately, this could not
+
+be corrected after the fact while preserving backward compatibility.
+
+If you write a class whose security depends on the immutability of
+
+a BigInteger or BigDecimal argument from an untrusted client, you
+
+must check to see that the argument is a
+
+“real” BigInteger or BigDecimal, rather than an instance of an
+
+untrusted subclass. If it is the latter, you must defensively copy it
+
+under the assumption that it might be mutable \(Item 50\):
+
