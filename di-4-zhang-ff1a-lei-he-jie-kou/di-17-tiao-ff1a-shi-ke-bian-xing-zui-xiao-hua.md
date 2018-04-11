@@ -133,9 +133,11 @@ The performance problem is magnified if you perform a multistep operation that g
 
 The package-private mutable companion class approach works fine if you can accurately predict which complex operations clients will want to perform on your immutable class. If not, then your best bet is to provide a public mutable companion class. The main example of this approach in the Java platform libraries is the String class, whose mutable companion is StringBuilder \(and its obsolete predecessor, StringBuffer\).
 
-如果你能这个包级私有的可变伙伴类
+如果你能准确预测客户端将在不可变类执行哪些复杂操作，那么这个包级私有的可变伙伴类将能运行得很好。如果无法准确预测，那么最好的办法是提供一个公有的可变伙伴类。在Java类库里，这种办法的主要例子是String类，它的可变伙伴类是StringBuilder（以及快废弃不用的StringBuffer）。
 
 Now that you know how to make an immutable class and you understand the pros and cons of immutability, let’s discuss a few design alternatives. Recall that to guarantee immutability, a class must not permit itself to be subclassed. This can be done by making the class final, but there is another, more flexible alternative. Instead of making an immutable class final, you can make all of its constructors private or package-private and add public static factories in place of the public constructors \(Item 1\). To make this concrete, here’s how Complex would look if you took this approach:
+
+现在你知道如何写一个不可变类同时也了解了不可变性的好处跟坏处，下面我们来讨论几个设计方案。回想一下，我们前面说到，为了保证不可变性，一个类一定不能被子类化。我们可以通过将类设为final就可以做到这一点，但还有另一种更灵活的方式。除了将类设为final，我们还可以将类的所有构造器都私有化或者包级私有化，同时增加公有静态工厂来替代公有构造方法（条目1）。为了更具体地说明这一点，下面对Complex采用这种方式来实现：
 
 ```
 // Immutable class with static factories instead of constructors
