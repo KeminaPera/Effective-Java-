@@ -103,11 +103,15 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 **Immutable objects make great building blocks for other objects**, whether mutable or immutable. It’s much easier to maintain the invariants of a complex object if you know that its component objects will not change underneath it. A special case of this principle is that immutable objects make great map keys and set elements: you don’t have to worry about their values changing once they’re in the map or set, which would destroy the map or set’s invariants.
 
-**不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**如果你知道一个复杂对象的内部组件不会改变，那么维护它的约束条件也简单很多。
+**不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**如果你知道一个复杂对象的内部组件不会改变，那么维护它的不变性也简单很多。这个原则的一个特例是，不可变对象可以构成映射表的键和集合的元素：一旦它们成为了映射表的键或集合的元素，你无需担心它们的值会变更，虽然这会破坏映射表或集合的不变性。
 
 Immutable objects provide failure atomicity for free \(Item 76\). Their state never changes, so there is no possibility of a temporary inconsistency.
 
+不可变对象提供了免费的失败原子机制（条目 76）。由于不可变对象的状态永远不会改变，所以不可能出现临时的不一致性。
+
 The major disadvantage of immutable classes is that they require a separate object for each distinct value. Creating these objects can be costly, especially if they are large. For example, suppose that you have a million-bit BigInteger and you want to change its low-order bit:
+
+
 
 ```
 BigInteger moby = ...;
