@@ -121,29 +121,5 @@ BitSet moby = ...;
 moby.flip(0);
 ```
 
-The performance problem is magnified if you perform a multistep
-
-operation that generates a new object at every step, eventually
-
-discarding all objects except the final result. There are two
-
-approaches to coping with this problem. The first is to guess which
-
-multistep operations will be commonly required and to providethem as primitives. If a multistep operation is provided as a
-
-primitive, the immutable class does not have to create a separate
-
-object at each step. Internally, the immutable class can be
-
-arbitrarily clever. For example, BigInteger has a package-private
-
-mutable “companion class” that it uses to speed up multistep
-
-operations such as modular exponentiation. It is much harder to
-
-use the mutable companion class than to use BigInteger, for all of
-
-the reasons outlined earlier. Luckily, you don’t have to use it: the
-
-implementors of BigInteger did the hard work for you.
+The performance problem is magnified if you perform a multistep operation that generates a new object at every step, eventually discarding all objects except the final result. There are two approaches to coping with this problem. The first is to guess which multistep operations will be commonly required and to providethem as primitives. If a multistep operation is provided as a primitive, the immutable class does not have to create a separate object at each step. Internally, the immutable class can be arbitrarily clever. For example, BigInteger has a package-private mutable “companion class” that it uses to speed up multistep operations such as modular exponentiation. It is much harder to use the mutable companion class than to use BigInteger, for all of the reasons outlined earlier. Luckily, you don’t have to use it: the implementors of BigInteger did the hard work for you.
 
