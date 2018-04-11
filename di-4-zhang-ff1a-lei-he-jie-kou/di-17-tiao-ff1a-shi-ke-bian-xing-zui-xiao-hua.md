@@ -81,6 +81,8 @@ The functional approach may appear unnatural if you’re not familiar with it, b
 
 **Immutable objects are inherently thread-safe; they require no synchronization.** They cannot be corrupted by multiple threads accessing them concurrently. This is far and away the easiest approach to achieve thread safety. Since no thread can ever observe any effect of another thread on an immutable object, **immutable objects can be shared freely**. Immutable classes should therefore encourage clients to reuse existing instances wherever possible. One easy way to do this is to provide public static final constants for commonly used values. For example, the Complex class might provide these constants:
 
+**不可变对象天生就是线程安全的，它们不要求同步。**当多个线程同时去访问它们时，它们也不会被破坏。这是线程安全最简单的实现方式。由于每个线程都无需考虑别的线程对不可变对象的影响，**不可变对象可以自由地被共享**。因此，不可变对象应该鼓励客户端只有有可能的话就复用现有实例。一种简便的方式可以帮助我们达到复用的目的，那就是为一些常用的值提供公有静态final的常量值。例如，Complex类可以提供这些常量：
+
 ```
 public static final Complex ZERO = new Complex(0, 0);
 public static final Complex ONE = new Complex(1, 0);
@@ -88,6 +90,8 @@ public static final Complex I = new Complex(0, 1);
 ```
 
 This approach can be taken one step further. An immutable class can provide static factories \(Item 1\) that cache frequently requested instances to avoid creating new instances when existing ones would do. All the boxed primitive classes and BigInteger do this. Using such static factories causes clients to share instances instead of creating new ones, reducing memory footprint and garbage collection costs. Opting for static factories in place of public constructors when designing a new class gives you the flexibility to add caching later, without modifying clients.
+
+这方式可以被进一步扩展。不可变类可以提供静态工厂（条目1）将频繁被请求的实例缓存起来，从而避免重复创建现有实例。所有的装箱基础类和BigInteger都采用了这种方式。使用这种静态工厂让客户端共享了实例，而不用创建新的实例，减少了内存占用和垃圾回收的成本。在设计一个新的类时，用静态工厂来替代公有构造方法能让方便我们以后添加缓存，同时还不用修改客户端。
 
 A consequence of the fact that immutable objects can be shared freely is that you never have to make defensive copies of them \(Item 50\). In fact, you never have to make any copies at all because the copies would be forever equivalent to the originals. Therefore, you need not and should not provide a clonemethod or copy constructor \(Item 13\) on an immutable class. This was not well understood in the early days of the Java platform, so the String class does have a copy constructor, but it should rarely, if ever, be used \(Item 6\).
 
