@@ -153,27 +153,5 @@ public static BigInteger safeInstance(BigInteger val) {
 }
 ```
 
-The list of rules for immutable classes at the beginning of this item
-
-says that no methods may modify the object and that all its fields
-
-must be final. In fact these rules are a bit stronger than necessary
-
-and can be relaxed to improve performance. In truth, no method
-
-may produce an externally visible change in the object’s state.
-
-However, some immutable classes have one or more nonfinal fields
-
-in which they cache the results of expensive computations the first
-
-time they are needed. If the same value is requested again, the
-
-cached value is returned, saving the cost of recalculation. This trick
-
-works precisely because the object is immutable, which guarantees
-
-that the computation would yield the same result if it were
-
-repeated.
+The list of rules for immutable classes at the beginning of this item says that no methods may modify the object and that all its fields must be final. In fact these rules are a bit stronger than necessary and can be relaxed to improve performance. In truth, no method may produce an externally visible change in the object’s state. However, some immutable classes have one or more nonfinal fields in which they cache the results of expensive computations the first time they are needed. If the same value is requested again, the cached value is returned, saving the cost of recalculation. This trick works precisely because the object is immutable, which guarantees that the computation would yield the same result if it were repeated.
 
