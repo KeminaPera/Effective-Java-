@@ -109,3 +109,10 @@ Immutable objects provide failure atomicity for free \(Item 76\). Their state ne
 
 The major disadvantage of immutable classes is that they require a separate object for each distinct value. Creating these objects can be costly, especially if they are large. For example, suppose that you have a million-bit BigInteger and you want to change its low-order bit:
 
+```
+BigInteger moby = ...;
+moby = moby.flipBit(0);
+```
+
+
+
