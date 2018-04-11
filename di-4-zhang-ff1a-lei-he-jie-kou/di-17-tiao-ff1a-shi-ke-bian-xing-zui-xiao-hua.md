@@ -101,7 +101,13 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 **不仅可以共享不可变对象，它们的内部信息也可以被共享。**例如，BigInteger类在内部使用符号-数值的方式来表示。符号通过一个int数值来表示，数值用一个int数组来表示。它的negate方法生成了一个数值相同，符号相反的新的BigInteger。这个方法不用拷贝数组，即使数组是可变的，新创建的BigInteger原始实例的同一个内部数组。
 
-**Immutable objects make great building blocks for other objects**, whether mutable or immutable. It’s much easier to maintain the invariants of a complex object if you know that itscomponent objects will not change underneath it. A special case of this principle is that immutable objects make great map keys and set elements: you don’t have to worry about their values changing once they’re in the map or set, which would destroy the map or set’s invariants.
+**Immutable objects make great building blocks for other objects**, whether mutable or immutable. It’s much easier to maintain the invariants of a complex object if you know that its component objects will not change underneath it. A special case of this principle is that immutable objects make great map keys and set elements: you don’t have to worry about their values changing once they’re in the map or set, which would destroy the map or set’s invariants.
 
-**不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**
+**不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**如果你知道一个复杂对象的内部组件不会改变，那么维护它的约束条件也简单很多。
+
+Immutable objects provide failure atomicity for free \(Item
+
+76\). Their state never changes, so there is no possibility of a
+
+temporary inconsistency.
 
