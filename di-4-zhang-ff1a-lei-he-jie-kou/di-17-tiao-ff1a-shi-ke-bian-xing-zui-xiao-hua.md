@@ -114,5 +114,19 @@ BigInteger moby = ...;
 moby = moby.flipBit(0);
 ```
 
+The flipBit method creates a new BigInteger instance, also a million
 
+bits long, that differs from the original in only one bit. The
+
+operation requires time and space proportional to the size of
+
+the BigInteger. Contrast this to java.util.BitSet.
+
+Like BigInteger, BitSet represents an arbitrarily long sequence of
+
+bits, but unlike BigInteger, BitSet is mutable. The BitSet class
+
+provides a method that allows you to change the state of a single
+
+bit of a million-bit instance in constant time:
 
