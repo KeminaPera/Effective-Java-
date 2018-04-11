@@ -143,23 +143,5 @@ public class Complex {
 }
 ```
 
-This approach is often the best alternative. It is the most flexible
-
-because it allows the use of multiple package-private
-
-implementation classes. To its clients that reside outside its
-
-package, the immutable class is effectively final because it is
-
-impossible to extend a class that comes from another package and
-
-that lacks a public or protected constructor. Besides allowing the
-
-flexibility of multiple implementation classes, this approach makes
-
-it possible to tune the performance of the class in subsequent
-
-releases by improving the object-caching capabilities of the static
-
-factories.
+This approach is often the best alternative. It is the most flexible because it allows the use of multiple package-private implementation classes. To its clients that reside outside its package, the immutable class is effectively final because it is impossible to extend a class that comes from another package and that lacks a public or protected constructor. Besides allowing the flexibility of multiple implementation classes, this approach makes it possible to tune the performance of the class in subsequent releases by improving the object-caching capabilities of the static factories.
 
