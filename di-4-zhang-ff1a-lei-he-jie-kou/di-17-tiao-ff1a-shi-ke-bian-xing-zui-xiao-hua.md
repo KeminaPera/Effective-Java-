@@ -157,19 +157,5 @@ The list of rules for immutable classes at the beginning of this item says that 
 
 For example, PhoneNumber’s hashCode method \(Item 11, page 53\) computes the hash code the first time it’s invoked and caches it in case it’s invoked again. This technique, an example of lazy initialization \(Item 83\), is also used by String.
 
-One caveat should be added concerning serializability. If you
-
-choose to have your immutable class implement Serializable and it
-
-contains one or more fields that refer to mutable objects, you must
-
-provide an explicit readObject or readResolve method, or use
-
-the ObjectOutputStream.writeUnshared and ObjectInputStream.readUnshar
-
-ed methods, even if the default serialized form is acceptable.
-
-Otherwise an attacker could create a mutable instance of your class.
-
-This topic is covered in detail in Item 88.
+One caveat should be added concerning serializability. If you choose to have your immutable class implement Serializable and it contains one or more fields that refer to mutable objects, you must provide an explicit readObject or readResolve method, or use the ObjectOutputStream.writeUnshared and ObjectInputStream.readUnshared methods, even if the default serialized form is acceptable. Otherwise an attacker could create a mutable instance of your class. This topic is covered in detail in Item 88.
 
