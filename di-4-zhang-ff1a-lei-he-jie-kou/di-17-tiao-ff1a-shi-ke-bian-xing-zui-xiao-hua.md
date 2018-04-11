@@ -127,3 +127,21 @@ The package-private mutable companion class approach works fine if you can accur
 
 Now that you know how to make an immutable class and you understand the pros and cons of immutability, let’s discuss a few design alternatives. Recall that to guarantee immutability, a class must not permit itself to be subclassed. This can be done by making the class final, but there is another, more flexible alternative. Instead of making an immutable class final, you can make all of its constructors private or package-private and add public static factories in place of the public constructors \(Item 1\). To make this concrete, here’s how Complex would look if you took this approach:
 
+```
+// Immutable class with static factories instead of constructors
+public class Complex {
+    private final double re;
+    private final double im;
+    private Complex(double re, double im) {
+        this.re = re;
+        this.im = im;
+    } 
+    public static Complex valueOf(double re, double im) {
+        return new Complex(re, im);
+    }
+    ... // Remainder unchanged
+}
+```
+
+
+
