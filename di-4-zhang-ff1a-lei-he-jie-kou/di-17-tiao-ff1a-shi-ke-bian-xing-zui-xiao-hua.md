@@ -103,3 +103,5 @@ A consequence of the fact that immutable objects can be shared freely is that yo
 
 **Immutable objects make great building blocks for other objects**, whether mutable or immutable. It’s much easier to maintain the invariants of a complex object if you know that itscomponent objects will not change underneath it. A special case of this principle is that immutable objects make great map keys and set elements: you don’t have to worry about their values changing once they’re in the map or set, which would destroy the map or set’s invariants.
 
+**不可变对象为其它对象（无论是可变还是不可变）提供了大量的构件（building block）。**
+
