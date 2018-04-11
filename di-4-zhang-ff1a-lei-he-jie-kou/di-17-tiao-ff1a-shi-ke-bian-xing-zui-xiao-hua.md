@@ -125,3 +125,23 @@ The performance problem is magnified if you perform a multistep operation that g
 
 The package-private mutable companion class approach works fine if you can accurately predict which complex operations clients will want to perform on your immutable class. If not, then your best bet is to provide a public mutable companion class. The main example of this approach in the Java platform libraries is the String class, whose mutable companion is StringBuilder \(and its obsolete predecessor, StringBuffer\).
 
+Now that you know how to make an immutable class and you
+
+understand the pros and cons of immutability, let’s discuss a few
+
+design alternatives. Recall that to guarantee immutability, a class
+
+must not permit itself to be subclassed. This can be done by
+
+making the class final, but there is another, more flexible
+
+alternative. Instead of making an immutable class final, you can
+
+make all of its constructors private or package-private and add
+
+public static factories in place of the public constructors \(Item 1\).
+
+To make this concrete, here’s how Complex would look if you took
+
+this approach:
+
