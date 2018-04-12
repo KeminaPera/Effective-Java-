@@ -187,7 +187,7 @@ To summarize, resist the urge to write a setter for every getter. **Classes shou
 
 There are some classes for which immutability is impractical. **If a class cannot be made immutable, limit its mutability as much as possible.** Reducing the number of states in which an object can exist makes it easier to reason about the object and reduces the likelihood of errors. Therefore, make every field final unless there is a compelling reason to make it nonfinal. Combining the advice of this item with that of Item 15, your natural inclination should be to **declare every field** private final **unless there’s a good reason to do otherwise.**
 
-也存在一些类，让其实现不可变性是不切实际的。**如果一个类不能做成不可变，那就尽可能限制它的可变性。**减少对象可能存在的状态数能让我们更容易分析对象，同时减少可能出现的错误。因此，除非有充分的理由，否则应该将每个域设成final的。
+也存在一些类，让其实现不可变性是不切实际的。**如果一个类不能做成不可变，那就尽可能限制它的可变性。**减少对象可能存在的状态数能让我们更容易分析对象，同时减少可能出现的错误。因此，除非有充分的理由，否则应该将每个域设成final的。结合条目15的建议，除非有别的好的理由，否则你应该会自然而然地将每个域声明为私有final的。
 
 ** Constructors should create fully initialized objects with all of their invariants established.** Don’t provide a public initialization method separate from the constructor or static factory unless there is a compelling reason to do so. Similarly, don’t provide a “reinitialize” method that enables an object to be reused as if it had been constructed with a different initial state. Such methods generally provide little if any performance benefit at the expense of increased complexity.
 
