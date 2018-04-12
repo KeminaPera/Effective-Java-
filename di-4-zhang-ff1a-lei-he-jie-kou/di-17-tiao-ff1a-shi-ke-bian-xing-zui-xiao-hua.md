@@ -161,6 +161,8 @@ This approach is often the best alternative. It is the most flexible because it 
 
 It was not widely understood that immutable classes had to be effectively final when BigInteger and BigDecimal were written, so all of their methods may be overridden. Unfortunately, this could not be corrected after the fact while preserving backward compatibility. If you write a class whose security depends on the immutability of a BigInteger or BigDecimal argument from an untrusted client, you must check to see that the argument is a “real” BigInteger or BigDecimal, rather than an instance of an untrusted subclass. If it is the latter, you must defensively copy it under the assumption that it might be mutable \(Item 50\):
 
+当初在编写BigInteger类和BigDecimal类时，“不可变类必须是final的”这一观点还没被广泛理解，所以这两个类的所有方法都是可以被覆盖的。而且不幸的是，为了保护向后兼容性，这个问题还无法被修复。如果你写了一个类，这个类的安全性基于BigInteger或BigDecimal的不可变性，同时它们还是作为不可信客户端的参数传进来的，那你就必须检查一下了，看看这个参数是否是“真的”BigInteger或BigDecimal，而不是一个不可信子类的一个实例。如果是后者，你必须假定它是可变的，然后进行保护性拷贝（条目50）：
+
 ```
 public static BigInteger safeInstance(BigInteger val) {
     return val.getClass() == BigInteger.class ? val : new BigInteger(val.toByteArray());
