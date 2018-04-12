@@ -171,7 +171,11 @@ public static BigInteger safeInstance(BigInteger val) {
 
 The list of rules for immutable classes at the beginning of this item says that no methods may modify the object and that all its fields must be final. In fact these rules are a bit stronger than necessary and can be relaxed to improve performance. In truth, no method may produce an externally visible change in the object’s state. However, some immutable classes have one or more nonfinal fields in which they cache the results of expensive computations the first time they are needed. If the same value is requested again, the cached value is returned, saving the cost of recalculation. This trick works precisely because the object is immutable, which guarantees that the computation would yield the same result if it were repeated.
 
+在本条目开始时谈到的一系列关于不可变类的规则里，第一条说到，任意方法都不能修改对象，并且它的所有域都必须是final的。实际上，这些规则都比实际需求要强硬点，在提高性能时可以放松点不用这么紧张。
+
 For example, PhoneNumber’s hashCode method \(Item 11, page 53\) computes the hash code the first time it’s invoked and caches it in case it’s invoked again. This technique, an example of lazy initialization \(Item 83\), is also used by String.
+
+例如，PhoneNumber的hashCode方法（条目11）在它被调用时就计算好了哈希码并把它缓存起来以备下次调用时使用。这种做法是延迟初始化的一个例子（条目83），String类也用到了。
 
 One caveat should be added concerning serializability. If you choose to have your immutable class implement Serializable and it contains one or more fields that refer to mutable objects, you must provide an explicit readObject or readResolve method, or use the ObjectOutputStream.writeUnshared and ObjectInputStream.readUnshared methods, even if the default serialized form is acceptable. Otherwise an attacker could create a mutable instance of your class. This topic is covered in detail in Item 88.
 
