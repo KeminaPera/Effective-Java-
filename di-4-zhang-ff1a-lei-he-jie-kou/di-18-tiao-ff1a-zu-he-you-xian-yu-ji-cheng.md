@@ -2,15 +2,15 @@
 
 Inheritance is a powerful way to achieve code reuse, but it is not always the best tool for the job. Used inappropriately, it leads to fragile software. It is safe to use inheritance within a package, where the subclass and the superclass implementations are under the control of the same programmers. It is also safe to use inheritance when extending classes specifically designed and documented for extension \(Item 19\). Inheriting from ordinary concrete classes across package boundaries, however, is dangerous. As a reminder, this book uses the word “inheritance” to mean implementation inheritance \(when one class extends another\). The problems discussed in this item do not apply to interface inheritance\(when a class implements an interface or when one interface extends another\).
 
-继承（inheritance）是获得代码重用的一种有效途径，但不是最佳方式。使用不当的话，容易使做出来的软件变得脆弱。在一个包里使用继承是安全的，这样的话子类实现和父类实现都在同个程序员的控制之下。除此之外，当类是专门设计来继承而且具有良好文档话，采用继承来进行扩展也是安全的。但是，如果只是跨包继承一个普通具体的类，则是危险的。提示一下，本书采用“继承”来指实现继承（当一个类扩展了另一个类）。本条目讨论的问题不适用于接口继承（当一个类实现了一个接口或者一个接口扩展了另一个接口）。
+继承（inheritance）是代码复用的一种有效途径，但不是最佳方式。使用不当的话，容易使做出来的软件变得脆弱。在同一个包里使用继承是安全的，这样的话子类实现和父类实现都在同个程序员的控制之下。除此之外，若类是专门设计来被继承而且具有良好文档话，则采用继承来进行扩展也是安全的。但是，如果只是跨包继承一个普通具体的类，则会有危险。说明一下，本书采用“继承”来指实现继承（当一个类扩展了另一个类）。本条目讨论的问题不适用于接口继承（当一个类实现了一个接口或者一个接口扩展了另一个接口）。
 
 **Unlike method invocation, inheritance violates encapsulation** \[Snyder86\]. In other words, a subclass depends on the implementation details of its superclass for its proper function. The superclass’s implementation may change from release to release, and if it does, the subclass may break, even though its code has not been touched. As a consequence, a subclass must evolve in tandem with its superclass, unless the superclass’s authors have designed and documented it specifically for the purpose of being extended.
 
-**与方法调用不同的是，继承违反了封装原则**\[Snyder86\]。换句话说，一个子类依赖于它的父类的实现细节来实现它本身的功能。但随着版本的更新，父类的实现会产生变化，一旦这种情况发生了，子类将会被破坏，即便子类的代码没有变更过。这样产生的后果是，子类必须跟着父类一起演化，除非编写父类的作者本来就是为了专门将其设计成被继承，同时还准备了良好的文档。
+**与方法调用不同的是，继承违反了封装原则**\[Snyder86\]。换句话说，一个子类依赖于它的父类的实现细节来实现它本身的功能。但随着版本的更新，父类的实现会产生变化，一旦这种情况发生了，子类将会被破坏，即便子类的代码没有变更过。这样的后果是，子类必须跟着父类一起演化，除非编写父类的作者本来就是为了专门将其设计成被继承，同时还准备了良好的文档。
 
 To make this concrete, let’s suppose we have a program that uses a HashSet. To tune the performance of our program, we need to query the HashSet as to how many elements have been added since it was created \(not to be confused with its current size, which goes down when an element is removed\). To provide this functionality, we write a HashSet variant that keeps count of the number of attempted element insertions and exports an accessor for this count. The HashSet class contains two methods capable of adding elements, add and addAll, so we override both of these methods:
 
-为了更具体地说明这一点，我们假设我们有一个程序，这个程序用了HashSet。为了调优程序的性能，我们需要查一下这个HashSet自从被创建以来添加了多少个元素进去（不要跟当前的大小混淆起来，元素的数目会随着删除而减少）。为了实现这个功能，我们写了一个HashSet变量，它记录着尝试插入的元素的数目，同时为这个数目提供一个访问方法。HashSet类包含了两个用来添加元素的方法，add和addAll，所以我们覆盖这两个方法：
+为了更具体地说明这一点，我们假设有一个程序，这个程序用了HashSet。为了调优程序的性能，我们需要查一下这个HashSet自从被创建以来添加了多少个元素进去（不要跟当前的大小混淆起来，元素的数目会随着删除而减少）。为了实现这个功能，我们写了一个HashSet变量，它记录着尝试插入的元素的数目，同时为这个数目提供一个访问方法。HashSet类包含了两个用来添加元素的方法，add和addAll，所以我们覆盖这两个方法：
 
 ```
 // Broken - Inappropriate use of inheritance!
@@ -49,7 +49,7 @@ s.addAll(List.of("Snap", "Crackle", "Pop"));
 
 We would expect the getAddCount method to return three at this point, but it returns six. What went wrong? Internally, HashSet’s addAll method is implemented on top of its add method, although HashSet, quite reasonably, does not document this implementation detail. The addAll method in InstrumentedHashSet added three to addCount and then invoked HashSet’s addAll implementation using super.addAll. This in turn invoked the add method, as overridden in InstrumentedHashSet, once for each element. Each of these three invocations added one more to addCount, for a total increase of six: each element added with the addAll method is double-counted.
 
-此时，我们期待着getAddCount方法会返回3，但实际上它返回了6。哪里出错了？在HashSet内部，addAll方法是基于它的add方法来实现的，虽然HashSet并没有在文档里说明这个实现细节，但这是合理的。InstrumentedHashSet的addAll方法对addCount加3，然后再通过super.addAll语句调用HashSet的addAll方法。但调用HashSet的addAll方法时又去调用又调用在InstrumentedHashSet类中重写的add方法，每个元素调用一次。这三次调用每次都将addCount加1，最终addCount总共加了6：add方法加了3次1，addAll方法加了3，也就是每个元素都算了两次。
+此时，我们期待着getAddCount方法会返回3，但实际上它返回了6。哪里出错了？在HashSet内部，addAll方法是基于它的add方法来实现的，虽然HashSet并没有在文档里说明这个实现细节，但这是合理的。InstrumentedHashSet的addAll方法对addCount加3，然后再通过super.addAll语句调用HashSet的addAll方法。但调用HashSet的addAll方法时又去调用在InstrumentedHashSet类中重写的add方法，每个元素调用一次。这三次调用每次都将addCount加1，最终addCount总共加了6：add方法加了3次1，addAll方法加了3，也就是每个元素都算了两次。
 
 We could “fix” the subclass by eliminating its override of the addAll method. While the resulting class would work, it would depend for its proper function on the fact that HashSet’s addAll method is implemented on top of its add method. This “self-use” is an implementation detail, not guaranteed to hold in all implementations of the Java platform and subject to change from release to release. Therefore, the resulting InstrumentedHashSet class would be fragile.
 
@@ -57,7 +57,7 @@ We could “fix” the subclass by eliminating its override of the addAll method
 
 It would be slightly better to override the addAll method to iterate over the specified collection, calling the add method once for each element. This would guarantee the correct result whether or not HashSet’s addAll method were implemented atop its add method because HashSet’s addAll implementation would no longer be invoked. This technique, however, does not solve all our problems. It amounts to reimplementing superclass methods that may or may not result in self-use, which is difficult, time-consuming, error-prone, and may reduce performance. Additionally, it isn’t always possible because some methods cannot be implemented without access to private fields inaccessible to the subclass.
 
-稍微好点的做法是，覆盖addAll方法，在方法内部遍历指定的集合，对每个元素都调用add方法。这样做可以保证，无论HashSet的addAll方法的实现是否依赖于add方法，都会得到正确的结果，因为HashSet的addAll实现不会被调用。然而，这种技术并不能解决我们所有的问题。这么做相当于重新实现一遍父类的方法，这些父类方法还不知是不是自用（self-use）的，而且。重新实现一遍不仅有难度，耗时，容易出错，而且还有可能还会降低性能。不仅如此，有时可能还无法这么做，因为有些方法不能在子类里访问某些父类的私有属性而导致其不能被实现。
+稍微好点的做法是，覆盖addAll方法，在方法内部遍历指定的集合，对每个元素都调用add方法。这样做可以保证，无论HashSet的addAll方法的实现是否依赖于add方法，都会得到正确的结果，因为HashSet的addAll实现不会被调用。然而，这种技术并不能解决我们所有的问题。这么做相当于重新实现一遍父类的方法，这些父类方法还不知是不是自用（self-use）的，而且。重新实现一遍不仅有难度，耗时，容易出错，而且还有可能还会降低性能。不仅如此，有时可能还无法这么做，因为有些方法不能在子类里访问某些父类的私有属性，从而导致其不能被实现。
 
 A related cause of fragility in subclasses is that their superclass can acquire new methods in subsequent releases. Suppose a program depends for its security on the fact that all elements inserted into some collection satisfy some predicate. This can be guaranteed by subclassing the collection and overriding each method capable of adding an element to ensure that the predicate is satisfied before adding the element. This works fine until a new method capable of inserting an element is added to the superclass in a subsequent release. Once this happens, it becomes possible to add an “illegal” element merely by invoking the new method, which is not overridden in the subclass. This is not a purely theoretical problem. Several security holes of this nature had to be fixed when Hashtable and Vector were retrofitted to participate in the Collections Framework.
 
