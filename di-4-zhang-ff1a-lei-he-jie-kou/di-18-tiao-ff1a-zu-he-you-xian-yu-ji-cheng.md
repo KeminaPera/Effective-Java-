@@ -154,7 +154,7 @@ public class ForwardingSet<E> implements Set<E> {
 
 The design of the InstrumentedSet class is enabled by the existence of the Set interface, which captures the functionality of the HashSet class. Besides being robust, this design is extremely flexible. The InstrumentedSet class implements the Set interface and has a single constructor whose argument is also of type Set. In essence, the class transforms one Set into another, adding the instrumentation functionality. Unlike the inheritance-based approach, which works only for a single concrete class and requires a separate constructor for each supported constructor in the superclass, the wrapper class can be used to instrument any Set implementation and will work in conjunction with any preexisting constructor:
 
-InstrumentedSet类的设计依赖于现有的Set接口，Set接口里包含着HashSet类的方法。这么设计不但健壮，而且很灵活。InstrumentedSet类实现了Set接口，同时只有一个构造器，这个构造器要求传入一个Set类型的参数。本质上，这个类其实是将一个Set转换成另一个，并添加一些自己的功能。不像基于继承的方式，只能为一个具体的类工作而且必须分别为父类里的每个构造器提供一个相应的构造器，例子中的包装类能用于任意类型的Set实现，同时能与任意现存的构造器共存。
+InstrumentedSet类的设计依赖于现有的Set接口，Set接口里包含着HashSet类的方法。这么设计不但健壮，而且很灵活。InstrumentedSet类实现了Set接口，同时只有一个构造器，这个构造器要求传入一个Set类型的参数。本质上，这个类其实是将一个Set转换成另一个，并添加一些自己的功能。前面讨论到的基于继承的方式只能为一个具体的类工作，而且必须分别为父类里的每个构造器提供一个相应的构造器，而上述例子中的包装类能用于任意类型的Set实现，同时能与任意现存的构造器共存。
 
 ```
 Set<Instant> times = new InstrumentedSet<>(new TreeSet<>(cmp));
@@ -163,7 +163,7 @@ Set<E> s = new InstrumentedSet<>(new HashSet<>(INIT_CAPACITY));
 
 The InstrumentedSet class can even be used to temporarily instrument a set instance that has already been used without instrumentation:
 
-InstrumentedSet类甚至可以临时用于
+InstrumentedSet类甚至可以临时用于原本就没有计数特性的Set实例：
 
 ```
 static void walk(Set<Dog> dogs) {
