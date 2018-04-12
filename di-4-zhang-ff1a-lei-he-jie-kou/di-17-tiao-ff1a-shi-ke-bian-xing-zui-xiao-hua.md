@@ -193,9 +193,13 @@ There are some classes for which immutability is impractical. **If a class canno
 
 **构造器应该完全初始化对象，并建立好不变性。**除非有很强的理由，否则不要在构造器或静态方法之外还提供公有初始化方法。同样地，不要提供“重初始化（reinitialize）”方法来让对象被复用，就好像这个对象是用不同的初始化状态创建的。这些方法往往都是以增加复杂性为代价，然后提供仅有那么一点点的性能优势。
 
-The CountDownLatch class exemplifies these principles. It is mutable, but its state space is kept intentionally small. You create an instance, use it once, and it’s done: once the countdown latch’s count has reached zero, you may not reuse it.A final note should be added concerning the Complex class in this item. This example was meant only to illustrate immutability.
+The CountDownLatch class exemplifies these principles. It is mutable, but its state space is kept intentionally small. You create an instance, use it once, and it’s done: once the countdown latch’s count has reached zero, you may not reuse it. 
 
-CountDownLatch类是这些原则的例子。它是可变的，但它的状态空间被特意保持地很小。
+CountDownLatch类是这些原则的例子。它是可变的，但它的状态空间被特意保持地很小。你创建一个实例，立即使用它，然后它就完成了：一旦倒计时门闩（countdown latch）的计数为0，你就无法再复用它了。
 
-It is not an industrial-strength complex number implementation. It uses the standard formulas for complex multiplication and division, which are not correctly rounded and provide poor semantics for complex NaNs and infinities \[Kahan91, Smith62, Thomas94\].
+A final note should be added concerning the Complex class in this item. This example was meant only to illustrate immutability. It is not an industrial-strength complex number implementation. It uses the standard formulas for complex multiplication and division, which are not correctly rounded and provide poor semantics for complex NaNs and infinities \[Kahan91, Smith62, Thomas94\].
+
+考虑到本条目的Complex类，最后还要提一个注意点。这个例子只是为了说明不可变性。它不是一个工业级强度的复数实现。对于乘法和除法，它使用了标准的公式，这些公式会进行不正确的四舍五入，而且对于复杂的NaN和无穷数没有提供良好的语义\[Kahan91, Smith62, Thomas94\]。
+
+
 
