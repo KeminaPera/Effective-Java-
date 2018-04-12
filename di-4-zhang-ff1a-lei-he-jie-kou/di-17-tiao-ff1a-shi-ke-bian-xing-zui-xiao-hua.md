@@ -183,9 +183,11 @@ One caveat should be added concerning serializability. If you choose to have you
 
 To summarize, resist the urge to write a setter for every getter. **Classes should be immutable unless there’s a very good reason to make them mutable.** Immutable classes provide many advantages, and their only disadvantage is the potential for performance problems under certain circumstances. You should always make small value objects, such as PhoneNumber and Complex, immutable. \(There are several classes in the Java platform libraries, such as java.util.Date and java.awt.Point, that should have been immutable but aren’t.\) You should seriously consider making larger value objects, such as String and BigInteger, immutable as well. You should provide a public mutable companion class for your immutable class only once you’ve confirmed that it’s necessary to achieve satisfactory performance \(Item 67\).
 
-总的来说，不要每写一个getter就要冲动着去写一个对应的setter。**类应该都是不可变的，除非有个很好的理由需要它们是可变的。**不可变类有很多优势，唯一的缺点是在某些情况下会有一些潜在的性能问题。我们应该总是让一些小的值对象不可变，如PhoneNumber和Complex。
+总的来说，不要每写一个getter就要冲动着去写一个对应的setter。**类应该都是不可变的，除非有个很好的理由需要它们是可变的。**不可变类有很多优势，唯一的缺点是在某些情况下会有一些潜在的性能问题。我们应该总是让一些小的值对象不可变，如PhoneNumber和Complex。（Java类库里有几个类应该是不可变但实际上不是，如java.util.Date和java.awt.Point。）我们也应该认真考虑将大的值对象做成不可变的，如String和BigInteger。一旦确定需要获得令人满意的性能（条目67），就应该为不可变类提供公有可变伙伴类。
 
 There are some classes for which immutability is impractical. **If a class cannot be made immutable, limit its mutability as much as possible.** Reducing the number of states in which an object can exist makes it easier to reason about the object and reduces the likelihood of errors. Therefore, make every field final unless there is a compelling reason to make it nonfinal. Combining the advice of this item with that of Item 15, your natural inclination should be to **declare every field** private final **unless there’s a good reason to do otherwise.**
+
+也存在一些类，让其实现不可变性是不切实际的。**如果一个类不能做成不可变，那就尽可能限制它的可变性。**减少对象可能存在的状态数能让我们更容易分析对象，同时减少可能出现的错误。因此，除非有充分的理由，否则应该将每个域设成final的。
 
 ** Constructors should create fully initialized objects with all of their invariants established.** Don’t provide a public initialization method separate from the constructor or static factory unless there is a compelling reason to do so. Similarly, don’t provide a “reinitialize” method that enables an object to be reused as if it had been constructed with a different initial state. Such methods generally provide little if any performance benefit at the expense of increased complexity.
 
