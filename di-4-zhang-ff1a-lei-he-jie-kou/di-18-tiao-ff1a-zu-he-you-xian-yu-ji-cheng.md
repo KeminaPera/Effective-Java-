@@ -69,7 +69,7 @@ Both of these problems stem from overriding methods. You might think that it is 
 
 Luckily, there is a way to avoid all of the problems described above. Instead of extending an existing class, give your new class a private field that references an instance of the existing class. This design is called composition because the existing class becomes a component of the new one. Each instance method in the new class invokes the corresponding method on the contained instance of the existing class and returns the results. This is known as forwarding, and the methods in the new class are known as forwarding methods. The resulting class will be rock solid, with no dependencies on the implementation details of the existing class. Even adding new methods to the existing class will have no impact on the new class. To make this concrete, here’s a replacement for InstrumentedHashSet that uses the composition-and-forwarding approach. Note that the implementation is broken into two pieces, the class itself and a reusable forwarding class, which contains all of the forwarding methods and nothing else:
 
-幸运的是，有一个办法可以避免所有上面说到的问题。除了扩展现有类，你还可以让你的新类包含一个私有域，这个域指向现有类的一个实例。这种设计被称为组合，因为现有类成为了新类组件。新类的每个实例方法调用现有类实例的对应方法然后返回值。这种做法被称为转发，新类里的方法也被称为转发方法。这样编写出来的类将会很坚固，因为它不依赖域现有类的实现细节。即使往现有类里添加新方法也不影响新类。为了更具体地说明，下面采用“组合与转发”的方式重新写一个InstrumentedHashSet。注意，新的实现方式分为两部分，类本身和一个可复用的转发类。转发类仅包含所有的转发方法：
+幸运的是，有一个办法可以避免所有上面说到的问题。除了扩展现有类，你还可以让你的新类包含一个私有域，这个域指向现有类的一个实例。这种设计被称为组合，因为现有类成为了新类组件。新类的每个实例方法调用现有类实例的对应方法然后返回值。这种做法被称为转发，新类里的方法也被称为转发方法。这样编写出来的类将会很坚固，因为它不依赖域现有类的实现细节。即使往现有类里添加新方法也不影响新类。为了更具体地说明，下面采用“组合与转发”的方式写一个InstrumentedHashSet的替代实现。注意，新的实现方式分为两部分，类本身和一个可复用的转发类。转发类仅包含所有的转发方法：
 
 ```
 // Wrapper class - uses composition in place of inheritance
@@ -153,6 +153,8 @@ public class ForwardingSet<E> implements Set<E> {
 ```
 
 The design of the InstrumentedSet class is enabled by the existence of the Set interface, which captures the functionality of the HashSet class. Besides being robust, this design is extremely flexible. The InstrumentedSet class implements the Set interface and has a single constructor whose argument is also of type Set. In essence, the class transforms one Set into another, adding the instrumentation functionality. Unlike the inheritance-based approach, which works only for a single concrete class and requires a separate constructor for each supported constructor in the superclass, the wrapper class can be used to instrument any Set implementation and will work in conjunction with any preexisting constructor:
+
+InstrumentedSet类的设计依赖于现有的Set接口，Set接口里包含着HashSet类的方法。这么设计不但健壮，而且很灵活。InstrumentedSet类实现了Set接口，同时只有一个构造器，这个构造器要求传入一个Set类型的参数。本质上，这个类其实是将一个Set转换成另一个，并添加一些自己的功能。不像基于继承的方式，只能
 
 ```
 Set<Instant> times = new InstrumentedSet<>(new TreeSet<>(cmp));
