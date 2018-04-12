@@ -191,7 +191,11 @@ There are some classes for which immutability is impractical. **If a class canno
 
 ** Constructors should create fully initialized objects with all of their invariants established.** Don’t provide a public initialization method separate from the constructor or static factory unless there is a compelling reason to do so. Similarly, don’t provide a “reinitialize” method that enables an object to be reused as if it had been constructed with a different initial state. Such methods generally provide little if any performance benefit at the expense of increased complexity.
 
+**构造器应该完全初始化对象，并建立好不变性。**除非有很强的理由，否则不要在构造器或静态方法之外还提供公有初始化方法。同样地，不要提供“重初始化（reinitialize）”方法来让对象被复用，就好像这个对象是用不同的初始化状态创建的。这些方法往往都是以增加复杂性为代价，然后提供仅有那么一点点的性能优势。
+
 The CountDownLatch class exemplifies these principles. It is mutable, but its state space is kept intentionally small. You create an instance, use it once, and it’s done: once the countdown latch’s count has reached zero, you may not reuse it.A final note should be added concerning the Complex class in this item. This example was meant only to illustrate immutability.
+
+CountDownLatch类是这些原则的例子。它是可变的，但它的状态空间被特意保持地很小。
 
 It is not an industrial-strength complex number implementation. It uses the standard formulas for complex multiplication and division, which are not correctly rounded and provide poor semantics for complex NaNs and infinities \[Kahan91, Smith62, Thomas94\].
 
