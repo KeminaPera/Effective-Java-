@@ -22,25 +22,52 @@ public boolean remove(Object o)
 >
 > 如果集合里存在指定元素对象，则将其从这个集合里移除（可选操作）。正式地说，如果这个集合包含一个或多个这样的元素，则将满足Objects.equals\(o, e\)的元素移除。如果这个集合包含指定的元素，则返回true（如果因调用而使集合改变了，也一样返回true）。
 >
-> **实现要求：**这个实现通过遍历集合来查找指定的元素。如果它找到这个元素，则使用迭代器的移除方法将其从集合中移除。注意，如果集合的迭代器方法返回的迭代器没有实现移除方法同时集合也包含指定的对象的话，则这个将抛出UnsupportedOperationException异常。
+> **实现要求：**这个实现通过遍历集合来查找指定的元素。如果它找到这个元素，则使用迭代器的移除方法（remove method）将其从集合中移除。注意，如果集合的迭代器方法（iterator method）返回的迭代器没有实现移除方法同时集合也包含指定的对象的话，则这个将抛出UnsupportedOperationException异常。
 
-This documentation leaves no doubt that overriding the iterator method will affect the behavior of there move method. It also describes exactly how the behavior of the Iterator returned by the iterator method will affect the behavior of the remove method. Contrast this to the situation inItem 18, where the programmer subclassing HashSet simply could not say whether overriding the add method would affect the behavior of the addAll method. But doesn’t this violate the dictum that good API documentation should describe what a given method does and not how it does it? Yes, it does! This is an unfortunate consequence of the fact that inheritance violates encapsulation. To document a class so that it can be safely subclassed, you must describe implementation details that should otherwise be left unspecified.
+This documentation leaves no doubt that overriding the iterator method will affect the behavior of the remove method. It also describes exactly how the behavior of the Iterator returned by the iterator method will affect the behavior of the remove method. Contrast this to the situation in Item 18, where the programmer subclassing HashSet simply could not say whether overriding the add method would affect the behavior of the addAll method. 
 
-The @implSpec tag was added in Java 8 and used heavily in Java 9. This tag should be enabled by default, but as of Java 9, the Javadoc utility still ignores it unless you pass the command line switch-tag "apiNote:a:API Note:".
+文档明确说明了覆盖迭代方法将会影响移除方法的行为。文档还明确描述了迭代方法返回的迭代器的行为会影响移除方法的行为。与条目18不同，在条目18里提到的案例中，程序员继承HashSet时不能说明覆盖了add方法是否会影响addAll方法的行为。
+
+But doesn’t this violate the dictum that good API documentation should describe what a given method does and not how it does it? Yes, it does! This is an unfortunate consequence of the fact that inheritance violates encapsulation. To document a class so that it can be safely subclassed, you must describe implementation details that should otherwise be left unspecified.
+
+在编程界里有条名言：好的API文档应该是在描述方法是干什么的，而不是在说明它是如何做到的。这么说的话，那上面的文档岂不是违反了这条名言？是的，的确是。违反了封装是继承的一个无可奈何的副作用。为了让一个类可以被安全地继承，我们必须在文档里描述那些没有详细说明的实现细节。
+
+The @implSpec tag was added in Java 8 and used heavily in Java 9. This tag should be enabled by default, but as of Java 9, the Javadoc utility still ignores it unless you pass the command line switch -tag "apiNote:a:API Note:".
+
+@implSpec标签在Java 8里就已经被添加了，并且在Java 9得到大量使用。这个标签应该启用，但在Java 9中，Javadoc工具仍然忽视了它，除非你在命令行里输入开关命令：-tag"apiNot:a:API Note"。
 
 Designing for inheritance involves more than just documenting patterns of self-use. To allow programmers to write efficient subclasses without undue pain, **a class may have to provide hooks into its internal workings in the form of judiciously chosen protected methods **or, in rare instances, protected fields. For example, consider the removeRange method from java.util.AbstractList:
+
+继承的设计不仅仅只包含关于自用的文档。
 
 ```
 protected void removeRange(int fromIndex, int toIndex)
 ```
 
-Removes from this list all of the elements whose index is between from Index, inclusive, and toIndex, exclusive. Shifts any succeeding elements to the left \(reduces their index\). This call shortens the list by\(toIndex - fromIndex\)elements. \(If toIndex == fromIndex, this operation has no effect.\)  
-This method is called by the clear operation on this list and its sublists. Overriding this method to take advantage of the internals of the list implementation can substantially improve the performance of the clear operation on this list and its sublists.**Implementation Requirements:**This implementation gets a list iterator positioned before fromIndex and repeatedly calls List Iterator.next followed by ListIterator.remove, until the entire range has been removed. **Note:**
+> Removes from this list all of the elements whose index is between from Index, inclusive, and toIndex, exclusive. Shifts any succeeding elements to the left \(reduces their index\). This call shortens the list by\(toIndex - fromIndex\)elements. \(If toIndex == fromIndex, this operation has no effect.\)  
+> This method is called by the clear operation on this list and its sublists. Overriding this method to take advantage of the internals of the list implementation can substantially improve the performance of the clear operation on this list and its sublists.
+>
+> **Implementation Requirements:**This implementation gets a list iterator positioned before fromIndex and repeatedly calls List Iterator.next followed by ListIterator.remove, until the entire range has been removed. **Note:**
+>
+> **If List Iterator.remove requires linear time, this implementation requires quadratic time.**
+>
+> Parameters:
+>
+> fromIndex index of first element to be removed.
+>
+> toIndex index after last element to be removed.
 
-**If List Iterator.remove requires linear time, this implementation requires quadratic time.**
+This method is of no interest to end users of a List implementation.
 
-Parameters:
+It is provided solely to make it easy for subclasses to provide a
 
-fromIndex index of first element to be removed.  
-toIndex index after last element to be removed.
+fast clear method on sublists. In the absence of
+
+the removeRangemethod, subclasses would have to make do with
+
+quadratic performance when the clear method was invoked on
+
+sublists or rewrite the entire subList mechanism from scratch—not
+
+an easy task!
 
