@@ -61,19 +61,5 @@ This method is of no interest to end users of a List implementation. It is provi
 
 So how do you decide what protected members to expose when you design a class for inheritance? Unfortunately, there is no magic bullet. The best you can do is to think hard, take your best guess, and then test it by writing subclasses. You should expose as few protected members as possible because each one represents a commitment to an implementation detail. On the other hand, you must not expose too few because a missing protected member can render a class practically unusable for inheritance.
 
-The only way to test a class designed for inheritance is to
-
-write subclasses. If you omit a crucial protected member, trying
-
-to write a subclass will make the omission painfully obvious.
-
-Conversely, if several subclasses are written and none uses a
-
-protected member, you should probably make it private.
-
-Experience shows that three subclasses are usually sufficient to
-
-test an extendable class. One or more of these subclasses should be
-
-written by someone other than the superclass author.
+The only way to test a class designed for inheritance is to write subclasses. If you omit a crucial protected member, trying to write a subclass will make the omission painfully obvious. Conversely, if several subclasses are written and none uses a protected member, you should probably make it private. Experience shows that three subclasses are usually sufficient to test an extendable class. One or more of these subclasses should be written by someone other than the superclass author.
 
