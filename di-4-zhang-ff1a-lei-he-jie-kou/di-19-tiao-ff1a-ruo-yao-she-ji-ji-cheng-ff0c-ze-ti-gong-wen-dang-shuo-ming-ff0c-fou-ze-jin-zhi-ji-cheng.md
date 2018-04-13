@@ -24,7 +24,7 @@ public boolean remove(Object o)
 >
 > **实现要求：**这个实现通过遍历集合来查找指定的元素。如果它找到这个元素，则使用迭代器的移除方法（remove method）将其从集合中移除。注意，如果集合的迭代器方法（iterator method）返回的迭代器没有实现移除方法同时集合也包含指定的对象的话，则这个将抛出UnsupportedOperationException异常。
 
-This documentation leaves no doubt that overriding the iterator method will affect the behavior of the remove method. It also describes exactly how the behavior of the Iterator returned by the iterator method will affect the behavior of the remove method. Contrast this to the situation in Item 18, where the programmer subclassing HashSet simply could not say whether overriding the add method would affect the behavior of the addAll method. 
+This documentation leaves no doubt that overriding the iterator method will affect the behavior of the remove method. It also describes exactly how the behavior of the Iterator returned by the iterator method will affect the behavior of the remove method. Contrast this to the situation in Item 18, where the programmer subclassing HashSet simply could not say whether overriding the add method would affect the behavior of the addAll method.
 
 文档明确说明了覆盖迭代方法将会影响移除方法的行为。文档还明确描述了迭代方法返回的迭代器的行为会影响移除方法的行为。与条目18不同，在条目18里提到的案例中，程序员继承HashSet时不能说明覆盖了add方法是否会影响addAll方法的行为。
 
@@ -57,17 +57,23 @@ protected void removeRange(int fromIndex, int toIndex)
 >
 > toIndex index after last element to be removed.
 
-This method is of no interest to end users of a List implementation.
+This method is of no interest to end users of a List implementation. It is provided solely to make it easy for subclasses to provide a fast clear method on sublists. In the absence of the removeRangemethod, subclasses would have to make do with quadratic performance when the clear method was invoked on sublists or rewrite the entire subList mechanism from scratch—not an easy task!
 
-It is provided solely to make it easy for subclasses to provide a
 
-fast clear method on sublists. In the absence of
 
-the removeRangemethod, subclasses would have to make do with
+So how do you decide what protected members to expose when you
 
-quadratic performance when the clear method was invoked on
+design a class for inheritance? Unfortunately, there is no magic
 
-sublists or rewrite the entire subList mechanism from scratch—not
+bullet. The best you can do is to think hard, take your best guess,
 
-an easy task!
+and then test it by writing subclasses. You should expose as few
+
+protected members as possible because each one represents a
+
+commitment to an implementation detail. On the other hand, you
+
+must not expose too few because a missing protected member can
+
+render a class practically unusable for inheritance.
 
