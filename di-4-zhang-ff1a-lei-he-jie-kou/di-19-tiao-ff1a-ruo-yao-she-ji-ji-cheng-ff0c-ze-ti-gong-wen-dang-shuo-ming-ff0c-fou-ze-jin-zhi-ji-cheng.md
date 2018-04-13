@@ -18,11 +18,11 @@ public boolean remove(Object o)
 
 > Removes a single instance of the specified element from this collection, if it is present \(optional operation\). More formally, removes an element e such that Objects.equals\(o, e\), if this collection contains one or more such elements. Returns true if this collection contained the specified element \(or equivalently, if this collection changed as a result of the call\).
 >
-> **Implementation Requirements:**This implementation iterates over the collection looking for the specified element. If it finds the element, it removes the element from the collection using the iterator’s remove method. Note that this implementation throws an UnsupportedOperationException if the iterator returned by this collection’s iterator method does not implement there move method and this collection contains the specified object.
+> **Implementation Requirements:**This implementation iterates over the collection looking for the specified element. If it finds the element, it removes the element from the collection using the iterator’s remove method. Note that this implementation throws an UnsupportedOperationException if the iterator returned by this collection’s iterator method does not implement the remove method and this collection contains the specified object.
 >
 > 如果集合里存在指定元素对象，则将其从这个集合里移除（可选操作）。正式地说，如果这个集合包含一个或多个这样的元素，则将满足Objects.equals\(o, e\)的元素移除。如果这个集合包含指定的元素，则返回true（如果因调用而使集合改变了，也一样返回true）。
 >
-> **实现要求：**这个实现通过遍历集合来查找指定的元素。如果它找到这个元素，则使用迭代器的移除方法将其从集合中移除。
+> **实现要求：**这个实现通过遍历集合来查找指定的元素。如果它找到这个元素，则使用迭代器的移除方法将其从集合中移除。注意，如果集合的迭代器方法返回的迭代器没有实现移除方法同时集合也包含指定的对象的话，则这个将抛出UnsupportedOperationException异常。
 
 This documentation leaves no doubt that overriding the iterator method will affect the behavior of there move method. It also describes exactly how the behavior of the Iterator returned by the iterator method will affect the behavior of the remove method. Contrast this to the situation inItem 18, where the programmer subclassing HashSet simply could not say whether overriding the add method would affect the behavior of the addAll method. But doesn’t this violate the dictum that good API documentation should describe what a given method does and not how it does it? Yes, it does! This is an unfortunate consequence of the fact that inheritance violates encapsulation. To document a class so that it can be safely subclassed, you must describe implementation details that should otherwise be left unspecified.
 
