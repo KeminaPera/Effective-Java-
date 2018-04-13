@@ -186,9 +186,13 @@ Inheritance is appropriate only in circumstances where the subclass really is a 
 
 If you use inheritance where composition is appropriate, you needlessly expose implementation details. The resulting API ties you to the original implementation, forever limiting the performance of your class. More seriously, by exposing the internals you let clients access them directly. At the very least, it can lead to confusing semantics. For example, if p refers to a Properties instance, then p.getProperty\(key\) may yield different results from p.get\(key\): the former method takes defaults into account, while the latter method, which is inherited from Hashtable, does not. Most seriously, the client may be able to corrupt invariants of the subclass by modifying the superclass directly. In the case of Properties, the designers intended that only strings be allowed as keys and values, but direct access to the underlying Hashtable allows this invariant to be violated. Once violated, it is no longer possible to use other parts of the Properties API \(load and store\). By the time this problem was discovered, it was too late to correct it because clients depended on the use of non-string keys and values.
 
-如果你在使用组合更恰当的地方使用了继承，那么你会不必要地去暴露实现细节。这样得到的API会将你限制于原始的实现，并永远限制了你的类的性能。更严重的是，
+如果你在使用组合更恰当的地方使用了继承，那么你会不必要地去暴露实现细节。这样得到的API会将你限制于原始的实现，并永远限制了你的类的性能。更严重的是，客户端可以通过直接修改父类来破坏子类的约束条件。以Properties为例，设计者意图只有字符串可以被允许作为键和值，但直接访问底层的Hashtable则可能会违反这个意图假设。一旦返回了，Properties的其它API就无法再使用（load方法和store方法）。在发现这个问题时并想要去修复的时候已经太晚了，因为很多客户端已经依赖于非字符串的键和值的使用。
 
 There is one last set of questions you should ask yourself before deciding to use inheritance in place of composition. Does the class that you contemplate extending have any flaws in its API? If so, are you comfortable propagating those flaws into your class’s API? Inheritance propagates any flaws in the superclass’s API, while composition lets you design a new API that hides these flaws.
 
+在决定使用继承而不是组合之前，你应该先问问自己一些问题。你准备继承的那个类在API上是否有一些缺陷？如果有，你是否愿意将那些缺陷传播到你的类的API里？继承会传播父类API里的缺陷，而组合却能让你设计一个能隐藏这些缺陷的新的API。
+
 To summarize, inheritance is powerful, but it is problematic because it violates encapsulation. It is appropriate only when a genuine subtype relationship exists between the subclass and the superclass. Even then, inheritance may lead to fragility if the subclass is in a different package from the superclass and the superclass is not designed for inheritance. To avoid this fragility, use composition and forwarding instead of inheritance, especially if an appropriate interface to implement a wrapper class exists. Not only are wrapper classes more robust than subclasses, they are also more powerful.
+
+总的来说，继承虽然强大，但它存在一些问题，因为它违反了封装。它只有在子类和父类之间存在真正的子类型关系的时候才使用。即便这样，如果子类在一个与父类不同的包中而且父类本来就不是设计来被继承的，那么继承将会导致子类的脆弱性。为了避免这种脆弱性，我们应该使用组合与转发，而不是继承，尤其是存在一个适当的接口来实现一个现存的包装者类。包装者类不仅比子类更健壮，而且更强大。
 
