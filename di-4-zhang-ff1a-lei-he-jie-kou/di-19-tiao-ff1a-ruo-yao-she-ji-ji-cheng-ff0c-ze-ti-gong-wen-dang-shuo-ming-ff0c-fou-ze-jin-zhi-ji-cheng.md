@@ -38,7 +38,7 @@ The @implSpec tag was added in Java 8 and used heavily in Java 9. This tag shoul
 
 Designing for inheritance involves more than just documenting patterns of self-use. To allow programmers to write efficient subclasses without undue pain, **a class may have to provide hooks into its internal workings in the form of judiciously chosen protected methods **or, in rare instances, protected fields. For example, consider the removeRange method from java.util.AbstractList:
 
-继承的设计不仅仅只包含关于自用的文档。
+继承的设计不仅仅只包含关于自用的文档。为了让程序员能高效的写出有效的子类，父类必须以某种形式提供能够进入到其内部运转的钩子（hook），这种形式可以是精心选择的受保护方法，或者是受保护域，只是后者比较少见。例如，考虑java.util.AbstractList的removeRange方法：
 
 ```
 protected void removeRange(int fromIndex, int toIndex)
