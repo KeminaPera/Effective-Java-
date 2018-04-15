@@ -85,6 +85,8 @@ When you design for inheritance a class that is likely to achieve wide use, real
 
 Also, note that the special documentation required for inheritance clutters up normal documentation, which is designed for programmers who create instances of your class and invoke methods on them. As of this writing, there is little in the way of tools to separate ordinary API documentation from information of interest only to programmers implementing subclasses.
 
+另外我们要注意的是，正常文档是设计给创建我们编写的类的实例，同时去调用这些类的方法的程序员用的，而为继承而写的特殊文档会打乱正常文档信息。在编写本文时，还没有什么好的工具可以将普通的API文档和仅针对实现子类的信息分离出来。
+
 There are a few more restrictions that a class must obey to allow inheritance. **Constructors must not invoke overridable methods**, directly or indirectly. If you violate this rule, program failure will result. The superclass constructor runs before the subclass constructor, so the overriding method in the subclass will get invoked before the subclass constructor has run. If the overriding method depends on any initialization performed by the subclass constructor, the method will not behave as expected. To make this concrete, here’s a class that violates this rule:
 
 ```
