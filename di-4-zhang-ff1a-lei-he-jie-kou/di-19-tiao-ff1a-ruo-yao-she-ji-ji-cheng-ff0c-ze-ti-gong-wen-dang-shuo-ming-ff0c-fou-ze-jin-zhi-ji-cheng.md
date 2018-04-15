@@ -44,20 +44,32 @@ Designing for inheritance involves more than just documenting patterns of self-u
 protected void removeRange(int fromIndex, int toIndex)
 ```
 
-> Removes from this list all of the elements whose index is between from Index, inclusive, and toIndex, exclusive. Shifts any succeeding elements to the left \(reduces their index\). This call shortens the list by\(toIndex - fromIndex\)elements. \(If toIndex == fromIndex, this operation has no effect.\)  
+> Removes from this list all of the elements whose index is between fromIndex, inclusive, and toIndex, exclusive. Shifts any succeeding elements to the left \(reduces their index\). This call shortens the list by\(toIndex - fromIndex\)elements. \(If toIndex == fromIndex, this operation has no effect.\)  
 > This method is called by the clear operation on this list and its sublists. Overriding this method to take advantage of the internals of the list implementation can substantially improve the performance of the clear operation on this list and its sublists.
 >
-> **Implementation Requirements:**This implementation gets a list iterator positioned before fromIndex and repeatedly calls List Iterator.next followed by ListIterator.remove, until the entire range has been removed. **Note:**
->
-> **If List Iterator.remove requires linear time, this implementation requires quadratic time.**
->
+> **Implementation Requirements:**This implementation gets a list iterator positioned before fromIndex and repeatedly calls ListIterator.next followed by ListIterator.remove, until the entire range has been removed. **Note: If ListIterator.remove requires linear time, this implementation requires quadratic time.**
+
 > Parameters:
 >
 > fromIndex index of first element to be removed.
 >
 > toIndex index after last element to be removed.
 
-This method is of no interest to end users of a List implementation. It is provided solely to make it easy for subclasses to provide a fast clear method on sublists. In the absence of the removeRangemethod, subclasses would have to make do with quadratic performance when the clear method was invoked on sublists or rewrite the entire subList mechanism from scratch—not an easy task!
+> 将fromIndex到toIndex范围内的元素从列表里移除，其中包括fromIndex，不包括toIndex。后续元素往左移（元素索引相应减小）。调用这个方法将从列表里减少（toIndex-fromIndex）个元素。（如果toIndex == fromIndex，这个操作将不起作用。）
+>
+> 这个方法被列表和子列表的clear操作调用。通过覆盖这个方法来利用列表实现的内部信息，可以大幅提升列表和子列表的clear操作的性能。
+>
+> **实现要求：**这个实现获取了列表的一个迭代器，这个迭代器从fromIndex的前一个位置开始，递归地调用ListIterator.next方法，同时接着调用ListIterator.remove方法，直到整个范围的元素都被移除。**注意：如果ListIterator.remove方法的执行需要花费线性级时间，那么该实现将花费平方级时间。**
+>
+> 参数：
+>
+> fromIndex 待移除的第一个元素的索引。
+>
+> toIndex 待移除的最后一个元素的后一个索引。
+
+This method is of no interest to end users of a List implementation. It is provided solely to make it easy for subclasses to provide a fast clear method on sublists. In the absence of the removeRange method, subclasses would have to make do with quadratic performance when the clear method was invoked on sublists or rewrite the entire subList mechanism from scratch—not an easy task!
+
+这个方法对于使用List实现的终端用户来说是没有意义的。它仅仅是为了便于让子类在子列表里提供一个快速的clear方法。
 
 So how do you decide what protected members to expose when you design a class for inheritance? Unfortunately, there is no magic bullet. The best you can do is to think hard, take your best guess, and then test it by writing subclasses. You should expose as few protected members as possible because each one represents a commitment to an implementation detail. On the other hand, you must not expose too few because a missing protected member can render a class practically unusable for inheritance.
 
