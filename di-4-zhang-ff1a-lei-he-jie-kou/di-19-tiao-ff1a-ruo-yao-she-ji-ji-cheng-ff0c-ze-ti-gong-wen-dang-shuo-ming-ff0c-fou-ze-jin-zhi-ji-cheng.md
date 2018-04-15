@@ -162,5 +162,9 @@ If a concrete class does not implement a standard interface, then you may inconv
 
 You can eliminate a class’s self-use of overridable methods mechanically, without changing its behavior. Move the body of each overridable method to a private “helper method” and have each overridable method invoke its private helper method. Then replace each self-use of an overridable method with a direct invocation of the overridable method’s private helper method.
 
+你可以机械地消除一个类对其可覆盖方法的自用，而且不用改变它的行为。将每个可覆盖方法的方法体移到一个私有的“辅助方法（helper method）”里并让每个可覆盖方法调用其对应的私有的辅助方法。然后将每个可覆盖方法的自用替换为直接调用可覆盖方法的私有辅助方法。
+
 In summary, designing a class for inheritance is hard work. You must document all of its self-use patterns, and once you’ve documented them, you must commit to them for the life of the class. If you fail to do this, subclasses may become dependent on implementation details of the superclass and may break if the implementation of the superclass changes. To allow others to write efficient subclasses, you may also have to export one or more protected methods. Unless you know there is a real need for subclasses, you are probably better off prohibiting inheritance by declaring your class final or ensuring that there are no accessible constructors.
+
+总之，设计一个用来被继承的类是件不容易的事。我们必须在文档里说明该类的自用模式，而且一旦我们做出说明后，必须在该类的整个生命周期做出承诺。如果不这么做，子类可能就会依赖于父类的实现细节，而且如果父类的实现出现了变更，子类还有可能被破坏。为了让别人能编写出有效的子类，我们可能也需要导出一个或多个受保护方法。除非我们知道某个类的确是要被子类化，否则最好将类声明为final或者保证其没有可访问的构造器来禁止该类被继承。
 
