@@ -154,6 +154,8 @@ But what about ordinary concrete classes? Traditionally, they are neither final 
 
 This advice may be somewhat controversial because many programmers have grown accustomed to subclassing ordinary concrete classes to add facilities such as instrumentation, notification, and synchronization or to limit functionality. If a class implements some interface that captures its essence, such as Set, List, or Map, then you should feel no compunction about prohibiting subclassing. The wrapper class pattern, described in Item 18, provides a superior alternative to inheritance for augmenting the functionality.
 
+本条目的建议可能会引起争议，因为很多程序员已经习惯于继承普通的具体类并往里添加功能，如仪表盘功能（instrumentation），通知功能（notification）和同步功能（synchronization）或者限制原有的一些功能。如果一个类实现了一些反映本质的接口，如Set，List，或者Map，那么你不要为禁止了继承而感到后悔。条目18里描述的包装者类模式提供了更好的方式，让继承实现更多的功能。
+
 If a concrete class does not implement a standard interface, then you may inconvenience some programmers by prohibiting inheritance. If you feel that you must allow inheritance from such a class, one reasonable approach is to ensure that the class never invokes any of its overridable methods and to document this fact. In other words, eliminate the class’s self-use of overridable methods entirely. In doing so, you’ll create a class that is reasonably safe to subclass. Overriding a method will never affect the behavior of any other method.
 
 You can eliminate a class’s self-use of overridable methods mechanically, without changing its behavior. Move the body of each overridable method to a private “helper method” and have each overridable method invoke its private helper method. Then replace each self-use of an overridable method with a direct invocation of the overridable method’s private helper method.
