@@ -89,6 +89,8 @@ Also, note that the special documentation required for inheritance clutters up n
 
 There are a few more restrictions that a class must obey to allow inheritance. **Constructors must not invoke overridable methods**, directly or indirectly. If you violate this rule, program failure will result. The superclass constructor runs before the subclass constructor, so the overriding method in the subclass will get invoked before the subclass constructor has run. If the overriding method depends on any initialization performed by the subclass constructor, the method will not behave as expected. To make this concrete, here’s a class that violates this rule:
 
+若要让一个类允许被继承，有几点约束条件必须遵循。**构造器一定不能调用可覆盖方法**，无论是直接点用还是间接调用。如果违反了这条规则，将会导致程序失败。父类构造器在子类构造器之前运行，所以子类的覆盖方法会在子类构造器运行之前被调用。如果覆盖方法依赖于子类构造器的任意初始化动作，那么这个方法将不会产生预期行为。为了更具体地说明这一点，下面展示了一个违反这条规则的类：
+
 ```
 public class Super {
 // Broken - constructor invokes an overridable method
@@ -99,7 +101,9 @@ public class Super {
 }
 ```
 
-Here’s a subclass that overrides the overrideMe method, which is erroneously invoked bySuper’s sole constructor:
+Here’s a subclass that overrides the overrideMe method, which is erroneously invoked by Super’s sole constructor:
+
+接着是一个子类，它覆盖了overrideMe方法，而这个方法被父类的唯一构造器错误地调用了：
 
 ```
 public final class Sub extends Super { 
