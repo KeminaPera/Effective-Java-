@@ -81,6 +81,8 @@ So how do you decide what protected members to expose when you design a class fo
 
 When you design for inheritance a class that is likely to achieve wide use, realize that you are committing forever to the self-use patterns that you document and to the implementation decisions implicit in its protected methods and fields. These commitments can make it difficult or impossible to improve the performance or functionality of the class in a subsequent release. Therefore, **you must test your class by writing subclasses before you release it.**
 
+当我们在设计一个可能被广泛继承的类时，我们必须意识到，我们已经永远承诺了文档里的自用模式，同时也承诺了类的受保护方法和域的实现决定。若我们想在后续的版本中提高性能或者改善类的功能，这些承诺可能会让其变得很困难不可能。因此，在发布这个类之前，我们一定要通过编写子类去测试这类。
+
 Also, note that the special documentation required for inheritance clutters up normal documentation, which is designed for programmers who create instances of your class and invoke methods on them. As of this writing, there is little in the way of tools to separate ordinary API documentation from information of interest only to programmers implementing subclasses.
 
 There are a few more restrictions that a class must obey to allow inheritance. **Constructors must not invoke overridable methods**, directly or indirectly. If you violate this rule, program failure will result. The superclass constructor runs before the subclass constructor, so the overriding method in the subclass will get invoked before the subclass constructor has run. If the overriding method depends on any initialization performed by the subclass constructor, the method will not behave as expected. To make this concrete, here’s a class that violates this rule:
