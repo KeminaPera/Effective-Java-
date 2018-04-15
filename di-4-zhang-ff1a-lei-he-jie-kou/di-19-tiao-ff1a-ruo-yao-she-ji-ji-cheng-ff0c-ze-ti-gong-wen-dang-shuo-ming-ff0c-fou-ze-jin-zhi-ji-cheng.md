@@ -144,9 +144,13 @@ By now it should be apparent that **designing a class for inheritance requires g
 
 现在，我们应该能明显感觉到，设计一个用来被继承的类需要很大的努力，而且对这个类有很大的限制。做这个决定不是一件轻而易举的事。当然，也有一些场景，这么做很明显是对的，例如抽象类，包括接口的骨架实现（skeletal implementation）（条目20）。在另一些场景里，这么做就明显是错的，例如不可变类（条目17）
 
-But what about ordinary concrete classes? Traditionally, they are neither final nor designed and documented for subclassing, but this state of affairs is dangerous. Each time a change is made in such a class, there is a chance that subclasses extending the class will break. This is not just a theoretical problem. It is not uncommon to receive subclassing-related bug reports after modifying the internals of a nonfinal concrete class that wa，s not designed and documented for inheritance.
+But what about ordinary concrete classes? Traditionally, they are neither final nor designed and documented for subclassing, but this state of affairs is dangerous. Each time a change is made in such a class, there is a chance that subclasses extending the class will break. This is not just a theoretical problem. It is not uncommon to receive subclassing-related bug reports after modifying the internals of a nonfinal concrete class that was not designed and documented for inheritance.
 
-**The best solution to this problem is to prohibit subclassing in classes that are not designed and documented to be safely subclassed. **There are two ways to prohibit subclassing. The easier of the two is to declare the class final. The alternative is to make all the constructors private or package-private and to add public static factories in place of the constructors. This alternative, which provides the flexibility to use subclasses internally, is discussed inItem 17. Either approach is acceptable.
+但是，对于普通的具体类应该怎么办呢？一般情况下，它们既不是final的，也不是设计来被子类化的，同时也没有文档说明，但是这种状况是危险的。每次这种类做了更改，那些继承了这个类的子类就有可能被破坏。这不仅仅只是个理论问题。对于一个并非设计来被继承同时又没有关于继承的说明文档的非final具体类，若修改了其内部信息，总会收到子类相关的bug报告，而且这种情况还挺常见的。
+
+**The best solution to this problem is to prohibit subclassing in classes that are not designed and documented to be safely subclassed. **There are two ways to prohibit subclassing. The easier of the two is to declare the class final. The alternative is to make all the constructors private or package-private and to add public static factories in place of the constructors. This alternative, which provides the flexibility to use subclasses internally, is discussed in Item 17. Either approach is acceptable.
+
+解决这个问题最好的办法是，对于并非为了安全被子类化而设计和编写文档的类，应该禁止对其进行子类化。有两种方式可以阻止子类化。最简单的方式就是将这个类声明为final。另一种方式就是将所有的构造器设为私有或者包级私有，同时添加公有静态工厂来替代构造器。这种方式为内部使用子类提供了灵活性，我们在条目17里讨论过。任意一种方式都是可以接受的。
 
 This advice may be somewhat controversial because many programmers have grown accustomed to subclassing ordinary concrete classes to add facilities such as instrumentation, notification, and synchronization or to limit functionality. If a class implements some interface that captures its essence, such as Set, List, or Map, then you should feel no compunction about prohibiting subclassing. The wrapper class pattern, described in Item 18, provides a superior alternative to inheritance for augmenting the functionality.
 
