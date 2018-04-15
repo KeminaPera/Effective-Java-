@@ -23,4 +23,5 @@
   * [第17条：使可变性最小化](di-4-zhang-ff1a-lei-he-jie-kou/di-17-tiao-ff1a-shi-ke-bian-xing-zui-xiao-hua.md)
   * [第18条：组合优先于继承](di-4-zhang-ff1a-lei-he-jie-kou/di-18-tiao-ff1a-zu-he-you-xian-yu-ji-cheng.md)
   * [第19条：若要设计继承，则提供文档说明，否则禁止继承](di-4-zhang-ff1a-lei-he-jie-kou/di-19-tiao-ff1a-ruo-yao-she-ji-ji-cheng-ff0c-ze-ti-gong-wen-dang-shuo-ming-ff0c-fou-ze-jin-zhi-ji-cheng.md)
+  * [第20条：接口优于抽象类](di-4-zhang-ff1a-lei-he-jie-kou/di-20-tiao-ff1a-jie-kou-you-yu-chou-xiang-lei.md)
 
