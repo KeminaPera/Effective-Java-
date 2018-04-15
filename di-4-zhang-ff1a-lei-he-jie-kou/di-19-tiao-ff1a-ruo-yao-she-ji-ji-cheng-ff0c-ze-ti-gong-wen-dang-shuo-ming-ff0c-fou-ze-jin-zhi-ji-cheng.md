@@ -130,7 +130,7 @@ You might expect this program to print out the instant twice, but it prints out 
 
 The Cloneable and Serializable interfaces present special difficulties when designing for inheritance. It is generally not a good idea for a class designed for inheritance to implement either of these interfaces because they place a substantial burden on programmers who extend the class. There are, however, special actions that you can take to allow subclasses to implement these interfaces without mandating that they do so. These actions are described in Item 13 and Item 86.
 
-在设计用于被继承的类时，Cloneable和Serializable接口会带来一些困难。通常情况下，让一个设计来被继承的类去实现无论这两个接口的哪一个都不是个好注意，因为它们会将一些实质性的负担放到扩展这个类的程序员身上。
+在设计用于被继承的类时，Cloneable和Serializable接口会带来一些困难。通常情况下，让一个设计来被继承的类去实现无论这两个接口的哪一个都不是个好注意，因为它们会将一些实质性的负担放到扩展这个类的程序员身上。然而，我们还是可以采取一些特殊手段使得子类可以继承这些接口，而无需让编写子类的程序员去承担这些负担。条目13和条目86对这些手段进行了描述。
 
 If you do decide to implement either Cloneable or Serializable in a class that is designed for inheritance, you should be aware that because the clone and readObject methods behave a lot like constructors, a similar restriction applies: neither clone nor readObject may invoke an overridable method, directly or indirectly.In the case of readObject, the overriding method will run before the subclass’s state has been deserialized. In the case of clone, the overriding method will run before the subclass’s clone method has a chance to fix the clone’s state. In either case, a program failure is likely to follow. In the case of clone, the failure can damage the original object as well as the clone. This can happen, for example, if the overriding method assumes it is modifying the clone’s copy of the object’s deep structure, but the copy hasn’t been made yet.
 
