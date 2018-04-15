@@ -69,11 +69,15 @@ protected void removeRange(int fromIndex, int toIndex)
 
 This method is of no interest to end users of a List implementation. It is provided solely to make it easy for subclasses to provide a fast clear method on sublists. In the absence of the removeRange method, subclasses would have to make do with quadratic performance when the clear method was invoked on sublists or rewrite the entire subList mechanism from scratch—not an easy task!
 
-这个方法对于使用List实现的终端用户来说是没有意义的。它仅仅是为了便于让子类在子列表里提供一个快速的clear方法。
+这个方法对于使用List实现的终端用户来说是没有意义的。它仅仅是为了便于让子类在子列表里提供一个快速的clear方法。如果没有removeRange方法，那么在调用子列表的clear方法时，子类将不得不用平方级的时间，或者重新编写整个子列表的机制，这可不是件容易的事。
 
 So how do you decide what protected members to expose when you design a class for inheritance? Unfortunately, there is no magic bullet. The best you can do is to think hard, take your best guess, and then test it by writing subclasses. You should expose as few protected members as possible because each one represents a commitment to an implementation detail. On the other hand, you must not expose too few because a missing protected member can render a class practically unusable for inheritance.
 
+所以在设计一个被继承的类时我们应该如何决定应该暴露哪个受保护成员呢？遗憾的是，并没有什么好的可循方式。我们所能做的就是努力思考，多想想，然后编写一些子类进行测试。我们应该尽可能地少暴露受保护成员，因为每个受保护成员都表示着一个实现细节的承诺。另一方面，我们也不能暴露得太少，因为有时缺少某个受保护成员会导致类几乎不能被继承。
+
 **The only way to test a class designed for inheritance is to write subclasses.** If you omit a crucial protected member, trying to write a subclass will make the omission painfully obvious. Conversely, if several subclasses are written and none uses a protected member, you should probably make it private. Experience shows that three subclasses are usually sufficient to test an extendable class. One or more of these subclasses should be written by someone other than the superclass author.
+
+**测试一个用于被继承的类的唯一方式是编写子类。**如果你忽略了某个关键的受保护成员，那么当你尝试着写一个子类时，这个因忽略而导致的问题就会被明显地被暴露出来。相反，如果在好几个子类都用不到某个受保护成员，那么很可能应该将这个成员设为私有。经验表明，三个子类就足以测试一个可扩展的类了。而且这些子类应该由父类作者之外的人来编写。
 
 When you design for inheritance a class that is likely to achieve wide use, realize that you are committing forever to the self-use patterns that you document and to the implementation decisions implicit in its protected methods and fields. These commitments can make it difficult or impossible to improve the performance or functionality of the class in a subsequent release. Therefore, **you must test your class by writing subclasses before you release it.**
 
@@ -132,9 +136,5 @@ If a concrete class does not implement a standard interface, then you may inconv
 
 You can eliminate a class’s self-use of overridable methods mechanically, without changing its behavior. Move the body of each overridable method to a private “helper method” and have each overridable method invoke its private helper method. Then replace each self-use of an overridable method with a direct invocation of the overridable method’s private helper method.
 
-In summary, designing a class for inheritance is hard work. You must document all of its self-use patterns, and once you’ve documented them, you must commit to them for the life of the class. If you fail to do this, subclasses may become dependent on implementation details of the superclass and may break if the implementation of the superclass changes. To allow others to write efficient subclasses, you may also have to export one or more protected methods. Unless you know there is a real need for subclasses, you are probably better off prohibiting inheritance by declaring your class final or ensuring that there are no accessible constructors.  
-  
-  
-  
-
+In summary, designing a class for inheritance is hard work. You must document all of its self-use patterns, and once you’ve documented them, you must commit to them for the life of the class. If you fail to do this, subclasses may become dependent on implementation details of the superclass and may break if the implementation of the superclass changes. To allow others to write efficient subclasses, you may also have to export one or more protected methods. Unless you know there is a real need for subclasses, you are probably better off prohibiting inheritance by declaring your class final or ensuring that there are no accessible constructors.
 
