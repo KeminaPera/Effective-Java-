@@ -124,7 +124,9 @@ public final class Sub extends Super {
 }
 ```
 
-You might expect this program to print out the instant twice, but it prints out null the first time because overrideMe is invoked by the Super constructor before the Sub constructor has a chance to initialize the instant field. Note that this program observes a final field in two different states! Note also that if overrideMe had invoked any method on instant, it would have thrown a NullPointerException when the Super constructor invoked overrideMe. The only reason this program doesn’t throw a NullPointerException as it stands is that the println method tolerates null parameters.Note that itissafe to invoke private methods, final methods, and static methods, none of which are overridable, from a constructor.
+You might expect this program to print out the instant twice, but it prints out null the first time because overrideMe is invoked by the Super constructor before the Sub constructor has a chance to initialize the instant field. Note that this program observes a final field in two different states! Note also that if overrideMe had invoked any method on instant, it would have thrown a NullPointerException when the Super constructor invoked overrideMe. The only reason this program doesn’t throw a NullPointerException as it stands is that the println method tolerates null parameters.Note that it is safe to invoke private methods, final methods, and static methods, none of which are overridable, from a constructor.
+
+你可能会期望这个程序会打印instant两次，但在第一次的时候它打印了一个null，因为在Sub类的构造器初始化instant域之前，overrideMe方法就被Super类的构造器调用了。
 
 The Cloneable and Serializable interfaces present special difficulties when designing for inheritance. It is generally not a good idea for a class designed for inheritance to implement either of these interfaces because they place a substantial burden on programmers who extend the class. There are, however, special actions that you can take to allow subclasses to implement these interfaces without mandating that they do so. These actions are described inItem 13 and Item 86.
 
