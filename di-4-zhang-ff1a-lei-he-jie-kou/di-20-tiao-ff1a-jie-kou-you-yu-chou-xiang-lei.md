@@ -46,6 +46,8 @@ You don’t always need this level of flexibility, but when you do, interfaces a
 
 When there is an obvious implementation of an interface method in terms of other interface methods, consider providing implementation assistance to programmers in the form of a default method. For an example of this technique, see the removeIf method on page 104. If you provide default methods, be sure to document them for inheritance using the @implSpec Javadoc tag \(Item 19\). There are limits on how much implementation assistance you can provide with default methods. Although many interfaces specify the behavior of Object methods such as equals and hashCode, you are not permitted to provide default methods for them. Also, interfaces are not permitted to contain instance fields or nonpublic static members \(with the exception of private static methods\). Finally, you can’t add default methods to an interface that you don’t control.
 
+
+
 You can, however, combine the advantages of interfaces and abstract classes by providing an abstract skeletal implementation class to go with an interface. The interface defines the type, perhaps providing some default methods, while the skeletal implementation class implements the remaining non-primitive interface methods atop the primitive interface methods. Extending a skeletal implementation takes most of the work out of implementing an interface. This is theTemplate Method pattern \[Gamma95\].
 
 By convention, skeletal implementation classes are called AbstractInterface, where Interface is the name of the interface they implement. For example, the Collections Framework provides a skeletal implementation to go along with each main collection interface:AbstractCollection,AbstractSet,AbstractList, andAbstractMap. Arguably it would have made sense to call them Skeletal Collection, SkeletalSet, SkeletalList, and Skeletal Map, but the Abstract convention is now firmly established. When properly designed, skeletal implementations \(whether a separate abstract class, or consisting solely of default methods on an interface\) can make it very easy for programmers to provide their own implementations of an interface. For example, here’s a static factory method containing a complete, fully functional List implementation a top AbstractList:
@@ -69,8 +71,9 @@ static List<Integer> intArrayAsList(int[] a) {
         }
         @Override 
         public int size() {
-            return a.length; }
-        };
+            return a.length; 
+        }
+    };
 }
 ```
 
