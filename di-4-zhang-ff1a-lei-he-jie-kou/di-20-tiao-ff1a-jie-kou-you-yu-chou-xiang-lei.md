@@ -38,9 +38,11 @@ public interface SingerSongwriter extends Singer, Songwriter {
 
 You don’t always need this level of flexibility, but when you do, interfaces are a lifesaver. The alternative is a bloated class hierarchy containing a separate class for every supported combination of attributes. If there are n attributes in the type system, there are $$2^n$$ possible combinations that you might have to support. This is what’s known as a combinatorial explosion. Bloated class hierarchies can lead to bloated classes with many methods that differ only in the type of their arguments because there are no types in the class hierarchy to capture common behaviors.
 
-你可能并不总是需要这样的灵活性，但一旦你这么做了，接口就成了危难时的救命稻草。另一种可选方式是臃肿的类层次，这个层次包含每个
+你可能并不总是需要这样的灵活性，但一旦你这么做了，接口就成了危难时的救命稻草。另一种可选方式是臃肿的类层次，它对每个要被支持属性组合都单独提供一个类。如果整个类型系统里有n个属性，那么你可能需要提供$$2^n$$ 种组合。这就是组合爆炸。臃肿的类层级还会导致产生很多臃肿类，这些类包含了许多只是参数类型不同的方法
 
 **Interfaces enable safe, powerful functionality enhancements** via the wrapper class idiom \(Item 18\). If you use abstract classes to define types, you leave the programmer who wants to add functionality with no alternative but inheritance. The resulting classes are less powerful and more fragile than wrapper classes.
+
+
 
 When there is an obvious implementation of an interface method in terms of other interface methods, consider providing implementation assistance to programmers in the form of a default method. For an example of this technique, see the removeIf method on page 104. If you provide default methods, be sure to document them for inheritance using the @implSpec Javadoc tag \(Item 19\). There are limits on how much implementation assistance you can provide with default methods. Although many interfaces specify the behavior of Object methods such as equals and hashCode, you are not permitted to provide default methods for them. Also, interfaces are not permitted to contain instance fields or nonpublic static members \(with the exception of private static methods\). Finally, you can’t add default methods to an interface that you don’t control.
 
