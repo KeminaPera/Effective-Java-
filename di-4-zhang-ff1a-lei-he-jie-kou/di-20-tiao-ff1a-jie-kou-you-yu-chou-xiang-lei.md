@@ -44,9 +44,11 @@ You don’t always need this level of flexibility, but when you do, interfaces a
 
 通过包装者类模式（条目18），使用**接口使得安全地增强类的功能成为可能。**如果你使用抽象类来定义类型，那么程序员若是想添加功能，除了继承，别无它法。编写出来的类也没那么强壮，比包装者类要脆弱。
 
-When there is an obvious implementation of an interface method in terms of other interface methods, consider providing implementation assistance to programmers in the form of a default method. For an example of this technique, see the removeIf method on page 104. If you provide default methods, be sure to document them for inheritance using the @implSpec Javadoc tag \(Item 19\). There are limits on how much implementation assistance you can provide with default methods. Although many interfaces specify the behavior of Object methods such as equals and hashCode, you are not permitted to provide default methods for them. Also, interfaces are not permitted to contain instance fields or nonpublic static members \(with the exception of private static methods\). Finally, you can’t add default methods to an interface that you don’t control.
+When there is an obvious implementation of an interface method in terms of other interface methods, consider providing implementation assistance to programmers in the form of a default method. For an example of this technique, see the removeIf method on page 104. If you provide default methods, be sure to document them for inheritance using the @implSpec Javadoc tag \(Item 19\). 
 
 
+
+There are limits on how much implementation assistance you can provide with default methods. Although many interfaces specify the behavior of Object methods such as equals and hashCode, you are not permitted to provide default methods for them. Also, interfaces are not permitted to contain instance fields or nonpublic static members \(with the exception of private static methods\). Finally, you can’t add default methods to an interface that you don’t control.
 
 You can, however, combine the advantages of interfaces and abstract classes by providing an abstract skeletal implementation class to go with an interface. The interface defines the type, perhaps providing some default methods, while the skeletal implementation class implements the remaining non-primitive interface methods atop the primitive interface methods. Extending a skeletal implementation takes most of the work out of implementing an interface. This is theTemplate Method pattern \[Gamma95\].
 
