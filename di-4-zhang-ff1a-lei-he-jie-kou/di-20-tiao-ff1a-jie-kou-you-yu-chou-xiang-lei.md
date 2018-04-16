@@ -27,6 +27,8 @@ public interface Songwriter {
 
 In real life, some singers are also songwriters. Because we used interfaces rather than abstract classes to define these types, it is perfectly permissible for a single class to implement both Singer and Songwriter. In fact, we can define a third interface that extends both Singer and Songwriter and adds new methods that are appropriate to the combination:
 
+在实际生活中，一些歌手同时还是作曲人。因为定义这两个类型时我们用的是接口而不是抽象类，所以完全允许一个类同时实现Singer接口和Songwriter接口。实际上，我们可以定义一个同时扩展了Singer接口和Songwriter接口的接口，并添加适合于这种组合的方法：
+
 ```
 public interface SingerSongwriter extends Singer, Songwriter { 
     AudioClip strum();
@@ -35,6 +37,8 @@ public interface SingerSongwriter extends Singer, Songwriter {
 ```
 
 You don’t always need this level of flexibility, but when you do, interfaces are a lifesaver. The alternative is a bloated class hierarchy containing a separate class for every supported combination of attributes. If there are n attributes in the type system, there are $$2^n$$ possible combinations that you might have to support. This is what’s known as a combinatorial explosion. Bloated class hierarchies can lead to bloated classes with many methods that differ only in the type of their arguments because there are no types in the class hierarchy to capture common behaviors.
+
+你可能并不总是需要这样的灵活性，
 
 **Interfaces enable safe, powerful functionality enhancements** via the wrapper class idiom \(Item 18\). If you use abstract classes to define types, you leave the programmer who wants to add functionality with no alternative but inheritance. The resulting classes are less powerful and more fragile than wrapper classes.
 
