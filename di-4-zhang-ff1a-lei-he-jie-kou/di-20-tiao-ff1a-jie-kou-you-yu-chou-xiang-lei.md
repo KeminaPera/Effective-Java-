@@ -38,7 +38,7 @@ public interface SingerSongwriter extends Singer, Songwriter {
 
 You don’t always need this level of flexibility, but when you do, interfaces are a lifesaver. The alternative is a bloated class hierarchy containing a separate class for every supported combination of attributes. If there are n attributes in the type system, there are $$2^n$$ possible combinations that you might have to support. This is what’s known as a combinatorial explosion. Bloated class hierarchies can lead to bloated classes with many methods that differ only in the type of their arguments because there are no types in the class hierarchy to capture common behaviors.
 
-你可能并不总是需要这样的灵活性，但一旦你这么做了，接口就成了危难时的救命稻草。另一种可选方式
+你可能并不总是需要这样的灵活性，但一旦你这么做了，接口就成了危难时的救命稻草。另一种可选方式是臃肿的类层次，这个层次包含每个
 
 **Interfaces enable safe, powerful functionality enhancements** via the wrapper class idiom \(Item 18\). If you use abstract classes to define types, you leave the programmer who wants to add functionality with no alternative but inheritance. The resulting classes are less powerful and more fragile than wrapper classes.
 
