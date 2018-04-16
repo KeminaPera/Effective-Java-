@@ -42,7 +42,7 @@ You don’t always need this level of flexibility, but when you do, interfaces a
 
 **Interfaces enable safe, powerful functionality enhancements** via the wrapper class idiom \(Item 18\). If you use abstract classes to define types, you leave the programmer who wants to add functionality with no alternative but inheritance. The resulting classes are less powerful and more fragile than wrapper classes.
 
-通过包装者类模式（条目18），使用**接口使得安全地增强类的功能成为可能。**
+通过包装者类模式（条目18），使用**接口使得安全地增强类的功能成为可能。**如果你使用抽象类来定义类型，那么程序员若是想添加功能，除了继承，别无它法。编写出来的类也没那么强壮，比包装者类要脆弱。
 
 When there is an obvious implementation of an interface method in terms of other interface methods, consider providing implementation assistance to programmers in the form of a default method. For an example of this technique, see the removeIf method on page 104. If you provide default methods, be sure to document them for inheritance using the @implSpec Javadoc tag \(Item 19\). There are limits on how much implementation assistance you can provide with default methods. Although many interfaces specify the behavior of Object methods such as equals and hashCode, you are not permitted to provide default methods for them. Also, interfaces are not permitted to contain instance fields or nonpublic static members \(with the exception of private static methods\). Finally, you can’t add default methods to an interface that you don’t control.
 
