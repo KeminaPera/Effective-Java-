@@ -14,6 +14,8 @@ Java有两种机制可以定义一个允许多实现的类型：接口和抽象�
 
 **Interfaces allow for the construction of nonhierarchical type frameworks. **Type hierarchies are great for organizing some things, but other things don’t fall neatly into a rigid hierarchy. For example, suppose we have an interface representing a singer and another representing a songwriter:
 
+**接口构造非层次结构的框架。**类层次非常适合于组织一些事物，但其它有些事物并不能整齐地被组织进一个严格的层次中。例如，假设我们有一个接口，这个接口代表了一个歌手（singer），同时还有另一个代表作曲人（songwriter）的接口：
+
 ```
 public interface Singer { 
     AudioClip sing(Song s);
