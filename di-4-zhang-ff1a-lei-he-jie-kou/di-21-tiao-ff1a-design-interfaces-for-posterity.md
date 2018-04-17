@@ -31,5 +31,49 @@ default boolean removeIf(Predicate<? super E> filter) {
 }
 ```
 
+This is the best general-purpose implementation one could
 
+possibly write for the removeIf method, but sadly, it fails on some
+
+real-world Collection implementations. For example,
+
+consider org.apache.commons.collections4.-collection.SynchronizedCollection. This class, from the Apache Commons library, is similar to
+
+the one returned by the static
+
+factory Collections.-synchronizedCollection in java.util. The Apache
+
+version additionally provides the ability to use a client-supplied
+
+object for locking, in place of the collection. In other words, it is a
+
+wrapper class \(Item 18\), all of whose methods synchronize on a
+
+locking object before delegating to the wrapped collection.
+
+The Apache SynchronizedCollection class is still being actively
+
+maintained, but as of this writing, it does not override
+
+the removeIf method. If this class is used in conjunction with Java 8,
+
+it will therefore inherit the default implementation of removeIf,
+
+which does not, indeed cannot, maintain the class’s fundamental
+
+promise: to automatically synchronize around each method
+
+invocation. The default implementation knows nothing about
+
+synchronization and has no access to the field that contains the
+
+locking object. If a client calls the removeIf method on
+
+a SynchronizedCollection instance in the presence of concurrent
+
+modification of the collection by another thread,
+
+a ConcurrentModificationException or other unspecified behavior may
+
+result.
 
