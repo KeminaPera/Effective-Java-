@@ -14,7 +14,7 @@ Many new default methods were added to the core collection interfaces in Java 8,
 
 For example, consider the removeIf method, which was added to the Collection interface in Java 8. This method removes all elements for which a given boolean function \(or predicate\) returns true. The default implementation is specified to traverse the collection using its iterator, invoking the predicate on each element, and using the iterator’s remove method to remove the elements for which the predicate returns true. Presumably the declaration looks something like this:
 
-例如，考虑removeIf方法的情况，这个方法在Java 8里被添加进集合接口。这个方法给定函数（predicate）返回true时，会将相应的元素移除。默认实现是用它的迭代器去遍历集合，在每个元素上调用predicate函数，并使用迭代器的remove方法来移除调用predicate函数返回true的元素。
+例如，考虑removeIf方法的情况，这个方法在Java 8里被添加进集合接口。这个方法给定函数（predicate）返回true时，会将相应的元素移除。默认实现是用它的迭代器去遍历集合，在每个元素上调用predicate函数，并使用迭代器的remove方法来移除调用predicate函数返回true的元素。这个声明大概是这样子的：
 
 ```
 // Default method added to the Collection interface in Java 8
