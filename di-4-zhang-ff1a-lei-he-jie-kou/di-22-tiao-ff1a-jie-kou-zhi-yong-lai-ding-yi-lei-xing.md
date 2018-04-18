@@ -58,5 +58,5 @@ public class Test {
 }
 ```
 
-In summary, interfaces should be used only to define types. They should not be used merely to export constants.
+In summary, interfaces should be used only to define types. They should not be used merely to export constants.
 
