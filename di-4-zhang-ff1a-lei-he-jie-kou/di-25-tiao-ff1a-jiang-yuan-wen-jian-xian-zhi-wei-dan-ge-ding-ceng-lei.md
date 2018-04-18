@@ -16,5 +16,16 @@ public class Main {
 }
 ```
 
+Now suppose you define both Utensil and Dessert in a single source file namedUtensil.java:
+
+```
+class Utensil {
+    static final String NAME = "pan"; 
+}
+class Dessert {
+    static final String NAME = "cake";
+}
+```
+
 
 
