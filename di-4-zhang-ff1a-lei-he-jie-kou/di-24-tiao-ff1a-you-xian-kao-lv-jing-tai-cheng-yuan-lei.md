@@ -50,11 +50,13 @@ It is doubly important to choose correctly between a static and a nonstatic memb
 
 如果所讨论的类是某个导出类的公有或受保护成员，那么选择让它成为静态成员类还是非静态成员类是非常重要的。在这种情况下，成员类是导出API的元素，而且在将来的版本中，无法在不破坏向后兼容性的前提下将非静态成员类变更为静态成员类。
 
-As you would expect, an anonymous class has no name. It is not a member of its enclosing class. Rather than being declared along with other members, it is simultaneously declared and instantiated at the point of use. Anonymous classes are permitted at any point in the code where an expression is legal. Anonymous classes have enclosing instances if and only if they occur in a nonstatic context. But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final primitive or string fields initialized to constant expressions \[JLS, 4.12.4\].
+As you would expect, an anonymous class has no name. It is not a member of its enclosing class. Rather than being declared along with other members, it is simultaneously declared and instantiated at the point of use. Anonymous classes are permitted at any point in the code where an expression is legal. Anonymous classes have enclosing instances if and only if they occur in a nonstatic context. But even if they occur in a static context, they cannot have any static members other than constant variables, which are final primitive or string fields initialized to constant expressions \[JLS, 4.12.4\].
 
-正如你所料，匿名类可以没有名字。匿名类并不是它的外围类的一个成员。它不仅与其它成员一起被声明，而且它在被使用时同时被声明和初始化。匿名类
+正如你所料，匿名类可以没有名字。匿名类并不是它的外围类的一个成员。它不仅与其它成员一起被声明，而且它在被使用时同时被声明和初始化。在代码里任意一个表达式合法的地方，匿名类都是可以使用的。当且仅当匿名类出现在非静态的上下文当中时，匿名类才有外围实例。但即使它们出现在静态的上下文当中，也不能拥有除了常量型变量的任何的静态成员，这些常量型变量是final的基本类型，或者初始化常量表达式的字符串属性\[JLS，4.12.4\]。
 
 There are many limitations on the applicability of anonymous classes. You can’t instantiate them except at the point they’re declared. You can’t perform instanceof tests or do anything else that requires you to name the class. You can’t declare an anonymous class to implement multiple interfaces or to extend a class and implement an interface at the same time. Clients of an anonymous class can’t invoke any members except those it inherits from its supertype. Because anonymous classes occur in the midst of expressions, they must be kept short—about ten lines or fewer—or readability will suffer.
+
+在使用匿名类时也有很多限制。除了在它们被声明的时候之外，你无法去初始化它们。你无法进行instanceof测试或者任何需要你指明类名的操作。你无法声明一个匿名类实现了多个接口或者扩展了一个类并同时实现一个接口。
 
 Before lambdas were added to Java \(Chapter 6\), anonymous classes were the preferred means of creating small function objects and process objects on the fly, but lambdas are now preferred \(Item 42\). Another common use of anonymous classes is in the implementation of static factory methods\(see intArrayAsList in Item 20\).
 
