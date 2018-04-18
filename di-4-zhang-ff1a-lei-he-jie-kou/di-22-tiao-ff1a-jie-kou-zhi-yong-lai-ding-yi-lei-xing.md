@@ -30,7 +30,11 @@ public interface PhysicalConstants {
 
 There are several constant interfaces in the Java platform libraries, such as java.io.ObjectStreamConstants. These interfaces should be regarded as anomalies and should not be emulated.
 
+Java类库里有几个常量类，如java.io.ObjectStreamConstants。这些接口是不规范的，不要去模仿它们。
+
 If you want to export constants, there are several reasonable choices. If the constants are strongly tied to an existing class or interface, you should add them to the class or interface. For example, all of the boxed numerical primitive classes, such as Integer and Double, export MIN\_VALUE and MAX\_VALUE constants. If the constants are best viewed as members of an enumerated type, you should export them with an enum type \(Item 34\). Otherwise, you should export the constants with a noninstantiable utility class \(Item 4\). Here is a utility class version of the PhysicalConstants example shown earlier:
+
+如果你想导出常量，有几种合适的方式。如果常量与现有类或现有接口紧密相关，你应该将它们添加到类里或接口里。例如，所有的装箱数值基本类，如Integer和Double，都导出了MIN\_VALUE和MAX\_VALUE常量。如果这些常量最好是被看成一个枚举类型的成员，你应该将它们用一个枚举类型来导出（条目34）。否则，你应该将这些常量用一个不可初始化的工具类来导出（条目4）。下面是PyscialConstants的工具类版本：
 
 ```
 // Constant utility class
