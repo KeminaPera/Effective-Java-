@@ -25,4 +25,5 @@
   * [第19条：若要设计继承，则提供文档说明，否则禁止继承](di-4-zhang-ff1a-lei-he-jie-kou/di-19-tiao-ff1a-ruo-yao-she-ji-ji-cheng-ff0c-ze-ti-gong-wen-dang-shuo-ming-ff0c-fou-ze-jin-zhi-ji-cheng.md)
   * [第20条：接口优于抽象类](di-4-zhang-ff1a-lei-he-jie-kou/di-20-tiao-ff1a-jie-kou-you-yu-chou-xiang-lei.md)
   * [第21条：DESIGN INTERFACES FOR POSTERITY](di-4-zhang-ff1a-lei-he-jie-kou/di-21-tiao-ff1a-design-interfaces-for-posterity.md)
+  * [第22条：接口只用来定义类型](di-4-zhang-ff1a-lei-he-jie-kou/di-22-tiao-ff1a-jie-kou-zhi-yong-lai-ding-yi-lei-xing.md)
 
