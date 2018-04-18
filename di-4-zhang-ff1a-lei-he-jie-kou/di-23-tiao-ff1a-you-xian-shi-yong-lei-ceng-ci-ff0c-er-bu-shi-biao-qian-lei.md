@@ -2,7 +2,7 @@
 
 Occasionally you may run across a class whose instances come in two or more flavors and contain a tag field indicating the flavor of the instance. For example, consider this class, which is capable of representing a circle or a rectangle:
 
-有时候，你可能
+有时候，你可能会遇到这么一个情况：一个类有两种或多种风格的实例，这个类包含了一个指明实例风格的标签。例如，考虑下面这个类，它能表示一个圆或者一个长方形：
 
 ```
 // Tagged class - vastly inferior to a class hierarchy!
