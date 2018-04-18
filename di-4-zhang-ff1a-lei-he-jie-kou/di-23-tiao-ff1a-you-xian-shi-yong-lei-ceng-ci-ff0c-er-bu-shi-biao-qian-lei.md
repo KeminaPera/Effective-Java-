@@ -98,5 +98,9 @@ class Square extends Rectangle {
 
 Note that the fields in the above hierarchy are accessed directly rather than by accessor methods. This was done for brevity and would be a poor design if the hierarchy were public \(Item 16\).
 
+注意，在上面的类层次中，域都是直接被访问的，而不是通过访问方法。这么为了简单起见才这么做的，如果类层次是公开的，就成了一个不好的设计了。
+
 In summary, tagged classes are seldom appropriate. If you’re tempted to write a class with an explicit tag field, think about whether the tag could be eliminated and the class replaced by a hierarchy. When you encounter an existing class with a tag field, consider refactoring it into a hierarchy.
+
+总而言之，标签类很少有适用的时候。如果你准备写一个包含显示标签域的类，可以想下这个标签是否能去掉并且用类层次来替代这个类。当你遇到一个现有类包含了标签域，可以考虑将其重构成类层次。
 
