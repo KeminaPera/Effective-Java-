@@ -52,35 +52,7 @@ It is doubly important to choose correctly between a static and a nonstatic memb
 
 As you would expect, an anonymous class has no name. It is not a member of its enclosing class. Rather than being declared along with other members, it is simultaneously declared and instantiated at the point of use. Anonymous classes are permitted at any point in the code where an expression is legal. Anonymous classes have enclosing instances if and only if they occur in a nonstatic context. But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final primitive or string fields initialized to constant expressions \[JLS, 4.12.4\].
 
-There are many limitations on the applicability of anonymous
+There are many limitations on the applicability of anonymous classes. You can’t instantiate them except at the point they’re declared. You can’t perform instanceof tests or do anything else that requires you to name the class. You can’t declare an anonymous class to implement multiple interfaces or to extend a class and implement an interface at the same time. Clients of an anonymous class can’t invoke any members except those it inherits from its supertype. Because anonymous classes occur in the midst of expressions, they must be kept short—about ten lines or fewer—or readability will suffer.
 
-classes. You can’t instantiate them except at the point they’re
-
-declared. You can’t perform instanceof tests or do anything else
-
-that requires you to name the class. You can’t declare an
-
-anonymous class to implement multiple interfaces or to extend a
-
-class and implement an interface at the same time. Clients of an
-
-anonymous class can’t invoke any members except those it inherits
-
-from its supertype. Because anonymous classes occur in the midst
-
-of expressions, they must be kept short—about ten lines or
-
-fewer—or readability will suffer.
-
-Before lambdas were added to Java \(Chapter 6\), anonymous
-
-classes were the preferred means of creating small function
-
-objects and process objects on the fly, but lambdas are now
-
-preferred \(Item 42\). Another common use of anonymous classes is
-
-in the implementation of static factory methods
-
-\(see intArrayAsList in Item 20\).
+Before lambdas were added to Java \(Chapter 6\), anonymous classes were the preferred means of creating small function objects and process objects on the fly, but lambdas are now preferred \(Item 42\). Another common use of anonymous classes is in the implementation of static factory methods\(see intArrayAsList in Item 20\).
 
