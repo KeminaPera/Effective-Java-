@@ -92,5 +92,19 @@ class Square extends Rectangle {
 }
 ```
 
+Note that the fields in the above hierarchy are accessed directly
 
+rather than by accessor methods. This was done for brevity and
+
+would be a poor design if the hierarchy were public \(Item 16\).
+
+In summary, tagged classes are seldom appropriate. If you’re
+
+tempted to write a class with an explicit tag field, think about
+
+whether the tag could be eliminated and the class replaced by a
+
+hierarchy. When you encounter an existing class with a tag field,
+
+consider refactoring it into a hierarchy.
 
