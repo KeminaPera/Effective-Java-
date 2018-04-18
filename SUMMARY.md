@@ -28,4 +28,5 @@
   * [第22条：接口只用来定义类型](di-4-zhang-ff1a-lei-he-jie-kou/di-22-tiao-ff1a-jie-kou-zhi-yong-lai-ding-yi-lei-xing.md)
   * [第23条：优先使用类层次，而不是标签类](di-4-zhang-ff1a-lei-he-jie-kou/di-23-tiao-ff1a-you-xian-shi-yong-lei-ceng-ci-ff0c-er-bu-shi-biao-qian-lei.md)
   * [第24条：优先考虑静态成员类](di-4-zhang-ff1a-lei-he-jie-kou/di-24-tiao-ff1a-you-xian-kao-lv-jing-tai-cheng-yuan-lei.md)
+  * [第25条：将源文件限制为单个顶层类](di-4-zhang-ff1a-lei-he-jie-kou/di-25-tiao-ff1a-jiang-yuan-wen-jian-xian-zhi-wei-dan-ge-ding-ceng-lei.md)
 
