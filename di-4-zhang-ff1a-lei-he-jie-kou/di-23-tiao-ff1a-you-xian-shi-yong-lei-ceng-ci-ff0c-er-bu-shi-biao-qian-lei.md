@@ -86,6 +86,8 @@ This class hierarchy corrects every shortcoming of tagged classes noted previous
 
 Another advantage of class hierarchies is that they can be made to reflect natural hierarchical relationships among types, allowing for increased flexibility and better compile-time type checking. Suppose the tagged class in the original example also allowed for squares. The class hierarchy could be made to reflect the fact that a square is a special kind of rectangle \(assuming both are immutable\):
 
+类层次的另一个优点是，它们反应了类型之间的自然层次关系，有助于更好的灵活性，并进行更好的编译时类型检查。假设Figure类也支持正方形，那么类层次可以反应出正方形是一种特殊的长方形这么一个事实（假设两者都是不可变的）：
+
 ```
 class Square extends Rectangle {
     Square(double side) {
