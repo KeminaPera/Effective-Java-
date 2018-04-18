@@ -48,7 +48,7 @@ A common use of private static member classes is to represent components of the 
 
 It is doubly important to choose correctly between a static and a nonstatic member class if the class in question is a public or protected member of an exported class. In this case, the member class is an exported API element and cannot be changed from a nonstatic to a static member class in a subsequent release without violating backward compatibility.
 
-如果所讨论的类是某个导出类的公有或受保护成员，那么选择让它成为静态成员类还是非静态成员类是非常重要的。在这种情况下，成员类是导出API的元素，
+如果所讨论的类是某个导出类的公有或受保护成员，那么选择让它成为静态成员类还是非静态成员类是非常重要的。在这种情况下，成员类是导出API的元素，而且在将来的版本中，无法在不破坏向后兼容性的前提下将非静态成员类变更为静态成员类。
 
 As you would expect, an anonymous class has no name. It is not a member of its enclosing class. Rather than being declared along with other members, it is simultaneously declared and instantiated at the point of use. Anonymous classes are permitted at any point in the code where an expression is legal. Anonymous classes have enclosing instances if and only if they occur in a nonstatic context. But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final primitive or string fields initialized to constant expressions \[JLS, 4.12.4\].
 
