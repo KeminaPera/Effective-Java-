@@ -46,31 +46,9 @@ A common use of private static member classes is to represent components of the 
 
 私有静态成员类通常被用来展示代表外围类对象的组件。例如，考虑一个Map实例，在这个实例里，每个键关联一个值。在许多Map实现里，每个键值对都有一个对应的内部Entry对象。虽然每个Entry对象都与一个Map对象关联，但是Entry对象的方法（getKey，getValue和setValue）无需访问Map对象。因而，采用非静态成员类来代表Entry对象是很浪费的，使用私有静态成员类会更好。如果你不小心忘了在Entry的声明里添加static修饰符，该Map仍然可以工作，但每个Entry对象将包含多余的Map对象引用，浪费空间又浪费时间。
 
-It is doubly important to choose correctly between a static and a nonstatic member class if the class in question is a public or
+It is doubly important to choose correctly between a static and a nonstatic member class if the class in question is a public or protected member of an exported class. In this case, the member class is an exported API element and cannot be changed from a nonstatic to a static member class in a subsequent release without violating backward compatibility.
 
-protected member of an exported class. In this case, the member
+如果所讨论的类是某个导出类的公有或受保护成员，那么选择让它成为静态成员类还是非静态成员类是非常重要的。在这种情况下，成员类是导出API的元素，
 
-class is an exported API element and cannot be changed from a
-
-nonstatic to a static member class in a subsequent release without
-
-violating backward compatibility.
-
-As you would expect, an anonymous class has no name. It is not a
-
-member of its enclosing class. Rather than being declared along
-
-with other members, it is simultaneously declared and instantiated
-
-at the point of use. Anonymous classes are permitted at any point
-
-in the code where an expression is legal. Anonymous classes have
-
-enclosing instances if and only if they occur in a nonstatic context.
-
-But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final
-
-primitive or string fields initialized to constant expressions \[JLS,
-
-4.12.4\].
+As you would expect, an anonymous class has no name. It is not a member of its enclosing class. Rather than being declared along with other members, it is simultaneously declared and instantiated at the point of use. Anonymous classes are permitted at any point in the code where an expression is legal. Anonymous classes have enclosing instances if and only if they occur in a nonstatic context. But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final primitive or string fields initialized to constant expressions \[JLS, 4.12.4\].
 
