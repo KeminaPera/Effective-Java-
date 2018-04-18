@@ -39,33 +39,7 @@ The Apache SynchronizedCollection class is still being actively maintained, but 
 
 Apache的SynchronizedCollection类仍然在积极维护，但在编写本文时，它仍未覆盖removeIf方法。如果这个类与Java 8一起用，那么它将继承removeIf的默认实现
 
-In order to prevent this from happening in similar Java platform
+In order to prevent this from happening in similar Java platform libraries implementations, such as the package-private class returned by Collections.synchronizedCollection, the JDK maintainers had to override the default removeIf implementation and other methods like it to perform the necessary synchronization before invoking the default implementation. Preexisting collection implementations that were not part of the Java platform did not have the opportunity to make analogous changes in lockstep with the interface change, and some have yet to do so.
 
-libraries implementations, such as the package-private class
-
-returned by Collections.synchronizedCollection, the JDK
-
-maintainers had to override the default removeIf implementation
-
-and other methods like it to perform the necessary synchronization
-
-before invoking the default implementation. Preexisting collection
-
-implementations that were not part of the Java platform did not
-
-have the opportunity to make analogous changes in lockstep with
-
-the interface change, and some have yet to do so.
-
-In the presence of default methods, existing
-
-implementations of an interface may compile without
-
-error or warning but fail at runtime. While not terribly
-
-common, this problem is not an isolated incident either. A handfulof the methods added to the collections interfaces in Java 8 are
-
-known to be susceptible, and a handful of existing
-
-implementations are known to be affected.
+**In the presence of default methods, existing implementations of an interface may compile without error or warning but fail at runtime.** While not terribly common, this problem is not an isolated incident either. A handfulof the methods added to the collections interfaces in Java 8 are known to be susceptible, and a handful of existing implementations are known to be affected.
 
