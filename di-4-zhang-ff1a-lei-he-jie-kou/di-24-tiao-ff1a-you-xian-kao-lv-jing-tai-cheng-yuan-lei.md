@@ -18,9 +18,11 @@ Syntactically, the only difference between static and nonstatic member classes i
 
 The association between a nonstatic member class instance and its enclosing instance is established when the member class instance is created and cannot be modified thereafter. Normally, the association is established automatically by invoking a nonstatic member class constructor from within an instance method of the enclosing class. It is possible, though rare, to establish the association manually using the expression enclosingInstance.new MemberClass\(args\). As you would expect, the association takes up space in the nonstatic member class instance and adds time to its construction.
 
-在非静态成员类实例被创建时，非静态成员类实例和它的外围实例的关联就被建立了，而且建立后就不能被修改了。一般情况下，在外围类的实例方法内部调用非静态成员类的构造器时，这种关联就被自动建立。虽然可以手动使用表达式enclosingInstance.new MemberClass\(args\)来建立这个关联，但是很少这么做。
+在非静态成员类实例被创建时，非静态成员类实例和它的外围实例的关联就被建立了，而且建立后就不能被修改了。一般情况下，在外围类的实例方法内部调用非静态成员类的构造器时，这种关联就被自动建立。虽然可以手动使用表达式enclosingInstance.new MemberClass\(args\)来建立这个关联，但是很少这么做。正如你所料，这个关联需要消耗非静态成员类实例的空间，而且增加了它的构建时间。
 
 One common use of a nonstatic member class is to define an Adapter \[Gamma95\] that allows an instance of the outer class to be viewed as an instance of some unrelated class. For example, implementations of the Map interface typically use nonstatic member classes to implement their collection views, which are returned by Map’s keySet, entrySet, and values methods. Similarly, implementations of the collection interfaces, such as Set and List, typically use nonstatic member classes to implement their iterators:
+
+非静态成员类的一个通常的用法是，定义一个适配器 \[Gamma95\]，而这个适配器让外围类的实例被看成是某个不相关类的实例。例如，Map接口的实现通常会使用非静态成员类来实现它们的集合视图，这些视图由Map的keySet方法，entrySet方法以及值方法返回。类似地，一些集合接口（如Set和List）的实现通常用非静态成员类来实现它们的迭代器：
 
 ```
 // Typical use of a nonstatic member class
