@@ -38,5 +38,47 @@ public class MySet<E> extends AbstractSet<E> {
 }
 ```
 
+If you declare a member class that does not require
 
+access to an enclosing instance, always put
+
+the static modifier in its declaration, making it a static ratherthan a nonstatic member class. If you omit this modifier, each
+
+instance will have a hidden extraneous reference to its enclosing
+
+instance. As previously mentioned, storing this reference takes
+
+time and space. More seriously, it can result in the enclosing
+
+instance being retained when it would otherwise be eligible for
+
+garbage collection \(Item 7\). The resulting memory leak can be
+
+catastrophic. It is often difficult to detect because the reference is
+
+invisible.
+
+A common use of private static member classes is to represent
+
+components of the object represented by their enclosing class. For
+
+example, consider a Map instance, which associates keys with values.
+
+Many Map implementations have an internal Entry object for each
+
+key-value pair in the map. While each entry is associated with a
+
+map, the methods on an entry \(getKey, getValue, and setValue\) do
+
+not need access to the map. Therefore, it would be wasteful to use a
+
+nonstatic member class to represent entries: a private static
+
+member class is best. If you accidentally omit the static modifier in
+
+the entry declaration, the map will still work, but each entry will
+
+contain a superfluous reference to the map, which wastes space
+
+and time.
 
