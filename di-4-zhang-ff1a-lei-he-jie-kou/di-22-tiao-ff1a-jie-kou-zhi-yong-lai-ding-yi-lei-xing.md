@@ -53,6 +53,8 @@ Incidentally, note the use of the underscore character \(\_\) in the numeric lit
 
 Normally a utility class requires clients to qualify constant names with a class name, for example, PhysicalConstants.AVOGADROS\_NUMBER. If you make heavy use of the constants exported by a utility class, you can avoid the need for qualifying the constants with the class name by making use of the static import facility:
 
+一般情况下，工具类要求客户端用类名来限制常量名，例如，PhysicalConstants.AVOGADROS\_NUMBER。如果你需要经常用到某个工具类的导出常量，你可以通过静态导入来避免用类名去限制常量名。
+
 ```
 // Use of static import to avoid qualifying constants
 import static com.effectivejava.science.PhysicalConstants.*;
@@ -65,4 +67,6 @@ public class Test {
 ```
 
 In summary, interfaces should be used only to define types. They should not be used merely to export constants.
+
+总之，接口应该只被用来定义类型。它们不能仅仅是用来导出常量。
 
