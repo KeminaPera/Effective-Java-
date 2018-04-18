@@ -49,6 +49,8 @@ public class PhysicalConstants {
 
 Incidentally, note the use of the underscore character \(\_\) in the numeric literals. Underscores, which have been legal since Java 7, have no effect on the values of numeric literals, but can make them much easier to read if used with discretion. Consider adding underscores to numeric literals, whether fixed of floating point, if they contain five or more consecutive digits. For base ten literals, whether integral or floating point, you should use underscores to separate literals into groups of three digits indicating positive and negative powers of one thousand.
 
+顺便说一下，注意到上述例子中数值字面值的下划线字符（\_）。从Java 7开始，下划线是合法的，对数值字面值的值没有影响，使用得当的话还能使它们更容易阅读。无论是否是固定浮点数，如果它们包含一个或多个连续数字，则可以考虑往数值字面值里添加下划线。对于底数为10的字面值，无论是整型还是浮点，我们应该用下划线来把字面值分成三组数字，表示一千的正负幂。
+
 Normally a utility class requires clients to qualify constant names with a class name, for example, PhysicalConstants.AVOGADROS\_NUMBER. If you make heavy use of the constants exported by a utility class, you can avoid the need for qualifying the constants with the class name by making use of the static import facility:
 
 ```
