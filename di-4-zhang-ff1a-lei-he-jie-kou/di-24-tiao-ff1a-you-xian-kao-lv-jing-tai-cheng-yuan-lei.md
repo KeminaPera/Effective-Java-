@@ -66,5 +66,7 @@ Local classes are the least frequently used of the four kinds of nested classes.
 
 在四种嵌套类里，局部类是最不常用的。在可以声明局部变量的地方就可以声明局部类，而且两者遵循相同的作用域规则。局部类与其它三种嵌套类有着共同的属性。像类成员一样，它们有名字而且能被重复使用。像匿名类一样，只有当它们在非静态上下文中被定义时，它们才有外围实例，而且它们不能包含静态成员。像匿名类一样，它们最好尽量的简短，以免影响可阅读性。
 
-To recap, there are four different kinds of nested classes, and each has its place. If a nested class needs to be visible outside of a single method or is too long to fit comfortably inside a method, use a member class. If each instance of a member class needs a reference to its enclosing instance, make it nonstatic; otherwise, make itstatic. Assuming the class belongs inside a method, if you need to create instances from only one location and there is a preexisting type that characterizes the class, make it an anonymous class; otherwise, make it a local class.
+To recap, there are four different kinds of nested classes, and each has its place. If a nested class needs to be visible outside of a single method or is too long to fit comfortably inside a method, use a member class. If each instance of a member class needs a reference to its enclosing instance, make it nonstatic; otherwise, make it static. Assuming the class belongs inside a method, if you need to create instances from only one location and there is a preexisting type that characterizes the class, make it an anonymous class; otherwise, make it a local class.
+
+我们回顾一下，有4种不同的嵌套类，每个都有其用途。如果一个嵌套类必须在方法外部可见，或者放在方法内部会显得太长时，就使用成员类。如果成员类的实例需要拥有该类的外围类的引用，就将其做成非静态；不然，就将其做成静态。假设一个类应当在方法内部，若你需要只从一个地方创建实例而且已经存在一个类型能说明这个类的特征，那么将其做成匿名类；否则，就将其做成局部类。
 
