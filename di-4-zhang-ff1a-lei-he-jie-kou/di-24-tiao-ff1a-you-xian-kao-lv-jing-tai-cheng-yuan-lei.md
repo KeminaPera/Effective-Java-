@@ -16,39 +16,7 @@ Syntactically, the only difference between static and nonstatic member classes i
 
 从语法上来说，静态成员类和非静态成员类之间的区别是，静态成员类在声明上有static标识符。这两种嵌套类虽然语法上很相似，这但彼此之间却有很大的不同。非静态成员类的每个实例都是隐式地和它的外围类的实例绑定在一起。在非静态成员类的实例方法内部，你可以调用外围实例的方法，或者通过标识了this的构造来获取外围实例的引用。
 
-The association between a nonstatic member class instance and its
+The association between a nonstatic member class instance and its enclosing instance is established when the member class instance is created and cannot be modified thereafter. Normally, the association is established automatically by invoking a nonstaticmember class constructor from within an instance method of the enclosing class. It is possible, though rare, to establish the association manually using the expression enclosingInstance.new MemberClass\(args\). As you would expect, the association takes up space in the nonstatic member class instance and adds time to its construction.
 
-enclosing instance is established when the member class instance
-
-is created and cannot be modified thereafter. Normally, the
-
-association is established automatically by invoking a nonstaticmember class constructor from within an instance method of the
-
-enclosing class. It is possible, though rare, to establish the
-
-association manually using the expression enclosingInstance.new
-
-MemberClass\(args\). As you would expect, the association takes up
-
-space in the nonstatic member class instance and adds time to its
-
-construction.
-
-One common use of a nonstatic member class is to define
-
-an Adapter \[Gamma95\] that allows an instance of the outer class
-
-to be viewed as an instance of some unrelated class. For example,
-
-implementations of the Map interface typically use nonstatic
-
-member classes to implement their collection views, which are
-
-returned by Map’s keySet, entrySet, and values methods. Similarly,
-
-implementations of the collection interfaces, such as Set and List,
-
-typically use nonstatic member classes to implement their
-
-iterators:
+One common use of a nonstatic member class is to define an Adapter \[Gamma95\] that allows an instance of the outer class to be viewed as an instance of some unrelated class. For example, implementations of the Map interface typically use nonstatic member classes to implement their collection views, which are returned by Map’s keySet, entrySet, and values methods. Similarly, implementations of the collection interfaces, such as Set and List, typically use nonstatic member classes to implement their iterators:
 
