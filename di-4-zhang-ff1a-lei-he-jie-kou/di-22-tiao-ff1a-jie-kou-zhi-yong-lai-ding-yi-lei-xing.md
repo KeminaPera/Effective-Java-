@@ -30,25 +30,5 @@ public interface PhysicalConstants {
 
 There are several constant interfaces in the Java platform libraries, such as java.io.ObjectStreamConstants. These interfaces should be regarded as anomalies and should not be emulated.
 
-
-
-If you want to export constants, there are several reasonable
-
-choices. If the constants are strongly tied to an existing class or
-
-interface, you should add them to the class or interface. For
-
-example, all of the boxed numerical primitive classes, such
-
-as Integer and Double, export MIN\_VALUE and MAX\_VALUE constants. If
-
-the constants are best viewed as members of an enumerated type,
-
-you should export them with an enum type \(Item 34\). Otherwise,
-
-you should export the constants with a noninstantiable utility
-
-class \(Item 4\). Here is a utility class version of
-
-the PhysicalConstants example shown earlier:
+If you want to export constants, there are several reasonable choices. If the constants are strongly tied to an existing class or interface, you should add them to the class or interface. For example, all of the boxed numerical primitive classes, such as Integer and Double, export MIN\_VALUE and MAX\_VALUE constants. If the constants are best viewed as members of an enumerated type, you should export them with an enum type \(Item 34\). Otherwise, you should export the constants with a noninstantiable utility class \(Item 4\). Here is a utility class version of the PhysicalConstants example shown earlier:
 
