@@ -10,5 +10,7 @@ A static member class is the simplest kind of nested class. It is best thought o
 
 One common use of a static member class is as a public helper class, useful only in conjunction with its outer class. For example, consider an enum describing the operations supported by a calculator \(Item 34\). The Operation enum should be a public static member class of the Calculator class. Clients of Calculator could then refer to operations using names like Calculator.Operation.PLUS and Calculator.Operation.MINUS.
 
+静态成员类通常的一个用法是作为一个公有的辅助类，只有与它的外围类一起用时才有意义。例如，考虑一个枚举，它描述了计算器所支持的所有操作（条目34）。操作枚举应该是作为Calculator类的一个公有静态成员类。然后Calculator的客户端可以通过使用名字如Calculator.Operation.PLUS和Calculator.Operations.MINUS来引用操作。
+
 Syntactically, the only difference between static and nonstatic member classes is that static member classes have the modifier static in their declarations. Despite the syntactic similarity, these two kinds of nested classes are very different. Each instance of a nonstatic member class is implicitly associated with an enclosing instance of its containing class. Within instance methods of a nonstatic member class, you can invoke methods on the enclosing instance or obtain a reference to the enclosing instance using the qualified this construct \[JLS, 15.8.4\]. If an instance of a nested class can exist in isolation from an instance of its enclosing class, then the nested class must be a static member class: it is impossible to create an instance of a nonstatic member class without an enclosing instance.
 
