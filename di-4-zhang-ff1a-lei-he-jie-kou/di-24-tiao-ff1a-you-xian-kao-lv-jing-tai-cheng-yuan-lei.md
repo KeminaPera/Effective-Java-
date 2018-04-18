@@ -14,3 +14,5 @@ One common use of a static member class is as a public helper class, useful only
 
 Syntactically, the only difference between static and nonstatic member classes is that static member classes have the modifier static in their declarations. Despite the syntactic similarity, these two kinds of nested classes are very different. Each instance of a nonstatic member class is implicitly associated with an enclosing instance of its containing class. Within instance methods of a nonstatic member class, you can invoke methods on the enclosing instance or obtain a reference to the enclosing instance using the qualified this construct \[JLS, 15.8.4\]. If an instance of a nested class can exist in isolation from an instance of its enclosing class, then the nested class must be a static member class: it is impossible to create an instance of a nonstatic member class without an enclosing instance.
 
+从语法上来说，静态成员类和非静态成员类之间的区别是，静态成员类在声明上有static标识符。这两种嵌套类虽然语法上很相似，这但彼此之间却有很大的不同。非静态成员类的每个实例都是隐式地和它的外围类的实例绑定在一起。在非静态成员类的实例方法内部，你可以调用外围实例的方法，或者通过使用this来获取外围实例的引用。
+
