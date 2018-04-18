@@ -80,35 +80,7 @@ class Rectangle extends Figure {
 }
 ```
 
-This class hierarchy corrects every shortcoming of tagged classes
+This class hierarchy corrects every shortcoming of tagged classes noted previously. The code is simple and clear, containing none of the boilerplate found in the original. The implementation of each flavor is allotted its own class, and none of these classes is encumbered by irrelevant data fields. All fields are final. The compiler ensures that each class’s constructor initializes its data fields and that each class has an implementation for every abstract method declared in the root class. This eliminates the possibility of a runtime failure due to a missing switch case. Multiple programmers can extend the hierarchy independently and interoperably without access to the source for the root class. There is a separate data type associated with each flavor, allowing programmers to indicate the flavor of a variable and to restrict variables and input parameters to a particular flavor.
 
-noted previously. The code is simple and clear, containing none of
-
-the boilerplate found in the original. The implementation of each
-
-flavor is allotted its own class, and none of these classes is
-
-encumbered by irrelevant data fields. All fields are final. The
-
-compiler ensures that each class’s constructor initializes its data
-
-fields and that each class has an implementation for every abstract
-
-method declared in the root class. This eliminates the possibility of
-
-a runtime failure due to a missing switch case. Multiple
-
-programmers can extend the hierarchy independently and
-
-interoperably without access to the source for the root class. There
-
-is a separate data type associated with each flavor, allowing
-
-programmers to indicate the flavor of a variable and to restrict
-
-variables and input parameters to a particular flavor.Another advantage of class hierarchies is that they can be made to
-
-reflect natural hierarchical relationships among types, allowing for
-
-increased flexibility and better compile-time type checking.
+Another advantage of class hierarchies is that they can be made to reflect natural hierarchical relationships among types, allowing for increased flexibility and better compile-time type checking.
 
