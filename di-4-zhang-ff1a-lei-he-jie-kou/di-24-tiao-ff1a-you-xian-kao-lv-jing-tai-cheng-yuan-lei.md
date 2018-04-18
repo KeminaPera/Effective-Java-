@@ -28,5 +28,21 @@ member classes is that static member classes have the
 
 modifier static in their declarations. Despite the syntactic
 
-similarity, these two kinds of nested classes are very different.
+similarity, these two kinds of nested classes are very different. Each instance of a nonstatic member class is implicitly associated
+
+with an enclosing instance of its containing class. Within instance
+
+methods of a nonstatic member class, you can invoke methods on
+
+the enclosing instance or obtain a reference to the enclosing
+
+instance using the qualified this construct \[JLS, 15.8.4\]. If an
+
+instance of a nested class can exist in isolation from an instance of
+
+its enclosing class, then the nested class must be a static member
+
+class: it is impossible to create an instance of a nonstatic member
+
+class without an enclosing instance.
 
