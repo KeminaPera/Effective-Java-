@@ -82,6 +82,8 @@ class Rectangle extends Figure {
 
 This class hierarchy corrects every shortcoming of tagged classes noted previously. The code is simple and clear, containing none of the boilerplate found in the original. The implementation of each flavor is allotted its own class, and none of these classes is encumbered by irrelevant data fields. All fields are final. The compiler ensures that each class’s constructor initializes its data fields and that each class has an implementation for every abstract method declared in the root class. This eliminates the possibility of a runtime failure due to a missing switch case. Multiple programmers can extend the hierarchy independently and interoperably without access to the source for the root class. There is a separate data type associated with each flavor, allowing programmers to indicate the flavor of a variable and to restrict variables and input parameters to a particular flavor.
 
+这个类层次克服了前面提到的标签类的每个缺陷。这份代码简单而且清晰，没有原本Figure类的那些模板代码。每个风格的实现都在各自的类里，而且这些类都没有不相关的数据域。所有的域都是final的。编译器可以确保每个类的构造器都是构造它自己的数据域，而且每个类都实现了根类里声明的每一个抽象方法。由于switch case代码的消除，运行时失败的可能性也随之减少。不同程序员可以独自去扩展类层次，而且不用访问根类的源码就可以相互合作。每个风格分别关联了一个不同的数据类型，允许程序员指明一个变量的风格类型，并将变量和输入参数限定为指定的风格类型。
+
 Another advantage of class hierarchies is that they can be made to reflect natural hierarchical relationships among types, allowing for increased flexibility and better compile-time type checking. Suppose the tagged class in the original example also allowed for squares. The class hierarchy could be made to reflect the fact that a square is a special kind of rectangle \(assuming both are immutable\):
 
 ```
@@ -92,19 +94,7 @@ class Square extends Rectangle {
 }
 ```
 
-Note that the fields in the above hierarchy are accessed directly
+Note that the fields in the above hierarchy are accessed directly rather than by accessor methods. This was done for brevity and would be a poor design if the hierarchy were public \(Item 16\).
 
-rather than by accessor methods. This was done for brevity and
-
-would be a poor design if the hierarchy were public \(Item 16\).
-
-In summary, tagged classes are seldom appropriate. If you’re
-
-tempted to write a class with an explicit tag field, think about
-
-whether the tag could be eliminated and the class replaced by a
-
-hierarchy. When you encounter an existing class with a tag field,
-
-consider refactoring it into a hierarchy.
+In summary, tagged classes are seldom appropriate. If you’re tempted to write a class with an explicit tag field, think about whether the tag could be eliminated and the class replaced by a hierarchy. When you encounter an existing class with a tag field, consider refactoring it into a hierarchy.
 
