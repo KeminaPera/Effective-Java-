@@ -44,9 +44,9 @@ public class MySet<E> extends AbstractSet<E> {
 
 A common use of private static member classes is to represent components of the object represented by their enclosing class. For example, consider a Map instance, which associates keys with values. Many Map implementations have an internal Entry object for each key-value pair in the map. While each entry is associated with a map, the methods on an entry \(getKey, getValue, and setValue\) do not need access to the map. Therefore, it would be wasteful to use a nonstatic member class to represent entries: a private static member class is best. If you accidentally omit the static modifier in the entry declaration, the map will still work, but each entry will contain a superfluous reference to the map, which wastes space and time.
 
-It is doubly important to choose correctly between a static and a
+私有静态成员类通常被用来展示代表外围类对象的组件。例如，考虑一个Map实例，在这个实例里，每个键关联一个值。在许多Map实现里，每个键值对都有一个对应的内部Entry对象。虽然每个Entry对象都与一个Map对象关联，但是Entry对象的方法（getKey，getValue和setValue）无需访问Map对象。因而，采用非静态成员类来代表Entry对象是很浪费的，使用私有静态成员类会更好。如果你不小心忘了在Entry的声明里添加static修饰符，该Map仍然可以工作，但每个Entry对象将包含多余的Map对象引用，浪费空间又浪费时间。
 
-nonstatic member class if the class in question is a public or
+It is doubly important to choose correctly between a static and a nonstatic member class if the class in question is a public or
 
 protected member of an exported class. In this case, the member
 
