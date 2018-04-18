@@ -47,3 +47,37 @@ Luckily, object-oriented languages such as Java offer a far better alternative f
 
 幸运的是，像Java这类的面向对象语言提供了一个更好的方式来定义一个能表示多个风格对象的数据类型：子类型（subtyping）。**标签类仅仅是类层次的一个简单模仿。**
 
+To transform a tagged class into a class hierarchy, first define an
+
+abstract class containing an abstract method for each method in
+
+the tagged class whose behavior depends on the tag value. In
+
+the Figureclass, there is only one such method, which is area. This
+
+abstract class is the root of the class hierarchy. If there are any
+
+methods whose behavior does not depend on the value of the tag,
+
+put them in this class. Similarly, if there are any data fields used by
+
+all the flavors, put them in this class. There are no such
+
+flavor-independent methods or fields in the Figure class.
+
+Next, define a concrete subclass of the root class for each flavor of
+
+the original tagged class. In our example, there are two: circle and
+
+rectangle. Include in each subclass the data fields particular to its
+
+flavor. In our example, radius is particular to circle,
+
+and length and width are particular to rectangle. Also include in
+
+each subclass the appropriate implementation of each abstract
+
+method in the root class. Here is the class hierarchy corresponding
+
+to the original Figure class:
+
