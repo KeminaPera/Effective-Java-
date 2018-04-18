@@ -84,3 +84,13 @@ This class hierarchy corrects every shortcoming of tagged classes noted previous
 
 Another advantage of class hierarchies is that they can be made to reflect natural hierarchical relationships among types, allowing for increased flexibility and better compile-time type checking. Suppose the tagged class in the original example also allowed for squares. The class hierarchy could be made to reflect the fact that a square is a special kind of rectangle \(assuming both are immutable\):
 
+```
+class Square extends Rectangle {
+    Square(double side) {
+        super(side, side);
+    }
+}
+```
+
+
+
