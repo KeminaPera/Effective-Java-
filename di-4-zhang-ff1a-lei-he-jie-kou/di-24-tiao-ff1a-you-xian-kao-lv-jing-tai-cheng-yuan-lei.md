@@ -22,3 +22,19 @@ The association between a nonstatic member class instance and its enclosing inst
 
 One common use of a nonstatic member class is to define an Adapter \[Gamma95\] that allows an instance of the outer class to be viewed as an instance of some unrelated class. For example, implementations of the Map interface typically use nonstatic member classes to implement their collection views, which are returned by Map’s keySet, entrySet, and values methods. Similarly, implementations of the collection interfaces, such as Set and List, typically use nonstatic member classes to implement their iterators:
 
+```
+// Typical use of a nonstatic member class
+public class MySet<E> extends AbstractSet<E> {
+... // Bulk of the class omitted
+    @Override 
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    } 
+    private class MyIterator implements Iterator<E> {
+        ...
+    }
+}
+```
+
+
+
