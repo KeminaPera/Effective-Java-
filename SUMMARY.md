@@ -26,4 +26,5 @@
   * [第20条：接口优于抽象类](di-4-zhang-ff1a-lei-he-jie-kou/di-20-tiao-ff1a-jie-kou-you-yu-chou-xiang-lei.md)
   * [第21条：DESIGN INTERFACES FOR POSTERITY](di-4-zhang-ff1a-lei-he-jie-kou/di-21-tiao-ff1a-design-interfaces-for-posterity.md)
   * [第22条：接口只用来定义类型](di-4-zhang-ff1a-lei-he-jie-kou/di-22-tiao-ff1a-jie-kou-zhi-yong-lai-ding-yi-lei-xing.md)
+  * [第23条：优先使用类层次，而不是标签类](di-4-zhang-ff1a-lei-he-jie-kou/di-23-tiao-ff1a-you-xian-shi-yong-lei-ceng-ci-ff0c-er-bu-shi-biao-qian-lei.md)
 
