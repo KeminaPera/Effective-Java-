@@ -44,3 +44,33 @@ public class MySet<E> extends AbstractSet<E> {
 
 A common use of private static member classes is to represent components of the object represented by their enclosing class. For example, consider a Map instance, which associates keys with values. Many Map implementations have an internal Entry object for each key-value pair in the map. While each entry is associated with a map, the methods on an entry \(getKey, getValue, and setValue\) do not need access to the map. Therefore, it would be wasteful to use a nonstatic member class to represent entries: a private static member class is best. If you accidentally omit the static modifier in the entry declaration, the map will still work, but each entry will contain a superfluous reference to the map, which wastes space and time.
 
+It is doubly important to choose correctly between a static and a
+
+nonstatic member class if the class in question is a public or
+
+protected member of an exported class. In this case, the member
+
+class is an exported API element and cannot be changed from a
+
+nonstatic to a static member class in a subsequent release without
+
+violating backward compatibility.
+
+As you would expect, an anonymous class has no name. It is not a
+
+member of its enclosing class. Rather than being declared along
+
+with other members, it is simultaneously declared and instantiated
+
+at the point of use. Anonymous classes are permitted at any point
+
+in the code where an expression is legal. Anonymous classes have
+
+enclosing instances if and only if they occur in a nonstatic context.
+
+But even if they occur in a static context, they cannot have anystatic members other than constant variables, which are final
+
+primitive or string fields initialized to constant expressions \[JLS,
+
+4.12.4\].
+
