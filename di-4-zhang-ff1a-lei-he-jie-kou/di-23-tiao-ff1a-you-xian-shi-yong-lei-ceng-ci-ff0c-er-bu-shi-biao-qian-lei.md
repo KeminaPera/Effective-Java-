@@ -47,7 +47,9 @@ Luckily, object-oriented languages such as Java offer a far better alternative f
 
 幸运的是，像Java这类的面向对象语言提供了一个更好的方式来定义一个能表示多个风格对象的数据类型：子类型（subtyping）。**标签类仅仅是类层次的一个简单模仿。**
 
-To transform a tagged class into a class hierarchy, first define an abstract class containing an abstract method for each method in the tagged class whose behavior depends on the tag value. In the Figureclass, there is only one such method, which is area. This abstract class is the root of the class hierarchy. If there are any methods whose behavior does not depend on the value of the tag, put them in this class. Similarly, if there are any data fields used by all the flavors, put them in this class. There are no such flavor-independent methods or fields in the Figure class. Next, define a concrete subclass of the root class for each flavor of the original tagged class. In our example, there are two: circle and rectangle. Include in each subclass the data fields particular to its flavor. In our example, radius is particular to circle, and length and width are particular to rectangle. Also include in each subclass the appropriate implementation of each abstract method in the root class. Here is the class hierarchy corresponding to the original Figure class:
+To transform a tagged class into a class hierarchy, first define an abstract class containing an abstract method for each method in the tagged class whose behavior depends on the tag value. In the Figure class, there is only one such method, which is area. This abstract class is the root of the class hierarchy. If there are any methods whose behavior does not depend on the value of the tag, put them in this class. Similarly, if there are any data fields used by all the flavors, put them in this class. There are no such flavor-independent methods or fields in the Figure class. Next, define a concrete subclass of the root class for each flavor of the original tagged class. In our example, there are two: circle and rectangle. Include in each subclass the data fields particular to its flavor. In our example, radius is particular to circle, and length and width are particular to rectangle. Also include in each subclass the appropriate implementation of each abstract method in the root class. Here is the class hierarchy corresponding to the original Figure class:
+
+为了将标签类转换成类层次，我们首先要定义好抽象类，这个抽象类应该为标签类里的每个行为依赖于标签值的方法编写一个对应的抽象方法。在Figure类里，只有一个这种方法，即是area方法。抽象类是类层次的根。对于有任一行为基于标签值的方法，都将其加入抽象类。类似地，对于所有风格都会用到的数据域，也将其放入抽象类。然后，为原本的标签类的每一个风格都定义一个根类的子类。在我们的例子当中，有两个风格：圆形和矩形。每个子类中包含对应风格各自特有的数据域。在我们的例子当中，半径是圆形特有的，长和宽是矩形特有的。当然，每个子类也要为根类中每个抽象方法编写一个恰当的实现。下面是原本的Figure类所对应的类层次：
 
 ```
 // Class hierarchy replacement for a tagged class
@@ -78,5 +80,35 @@ class Rectangle extends Figure {
 }
 ```
 
+This class hierarchy corrects every shortcoming of tagged classes
 
+noted previously. The code is simple and clear, containing none of
+
+the boilerplate found in the original. The implementation of each
+
+flavor is allotted its own class, and none of these classes is
+
+encumbered by irrelevant data fields. All fields are final. The
+
+compiler ensures that each class’s constructor initializes its data
+
+fields and that each class has an implementation for every abstract
+
+method declared in the root class. This eliminates the possibility of
+
+a runtime failure due to a missing switch case. Multiple
+
+programmers can extend the hierarchy independently and
+
+interoperably without access to the source for the root class. There
+
+is a separate data type associated with each flavor, allowing
+
+programmers to indicate the flavor of a variable and to restrict
+
+variables and input parameters to a particular flavor.Another advantage of class hierarchies is that they can be made to
+
+reflect natural hierarchical relationships among types, allowing for
+
+increased flexibility and better compile-time type checking.
 
