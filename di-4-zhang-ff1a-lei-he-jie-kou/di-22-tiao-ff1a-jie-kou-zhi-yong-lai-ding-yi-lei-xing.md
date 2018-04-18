@@ -26,7 +26,7 @@ public interface PhysicalConstants {
 
 **The constant interface pattern is a poor use of interfaces.** That a class uses some constants internally is an implementation detail. Implementing a constant interface causes this implementation detail to leak into the class’s exported API. It is of no consequence to the users of a class that the class implements a constant interface. In fact, it may even confuse them. Worse, it represents a commitment: if in a future release the class is modified so that it no longer needs to use the constants, it still must implement the interface to ensure binary compatibility. If a nonfinal class implements a constant interface, all of its subclasses will have their namespaces polluted by the constants in the interface.
 
-**通过常量接口模式来使用接口是很糟糕的。**一个类是否要使用内部常量是属于它的实现细节。实现一个常量接口会导致类的导出API里泄露了这个实现细节。
+**通过常量接口模式来使用接口是很糟糕的。**一个类是否要使用内部常量是属于它的实现细节。实现一个常量接口会导致类的导出API里泄露了这个实现细节。一个类是否实现一个常量接口，对于该类的用户是没有影响的。事实上，这甚至会使他们感到困惑。更糟糕的是，它还代表了一个承诺：在未来的版本中，如果这个类被修改了，从此不再需要用到这些常量，但它为了保持二进制兼容性仍然必须实现这个接口。如果一个非final类实现了一个常量接口，那么它的所有子类的命名空间都将被接口的常量污染。
 
 There are several constant interfaces in the Java platform libraries, such as java.io.ObjectStreamConstants. These interfaces should be regarded as anomalies and should not be emulated.
 
