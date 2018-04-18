@@ -45,3 +45,5 @@ Such tagged classes have numerous shortcomings. They are cluttered with boilerpl
 
 Luckily, object-oriented languages such as Java offer a far better alternative for defining a single data type capable of representing objects of multiple flavors: subtyping. **A tagged class is just a pallid imitation of a class hierarchy.**
 
+幸运的是，像Java这类的面向对象语言提供了一个更好的方式来定义一个能表示多个风格对象的数据类型：子类型（subtyping）。**标签类仅仅是类层次的一个简单模仿。**
+
