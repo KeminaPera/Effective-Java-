@@ -6,5 +6,7 @@ A nested class is a class defined within another class. A nested class should ex
 
 A static member class is the simplest kind of nested class. It is best thought of as an ordinary class that happens to be declared inside another class and has access to all of the enclosing class’s members, even those declared private. A static member class is a static member of its enclosing class and obeys the same accessibility rules as other static members. If it is declared private, it is accessible only within the enclosing class, and so forth.
 
+静态成员类是最简单的嵌套类。我们可以把它看成是一个普通的类，只是这个类恰好在别的类的内部声明，而且可以访问外围类的所有成员，即使是那些私有成员。静态成员类是它的外围类的静态成员，与其它的静态成员一样有着相同的可访问性。如果它被声明成私有的，那么它就只能在它的外围类里被访问，等等。
+
 
 
