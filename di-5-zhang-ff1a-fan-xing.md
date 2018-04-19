@@ -1,4 +1,4 @@
 SINCE Java 5, generics have been a part of the language. Before generics, you had to cast every object you read from a collection. If someone accidentally inserted an object of the wrong type, casts could fail at runtime. With generics, you tell the compiler what types of objects are permitted in each collection. The compiler inserts casts for you automatically and tells you at compile time if you try to insert an object of the wrong type. This results in programs that are both safer and clearer, but these benefits, which are not limited to collections, come at a price. This chapter tells you how to maximize the benefits and minimize the complications.
 
-从Java 5开始，
+从Java 5开始，泛型就已经作为Java语言的一部分了。在泛型之前，对于每个从集合里读出的对象你都必须强转。如果有人不小心插入了一个错误类型的对象，那么在运行时强转会失败。有了泛型，你可以告诉编译器每个集合接受哪种类型的对象。编译器会自动地为你插入的元素进行强转，而且如果你插入了一个错误类型的对象，编译器还会在编译时告诉你。这使得程序不仅安全而且简洁，但这些好处不仅仅限于集合，而且付出了一定的代价。本章将告诉你如何最大化泛型的好处以及如何最小化它的复杂性。
 
