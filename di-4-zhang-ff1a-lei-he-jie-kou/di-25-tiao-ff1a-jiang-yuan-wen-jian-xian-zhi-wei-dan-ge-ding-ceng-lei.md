@@ -29,7 +29,7 @@ class Dessert {
 }
 ```
 
-Of course the main program prints pancake. 
+Of course the main program prints pancake.
 
 当然，主程序会打印出“pancake”。
 
@@ -47,13 +47,13 @@ class Dessert {
 }
 ```
 
-If you’re lucky enough to compile the program with the command javac Main.java Dessert.java, the compilation will fail, and the compiler will tell you that you’ve multiply defined the classes Utensil and Dessert. This is so because the compiler will first compile Main.java, and when it sees the reference to Utensil\(which precedes the reference to Dessert\), it will look in Utensil.java for this class and find both Utensil and Dessert. When the compiler encounters Dessert.java on the command line, it will pull in that file too, causing it to encounter both definitions of Utensil and Dessert. 
+If you’re lucky enough to compile the program with the command javac Main.java Dessert.java, the compilation will fail, and the compiler will tell you that you’ve multiply defined the classes Utensil and Dessert. This is so because the compiler will first compile Main.java, and when it sees the reference to Utensil\(which precedes the reference to Dessert\), it will look in Utensil.java for this class and find both Utensil and Dessert. When the compiler encounters Dessert.java on the command line, it will pull in that file too, causing it to encounter both definitions of Utensil and Dessert.
 
 如果你很幸运地在编译程序时用了命令“javac Main.java Dessert.java”，那么编译将会失败，而且编译器会告诉你多次定义了Utensil类和Dessert类。这是因为，编译器第一次编译Main.java时，当它看见指向Utensil类的引用（它在Dessert类引用之前）时，它将会在Utensil.java文件里查找这个类，然后同时找到了Utensil类和Dessert类。当编译器在命令行遇到Dessert.java时，它也将会在Dessert.java里查找这个类，导致它遇到了重复的Utensil类定义和Dessert类定义。
 
 If you compile the program with the command javac Main.java or javac Main.java Utensil.java, it will behave as it did before you wrote the Dessert.java file, printing pancake. But if you compile the program with the command javac Dessert.java Main.java, it will print potpie. The behavior of the program is thus affected by the order in which the source files are passed to the compiler, which is clearly unacceptable.
 
-如果你用命令“javac Main.java”或“javac Main.java Utensil.java”来编译程序，
+如果你用命令“javac Main.java”或“javac Main.java Utensil.java”来编译程序，它的行为将与你写Dessert.java文件之前的行为一样，打印出“pancake”。但如果用命令“javac Dessert.java Main.java”来编译程序，它将会打印出“potpie”。程序的行为受传递给编译器的源文件顺序的影响，很明显，这是无法接受的。
 
 Fixing the problem is as simple as splitting the top-level classes \(Utensil and Dessert, in the case of our example\) into separate source files. If you are tempted to put multiple top-level classes into a single source file, consider using static member classes \(Item 24\) as an alternative to splitting the classes into separate source files. If the classes are subservient to another class, making them into static member classes is generally the better alternative because it enhances readability and makes it possible to reduce the accessibility of the classes by declaring them private \(Item 15\). Here is how our example looks with static member classes:
 
