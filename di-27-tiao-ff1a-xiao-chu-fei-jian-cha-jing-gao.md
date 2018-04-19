@@ -37,6 +37,5 @@ Some warnings will be much more difficult to eliminate. This chapter is filled w
 
 If you can’t eliminate a warning, but you can prove that the code that provoked the warning is type safe, then \(and only then\) suppress the warning with an @SuppressWarnings\("unchecked"\) annotation. If you suppress warnings without first proving that the code is type safe, you are giving yourself a false sense of security. The code may compile without emitting any warnings, but it can still throw a ClassCastException at runtime. If, however, you ignore unchecked warnings that you know to be safe \(instead of suppressing them\), you won’t notice when a new warning crops up that represents a real problem. The new warning will get lost amidst all the false alarms that you didn’t silence.
 
-如果你无法消除某个警告，但你能证明引起这个警告的代码是类型安全的话，那么这时候（也只有这时候）可以用@SuppressWarnings\("unchecked"\)注解来禁止这个警告。如果你在没有事先证明代码是类型安全的情况下就禁止了警告，那么你就给了自己代码是安全的错误感觉。也许这么做之后在编译代码时不会出现任何警告，但它仍可以在运行时抛出ClassCastException异常。  
-
+如果你无法消除某个警告，但你能证明引起这个警告的代码是类型安全的话，那么这时候（也只有这时候）可以用@SuppressWarnings\("unchecked"\)注解来禁止这个警告。如果你在没有事先证明代码是类型安全的情况下就禁止了警告，那么你就给了自己代码是安全的错误感觉。也许这么做之后在编译代码时不会出现任何警告，但它仍可以在运行时抛出ClassCastException异常。然而，如果你忽略了（注意，是忽略，不是禁止）那些你知道认为是安全的未检查警告，那么当出现一个真的有问题的警告时你也不会发现。新的警告将会淹没在那些你没有禁止掉的错误警告里。
 
