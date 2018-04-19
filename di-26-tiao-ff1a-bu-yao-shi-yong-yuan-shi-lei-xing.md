@@ -58,7 +58,7 @@ private final Collection<Stamp> stamps = ... ;
 
 From this declaration, the compiler knows that stamps should contain only Stamp instances and guarantees it to be true, assuming your entire codebase compiles without emitting \(or suppressing; see Item 27\) any warnings. When stamps is declared with a parameterized type declaration, the erroneous insertion generates a compile-time error message that tells you exactly what is wrong:
 
-这么声明后，编译器知道了stamps应该只包含Stamp实例并且会保证这一点，假设
+这么声明后，编译器知道了stamps应该只包含Stamp实例并且会保证这一点，假设你的整个代码库编译时不发出任何警告（或抑制，见条目27）。若声明stamps时用了参数化类型声明，则插入不符类型的元素时将会生成编译时错误信息，告诉你哪里错了：
 
 ```
 Test.java:9: error: incompatible types: Coin cannot be converted to Stampc.add(new Coin());
