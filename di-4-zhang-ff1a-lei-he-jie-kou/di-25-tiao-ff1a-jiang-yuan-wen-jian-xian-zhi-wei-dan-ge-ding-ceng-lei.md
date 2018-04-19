@@ -57,6 +57,8 @@ If you compile the program with the command javac Main.java or javac Main.java U
 
 Fixing the problem is as simple as splitting the top-level classes \(Utensil and Dessert, in the case of our example\) into separate source files. If you are tempted to put multiple top-level classes into a single source file, consider using static member classes \(Item 24\) as an alternative to splitting the classes into separate source files. If the classes are subservient to another class, making them into static member classes is generally the better alternative because it enhances readability and makes it possible to reduce the accessibility of the classes by declaring them private \(Item 15\). Here is how our example looks with static member classes:
 
+修复这个问题的办法很简单，那就是将这些顶级类（在我们的例子中时Utensil类和Dessert类）分别写到各自的源文件里去。如果你尝试将多个顶级类放入同一个源文件，可以考虑使用静态成员类（条目）作为将不同类拆分为单独源文件的替代办法。
+
 ```
 // Static member classes instead of multiple top-level classes
 public class Test {
