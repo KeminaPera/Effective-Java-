@@ -65,47 +65,9 @@ Test.java:9: error: incompatible types: Coin cannot be converted to Stampc.add(n
                                                                                ^
 ```
 
-The compiler inserts invisible casts for you when retrieving
+The compiler inserts invisible casts for you when retrieving elements from collections and guarantees that they won’t fail \(assuming, again, that all of your code did not generate or suppress any compiler warnings\). While the prospect of accidentally inserting a coin into a stamp collection may appear far-fetched, the problem is real. For example, it is easy to imagine putting a BigInteger into a collection that is supposed to contain only BigDecimal instances.
 
-elements from collections and guarantees that they won’t fail
+当你从集合里获取元素时，编译器默默帮你做了强转的工作，保证了取出的元素是符合要求的（假设你所有的代码没有生成或抑制任何编译警告）。虽然不大可能将Coin对象插入Stamp集合里，但这个问题的确是存在的。例如，不难想象出将一个BigInteger放入一个本应该只能包含BigDecimal的集合。
 
-\(assuming, again, that all of your code did not generate or suppress
-
-any compiler warnings\). While the prospect of accidentally
-
-inserting a coin into a stamp collection may appear far-fetched, the
-
-problem is real. For example, it is easy to imagine putting
-
-a BigInteger into a collection that is supposed to contain
-
-only BigDecimal instances.
-
-As noted earlier, it is legal to use raw types \(generic types without
-
-their type parameters\), but you should never do it. If you use raw
-
-types, you lose all the safety and expressiveness benefits
-
-of generics. Given that you shouldn’t use them, why did the
-
-language designers permit raw types in the first place? For
-
-compatibility. Java was about to enter its second decade when
-
-generics were added, and there was an enormous amount of code
-
-in existence that did not use generics. It was deemed critical that
-
-all of this code remain legal and interoperate with newer code that
-
-does use generics. It had to be legal to pass instances of
-
-parameterized types to methods that were designed for use with
-
-raw types, and vice versa. This requirement, known as migration
-
-compatibility, drove the decisions to support raw types and to
-
-implement generics using erasure \(Item 28\).
+As noted earlier, it is legal to use raw types \(generic types without their type parameters\), but you should never do it.** If you use raw types, you lose all the safety and expressiveness benefits of generics.** Given that you shouldn’t use them, why did the language designers permit raw types in the first place? For compatibility. Java was about to enter its second decade when generics were added, and there was an enormous amount of code in existence that did not use generics. It was deemed critical that all of this code remain legal and interoperate with newer code that does use generics. It had to be legal to pass instances of parameterized types to methods that were designed for use with raw types, and vice versa. This requirement, known as migration compatibility, drove the decisions to support raw types and to implement generics using erasure \(Item 28\).
 
