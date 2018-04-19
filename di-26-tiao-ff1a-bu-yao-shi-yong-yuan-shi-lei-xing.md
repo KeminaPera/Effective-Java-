@@ -56,5 +56,15 @@ With generics, the type declaration contains the information, not the comment:
 private final Collection<Stamp> stamps = ... ;
 ```
 
+From this declaration, the compiler knows that stamps should
 
+contain only Stamp instances and guarantees it to be true, assuming
+
+your entire codebase compiles without emitting \(or suppressing;
+
+see Item 27\) any warnings. When stamps is declared with a
+
+parameterized type declaration, the erroneous insertion generates
+
+a compile-time error message that tells you exactly what is wrong:
 
