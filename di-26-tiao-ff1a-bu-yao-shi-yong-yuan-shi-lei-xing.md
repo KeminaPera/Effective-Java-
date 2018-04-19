@@ -10,6 +10,8 @@ Each generic type defines a set of parameterized types, which consist of the cla
 
 Finally, each generic type defines a raw type, which is the name of the generic type used without any accompanying type parameters \[JLS, 4.8\]. For example, the raw type corresponding to List&lt;E&gt; is List. Raw types behave as if all of the generic type information were erased from the type declaration. They exist primarily for compatibility with pre-generics code.
 
+最后，每个泛型类型定义了一个原始类型，即不带任何类型参数的泛型类型的名称。例如，List&lt;E&gt;对应的原始类型是List。原始类型看起来就像将所有的泛型类型信息从类型声明了去除了一样。它们的存在主要是为了兼容那些之前在泛型未出现时写的代码。
+
 Before generics were added to Java, this would have been an exemplary collection declaration. As of Java 9, it is still legal, but far from exemplary:
 
 ```
