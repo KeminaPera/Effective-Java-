@@ -14,11 +14,21 @@ Before generics were added to Java, this would have been an exemplary collection
 private final Collection stamps = ... ;
 ```
 
-If you use this declaration today and then accidentally put a coin
+If you use this declaration today and then accidentally put a coin into your stamp collection, the erroneous insertion compiles and runs without error \(though the compiler does emit a vague warning\):
 
-into your stamp collection, the erroneous insertion compiles and
+```
+// Erroneous insertion of coin into stamp collection
+stamps.add(new Coin( ... )); // Emits "unchecked call" warning
+```
 
-runs without error \(though the compiler does emit a vague
+You don’t get an error until you try to retrieve the coin from the stamp collection:
 
-warning\):
+```
+// Raw iterator type - don't do this!
+for (Iterator i = stamps.iterator(); i.hasNext(); )
+    Stamp stamp = (Stamp) i.next(); // Throws ClassCastException
+stamp.cancel();
+```
+
+
 
