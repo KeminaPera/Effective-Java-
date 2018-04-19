@@ -1,6 +1,8 @@
 ### 第26条：不要使用原始类型
 
-First, a few terms. A class or interface whose declaration has one or more type parameters is a genericclass or interface \[JLS, 8.1.2, 9.1.2\]. For example, the List interface has a single type parameter, E, representing its element type. The full name of the interface is List&lt;E&gt; \(read “list of E”\), but people often call it List for short. Generic classes and interfaces are collectively known as generic types.
+First, a few terms. A class or interface whose declaration has one or more type parameters is a generic class or interface \[JLS, 8.1.2, 9.1.2\]. For example, the List interface has a single type parameter, E, representing its element type. The full name of the interface is List&lt;E&gt; \(read “list of E”\), but people often call it List for short. Generic classes and interfaces are collectively known as generic types.
+
+首先，来介绍几个术语。泛型类或接口是指，声明里有一个或多个类型参数的类或接口\[JLS, 8.1.2, 9.1.2\]。例如，List接口就有一个类型参数，E，它表示了List的元素类型。接口的全名是List&lt;E&gt;（读作“E的列表”），但人们通常简称它为列表。泛型类和接口都被称为泛型类型。
 
 Each generic type defines a set of parameterized types, which consist of the class or interface name followed by an angle-bracketed list of actual type parameters corresponding to the generic type’s formal type parameters \[JLS, 4.4, 4.5\]. Forexample, List&lt;String&gt; \(read “list of string”\) is a parameterized type representing a list whose elements are of type String. \(String is the actual type parameter corresponding to the formal type parameter E.\)
 
@@ -21,7 +23,8 @@ If you use this declaration today and then accidentally put a coin into your sta
 stamps.add(new Coin( ... )); // Emits "unchecked call" warning
 ```
 
-You don’t get an error until you try to retrieve the coin from the stamp collection:
+You don’t get an error until you try to retrieve the coin from the  
+ stamp collection:
 
 ```
 // Raw iterator type - don't do this!
