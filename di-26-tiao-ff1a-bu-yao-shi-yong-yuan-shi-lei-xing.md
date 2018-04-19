@@ -45,7 +45,11 @@ for (Iterator i = stamps.iterator(); i.hasNext(); ) ｛
 
 As mentioned throughout this book, it pays to discover errors as soon as possible after they are made, ideally at compile time. In this case, you don’t discover the error until runtime, long after it has happened, and in code that may be distant from the code containing the error. Once you see the ClassCastException, you have to search through the codebase looking for the method invocation that put the coin into the stamp collection. The compiler can’t help you, because it can’t understand the comment that says, “Contains only Stamp instances.”
 
+正如本书提到的，出现错误后最好尽快发现，理想情况是在编译时就发现。在上面例子的情况下，直到运行时你才能发现问题，那时问题已经出现很久了，而且真正有问题的代码可能离直接出错的地方很远。在你看到ClassCastException后，你不得不搜索整个代码库，找出将Coin对象放入Stamp集合的方法调用。编译器无法提供帮助，因为它无法理解那句注释：只能包含Stamp实例。
+
 With generics, the type declaration contains the information, not the comment:
+
+而用了泛型后，类型声明里就包含了元素信息，而不仅仅是用注解来说明：
 
 ```
 // Parameterized collection type - typesafe
