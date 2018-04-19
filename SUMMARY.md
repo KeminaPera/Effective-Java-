@@ -31,5 +31,5 @@
   * [第25条：将源文件限制为单个顶级类](di-4-zhang-ff1a-lei-he-jie-kou/di-25-tiao-ff1a-jiang-yuan-wen-jian-xian-zhi-wei-dan-ge-ding-ceng-lei.md)
 * [第5章：泛型](di-5-zhang-ff1a-fan-xing.md)
   * [第26条：不要使用原始类型](di-26-tiao-ff1a-bu-yao-shi-yong-yuan-shi-lei-xing.md)
-  * [第27条：消除非检查警告](di-27-tiao-ff1a-xiao-chu-fei-jian-cha-jing-gao.md)
+  * [第27条：消除未检查警告](di-27-tiao-ff1a-xiao-chu-fei-jian-cha-jing-gao.md)
 
