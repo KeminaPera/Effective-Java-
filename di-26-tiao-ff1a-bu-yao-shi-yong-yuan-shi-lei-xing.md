@@ -14,7 +14,7 @@ Finally, each generic type defines a raw type, which is the name of the generic 
 
 Before generics were added to Java, this would have been an exemplary collection declaration. As of Java 9, it is still legal, but far from exemplary:
 
-在泛型被添加进Java之前，这是一个标准的集合声明。对于Java 9，这么声明仍然是合法的，但就并不是典型的声明了：
+在泛型被添加进Java之前，下面的例子是一个标准的集合声明。对于Java 9，这么声明仍然是合法的，但就并不是典型的声明了：
 
 ```
 // Raw collection type - don't do this!
@@ -24,7 +24,7 @@ private final Collection stamps = ... ;
 
 If you use this declaration today and then accidentally put a coin into your stamp collection, the erroneous insertion compiles and runs without error \(though the compiler does emit a vague warning\):
 
-如果
+如果到今天你还是用这种声明然后不小心往Stamp集合里放入了一个Coin对象，这种错误插入仍然可以编译而且运行也不会出错（虽然编译器会发出一个不明确的警告）：
 
 ```
 // Erroneous insertion of coin into stamp collection
