@@ -14,5 +14,11 @@ Before generics were added to Java, this would have been an exemplary collection
 private final Collection stamps = ... ;
 ```
 
+If you use this declaration today and then accidentally put a coin
 
+into your stamp collection, the erroneous insertion compiles and
+
+runs without error \(though the compiler does emit a vague
+
+warning\):
 
