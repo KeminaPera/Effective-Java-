@@ -39,3 +39,29 @@ If you can’t eliminate a warning, but you can prove that the code that provoke
 
 如果你无法消除某个警告，但你能证明引起这个警告的代码是类型安全的话，那么这时候（也只有这时候）可以用@SuppressWarnings\("unchecked"\)注解来禁止这个警告。如果你在没有事先证明代码是类型安全的情况下就禁止了警告，那么你就给了自己代码是安全的错误感觉。也许这么做之后在编译代码时不会出现任何警告，但它仍可以在运行时抛出ClassCastException异常。然而，如果你忽略了（注意，是忽略，不是禁止）那些你知道认为是安全的未检查警告，那么当出现一个真的有问题的警告时你也不会发现。新的警告将会淹没在那些你没有禁止掉的错误警告里。
 
+The SuppressWarnings annotation can be used on any declaration, from an individual local variable declaration to an entire class.Always use the SuppressWarnings annotation on the smallest scope possible.Typically this will be a variable declaration or a very short method or constructor. Never use SuppressWarnings on an entire class. Doing so could mask critical warnings.
+
+If you find yourself using the SuppressWarnings annotation on a method or constructor that’s more than one line long, you may be able to move it onto a local variable declaration. You may have to declare a new local variable, but it’s worth it. For example, consider this toArray method, which comes from ArrayList:
+
+```
+public <T> T[] toArray(T[] a) { 
+    if (a.length < size)
+        return (T[]) Arrays.copyOf(elements, size, a.getClass()); 
+    System.arraycopy(elements, 0, a, 0, size);
+    if (a.length > size)
+        a[size] = null; 
+    return a;
+}
+```
+
+If you compile ArrayList, the method generates this warning:
+
+```
+ArrayList.java:305: warning: [unchecked] unchecked cast return (T[]) Arrays.copyOf(elements, size, a.getClass());
+                                                                     ^ 
+required: T[]
+found: Object[]
+```
+
+
+
