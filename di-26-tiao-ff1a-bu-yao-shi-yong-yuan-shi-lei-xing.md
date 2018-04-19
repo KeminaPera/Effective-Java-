@@ -33,11 +33,14 @@ stamps.add(new Coin( ... )); // Emits "unchecked call" warning
 
 You don’t get an error until you try to retrieve the coin from the stamp collection:
 
+在你尝试从这个Stamp集合里获取Coin对象之前，你都不会遇到程序错误：
+
 ```
 // Raw iterator type - don't do this!
-for (Iterator i = stamps.iterator(); i.hasNext(); )
+for (Iterator i = stamps.iterator(); i.hasNext(); ) ｛
     Stamp stamp = (Stamp) i.next(); // Throws ClassCastException
-stamp.cancel();
+    stamp.cancel();
+｝
 ```
 
 
