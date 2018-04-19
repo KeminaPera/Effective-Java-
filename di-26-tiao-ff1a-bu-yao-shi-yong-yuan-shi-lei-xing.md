@@ -65,5 +65,47 @@ Test.java:9: error: incompatible types: Coin cannot be converted to Stampc.add(n
                                                                                ^
 ```
 
+The compiler inserts invisible casts for you when retrieving
 
+elements from collections and guarantees that they won’t fail
+
+\(assuming, again, that all of your code did not generate or suppress
+
+any compiler warnings\). While the prospect of accidentally
+
+inserting a coin into a stamp collection may appear far-fetched, the
+
+problem is real. For example, it is easy to imagine putting
+
+a BigInteger into a collection that is supposed to contain
+
+only BigDecimal instances.
+
+As noted earlier, it is legal to use raw types \(generic types without
+
+their type parameters\), but you should never do it. If you use raw
+
+types, you lose all the safety and expressiveness benefits
+
+of generics. Given that you shouldn’t use them, why did the
+
+language designers permit raw types in the first place? For
+
+compatibility. Java was about to enter its second decade when
+
+generics were added, and there was an enormous amount of code
+
+in existence that did not use generics. It was deemed critical that
+
+all of this code remain legal and interoperate with newer code that
+
+does use generics. It had to be legal to pass instances of
+
+parameterized types to methods that were designed for use with
+
+raw types, and vice versa. This requirement, known as migration
+
+compatibility, drove the decisions to support raw types and to
+
+implement generics using erasure \(Item 28\).
 
