@@ -120,5 +120,19 @@ static int numElementsInCommon(Set s1, Set s2) {
 }
 ```
 
+This method works but it uses raw types, which are dangerous. The
 
+safe alternative is to use unbounded wildcard types. If you want to
+
+use a generic type but you don’t know or care what the actual typeparameter is, you can use a question mark instead. For example,
+
+the unbounded wildcard type for the generic
+
+type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general
+
+parameterized Settype, capable of holding any set. Here is how
+
+the numElementsInCommon declaration looks with unbounded wildcard
+
+types:
 
