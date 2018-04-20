@@ -151,23 +151,13 @@ if (o instanceof Set) { // Raw type
 }
 ```
 
-Note that once you’ve determined that o is a Set, you must cast it to
+Note that once you’ve determined that o is a Set, you must cast it to the wildcard type Set&lt;?&gt;, not the raw type Set. This is a checked cast, so it will not cause a compiler warning.
 
-the wildcard type Set&lt;?&gt;, not the raw type Set. This is a checked cast,
+In summary, using raw types can lead to exceptions at runtime, so don’t use them. They are provided only for compatibility and interoperability with legacy code that predates the introduction of generics. As a quick review, Set&lt;Object&gt; is a parameterized typerepresenting a set that can contain objects of any type, Set&lt;?&gt; is a wildcard type representing a set that can contain only objects of some unknown type, and Set is a raw type, which opts out of the generic type system. The first two are safe, and the last is not.
 
-so it will not cause a compiler warning.
+For quick reference, the terms introduced in this item \(and a few
 
-In summary, using raw types can lead to exceptions at runtime, so
+introduced later in this chapter\) are summarized in the following
 
-don’t use them. They are provided only for compatibility and
-
-interoperability with legacy code that predates the introduction of
-
-generics. As a quick review, Set&lt;Object&gt; is a parameterized typerepresenting a set that can contain objects of any type, Set&lt;?&gt; is a
-
-wildcard type representing a set that can contain only objects of
-
-some unknown type, and Set is a raw type, which opts out of the
-
-generic type system. The first two are safe, and the last is not.
+table:
 
