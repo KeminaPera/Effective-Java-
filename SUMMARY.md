@@ -32,4 +32,5 @@
 * [第5章：泛型](di-5-zhang-ff1a-fan-xing.md)
   * [第26条：不要使用原始类型](di-26-tiao-ff1a-bu-yao-shi-yong-yuan-shi-lei-xing.md)
   * [第27条：消除未检查警告](di-27-tiao-ff1a-xiao-chu-fei-jian-cha-jing-gao.md)
+  * [第28条：列表优先于数组](di-28-tiao-ff1a-lie-biao-you-xian-yu-shu-zu.md)
 
