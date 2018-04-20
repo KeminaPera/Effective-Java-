@@ -94,5 +94,19 @@ Test.java:10: warning: [unchecked] unchecked call to add(E) as a member of the r
                                                                                                   ^
 ```
 
+And indeed, if you run the program, you get
 
+a ClassCastException when the program tries to cast the result of the
+
+invocation strings.get\(0\), which is an Integer, to a String. This is acompiler-generated cast, so it’s normally guaranteed to succeed,
+
+but in this case we ignored a compiler warning and paid the price.
+
+If you replace the raw type List with the parameterized
+
+type List&lt;Object&gt; in the unsafeAdd declaration and try to recompile
+
+the program, you’ll find that it no longer compiles but emits the
+
+error message:
 
