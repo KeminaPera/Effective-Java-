@@ -75,5 +75,13 @@ public class Chooser {
 }
 ```
 
+To use this class, you have to cast the choose method’s return value
 
+from Object to the desired type every time you use invoke the
+
+method, and the cast will fail at runtime if you get the type wrong.
+
+Taking the advice of Item 29 to heart, we attempt to
+
+modify Chooser to make it generic. Changes are shown in boldface:
 
