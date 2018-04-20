@@ -59,3 +59,15 @@ The prohibition on generic array creation can be annoying. It means, for example
 
 When you get a generic array creation error or an unchecked cast warning on a cast to an array type, the best solution is often to use the collection type List&lt;E&gt; in preference to the array type E\[\]. You might sacrifice some conciseness or performance, but in exchange you get better type safety and interoperability.
 
+For example, suppose you want to write a Chooser class with a
+
+constructor that takes a collection, and a single method that
+
+returns an element of the collection chosen at random. Depending
+
+on what collection you pass to the constructor, you could use achooser as a game die, a magic 8-ball, or a data source for a Monte
+
+Carlo simulation. Here’s a simplistic implementation without
+
+generics:
+
