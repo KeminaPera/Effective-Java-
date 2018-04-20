@@ -133,7 +133,7 @@ static int numElementsInCommon(Set<?> s1, Set<?> s2) { ... }
 
 What is the difference between the unbounded wildcard type Set&lt;?&gt; and the raw type Set? Does the question mark really buy you anything? Not to belabor the point, but the wildcard type is safe and the raw type isn’t. You can put any element into a collection with a raw type, easily corrupting the collection’s type invariant \(as demonstrated by the unsafeAdd method on page 119\); you can’t put any element \(other than null\) into a Collection&lt;?&gt;. Attempting to do so will generate a compile-time error message like this:
 
-那么，无限制通配符类型Set&lt;?&gt;和原始类型Set之间的区别又是什么呢？这个问号起了什么作用吗？
+那么，无限制通配符类型Set&lt;?&gt;和原始类型Set之间的区别又是什么呢？这个问号起了什么作用吗？起作用这点是毋庸置疑的，通配符是安全的而原始类型则不是。你可以将任意元素放入一个原始类型集合，轻而易举地破坏了集合的类型约束（就如前面描述的unsafeAdd方法），当你无法将任意元素（null除外）放入一个Collection&lt;?&gt;。试图这么做的化将产生编译时错误，错误信息就像下面这样子：
 
 ```
 WildCard.java:13: error: incompatible types: String cannot be converted to CAP#1 c.add("verboten");
