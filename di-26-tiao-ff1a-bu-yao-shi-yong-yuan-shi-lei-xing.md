@@ -143,3 +143,31 @@ Admittedly this error message leaves something to be desired, but the compiler h
 
 There are a few minor exceptions to the rule that you should not use raw types. You must use raw types in class literals. The specification does not permit the use of parameterized types \(though it does permit array types and primitive types\) \[JLS, 15.8.2\]. In other words, List.class, String\[\].class, and int.class are all legal, but List&lt;String&gt;.class and List&lt;?&gt;.classare not. A second exception to the rule concerns the instanceof operator. Because generic type information is erased at runtime, it is illegal to use the instanceof operator on parameterized types other than unbounded wildcard types. The use of unbounded wildcard types in place of raw types does not affect the behavior of the instanceof operator in any way. In this case, the angle brackets and question marks are just noise. This is the preferred way to use the instanceof operator with generic types:
 
+```
+// Legitimate use of raw type - instanceof operator
+if (o instanceof Set) { // Raw type
+    Set<?> s = (Set<?>) o; // Wildcard type
+    ...
+}
+```
+
+Note that once you’ve determined that o is a Set, you must cast it to
+
+the wildcard type Set&lt;?&gt;, not the raw type Set. This is a checked cast,
+
+so it will not cause a compiler warning.
+
+In summary, using raw types can lead to exceptions at runtime, so
+
+don’t use them. They are provided only for compatibility and
+
+interoperability with legacy code that predates the introduction of
+
+generics. As a quick review, Set&lt;Object&gt; is a parameterized typerepresenting a set that can contain objects of any type, Set&lt;?&gt; is a
+
+wildcard type representing a set that can contain only objects of
+
+some unknown type, and Set is a raw type, which opts out of the
+
+generic type system. The first two are safe, and the last is not.
+
