@@ -124,7 +124,7 @@ static int numElementsInCommon(Set s1, Set s2) {
 
 This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual type parameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Set type, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
 
-这个方法可以运行但它使用了原始类型，这是危险的。安全的方式是使用无限制通配符类型（unbounded wildcard types）。如果你想使用泛型类型，但你不知道或者不关心实际的类型尝试是什么，你可以用一个问好来替代。例如，泛型类型Set&lt;E&gt;的无限制通配符类型是Set&lt;?&gt;（读作，某些类型的集合）。
+这个方法可以运行但它使用了原始类型，这是危险的。安全的方式是使用无限制通配符类型（unbounded wildcard types）。如果你想使用泛型类型，但你不知道或者不关心实际的类型尝试是什么，你可以用一个问好来替代。例如，泛型类型Set&lt;E&gt;的无限制通配符类型是Set&lt;?&gt;（读作，某些类型的集合）。这是最通用的参数化Set类型，可以
 
 ```
 // Uses unbounded wildcard type - typesafe and flexible
