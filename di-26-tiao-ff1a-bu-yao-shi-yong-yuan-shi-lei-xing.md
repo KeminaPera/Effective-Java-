@@ -91,12 +91,16 @@ private static void unsafeAdd(List list, Object o) {
 
 This program compiles, but because it uses the raw type List, you get a warning:
 
+这段程序可以编译通过，但由于它使用了原始类型List，你会收到一个警告：
+
 ```
 Test.java:10: warning: [unchecked] unchecked call to add(E) as a member of the raw type List list.add(o);
                                                                                                   ^
 ```
 
-And indeed, if you run the program, you get a ClassCastException when the program tries to cast the result of the invocation strings.get\(0\), which is an Integer, to a String. This is acompiler-generated cast, so it’s normally guaranteed to succeed, but in this case we ignored a compiler warning and paid the price. If you replace the raw type List with the parameterized type List&lt;Object&gt; in the unsafeAdd declaration and try to recompile the program, you’ll find that it no longer compiles but emits the error message:
+And indeed, if you run the program, you get a ClassCastException when the program tries to cast the result of the invocation strings.get\(0\), which is an Integer, to a String. This is a compiler-generated cast, so it’s normally guaranteed to succeed, but in this case we ignored a compiler warning and paid the price. If you replace the raw type List with the parameterized type List&lt;Object&gt; in the unsafeAdd declaration and try to recompile the program, you’ll find that it no longer compiles but emits the error message:
+
+结果就是，如果你运行这段程序，程序会在试图将string.get\(0\)的调用结果从Integer强转为String时抛出一个ClassCastException异常。由于这是编译器生成的强转，所以通常会保证成功，但例子中我们忽略了那条编译器警告，因此而付出了代价。如果你在unsafeAdd方法的声明中将原始类型List替换为参数化类型List&lt;Object&gt;，并尝试着重新编译这段程序，你将会发现这段程序无法继续编译，而是出现了下面这条错误信息：
 
 ```
 Test.java:5: error: incompatible types: List<String> cannot be converted to List<Object> unsafeAdd(strings, Integer.valueOf(42));
