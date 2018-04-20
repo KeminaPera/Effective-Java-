@@ -147,7 +147,7 @@ Admittedly this error message leaves something to be desired, but the compiler h
 
 There are a few minor exceptions to the rule that you should not use raw types. **You must use raw types in class literals.** The specification does not permit the use of parameterized types \(though it does permit array types and primitive types\) \[JLS, 15.8.2\]. In other words, List.class, String\[\].class, and int.class are all legal, but List&lt;String&gt;.class and List&lt;?&gt;.classare not. A second exception to the rule concerns the instanceof operator. Because generic type information is erased at runtime, it is illegal to use the instanceof operator on parameterized types other than unbounded wildcard types. The use of unbounded wildcard types in place of raw types does not affect the behavior of the instanceof operator in any way. In this case, the angle brackets and question marks are just noise. This is the preferred way to use the instanceof operator with generic types:
 
-对于不应该使用原始类型这条规则，有两个小例外。**你必须在类字面值中使用原始类型。**这条规范不允许使用参数化类型（虽然它允许数组类型和基础类型）\[JLS, 15.8.2\]。换句话说，List.class，String\[\].class以及int.class都是合法的，但List&lt;String&gt;.class和List&lt;?&gt;.class则不是。第二个例外则与instanceof操作符有关。因为泛型类型信息在运行时是被擦除了的，所以在参数化类型而不是无限制通配符类型上用instanceof操作符是非法的。用无限制通配符类型来替换原始类型并不影响instanceof操作符的行为。在这种情况下，尖括号和问号是多余的。下面是instanceof操作符和通用类型一起用时的首选方式：
+对于不应该使用原始类型这条规则，有两个小例外。**你必须在类字面值中使用原始类型。**这条规范不允许使用参数化类型（虽然它允许数组类型和基础类型）\[JLS, 15.8.2\]。换句话说，List.class，String\[\].class以及int.class都是合法的，但List&lt;String&gt;.class和List&lt;?&gt;.class则不是。第二个例外则与instanceof操作符有关。因为泛型类型信息在运行时是被擦除了的，所以在参数化类型而不是无限制通配符类型上用instanceof操作符是非法的。用无限制通配符类型来替换原始类型并不影响instanceof操作符的行为。在这种情况下，尖括号和问号是多余的。在下面的例子中，泛型类型是使用instanceof操作符的首选方式：
 
 ```
 // Legitimate use of raw type - instanceof operator
@@ -159,14 +159,29 @@ if (o instanceof Set) { // Raw type
 
 Note that once you’ve determined that o is a Set, you must cast it to the wildcard type Set&lt;?&gt;, not the raw type Set. This is a checked cast, so it will not cause a compiler warning.
 
-In summary, using raw types can lead to exceptions at runtime, so don’t use them. They are provided only for compatibility and interoperability with legacy code that predates the introduction of generics. As a quick review, Set&lt;Object&gt; is a parameterized typerepresenting a set that can contain objects of any type, Set&lt;?&gt; is a wildcard type representing a set that can contain only objects of some unknown type, and Set is a raw type, which opts out of the generic type system. The first two are safe, and the last is not.
+注意，一旦你确定了o是一个Set对象，你必须将它强转为通配符类型Set&lt;?&gt;，而不是原始类型Set。这是一个检查的强转，所以它不会引起编译器警告。
+
+In summary, using raw types can lead to exceptions at runtime, so don’t use them. They are provided only for compatibility and interoperability with legacy code that predates the introduction of generics. As a quick review, Set&lt;Object&gt; is a parameterized type representing a set that can contain objects of any type, Set&lt;?&gt; is a wildcard type representing a set that can contain only objects of some unknown type, and Set is a raw type, which opts out of the generic type system. The first two are safe, and the last is not.
+
+总而言之，使用原始类型会导致运行时异常，所以不要使用它们。它们被提供仅是为了兼容性以及能与引入泛型之前的遗留代码互用。下面我们来快速回顾一下，Set&lt;Object&gt;是一个参数化的类型，表示一个可以包含任意类型的集合，Set&lt;?&gt;是一个通配符类型，表示一个只能包含某个未知类型的对象的集合，而Set是一个原始类型，不在泛型类型系统之内。前面两种是安全的，而最后一种是不安全的。
 
 For quick reference, the terms introduced in this item \(and a few introduced later in this chapter\) are summarized in the following table:
+
+为了方便快速参考，本条目介绍的术语（少数几个术语会在本章的后面进行介绍）总结成下面表格的内容：
 
 | 术语 | 例子 | 所在条目 |
 | :--- | :--- | :--- |
 | 参数化类型（Parameterized type） | List&lt;String&gt; | 条目26 |
-| 实际类型参数（Actual type parameter） |  |  |
+| 实际类型参数（Actual type parameter） | String | 条目26 |
+| 泛型类型（Generic type） | List&lt;E&gt; | 条目26 |
+| 形式类型参数（Formal type parameter） | E | 条目26 |
+| 无限制通配符类型（Unbounded wildcard type） | List&lt;?&gt; | 条目26 |
+| 原始类型（Raw type） | List | 条目26 |
+| 有限制类型参数（Bounded type parameter） | &lt;E extends Number&gt; | 条目29 |
+| 递归类型限制（Recursive type bound） | &lt;T extends Comparable&lt;T&gt;&gt; | 条目30 |
+| 有限制通配符类型（Bounded wildcard type） | List&lt;? extends Number&gt; | 条目31 |
+| 泛型方法（Generic method） | static &lt;E&gt; List&lt;E&gt; asList\(E\[\] a\) | 条目30 |
+| 类型令牌（Type token） | String.class | 条目33 |
 
 
 
