@@ -16,6 +16,29 @@ List<Object> ol = new ArrayList<Long>(); // Incompatible types
 ol.add("I don't fit in");
 ```
 
-  
+Either way you can’t put a String into a Long container, but with an
 
+array you find out that you’ve made a mistake at runtime; with a
+
+list, you find out at compile time. Of course, you’d rather find out
+
+at compile time.
+
+The second major difference between arrays and generics is that
+
+arrays are reified \[JLS, 4.7\]. This means that arrays know and
+
+enforce their element type at runtime. As noted earlier, if you try to
+
+put a String into an array of Long, you’ll get an ArrayStoreException.
+
+Generics, by contrast, are implemented by erasure \[JLS, 4.6\]. This
+
+means that they enforce their type constraints only at compile time
+
+and discard \(or erase\) their element type information at runtime.
+
+Erasure is what allowed generic types to interoperate freely withlegacy code that didn’t use generics \(Item 26\), ensuring a smooth
+
+transition to generics in Java 5.
 
