@@ -87,7 +87,5 @@ private static void unsafeAdd(List list, Object o) {
 }
 ```
 
-This program compiles, but because it uses the raw type List, you
-
-get a warning:
+This program compiles, but because it uses the raw type List, you get a warning:
 
