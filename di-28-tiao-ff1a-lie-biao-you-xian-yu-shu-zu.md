@@ -75,13 +75,17 @@ public class Chooser {
 }
 ```
 
-To use this class, you have to cast the choose method’s return value
+To use this class, you have to cast the choose method’s return value from Object to the desired type every time you use invoke the method, and the cast will fail at runtime if you get the type wrong. Taking the advice of Item 29 to heart, we attempt to modify Chooser to make it generic. Changes are shown in boldface:
 
-from Object to the desired type every time you use invoke the
+```
+// A first cut at making Chooser generic - won't compile
+public class Chooser<T> {
+    private final T[] choiceArray;
+    public Chooser(Collection<T> choices) {
+        choiceArray = choices.toArray();
+    }// choose method unchanged
+}
+```
 
-method, and the cast will fail at runtime if you get the type wrong.
 
-Taking the advice of Item 29 to heart, we attempt to
-
-modify Chooser to make it generic. Changes are shown in boldface:
 
