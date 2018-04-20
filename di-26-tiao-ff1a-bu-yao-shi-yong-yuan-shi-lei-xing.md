@@ -89,3 +89,10 @@ private static void unsafeAdd(List list, Object o) {
 
 This program compiles, but because it uses the raw type List, you get a warning:
 
+```
+Test.java:10: warning: [unchecked] unchecked call to add(E) as a member of the raw type List list.add(o);
+                                                                                                  ^
+```
+
+
+
