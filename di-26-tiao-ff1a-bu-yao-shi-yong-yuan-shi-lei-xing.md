@@ -155,9 +155,7 @@ Note that once you’ve determined that o is a Set, you must cast it to the wild
 
 In summary, using raw types can lead to exceptions at runtime, so don’t use them. They are provided only for compatibility and interoperability with legacy code that predates the introduction of generics. As a quick review, Set&lt;Object&gt; is a parameterized typerepresenting a set that can contain objects of any type, Set&lt;?&gt; is a wildcard type representing a set that can contain only objects of some unknown type, and Set is a raw type, which opts out of the generic type system. The first two are safe, and the last is not.
 
-For quick reference, the terms introduced in this item \(and a few
+For quick reference, the terms introduced in this item \(and a few introduced later in this chapter\) are summarized in the following table:
 
-introduced later in this chapter\) are summarized in the following
 
-table:
 
