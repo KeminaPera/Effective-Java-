@@ -107,13 +107,18 @@ Test.java:5: error: incompatible types: List<String> cannot be converted to List
                                                                                          ^
 ```
 
-You might be tempted to use a raw type for a collection whose
+You might be tempted to use a raw type for a collection whose element type is unknown and doesn’t matter. For example, suppose you want to write a method that takes two sets and returns the number of elements they have in common. Here’s how you might write such a method if you were new to generics:
 
-element type is unknown and doesn’t matter. For example,
+```
+// Use of raw type for unknown element type - don't do this!
+static int numElementsInCommon(Set s1, Set s2) {
+    int result = 0;
+    for (Object o1 : s1)
+        if (s2.contains(o1))
+            result++;
+    return result;
+}
+```
 
-suppose you want to write a method that takes two sets and
 
-returns the number of elements they have in common. Here’s how
-
-you might write such a method if you were new to generics:
 
