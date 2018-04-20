@@ -136,3 +136,10 @@ the numElementsInCommon declaration looks with unbounded wildcard
 
 types:
 
+```
+// Uses unbounded wildcard type - typesafe and flexible
+static int numElementsInCommon(Set<?> s1, Set<?> s2) { ... }
+```
+
+
+
