@@ -120,26 +120,28 @@ static int numElementsInCommon(Set s1, Set s2) {
 }
 ```
 
-This method works but it uses raw types, which are dangerous. The
-
-safe alternative is to use unbounded wildcard types. If you want to
-
-use a generic type but you don’t know or care what the actual typeparameter is, you can use a question mark instead. For example,
-
-the unbounded wildcard type for the generic
-
-type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general
-
-parameterized Settype, capable of holding any set. Here is how
-
-the numElementsInCommon declaration looks with unbounded wildcard
-
-types:
+This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual typeparameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Settype, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
 
 ```
 // Uses unbounded wildcard type - typesafe and flexible
 static int numElementsInCommon(Set<?> s1, Set<?> s2) { ... }
 ```
 
+What is the difference between the unbounded wildcard
 
+type Set&lt;?&gt; and the raw type Set? Does the question mark really buy
+
+you anything? Not to belabor the point, but the wildcard type is
+
+safe and the raw type isn’t. You can put any element into a
+
+collection with a raw type, easily corrupting the collection’s type
+
+invariant \(as demonstrated by the unsafeAdd method on page
+
+119\); you can’t put any element \(other than null\) into
+
+a Collection&lt;?&gt;. Attempting to do so will generate a compile-time
+
+error message like this:
 
