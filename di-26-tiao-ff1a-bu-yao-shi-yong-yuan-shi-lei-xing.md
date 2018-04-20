@@ -71,5 +71,7 @@ The compiler inserts invisible casts for you when retrieving elements from colle
 
 As noted earlier, it is legal to use raw types \(generic types without their type parameters\), but you should never do it.** If you use raw types, you lose all the safety and expressiveness benefits of generics.** Given that you shouldn’t use them, why did the language designers permit raw types in the first place? For compatibility. Java was about to enter its second decade when generics were added, and there was an enormous amount of code in existence that did not use generics. It was deemed critical that all of this code remain legal and interoperate with newer code that does use generics. It had to be legal to pass instances of parameterized types to methods that were designed for use with raw types, and vice versa. This requirement, known as migration compatibility, drove the decisions to support raw types and to implement generics using erasure \(Item 28\).
 
-如前面所说，使用原始类型（不包含类型参数的泛型类）是合法的，但你永远都不应该这么做。**如果你使用了原始类型，你将会失去泛型所带来的安全性和可读性。**既然不应该使用它们，那为什么Java语言设计者还要允许使用它们呢？这么做其实是为了兼容性。在泛型加入Java时，Java即将步入它的第二个十年，那会已经存在了大量没有使用泛型的代码。当时人们认为，让这些代码依旧合法存在而且能与使用了泛型的新代码互用这点是很重要的。将参数类型的实例传入
+如前面所说，使用原始类型（不包含类型参数的泛型类）是合法的，但你永远都不应该这么做。**如果你使用了原始类型，你将会失去泛型所带来的安全性和可读性。**既然不应该使用它们，那为什么Java语言设计者还要允许使用它们呢？这么做其实是为了兼容性。在泛型加入Java时，Java即将步入它的第二个十年，那会已经存在了大量没有使用泛型的代码。当时人们认为，让这些代码依旧合法存在而且能与使用了泛型的新代码互用这点是很重要的。将参数类型的实例传入之前那些为了使用原始类型而设计的方法，这必须是合法的，反之亦然。这种需求被称为移植兼容性（migration compatibility），它驱使了支持原始类型和使用擦除来实现泛型的决定（条目28）。
+
+
 
