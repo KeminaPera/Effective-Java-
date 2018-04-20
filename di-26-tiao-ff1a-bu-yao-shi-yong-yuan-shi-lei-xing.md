@@ -122,40 +122,21 @@ static int numElementsInCommon(Set s1, Set s2) {
 }
 ```
 
-This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual type parameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Settype, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
+This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual type parameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Set type, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
 
-这个方法可以运行但它使用了原始类型，这是危险的。安全的方式是使用无限制通配符类型（unbounded wildcard types）。如果你想使用泛型类型，但你不知道或者不关心实际的类型尝试是什么，你可以用一个问好来替代。例如，
+这个方法可以运行但它使用了原始类型，这是危险的。安全的方式是使用无限制通配符类型（unbounded wildcard types）。如果你想使用泛型类型，但你不知道或者不关心实际的类型尝试是什么，你可以用一个问好来替代。例如，泛型类型Set&lt;E&gt;的无限制通配符类型是Set&lt;?&gt;（读作，某些类型的集合）。
 
 ```
 // Uses unbounded wildcard type - typesafe and flexible
 static int numElementsInCommon(Set<?> s1, Set<?> s2) { ... }
 ```
 
-What is the difference between the unbounded wildcard
-
-type Set&lt;?&gt; and the raw type Set? Does the question mark really buy
-
-you anything? Not to belabor the point, but the wildcard type is
-
-safe and the raw type isn’t. You can put any element into a
-
-collection with a raw type, easily corrupting the collection’s type
-
-invariant \(as demonstrated by the unsafeAdd method on page
-
-119\); you can’t put any element \(other than null\) into
-
-a Collection&lt;?&gt;. Attempting to do so will generate a compile-time
-
-error message like this:
+What is the difference between the unbounded wildcard type Set&lt;?&gt; and the raw type Set? Does the question mark really buy you anything? Not to belabor the point, but the wildcard type is safe and the raw type isn’t. You can put any element into a collection with a raw type, easily corrupting the collection’s type invariant \(as demonstrated by the unsafeAdd method on page 119\); you can’t put any element \(other than null\) into a Collection&lt;?&gt;. Attempting to do so will generate a compile-time error message like this:
 
 ```
-WildCard.java:13: error: incompatible types: String cannot be
-converted to CAP#1
-c.add("verboten");
-^
-where CAP#1 is a fresh type-variable:
-CAP#1 extends Object from capture of ?
+WildCard.java:13: error: incompatible types: String cannot be converted to CAP#1 c.add("verboten");
+                                                                                   ^
+where CAP#1 is a fresh type-variable: CAP#1 extends Object from capture of ?
 ```
 
 
