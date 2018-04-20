@@ -109,6 +109,8 @@ Test.java:5: error: incompatible types: List<String> cannot be converted to List
 
 You might be tempted to use a raw type for a collection whose element type is unknown and doesn’t matter. For example, suppose you want to write a method that takes two sets and returns the number of elements they have in common. Here’s how you might write such a method if you were new to generics:
 
+对于元素类型未知而且不在乎元素类型的集合，也许你会想用原始类型。例如，假设你想写这么一个方法，它接受两个Set参数并返回它们公有元素的个数。如果你刚开始用泛型，你可能会像下面那样去写这个方法：
+
 ```
 // Use of raw type for unknown element type - don't do this!
 static int numElementsInCommon(Set s1, Set s2) {
@@ -120,7 +122,9 @@ static int numElementsInCommon(Set s1, Set s2) {
 }
 ```
 
-This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual typeparameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Settype, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
+This method works but it uses raw types, which are dangerous. The safe alternative is to use unbounded wildcard types. If you want to use a generic type but you don’t know or care what the actual type parameter is, you can use a question mark instead. For example, the unbounded wildcard type for the generic type Set&lt;E&gt; is Set&lt;?&gt; \(read “set of some type”\). It is the most general parameterized Settype, capable of holding any set. Here is how the numElementsInCommon declaration looks with unbounded wildcard types:
+
+这个方法可以运行但它使用了原始类型，这是危险的。安全的方式是使用无限制通配符类型（unbounded wildcard types）。如果你想使用泛型类型，但你不知道或者不关心实际的类型尝试是什么，你可以用一个问好来替代。例如，
 
 ```
 // Uses unbounded wildcard type - typesafe and flexible
@@ -144,4 +148,15 @@ invariant \(as demonstrated by the unsafeAdd method on page
 a Collection&lt;?&gt;. Attempting to do so will generate a compile-time
 
 error message like this:
+
+```
+WildCard.java:13: error: incompatible types: String cannot be
+converted to CAP#1
+c.add("verboten");
+^
+where CAP#1 is a fresh type-variable:
+CAP#1 extends Object from capture of ?
+```
+
+
 
