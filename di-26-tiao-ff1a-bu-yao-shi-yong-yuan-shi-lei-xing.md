@@ -139,45 +139,7 @@ WildCard.java:13: error: incompatible types: String cannot be converted to CAP#1
 where CAP#1 is a fresh type-variable: CAP#1 extends Object from capture of ?
 ```
 
-Admittedly this error message leaves something to be desired, but
+Admittedly this error message leaves something to be desired, but the compiler has done its job, preventing you from corrupting the collection’s type invariant, whatever its element type may be. Not only can’t you put any element \(other than null\) into a Collection&lt;?&gt;,but you can’t assume anything about the type of the objects that you get out. If these restrictions are unacceptable, you can use generic methods \(Item 30\) or bounded wildcard types \(Item 31\).
 
-the compiler has done its job, preventing you from corrupting the
-
-collection’s type invariant, whatever its element type may be. Not
-
-only can’t you put any element \(other than null\) into a Collection&lt;?&gt;,but you can’t assume anything about the type of the objects that
-
-you get out. If these restrictions are unacceptable, you can
-
-use generic methods \(Item 30\) or bounded wildcard types \(Item
-
-31\).
-
-There are a few minor exceptions to the rule that you should not
-
-use raw types. You must use raw types in class literals. The
-
-specification does not permit the use of parameterized types
-
-\(though it does permit array types and primitive types\) \[JLS,
-
-15.8.2\]. In other words, List.class, String\[\].class, and int.class are
-
-all legal, but List&lt;String&gt;.class and List&lt;?&gt;.classare not.
-
-A second exception to the rule concerns the instanceof operator.
-
-Because generic type information is erased at runtime, it is illegal
-
-to use the instanceof operator on parameterized types other than
-
-unbounded wildcard types. The use of unbounded wildcard types
-
-in place of raw types does not affect the behavior of
-
-the instanceof operator in any way. In this case, the angle brackets
-
-and question marks are just noise. This is the preferred way to
-
-use the instanceof operator with generic types:
+There are a few minor exceptions to the rule that you should not use raw types. You must use raw types in class literals. The specification does not permit the use of parameterized types \(though it does permit array types and primitive types\) \[JLS, 15.8.2\]. In other words, List.class, String\[\].class, and int.class are all legal, but List&lt;String&gt;.class and List&lt;?&gt;.classare not. A second exception to the rule concerns the instanceof operator. Because generic type information is erased at runtime, it is illegal to use the instanceof operator on parameterized types other than unbounded wildcard types. The use of unbounded wildcard types in place of raw types does not affect the behavior of the instanceof operator in any way. In this case, the angle brackets and question marks are just noise. This is the preferred way to use the instanceof operator with generic types:
 
