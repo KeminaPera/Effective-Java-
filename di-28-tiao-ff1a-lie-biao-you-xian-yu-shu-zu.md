@@ -59,6 +59,8 @@ Types such as E, List&lt;E&gt;, and List&lt;String&gt; are technically known as 
 
 The prohibition on generic array creation can be annoying. It means, for example, that it’s not generally possible for a generic collection to return an array of its element type \(but see Item 33 for a partial solution\). It also means that you get confusing warnings when using varargs methods \(Item 53\) in combination with generic types. This is because every time you invoke a varargs method, an array is created to hold the varargs parameters. If the element type of this array is not reifiable, you get a warning. The SafeVarargs annotation can be used to address this issue \(Item 32\).
 
+禁止创建泛型数组可能会让你觉得有点讨厌。例如，这意味着泛型集合一般都不大可能返回它的元素类型的数组（部分解决方案请见条目33）。而且还意味着，当你结合可变参数方法（条目53）和泛型类型一起使用时，你将会得到一些令人困惑的警告。这是因为，每次你调用一个可变参数方法时，Java都会创建一个数组用来存储可变参数的每个值。如果这个数组的元素类型是不可具化的，那么你将得到一个警告。SafeVarargs注解可以用来解决这个问题（条目32）。
+
 When you get a generic array creation error or an unchecked cast warning on a cast to an array type, the best solution is often to use the collection type List&lt;E&gt; in preference to the array type E\[\]. You might sacrifice some conciseness or performance, but in exchange you get better type safety and interoperability.
 
 For example, suppose you want to write a Chooser class with a constructor that takes a collection, and a single method that returns an element of the collection chosen at random. Depending on what collection you pass to the constructor, you could use achooser as a game die, a magic 8-ball, or a data source for a Monte Carlo simulation. Here’s a simplistic implementation without generics:
