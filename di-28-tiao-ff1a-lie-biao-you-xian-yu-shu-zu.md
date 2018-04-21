@@ -85,6 +85,8 @@ public class Chooser {
 
 To use this class, you have to cast the choose method’s return value from Object to the desired type every time you use invoke the method, and the cast will fail at runtime if you get the type wrong. Taking the advice of Item 29 to heart, we attempt to modify Chooser to make it generic. Changes are shown in boldface:
 
+为了正确使用这个类，每次你调用choose方法时都要将这个方法返回的值从Object类型强转为所需的类型，如果你获得的本来就是错误的类型，那么在运行时强转还会失败。根据条目29的建议，我们可以试着将Chooser泛型化。修改部分用黑体标识：
+
 ```
 // A first cut at making Chooser generic - won't compile
 public class Chooser<T> {
@@ -93,6 +95,18 @@ public class Chooser<T> {
         choiceArray = choices.toArray();
     }// choose method unchanged
 }
+```
+
+If you try to compile this class, you’ll get this error message:
+
+如果你尝试着编译这个类，你将获得一个错误信息：
+
+```
+Chooser.java:9: error: incompatible types: Object[] cannot be converted to T[]
+choiceArray = choices.toArray(); 
+                      ^
+where T is a type-variable:
+T extends Object declared in class Chooser
 ```
 
 
