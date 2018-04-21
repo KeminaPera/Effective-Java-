@@ -22,8 +22,7 @@ public class Stack {
         elements[size++] = e;
     }
     public Object pop() { 
-        if (size == 0)
-            throw new EmptyStackException();
+        if (size == 0) throw new EmptyStackException();
         Object result = elements[--size];
         elements[size] = null; // Eliminate obsolete reference return result;
     }
@@ -31,8 +30,7 @@ public class Stack {
         return size == 0;
     }
     private void ensureCapacity() { 
-        if (elements.length == size)
-            elements = Arrays.copyOf(elements, 2 * size + 1); 
+        if (elements.length == size) elements = Arrays.copyOf(elements, 2 * size + 1); 
     }
 }
 ```
