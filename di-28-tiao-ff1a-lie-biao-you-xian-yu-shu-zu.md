@@ -55,6 +55,8 @@ Let’s pretend that line 1, which creates a generic array, is legal. Line 2 cre
 
 Types such as E, List&lt;E&gt;, and List&lt;String&gt; are technically known as nonreifiable types \[JLS, 4.7\]. Intuitively speaking, a non-reifiable type is one whose runtime representation contains less information than its compile-time representation. Because of erasure, the only parameterized types that are reifiable are unbounded wildcard types such as List&lt;?&gt; and Map&lt;?,?&gt; \(Item 26\). It is legal, though rarely useful, to create arrays of unbounded wildcard types.
 
+诸如E，List&lt;E&gt;，和List&lt;String&gt;这些类型在技术上都被称为不可具化类型\[JLS, 4.7\]。直观点讲，不可具化类型就是运行时展示信息比编译时展示信息要少的类型。由于擦除的原因，唯一的可具化参数化类型是诸如List&lt;?&gt;和Map&lt;?,?&gt;子类的无限制通配符类型（条目26）。创建无限制通配符类型数组虽然很少用，但却是合法的。
+
 The prohibition on generic array creation can be annoying. It means, for example, that it’s not generally possible for a generic collection to return an array of its element type \(but see Item 33 for a partial solution\). It also means that you get confusing warnings when using varargs methods \(Item 53\) in combination with generic types. This is because every time you invoke a varargs method, an array is created to hold the varargs parameters. If the element type of this array is not reifiable, you get a warning. The SafeVarargs annotation can be used to address this issue \(Item 32\).
 
 When you get a generic array creation error or an unchecked cast warning on a cast to an array type, the best solution is often to use the collection type List&lt;E&gt; in preference to the array type E\[\]. You might sacrifice some conciseness or performance, but in exchange you get better type safety and interoperability.
