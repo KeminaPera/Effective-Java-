@@ -65,7 +65,9 @@ When you get a generic array creation error or an unchecked cast warning on a ca
 
 当你强转成数组类型时，若得到一个泛型数组创建错误或者未检查强转警告，最好的解决办法是，总是优先采用集合类型List&lt;E&gt;，而不是数组类型E\[\]。也许你会牺牲一点性能，但你获得了更好的类型安全性和互用性。
 
-For example, suppose you want to write a Chooser class with a constructor that takes a collection, and a single method that returns an element of the collection chosen at random. Depending on what collection you pass to the constructor, you could use achooser as a game die, a magic 8-ball, or a data source for a Monte Carlo simulation. Here’s a simplistic implementation without generics:
+For example, suppose you want to write a Chooser class with a constructor that takes a collection, and a single method that returns an element of the collection chosen at random. Depending on what collection you pass to the constructor, you could use a chooser as a game die, a magic 8-ball, or a data source for a Monte Carlo simulation. Here’s a simplistic implementation without generics:
+
+例如，假设你想编写一个Chooser类，它的构造器需要接收一个集合，然后它还有一个方法会随机返回集合的某个元素。
 
 ```
 // Chooser - a class badly in need of generics!
