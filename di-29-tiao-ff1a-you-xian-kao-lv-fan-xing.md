@@ -2,7 +2,11 @@
 
 It is generally not too difficult to parameterize your declarations and make use of the generic types and methods provided by the JDK. Writing your own generic types is a bit more difficult, but it’s worth the effort to learn how.
 
-Consider the simple \(toy\) stack implementation fromItem 7:
+通常，参数化你的声明并且利用JDK提供的泛型类型和方法不会很难。只是编写你自己的泛型类型会难一些，但学会如何编写是值得的。
+
+Consider the simple \(toy\) stack implementation from Item 7:
+
+考虑条目7里的栈的简单实现：
 
 ```
 // Object-based collection - a prime candidate for generics
@@ -14,7 +18,8 @@ public class Stack {
         elements = new Object[DEFAULT_INITIAL_CAPACITY];
     }
     public void push(Object e) { 
-        ensureCapacity(); elements[size++] = e;
+        ensureCapacity(); 
+        elements[size++] = e;
     }
     public Object pop() { 
         if (size == 0)
