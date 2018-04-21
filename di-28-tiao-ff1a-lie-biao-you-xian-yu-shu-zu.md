@@ -67,7 +67,7 @@ When you get a generic array creation error or an unchecked cast warning on a ca
 
 For example, suppose you want to write a Chooser class with a constructor that takes a collection, and a single method that returns an element of the collection chosen at random. Depending on what collection you pass to the constructor, you could use a chooser as a game die, a magic 8-ball, or a data source for a Monte Carlo simulation. Here’s a simplistic implementation without generics:
 
-例如，假设你想编写一个Chooser类，它的构造器需要接收一个集合，然后它还有一个方法会随机返回集合的某个元素。由于你可以往构造器里传入不同的集合，所以你可以用Chooser对象作为游戏模型，作为魔术8球，或者作为蒙特卡洛模拟的数据源。
+例如，假设你想编写一个Chooser类，它的构造器需要接收一个集合，然后它还有一个方法会随机返回集合的某个元素。由于你可以往构造器里传入不同的集合，所以你可以用Chooser对象作为游戏模型，作为魔术8球，或者作为蒙特卡洛模拟的数据源。下面是在不采用泛型的情况下的一个简单实现：
 
 ```
 // Chooser - a class badly in need of generics!
