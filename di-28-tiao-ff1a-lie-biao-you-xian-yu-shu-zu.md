@@ -109,5 +109,26 @@ where T is a type-variable:
 T extends Object declared in class Chooser
 ```
 
+No big deal, you say, I’ll cast the Object array to a T array:
+
+你可能会说，没事，我可以将Object数组强转成T数组：
+
+```
+choiceArray = (T[]) choices.toArray();
+```
+
+This gets rid of the error, but instead you get a warning:
+
+这么做的话错误是去除了，但你会得到一个警告：
+
+```
+Chooser.java:9: warning: [unchecked] unchecked cast 
+choiceArray = (T[]) choices.toArray();
+                            ^
+required: T[], found: Object[]
+where T is a type-variable:
+T extends Object declared in class Chooser
+```
+
 
 
