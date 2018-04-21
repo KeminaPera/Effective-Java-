@@ -130,5 +130,29 @@ where T is a type-variable:
 T extends Object declared in class Chooser
 ```
 
+The compiler is telling you that it can’t vouch for the safety of the cast at runtime because the program won’t know what type T represents—remember, element type information is erased from generics at runtime. Will the program work? Yes, but the compiler can’t prove it. You could prove it to yourself, put the proof in a comment and suppress the warning with an annotation, but you’re better off eliminating the cause of warning \(Item 27\). To eliminate the unchecked cast warning, use a list instead of an array. Here is a version of the Chooser class that compiles without error or warning:
 
+编译器正试图告诉你它无法保证运行时强转的安全性，因为程序无法知道T代表什么类型—记住，元素类型信息在运行时从泛型里擦除了。那这段程序能工作吗？可以，但编译器无法证明这点。你可以向你自己证明它可以跑起来，在注释里写上证明同时用注解来禁止警告，但最好还是消除引起警告的原因（条目27）。为了消除这个未检查强转警告，可以用列表，而不是数组。下面这个版本的Chooser类在编译时就不会产生错误或者警告：
+
+```
+// List-based Chooser - typesafe
+public class Chooser<T> {
+    private final List<T> choiceList;
+    public Chooser(Collection<T> choices) { 
+        choiceList = new ArrayList<>(choices);
+    }
+    public T choose() {
+        Random rnd = ThreadLocalRandom.current();
+        return choiceList.get(rnd.nextInt(choiceList.size()));
+    } 
+}
+```
+
+This version is a tad more verbose, and perhaps a tad slower, but it’s worth it for the peace of mind that you won’t get a ClassCastException at runtime.
+
+这个版本的代码可能有点冗长，也许还会有点慢，但你就不要担心在运行时得到ClassCastException异常。
+
+In summary, arrays and generics have very different type rules. Arrays are covariant and reified; generics are invariant and erased. As a consequence, arrays provide runtime type safety but not compile-time type safety, and vice versa for generics. As a rule, arrays and generics don’t mix well. If you find yourself mixing them and getting compile-time errors or warnings, your first impulse should be to replace the arrays with lists.
+
+总之，数组和泛型有着不同的类型规则。
 
