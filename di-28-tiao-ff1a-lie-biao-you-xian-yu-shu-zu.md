@@ -154,5 +154,5 @@ This version is a tad more verbose, and perhaps a tad slower, but it’s worth i
 
 In summary, arrays and generics have very different type rules. Arrays are covariant and reified; generics are invariant and erased. As a consequence, arrays provide runtime type safety but not compile-time type safety, and vice versa for generics. As a rule, arrays and generics don’t mix well. If you find yourself mixing them and getting compile-time errors or warnings, your first impulse should be to replace the arrays with lists.
 
-总之，数组和泛型有着不同的类型规则。
+总之，数组和泛型有着不同的类型规则。数组是协变的并可具化的；泛型是受约束并且可擦除的。因此，数组提供了运行时类型安全性但不保证编译时类型安全性，泛型则反过来。通常，数组和泛型不能很好混用。如果你发现你混用了它们而且得到编译时错误或警告，你的第一反应应该是用列表替代数组。
 
