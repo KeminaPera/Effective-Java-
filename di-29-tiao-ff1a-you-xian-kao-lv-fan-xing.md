@@ -92,7 +92,7 @@ The compiler may not be able to prove that your program is type safe, but you ca
 
 Once you’ve proved that an unchecked cast is safe, suppress the warning in as narrow a scope as possible \(Item 27\). In this case, the constructor contains only the unchecked array creation, so it’s appropriate to suppress the warning in the entire constructor. With the addition of an annotation to do this, Stack compiles cleanly, and you can use it without explicit casts or fear of a ClassCastException:
 
-一旦你证明了未检查强转是安全的，就在尽量小的范围内去禁止警告（条目27）。根据这一点，由于Stack类的构造器只包含未检查数组的创建，所以在整个构造器上去禁止这个警告是合适的。
+一旦你证明了未检查强转是安全的，就在尽量小的范围内去禁止警告（条目27）。根据这一点，由于Stack类的构造器只包含未检查数组的创建，所以在构造器方法上去禁止这个警告是合适的。加上这个注解后，Stack类在编译时就显得清爽了，而且你不用显示强转或者担心ClassCastException异常：
 
 ```
 // The elements array will contain only E instances from push(E).
