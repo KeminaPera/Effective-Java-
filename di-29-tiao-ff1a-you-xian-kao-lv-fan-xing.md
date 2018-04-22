@@ -88,6 +88,8 @@ elements = (E[]) new Object[DEFAULT_INITIAL_CAPACITY];
 
 The compiler may not be able to prove that your program is type safe, but you can. You must convince yourself that the unchecked cast will not compromise the type safety of the program. The array in question \(elements\) is stored in a private field and never returned to the client or passed to any other method. The only elements stored in the array are those passed to the push method, which are of typeE, so the unchecked cast can do no harm.
 
+编译器无法证明你的程序是类型安全的，但你可以。你必须说服自己这个未检查强转不会损害程序的类型安全性。相关的数组elements存储在一个私有域里，并且永远不会返回给客户端或
+
 Once you’ve proved that an unchecked cast is safe, suppress the warning in as narrow a scope as possible \(Item 27\). In this case, the constructor contains only the unchecked array creation, so it’s appropriate to suppress the warning in the entire constructor. With the addition of an annotation to do this,Stack compiles cleanly, and you can use it without explicit casts or fear of a ClassCastException:
 
 ```
