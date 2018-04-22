@@ -117,6 +117,8 @@ E result = elements[--size];
 
 You can change this error into a warning by casting the element retrieved from the array to E, but you will get a warning:
 
+通过将取出的元素强转成E，可以将这个错误变成一条警告：
+
 ```
 Stack.java:19: warning: [unchecked] unchecked cast 
 found: Object, required: E
