@@ -90,9 +90,9 @@ The compiler may not be able to prove that your program is type safe, but you ca
 
 编译器无法证明你的程序是类型安全的，但你可以。你必须说服自己这个未检查强转不会损害程序的类型安全性。相关的数组elements存储在一个私有域里，并且永远不会返回给客户端或作为参数传给另一个方法。存储在数组里的都是由push方法传进来的类型为E的元素，所以未检查强转不会带来什么危害。
 
-Once you’ve proved that an unchecked cast is safe, suppress the warning in as narrow a scope as possible \(Item 27\). In this case, the constructor contains only the unchecked array creation, so it’s appropriate to suppress the warning in the entire constructor. With the addition of an annotation to do this,Stack compiles cleanly, and you can use it without explicit casts or fear of a ClassCastException:
+Once you’ve proved that an unchecked cast is safe, suppress the warning in as narrow a scope as possible \(Item 27\). In this case, the constructor contains only the unchecked array creation, so it’s appropriate to suppress the warning in the entire constructor. With the addition of an annotation to do this, Stack compiles cleanly, and you can use it without explicit casts or fear of a ClassCastException:
 
-一旦你证明了未检查强转是安全的，就在尽量小的范围内去禁止这些警告（条目27）。根据这一点，Stack类的构造器应该只包含未检查数组的创建，
+一旦你证明了未检查强转是安全的，就在尽量小的范围内去禁止警告（条目27）。根据这一点，由于Stack类的构造器只包含未检查数组的创建，所以在整个构造器上去禁止这个警告是合适的。
 
 ```
 // The elements array will contain only E instances from push(E).
