@@ -37,7 +37,11 @@ public class Stack {
 
 This class should have been parameterized to begin with, but since it wasn’t, we can generify it after the fact. In other words, we can parameterize it without harming clients of the original non-parameterized version. As it stands, the client has to cast objects that are popped off the stack, and those casts might fail at runtime. The first step in generifying a class is to add one or more type parameters to its declaration. In this case there is one type parameter, representing the element type of the stack, and the conventional name for this type parameter is E\(Item 68\).
 
+这个类一开始就应该参数化，但既然现在没有，没关系，我们接下来就泛型化它。换句话说，我们可以参数化它，而且不用破坏那些使用了原本未参数化版本的客户端。就目前来看，客户端必须将从栈里弹出的对象进行强转，而且在运行时这些强转还有可能失败。将类泛型化的第一步是在它的声明里添加一个或多个类型参数。根据这个步骤要求，需要有一个类型参数来表示栈的元素类型，通常用E作为这个类型参数的名字（条目68）。
+
 The next step is to replace all the uses of the type Object with the appropriate type parameter and then try to compile the resulting program:
+
+下一步，用恰当的类型参数把所有使用了Object类型的地方给替换了，然后试着编译替换后的程序：
 
 ```
 // Initial attempt to generify Stack - won't compile! 
@@ -57,11 +61,13 @@ public class Stack<E> {
         E result = elements[--size];
         elements[size] = null; // Eliminate obsolete reference return result;
     }
-... // no changes in isEmpty or ensureCapacity 
+    ... // no changes in isEmpty or ensureCapacity 
 }
 ```
 
 You’ll generally get at least one error or warning, and this class is no exception. Luckily, this class generates only one error:
+
+一般情况下，你会得到至少一个错误或者警告，上述那个类也不例外。幸运的事，它只产生了一个错误：
 
 ```
 Stack.java:8: generic array creation
@@ -69,7 +75,9 @@ elements = new E[DEFAULT_INITIAL_CAPACITY];
 ^
 ```
 
-As explained inItem 28, you can’t create an array of a non-reifiable type, such as E. This problem arises every time you write a generic type that is backed by an array. There are two reasonable ways to solve it. The first solution directly circumvents the prohibition on generic array creation: create an array of Object and cast it to the generic array type. Now in place of an error, the compiler will emit a warning. This usage is legal, but it’s not \(in general\) type safe:
+As explained in Item 28, you can’t create an array of a non-reifiable type, such as E. This problem arises every time you write a generic type that is backed by an array. There are two reasonable ways to solve it. The first solution directly circumvents the prohibition on generic array creation: create an array of Object and cast it to the generic array type. Now in place of an error, the compiler will emit a warning. This usage is legal, but it’s not \(in general\) type safe:
+
+就像条目28里解释的那样，你无法创建一个不可具化类型（如E）的数组。每次你编写一个泛型类型数组时都会出现这个问题。有两种合理的方式来解决这个问题。第一种办法是直接绕过对泛型数组创建的禁用：
 
 ```
 Stack.java:8: warning: [unchecked] unchecked cast 
