@@ -106,6 +106,8 @@ public Stack() {
 
 The second way to eliminate the generic array creation error in Stack is to change the type of the field elements from E\[\] to Object\[\]. If you do this, you’ll get a different error:
 
+消除Stack类的泛型数组创建错误的第二种方法是，将域elements的元素从E\[\]转换成Object\[\]。如果你这么做了，那么你将会得到一个不同的错误：
+
 ```
 Stack.java:19: incompatible types 
 found: Object, required: E
