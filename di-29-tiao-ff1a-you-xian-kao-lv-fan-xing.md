@@ -77,7 +77,7 @@ elements = new E[DEFAULT_INITIAL_CAPACITY];
 
 As explained in Item 28, you can’t create an array of a non-reifiable type, such as E. This problem arises every time you write a generic type that is backed by an array. There are two reasonable ways to solve it. The first solution directly circumvents the prohibition on generic array creation: create an array of Object and cast it to the generic array type. Now in place of an error, the compiler will emit a warning. This usage is legal, but it’s not \(in general\) type safe:
 
-就像条目28里解释的那样，你无法创建一个不可具化类型（如E）的数组。每次你编写一个泛型类型数组时都会出现这个问题。有两种合理的方式来解决这个问题。第一种办法是直接绕过对泛型数组创建的禁用：
+就像条目28里解释的那样，你无法创建一个不可具化类型（如E）的数组。每次你编写一个泛型类型数组时都会出现这个问题。有两种合理的方式来解决这个问题。第一种办法是直接绕过对泛型数组创建的禁用：创建一个Object数组然后将它强转为泛型数组类型。现在编译器出现了一个警告，而不是错误。这种用法是合法的，但（通常）不是类型安全的：
 
 ```
 Stack.java:8: warning: [unchecked] unchecked cast 
