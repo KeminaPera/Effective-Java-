@@ -60,5 +60,17 @@ public static void main(String[] args) {
 }
 ```
 
+When you run the program, it prints \[Moe, Tom, Harry, Larry, Curly,
 
+Dick\]. \(The order of the elements in the output is
+
+implementation-dependent.\)
+
+A limitation of the union method is that the types of all three sets
+
+\(both input parameters and the return value\) have to be exactly the
+
+same. You can make the method more flexible by using bounded
+
+wildcard types \(Item 31\).
 
