@@ -60,17 +60,9 @@ public static void main(String[] args) {
 }
 ```
 
-When you run the program, it prints \[Moe, Tom, Harry, Larry, Curly,
+When you run the program, it prints \[Moe, Tom, Harry, Larry, Curly, Dick\]. \(The order of the elements in the output is implementation-dependent.\)
 
-Dick\]. \(The order of the elements in the output is
+当你运行这段程序时，它会打印\[Moe, Tom, Harry, Larry, Curly, Dick\]。（输出元素的次序基于实现。）
 
-implementation-dependent.\)
-
-A limitation of the union method is that the types of all three sets
-
-\(both input parameters and the return value\) have to be exactly the
-
-same. You can make the method more flexible by using bounded
-
-wildcard types \(Item 31\).
+A limitation of the union method is that the types of all three sets \(both input parameters and the return value\) have to be exactly the same. You can make the method more flexible by using bounded wildcard types \(Item 31\).
 
