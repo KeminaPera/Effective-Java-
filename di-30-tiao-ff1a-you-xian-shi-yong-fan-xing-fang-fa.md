@@ -152,7 +152,11 @@ public static <E extends Comparable<E>> E max(Collection<E> c) {
 
 Note that this method throws IllegalArgumentException if the list is empty. A better alternative would be to return an Optional&lt;E&gt; \(Item 55\).
 
+注意，当列表是空的时候，这个方法会抛出IllegalArgumentException异常。一种更好的办法是返回一个Optional&lt;E&gt;（条目55）。
+
 Recursive type bounds can get much more complex, but luckily they rarely do. If you understand this idiom, its wildcard variant \(Item 31\), and the simulated self-type idiom \(Item 2\), you’ll be able to deal with most of the recursive type bounds you encounter in practice.
+
+递归类型限制可能会更复杂，但幸运的是，这种情况并不常发生。如果你理解这个用法，它的通配符约束（条目31），以及模拟的自我类型用法（条目 2），你将能处理实际遇到的大多数递归类型限制。
 
 In summary, generic methods, like generic types, are safer and easier to use than methods requiring their clients to put explicit casts on input parameters and return values. Like types, you should make sure that your methods can be used without casts, which often means making them generic. And like types, you should generify existing methods whose use requires casts. This makes life easier for new users without breaking existing clients \(Item 26\).
 
