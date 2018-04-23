@@ -6,6 +6,8 @@ As noted in Item 28, parameterized types are invariant. In other words, for any 
 
 Sometimes you need more flexibility than invariant typing can provide. Consider the Stack class from Item 29. To refresh your memory, here is its public API:
 
+有时，不可变类型不足以为我们提供足够的灵活性。考虑条目29的Stack类。我们来回忆一下，下面是它的公共API：
+
 ```
 public class Stack<E> {
     public Stack();
