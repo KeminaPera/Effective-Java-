@@ -130,5 +130,7 @@ Many methods take a collection of elements implementing Comparable to sort it, s
 public static <E extends Comparable<E>> E max(Collection<E> c);
 ```
 
+The type bound &lt;E extends Comparable&lt;E&gt;&gt; may be read as “any type E that can be compared to itself,” which corresponds more or less precisely to the notion of mutual comparability.
 
+Here is a method to go with the previous declaration. It calculates the maximum value in a collection according to its elements’ natural order, and it compiles without errors or warnings:
 
