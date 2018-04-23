@@ -35,4 +35,5 @@
   * [第28条：列表优先于数组](di-28-tiao-ff1a-lie-biao-you-xian-yu-shu-zu.md)
   * [第29条：优先考虑泛型](di-29-tiao-ff1a-you-xian-kao-lv-fan-xing.md)
   * [第30条：优先使用泛型方法](di-30-tiao-ff1a-you-xian-shi-yong-fan-xing-fang-fa.md)
+  * [第31条：使用有限制通配符来增加API的灵活性](di-31-tiao-ff1a-shiyong-you-xian-zhi-tong-pei-fu-lai-zeng-jia-api-de-ling-huo-xing.md)
 
