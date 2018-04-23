@@ -62,19 +62,5 @@ public void pushAll(Iterable<? extends E> src) {
 }
 ```
 
-With this change, not only does Stack compile cleanly, but so does
-
-the client code that wouldn’t compile with the
-
-original pushAll declaration. Because Stack and its client compile
-
-cleanly, you know that everything is typesafe.
-
-Now suppose you want to write a popAll method to go with pushAll.
-
-The popAll method pops each element off the stack and adds the
-
-elements to the given collection. Here’s how a first attempt at
-
-writing the popAll method might look:
+With this change, not only does Stack compile cleanly, but so does the client code that wouldn’t compile with the original pushAll declaration. Because Stack and its client compile cleanly, you know that everything is typesafe. Now suppose you want to write a popAll method to go with pushAll. The popAll method pops each element off the stack and adds the elements to the given collection. Here’s how a first attempt at writing the popAll method might look:
 
