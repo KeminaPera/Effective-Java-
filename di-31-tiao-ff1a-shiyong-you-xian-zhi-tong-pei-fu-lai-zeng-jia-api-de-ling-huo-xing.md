@@ -64,7 +64,7 @@ public void pushAll(Iterable<? extends E> src) {
 
 With this change, not only does Stack compile cleanly, but so does the client code that wouldn’t compile with the original pushAll declaration. Because Stack and its client compile cleanly, you know that everything is typesafe. Now suppose you want to write a popAll method to go with pushAll. The popAll method pops each element off the stack and adds the elements to the given collection. Here’s how a first attempt at writing the popAll method might look:
 
-修改之后，不仅Stack类编译不会出现任何问题，而且使用了原始pushAll方法的客户端代码编译也同样不会出现任何问题。因为Stack类和它的客户端都能完美编译，所以你可以确定一切都是类型安全的了。
+修改之后，不仅Stack类编译不会出现任何问题，而且使用了原始pushAll方法的客户端代码编译也同样不会出现任何问题。因为Stack类和它的客户端都能完美编译，所以你可以确定一切都是类型安全的了。现在假设你想给pushAll方法写一个对应的popAll方法。popAll方法将栈里的每一个元素依次弹出，并将弹出的元素添加到指定的集合里去。我们先来试着写popAll方法的第一个版本，如下所示：
 
 ```
 // popAll method without wildcard type - deficient!
@@ -74,5 +74,7 @@ public void popAll(Collection<E> dst) {
 }
 ```
 
+Again, this compiles cleanly and works fine if the element type of the destination collection exactly matches that of the stack. But again, it isn’t entirely satisfactory. Suppose you have a Stack&lt;Number&gt; and variable of type Object. If you pop an element from the stack and store it in the variable, it compiles and runs without error. So shouldn’t you be able to do this, too?
 
+同样，上面的方法编译也没有任何问题，而且在指定集合的元素类型与栈的元素类型完全一致的情况下，这个方法也能正确运行。但它也同样不能完全满足我们的要求。假设你有一个Stack&lt;Number&gt;和一个类型为Object的变量。如果你从栈里弹出一个元素并将它存储在变量里，它编译和运行都没有错误。那么为什么你不应该这么做？
 
