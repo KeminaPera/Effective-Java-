@@ -33,5 +33,21 @@ result.addAll(s2);
 ^
 ```
 
+To fix these warnings and make the method typesafe, modify its
 
+declaration to declare a type parameter representing the element
+
+type for the three sets \(the two arguments and the return value\)
+
+and use this type parameter throughout the method. The type
+
+parameter list, which declares the type parameters, goes
+
+between a method’s modifiers and its return type. In this
+
+example, the type parameter list is &lt;E&gt;, and the return type is Set&lt;E&gt;.
+
+The naming conventions for type parameters are the same for
+
+generic methods and generic types \(Items 29, 68\):
 
