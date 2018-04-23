@@ -66,3 +66,5 @@ When you run the program, it prints \[Moe, Tom, Harry, Larry, Curly, Dick\]. \(T
 
 A limitation of the union method is that the types of all three sets \(both input parameters and the return value\) have to be exactly the same. You can make the method more flexible by using bounded wildcard types \(Item 31\).
 
+这个union方法的一个限制是，三个集合（即两个输入参数和返回值）的类型都必须是完全一致的。通过使用有限制通配符类型，你可以让这个方法变得更灵活（条目31）。
+
