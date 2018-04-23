@@ -72,3 +72,14 @@ On occasion, you will need to create an object that is immutable but applicable 
 
 Suppose that you want to write an identity function dispenser. The libraries provide Function.identity, so there’s no reason to write your own \(Item 59\), but it is instructive. It would be wasteful to create a new identity function object time one is requested, because it’s stateless. If Java’s generics were reified, you would need one identity function per type, but since they’re erased a generic singleton will suffice. Here’s how it looks:
 
+```
+// Generic singleton factory pattern
+private static UnaryOperator<Object> IDENTITY_FN = (t) -> t;
+@SuppressWarnings("unchecked")
+public static <T> UnaryOperator<T> identityFunction() {
+    return (UnaryOperator<T>) IDENTITY_FN;
+}
+```
+
+
+
