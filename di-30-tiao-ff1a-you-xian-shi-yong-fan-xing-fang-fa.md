@@ -33,21 +33,18 @@ result.addAll(s2);
 ^
 ```
 
-To fix these warnings and make the method typesafe, modify its
+To fix these warnings and make the method typesafe, modify its declaration to declare a type parameter representing the element type for the three sets \(the two arguments and the return value\) and use this type parameter throughout the method.** The type parameter list, which declares the type parameters, goes between a method’s modifiers and its return type.** In this example, the type parameter list is &lt;E&gt;, and the return type is Set&lt;E&gt;. The naming conventions for type parameters are the same for generic methods and generic types \(Items 29, 68\):
 
-declaration to declare a type parameter representing the element
+为了修复这些警告并使得这个方法类型安全，我们可以修改方法声明，即声明一个类型参数来表示三个集合（两个参数和返回值）的元素类型，同时在整个方法体内都使用这个类型参数。**声明了类型参数的类型参数列表在方法修饰符和它的返回类型之间。**在这个例子中，类型参数列表是&lt;E&gt;，返回类型是Set&lt;E&gt;。类型参数的命名规则跟泛型方法和泛型类型一致（条目29，68）：
 
-type for the three sets \(the two arguments and the return value\)
+```
+// Generic method
+public static <E> Set<E> union(Set<E> s1, Set<E> s2) {
+    Set<E> result = new HashSet<>(s1);
+    result.addAll(s2);
+    return result;
+}
+```
 
-and use this type parameter throughout the method. The type
 
-parameter list, which declares the type parameters, goes
-
-between a method’s modifiers and its return type. In this
-
-example, the type parameter list is &lt;E&gt;, and the return type is Set&lt;E&gt;.
-
-The naming conventions for type parameters are the same for
-
-generic methods and generic types \(Items 29, 68\):
 
