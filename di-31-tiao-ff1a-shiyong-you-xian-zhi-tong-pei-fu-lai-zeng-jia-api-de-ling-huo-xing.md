@@ -17,5 +17,9 @@ public class Stack<E> {
 }
 ```
 
+Suppose we want to add a method that takes a sequence of
 
+elements and pushes them all onto the stack. Here’s a first
+
+attempt:
 
