@@ -64,3 +64,15 @@ public void pushAll(Iterable<? extends E> src) {
 
 With this change, not only does Stack compile cleanly, but so does the client code that wouldn’t compile with the original pushAll declaration. Because Stack and its client compile cleanly, you know that everything is typesafe. Now suppose you want to write a popAll method to go with pushAll. The popAll method pops each element off the stack and adds the elements to the given collection. Here’s how a first attempt at writing the popAll method might look:
 
+修改之后，不仅Stack类编译不会出现任何问题，而且使用了原始pushAll方法的客户端代码编译也同样不会出现任何问题。因为Stack类和它的客户端都能完美编译，所以你可以确定一切都是类型安全的了。
+
+```
+// popAll method without wildcard type - deficient!
+public void popAll(Collection<E> dst) { 
+    while (!isEmpty())
+        dst.add(pop()); 
+}
+```
+
+
+
