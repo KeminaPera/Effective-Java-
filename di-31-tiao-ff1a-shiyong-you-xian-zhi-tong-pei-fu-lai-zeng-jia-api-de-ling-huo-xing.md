@@ -52,6 +52,8 @@ numberStack.pushAll(integers);
 
 Luckily, there’s a way out. The language provides a special kind of parameterized type call a bounded wildcard type to deal with situations like this. The type of the input parameter to pushAll should not be “Iterable of E” but “Iterable of some subtype of E,” and there is a wildcard type that means precisely that: Iterable&lt;? extends E&gt;. \(The use of the keyword extends is slightly misleading: recall from Item 29 that subtype is defined so that every type is a subtype of itself, even though it does not extend itself.\) Let’s modify pushAll to use this type:
 
+幸运的是，有个办法可以解决这个问题。Java语言提供了一种特殊的参数化类型来处理这类情况，它就是有限制通配符类型。pushAll方法的输入参数类型不应该是“E类型的Iterable”，而应该是“E子类型的Iterable”，
+
 ```
 // Wildcard type for a parameter that serves as an E producer
 public void pushAll(Iterable<? extends E> src) {
