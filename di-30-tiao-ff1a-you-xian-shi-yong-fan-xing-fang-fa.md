@@ -109,3 +109,13 @@ public static void main(String[] args) {
 
 It is permissible, though relatively rare, for a type parameter to be bounded by some expression involving that type parameter itself. This is what’s known as a recursive type bound. A common use of recursive type bounds is in connection with the Comparable interface, which defines a type’s natural ordering \(Item 14\). This interface is shown here:
 
+通过某个包含类型参数本身的表达式来限制类型参数是允许的，虽然相对来说比较少这么做。我们称之为递归类型限制。递归类型限制的一个常见用法与Comparable接口有关，这个接口定义了一个类型的自然顺序（条目14）。这个接口如下所示：
+
+```
+public interface Comparable<T> {
+    int compareTo(T o);
+}
+```
+
+
+
