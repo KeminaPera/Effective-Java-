@@ -132,7 +132,11 @@ public static <E extends Comparable<E>> E max(Collection<E> c);
 
 The type bound &lt;E extends Comparable&lt;E&gt;&gt; may be read as “any type E that can be compared to itself,” which corresponds more or less precisely to the notion of mutual comparability.
 
+类型限制&lt;E extends Comparable&lt;E&gt;&gt;可以被读作“任意能与其自身进行比较的类型E”，这或多或少地与互比性的概念有些一致。
+
 Here is a method to go with the previous declaration. It calculates the maximum value in a collection according to its elements’ natural order, and it compiles without errors or warnings:
+
+下面这个方法使用了上面的声明。它根元素的自然顺序计算出了集合里的最大值，而且编译时不会产生错误或者警告：
 
 ```
 // Returns max value in a collection - uses recursive type bound
