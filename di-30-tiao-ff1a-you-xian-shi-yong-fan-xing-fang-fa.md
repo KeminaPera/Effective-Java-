@@ -74,6 +74,8 @@ On occasion, you will need to create an object that is immutable but applicable 
 
 Suppose that you want to write an identity function dispenser. The libraries provide Function.identity, so there’s no reason to write your own \(Item 59\), but it is instructive. It would be wasteful to create a new identity function object time one is requested, because it’s stateless. If Java’s generics were reified, you would need one identity function per type, but since they’re erased a generic singleton will suffice. Here’s how it looks:
 
+假设你需要编写一个恒等函数分发器（identity function dispenser）。类库里已经提供了Function.identity方法，所以没有理由再去写一个你自己的（条目59），但它对于我们是有启发的。如果每次请求过来的时候都去创建一个新的恒等函数对象，会造成很大的浪费，因为它是无状态的。如果Java的泛型被具化，那么你需要为每个类型都提供一个恒等函数，但由于这些类型被擦除了，所有提供一个泛型单例就足够了。以下是它的示例：
+
 ```
 // Generic singleton factory pattern
 private static UnaryOperator<Object> IDENTITY_FN = (t) -> t;
