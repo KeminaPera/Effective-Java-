@@ -46,5 +46,11 @@ public static <E> Set<E> union(Set<E> s1, Set<E> s2) {
 }
 ```
 
+At least for simple generic methods, that’s all there is to it. This
 
+method compiles without generating any warnings and providestype safety as well as ease of use. Here’s a simple program to
+
+exercise the method. This program contains no casts and compiles
+
+without errors or warnings:
 
