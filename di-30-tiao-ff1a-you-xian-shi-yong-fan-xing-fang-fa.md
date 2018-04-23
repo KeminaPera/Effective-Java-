@@ -8,5 +8,30 @@ Writing generic methods is similar to writing generic types. Consider this defic
 
 编写泛型方法类似于编写泛型类型。考虑下面这个有缺陷的方法，它返回了两个集合的并集：
 
+```
+// Uses raw types - unacceptable! (Item 26)
+public static Set union(Set s1, Set s2) {
+    Set result = new HashSet(s1);
+    result.addAll(s2);
+    return result;
+}
+```
+
+This method compiles but with two warnings:
+
+这个方法可以编译通过，但会出现两条警告：
+
+```
+Union.java:5: warning: [unchecked] unchecked call to
+HashSet(Collection<? extends E>) as a member of raw type
+HashSet
+Set result = new HashSet(s1);
+^
+Union.java:6: warning: [unchecked] unchecked call to
+addAll(Collection<? extends E>) as a member of raw type Set
+result.addAll(s2);
+^
+```
+
 
 
