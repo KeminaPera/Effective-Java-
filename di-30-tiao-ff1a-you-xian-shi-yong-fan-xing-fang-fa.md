@@ -117,5 +117,29 @@ public interface Comparable<T> {
 }
 ```
 
+The type parameter T defines the type to which elements of the
 
+type implementing Comparable&lt;T&gt;can be compared. In practice,
+
+nearly all types can be compared only to elements of their own type.
+
+So, for
+
+example, String implements Comparable&lt;String&gt;, Integer implements
+
+Comparable&lt;Integer&gt;, and so on.
+
+Many methods take a collection of elements
+
+implementing Comparable to sort it, search within it, calculate its
+
+minimum or maximum, and the like. To do these things, it is
+
+required that every element in the collection be comparable to
+
+every other element in it, in other words, that the elements of the
+
+list be mutually comparable. Here is how to express that
+
+constraint:
 
