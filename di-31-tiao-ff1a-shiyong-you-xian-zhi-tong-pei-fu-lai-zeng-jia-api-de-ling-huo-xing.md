@@ -31,3 +31,11 @@ public void pushAll(Iterable<E> src) {
 
 This method compiles cleanly, but it isn’t entirely satisfactory. If the element type of the Iterable src exactly matches that of the stack, it works fine. But suppose you have a Stack&lt;Number&gt; and you invoke push\(intVal\), where intVal is of type Integer. This works because Integer is a subtype of Number. So logically, it seems that this should work, too:
 
+```
+Stack<Number> numberStack = new Stack<>();
+Iterable<Integer> integers = ... ;
+numberStack.pushAll(integers);
+```
+
+If you try it, however, you’ll get this error message because parameterized types are invariant:
+
