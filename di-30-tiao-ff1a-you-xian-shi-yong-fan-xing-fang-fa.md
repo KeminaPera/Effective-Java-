@@ -70,7 +70,7 @@ A limitation of the union method is that the types of all three sets \(both inpu
 
 On occasion, you will need to create an object that is immutable but applicable to many different types. Because generics are implemented by erasure \(Item 28\), you can use a single object for all required type parameterizations, but you need to write a static factory method to repeatedly dole out the object for each requested type parameterization. This pattern, called the generic singleton factory, is used for function objects \(Item 42\) such as Collections.reverseOrder, and occasionally for collections such as Collections.emptySet.
 
-有时，你会需要创建一个不可变的对象，但又希望它适用于不同的类型。因为泛型是通过擦除来实现的（条目28），所以你可以用单个对象来进行所有所需类型的参数化，但你需要写一个静态工厂方法来重复地为每个类型参数化请求发放对象。这种模式我们称为泛型单例工厂，
+有时，你会需要创建一个不可变的对象，但又希望它适用于不同的类型。因为泛型是通过擦除来实现的（条目28），所以你可以用单个对象来进行所有所需类型的参数化，但你需要写一个静态工厂方法来重复地为每个类型参数化请求发放对象。这种模式我们称之为泛型单例工厂，它用于函数对象（条目42），如Collections.reverseOrder，并且有时也用于集合，如Collections.emptySet。
 
 Suppose that you want to write an identity function dispenser. The libraries provide Function.identity, so there’s no reason to write your own \(Item 59\), but it is instructive. It would be wasteful to create a new identity function object time one is requested, because it’s stateless. If Java’s generics were reified, you would need one identity function per type, but since they’re erased a generic singleton will suffice. Here’s how it looks:
 
