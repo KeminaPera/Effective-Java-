@@ -146,33 +146,9 @@ public static <E extends Comparable<E>> E max(Collection<E> c) {
 }
 ```
 
-Note that this method throws IllegalArgumentException if the list is
+Note that this method throws IllegalArgumentException if the list is empty. A better alternative would be to return an Optional&lt;E&gt; \(Item 55\).
 
-empty. A better alternative would be to return an Optional&lt;E&gt; \(Item
+Recursive type bounds can get much more complex, but luckily they rarely do. If you understand this idiom, its wildcard variant \(Item 31\), and the simulated self-type idiom \(Item 2\), you’ll be able to deal with most of the recursive type bounds you encounter in practice.
 
-55\).
-
-Recursive type bounds can get much more complex, but luckily
-
-they rarely do. If you understand this idiom, its wildcard variant\(Item 31\), and the simulated self-type idiom \(Item 2\), you’ll be
-
-able to deal with most of the recursive type bounds you encounter
-
-in practice.
-
-In summary, generic methods, like generic types, are safer and
-
-easier to use than methods requiring their clients to put explicit
-
-casts on input parameters and return values. Like types, you
-
-should make sure that your methods can be used without casts,
-
-which often means making them generic. And like types, you
-
-should generify existing methods whose use requires casts. This
-
-makes life easier for new users without breaking existing clients
-
-\(Item 26\).
+In summary, generic methods, like generic types, are safer and easier to use than methods requiring their clients to put explicit casts on input parameters and return values. Like types, you should make sure that your methods can be used without casts, which often means making them generic. And like types, you should generify existing methods whose use requires casts. This makes life easier for new users without breaking existing clients \(Item 26\).
 
