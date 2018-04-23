@@ -19,3 +19,25 @@ public class Stack<E> {
 
 Suppose we want to add a method that takes a sequence of elements and pushes them all onto the stack. Here’s a first attempt:
 
+假设我们需要添加一个方法，这个方法接受一系列元素并将这些元素推入栈顶。以下是第一个尝试：
+
+```
+// pushAll method without wildcard type - deficient!
+public void pushAll(Iterable<E> src) {
+    for (E e : src)
+        push(e);
+}
+```
+
+This method compiles cleanly, but it isn’t entirely satisfactory. If
+
+the element type of the Iterable src exactly matches that of the
+
+stack, it works fine. But suppose you have a Stack&lt;Number&gt; and you
+
+invoke push\(intVal\), where intVal is of type Integer. This works
+
+because Integer is a subtype of Number. So logically, it seems that this
+
+should work, too:
+
