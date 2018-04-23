@@ -50,5 +50,21 @@ numberStack.pushAll(integers);
 ^
 ```
 
+Luckily, there’s a way out. The language provides a special kind of
 
+parameterized type call a bounded wildcard type to deal with
+
+situations like this. The type of the input parameter
+
+to pushAll should not be “Iterable of E” but “Iterable of some
+
+subtype of E,” and there is a wildcard type that means precisely
+
+that: Iterable&lt;? extends E&gt;. \(The use of the keyword extends is slightly
+
+misleading: recall from Item 29 that subtype is defined so that
+
+every type is a subtype of itself, even though it does not extend
+
+itself.\) Let’s modify pushAll to use this type:
 
