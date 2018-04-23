@@ -114,5 +114,111 @@ This constructor uses the collection choices only to produce values of typeT\(an
 public Chooser(Collection<? extends T> choices)
 ```
 
+And would this change make any difference in practice? Yes, it would. Suppose you have a List&lt;Integer&gt;, and you want to pass it in to the constructor for a Chooser&lt;Number&gt;. This would not compile with the original declaration, but it does once you add the bounded wildcard type to the declaration.
 
+Now let’s look at the union method fromItem 30. Here is the declaration:
+
+```
+public static <E> Set<E> union(Set<E> s1, Set<E> s2)
+```
+
+Both parameters, s1and s2, are E producers, so the PECS mnemonic tells us that the declaration should be as follows:
+
+```
+public static <E> Set<E> union(Set<? extends E> s1, Set<? extends E> s2)
+```
+
+Note that the return type is stillSet&lt;E&gt;.Do not use bounded wildcard types as return types.Rather than providing additional flexibility for your users, it would force them to use wildcard types in client code. With the revised declaration, this code will compile cleanly:
+
+```
+Set<Integer> integers = Set.of(1, 3, 5);
+Set<Double> doubles = Set.of(2.0, 4.0, 6.0); 
+Set<Number> numbers = union(integers, doubles);
+```
+
+Properly used, wildcard types are nearly invisible to the users of a class. They cause methods to accept the parameters they should accept and reject those they should reject.If the user of a class has to think about wildcard types, there is probably something wrong with its API.
+
+Prior to Java 8, the type inference rules were not clever enough to handle the previous code fragment, which requires the compiler to use the contextually specified return type \(or target type\) to infer the type ofE. The target type of the union invocation shown earlier isSet&lt;Number&gt;. If you try to compile the fragment in an earlier version of Java \(with an appropriate replacement for the Set.of factory\), you’ll get a long, convoluted error message like this:
+
+```
+Union.java:14: error: incompatible types
+Set<Number> numbers = union(integers, doubles);
+            ^ 
+required: Set<Number>
+found: Set<INT#1>
+where INT#1,INT#2 are intersection types:
+INT#1 extends Number,Comparable<? extends INT#2> INT#2 extends Number,Comparable<?>
+```
+
+Luckily there is a way to deal with this sort of error. If the compiler doesn’t infer the correct type, you can always tell it what type to use with an explicit type argument\[JLS, 15.12\]. Even prior to the introduction of target typing in Java 8, this isn’t something that you had to do often, which is good because explicit type arguments aren’t very pretty. With the addition of an explicit type argument, as shown here, the code fragment compiles cleanly in versions prior to Java 8:
+
+```
+// Explicit type parameter - required prior to Java 8 
+Set<Number> numbers = Union.<Number>union(integers, doubles);
+```
+
+Next let’s turn our attention to the max method inItem 30. Here is the original declaration:
+
+```
+public static <T extends Comparable<T>> T max(List<T> list)
+```
+
+Here is a revised declaration that uses wildcard types:
+
+```
+public static <T extends Comparable<? super T>> T max( List<? extends T> list)
+```
+
+To get the revised declaration from the original, we applied the PECS heuristic twice. The straightforward application is to the parameter list. It produces T instances, so we change the type from List&lt;T&gt;toList&lt;? extends T&gt;. The tricky application is to the type parameter T. This is the first time we’ve seen a wildcard applied to a type parameter. Originally,Twas specified to extend Comparable&lt;T&gt;, but a comparable of T consumes T instances \(and produces integers indicating order relations\). Therefore, the parameterized type Comparable&lt;T&gt; is replaced by the bounded wildcard type Comparable&lt;? super T&gt;. Comparables are always consumers, so you should generally use Comparable&lt;? super T&gt;in preference to Comparable&lt;T&gt;.The same is true of comparators; therefore, you should generally use Comparator&lt;? super T&gt;in preference to Comparator&lt;T&gt;.
+
+The revised max declaration is probably the most complex method declaration in this book. Does the added complexity really buy you anything? Again, it does. Here is a simple example of a list that would be excluded by the original declaration but is permitted by the revised one:
+
+```
+List<ScheduledFuture<?>> scheduledFutures = ... ;
+```
+
+The reason that you can’t apply the original method declaration to this list is that Scheduled Future does not implement Comparable&lt;ScheduledFuture&gt;. Instead, it is a sub interface ofDelayed, which extendsComparable&lt;Delayed&gt;. In other words, a Scheduled Future instance isn’t merely comparable to other Scheduled Future instances; it is comparable to any Delayed instance, and that’s enough to cause the original declaration to reject it. More generally, the wildcard is required to support types that do not implement Comparable\(or Comparator\) directly but extend a type that does.
+
+There is one more wildcard-related topic that bears discussing. There is a duality between type parameters and wildcards, and many methods can be declared using one or the other. For example, here are two possible declarations for a static method to swap two indexed items in a list. The first uses an unbounded type parameter \(Item 30\) and the second an unbounded wildcard:
+
+```
+// Two possible declarations for the swap method 
+public static <E> void swap(List<E> list, int i, int j); 
+public static void swap(List<?> list, int i, int j);
+```
+
+Which of these two declarations is preferable, and why? In a public API, the second is better because it’s simpler. You pass in a list—any list—and the method swaps the indexed elements. There is no type parameter to worry about. As a rule, if a type parameter appears only once in a method declaration, replace it with a wildcard.If it’s an unbounded type parameter, replace it with an unbounded wildcard; if it’s a bounded type parameter, replace it with a bounded wildcard.
+
+There’s one problem with the second declaration for swap. The straightforward implementation won’t compile:
+
+```
+public static void swap(List<?> list, int i, int j) { 
+    list.set(i, list.set(j, list.get(i)));
+}
+```
+
+Trying to compile it produces this less-than-helpful error message:
+
+```
+Swap.java:5: error: incompatible types: Object cannot be converted to CAP#1
+list.set(i, list.set(j, list.get(i)));
+                        ^
+where CAP#1 is a fresh type-variable: CAP#1 extends Object from capture of ?
+```
+
+It doesn’t seem right that we can’t put an element back into the list that we just took it out of. The problem is that the type of list is List&lt;?&gt;, and you can’t put any value except null into a List&lt;?&gt;. Fortunately, there is a way to implement this method without resorting to an unsafe cast or a raw type. The idea is to write a private helper method to capture the wildcard type. The helper method must be a generic method in order to capture the type. Here’s how it looks:
+
+```
+public static void swap(List<?> list, int i, int j) { 
+    swapHelper(list, i, j);
+}
+// Private helper method for wildcard capture
+private static <E> void swapHelper(List<E> list, int i, int j) { 
+    list.set(i, list.set(j, list.get(i)));
+}
+```
+
+The swap Helper method knows that list is aList&lt;E&gt;. Therefore, it knows that any value it gets out of this list is of type E and that it’s safe to put any value of type E into the list. This slightly convoluted implementation of swap compiles cleanly. It allows us to export the nice wildcard-based declaration, while taking advantage of the more complex generic method internally. Clients of the swap method don’t have to confront the more complex swap Helper declaration, but they do benefit from it. It is worth noting that the helper method has precisely the signature that we dismissed as too complex for the public method.
+
+In summary, using wildcard types in your APIs, while tricky, makes the APIs far more flexible. If you write a library that will be widely used, the proper use of wildcard types should be considered mandatory. Remember the basic rule: producer-extends, consumer-super\(PECS\). Also remember that all comparables and comparators are consumers.
 
