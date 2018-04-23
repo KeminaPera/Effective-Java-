@@ -39,3 +39,12 @@ numberStack.pushAll(integers);
 
 If you try it, however, you’ll get this error message because parameterized types are invariant:
 
+```
+StackTest.java:7: error: incompatible types: Iterable<Integer>
+cannot be converted to Iterable<Number>
+numberStack.pushAll(integers);
+^
+```
+
+
+
