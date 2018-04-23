@@ -46,11 +46,19 @@ public static <E> Set<E> union(Set<E> s1, Set<E> s2) {
 }
 ```
 
-At least for simple generic methods, that’s all there is to it. This
+At least for simple generic methods, that’s all there is to it. This method compiles without generating any warnings and provide stype safety as well as ease of use. Here’s a simple program to exercise the method. This program contains no casts and compiles without errors or warnings:
 
-method compiles without generating any warnings and providestype safety as well as ease of use. Here’s a simple program to
+至少对于简单的泛型方法来说，就是这么做。这个方法编译后不会产生任何警告，并且提供了类型安全性和易用性。下面这段程序简单地示范了这个方法的使用。这段程序不用强转，而且编译不会产生错误或者警告：
 
-exercise the method. This program contains no casts and compiles
+```
+// Simple program to exercise generic method
+public static void main(String[] args) {
+    Set<String> guys = Set.of("Tom", "Dick", "Harry");
+    Set<String> stooges = Set.of("Larry", "Moe", "Curly");
+    Set<String> aflCio = union(guys, stooges);
+    System.out.println(aflCio);
+}
+```
 
-without errors or warnings:
+
 
