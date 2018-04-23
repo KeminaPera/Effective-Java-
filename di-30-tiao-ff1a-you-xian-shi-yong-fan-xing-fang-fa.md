@@ -103,5 +103,15 @@ public static void main(String[] args) {
 }
 ```
 
+It is permissible, though relatively rare, for a type parameter to be
 
+bounded by some expression involving that type parameter itself.
+
+This is what’s known as a recursive type bound. A common use of
+
+recursive type bounds is in connection with the Comparable interface,
+
+which defines a type’s natural ordering \(Item 14\). This interface is
+
+shown here:
 
