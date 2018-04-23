@@ -119,7 +119,11 @@ public interface Comparable<T> {
 
 The type parameter T defines the type to which elements of the type implementing Comparable&lt;T&gt;can be compared. In practice, nearly all types can be compared only to elements of their own type. So, for example, String implements Comparable&lt;String&gt;, Integer implements Comparable&lt;Integer&gt;, and so on.
 
+类型参数T定义了实现Comparable&lt;T&gt;接口的元素可以比较的类型。在实际当中，几乎所有的类型都只能与它们自身的类型进行比较。所以，String实现了Comparable&lt;String&gt;，Integer实现了Comparable&lt;Integer&gt;，等等。
+
 Many methods take a collection of elements implementing Comparable to sort it, search within it, calculate its minimum or maximum, and the like. To do these things, it is required that every element in the collection be comparable to every other element in it, in other words, that the elements of the list be mutually comparable. Here is how to express that constraint:
+
+许多方法接收元素实现了Comparable接口的集合，并将这个集合进行排序，在其内部进行查找，计算出它的最小值或最大值等。为了做这些事，它要求集合里的每一个元素都能与其内部的其它元素进行比较，换句话说，列表里的元素是可以互相比较的。以下展示了如何表达这个约束：
 
 ```
 // Using a recursive type bound to express mutual comparability
