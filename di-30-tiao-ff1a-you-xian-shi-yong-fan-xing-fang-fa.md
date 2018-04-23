@@ -68,3 +68,7 @@ A limitation of the union method is that the types of all three sets \(both inpu
 
 这个union方法的一个限制是，三个集合（即两个输入参数和返回值）的类型都必须是完全一致的。通过使用有限制通配符类型，你可以让这个方法变得更灵活（条目31）。
 
+On occasion, you will need to create an object that is immutable but applicable to many different types. Because generics are implemented by erasure \(Item 28\), you can use a single object for all required type parameterizations, but you need to write a static factory method to repeatedly dole out the object for each requested type parameterization. This pattern, called the generic singleton factory, is used for function objects \(Item 42\) such as Collections.reverseOrder, and occasionally for collections such as Collections.emptySet.
+
+Suppose that you want to write an identity function dispenser. The libraries provide Function.identity, so there’s no reason to write your own \(Item 59\), but it is instructive. It would be wasteful to create a new identity function object time one is requested, because it’s stateless. If Java’s generics were reified, you would need one identity function per type, but since they’re erased a generic singleton will suffice. Here’s how it looks:
+
