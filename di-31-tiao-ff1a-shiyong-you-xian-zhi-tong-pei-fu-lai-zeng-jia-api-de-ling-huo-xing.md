@@ -37,5 +37,5 @@ Iterable<Integer> integers = ... ;
 numberStack.pushAll(integers);
 ```
 
-If you try it, however, you’ll get this error message because parameterized types are invariant:
+If you try it, however, you’ll get this error message because parameterized types are invariant:
 
