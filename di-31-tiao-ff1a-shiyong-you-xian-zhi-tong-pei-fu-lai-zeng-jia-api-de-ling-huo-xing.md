@@ -96,7 +96,7 @@ public void popAll(Collection<? super E> dst) {
 }
 ```
 
-With this change, both Stack and the client code compile cleanly. 
+With this change, both Stack and the client code compile cleanly.
 
 这么修改之后，Stack类和客户端代码都能编译通过，而且不会出现错误和警告。
 
@@ -117,7 +117,9 @@ The Chooser constructor in Item 28 has this declaration:
 public Chooser(Collection<T> choices)
 ```
 
-This constructor uses the collection choices only to produce values of typeT\(and stores them for later use\), so its declaration should use a wildcard type that extends T. Here’s the resulting constructor declaration:
+This constructor uses the collection choices only to produce values of type T\(and stores them for later use\), so its declaration should use a wildcard type that extends T. Here’s the resulting constructor declaration:
+
+这个构造器使用集合choices仅仅是为了生产T类型的值
 
 ```
 // Wildcard type for parameter that serves as an T producer
