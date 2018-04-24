@@ -176,18 +176,24 @@ INT#1 extends Number,Comparable<? extends INT#2> INT#2 extends Number,Comparable
 
 Luckily there is a way to deal with this sort of error. If the compiler doesn’t infer the correct type, you can always tell it what type to use with an explicit type argument\[JLS, 15.12\]. Even prior to the introduction of target typing in Java 8, this isn’t something that you had to do often, which is good because explicit type arguments aren’t very pretty. With the addition of an explicit type argument, as shown here, the code fragment compiles cleanly in versions prior to Java 8:
 
+幸运的是，有种办法可以处理这种问题。如果编译器无法推断出正确的类型，你可以用一个显式的类型参数来告诉它要用什么类型\[JLS, 15.12\]。即使在Java 8引入目标类型之前，你也不用总是这么做，因为显式类型参数不是很优雅。如下所示，在加入显式类型参数后，在Java 8之前的版本可以完美编译：
+
 ```
 // Explicit type parameter - required prior to Java 8 
 Set<Number> numbers = Union.<Number>union(integers, doubles);
 ```
 
-Next let’s turn our attention to the max method inItem 30. Here is the original declaration:
+Next let’s turn our attention to the max method in Item 30. Here is the original declaration:
+
+接下来我们来看看条目30里的max方法。以下是原来的声明：
 
 ```
 public static <T extends Comparable<T>> T max(List<T> list)
 ```
 
 Here is a revised declaration that uses wildcard types:
+
+下面是用通配符类型进行修改后的声明：
 
 ```
 public static <T extends Comparable<? super T>> T max( List<? extends T> list)
