@@ -119,7 +119,7 @@ public Chooser(Collection<T> choices)
 
 This constructor uses the collection choices only to produce values of type T\(and stores them for later use\), so its declaration should use a wildcard type that extends T. Here’s the resulting constructor declaration:
 
-这个构造器使用集合choices仅仅是为了生产T类型的值
+这个构造器使用集合choices仅仅是为了生产T类型的值（并将它们存储起来以备后用），所以它的声明应该用一个扩展自T的通配符类型。以下是新的构造器声明：
 
 ```
 // Wildcard type for parameter that serves as an T producer
@@ -128,7 +128,11 @@ public Chooser(Collection<? extends T> choices)
 
 And would this change make any difference in practice? Yes, it would. Suppose you have a List&lt;Integer&gt;, and you want to pass it in to the constructor for a Chooser&lt;Number&gt;. This would not compile with the original declaration, but it does once you add the bounded wildcard type to the declaration.
 
-Now let’s look at the union method fromItem 30. Here is the declaration:
+这么修改之后在实践当中会造成什么不同的？答案是会的。假设你有一个List&lt;Integer&gt;，而且你想将它传给Chooser&lt;Number&gt;的构造方法。用原来的声明的话是不会编译通过的，但一旦你将有限制通配符类型加到声明上，它就可以编译通过了。
+
+Now let’s look at the union method from Item 30. Here is the declaration:
+
+现在我们来看看条目30的union方法。下面是它的声明：
 
 ```
 public static <E> Set<E> union(Set<E> s1, Set<E> s2)
@@ -136,11 +140,15 @@ public static <E> Set<E> union(Set<E> s1, Set<E> s2)
 
 Both parameters, s1and s2, are E producers, so the PECS mnemonic tells us that the declaration should be as follows:
 
+参数s1和参数s2都是E类型的生产者，所以根据PECS助记符，上述声明应该修改成以下的样子：
+
 ```
 public static <E> Set<E> union(Set<? extends E> s1, Set<? extends E> s2)
 ```
 
-Note that the return type is stillSet&lt;E&gt;.Do not use bounded wildcard types as return types.Rather than providing additional flexibility for your users, it would force them to use wildcard types in client code. With the revised declaration, this code will compile cleanly:
+Note that the return type is still Set&lt;E&gt;. Do not use bounded wildcard types as return types.Rather than providing additional flexibility for your users, it would force them to use wildcard types in client code. With the revised declaration, this code will compile cleanly:
+
+注意，返回类型仍然是Set&lt;E&gt;。返回类型不要用有限制通配符类型。因为这将强制客户端用通配符类型，而不是给它们提供额外的灵活性。使用修改后的声明，代码可以完美编译通过：
 
 ```
 Set<Integer> integers = Set.of(1, 3, 5);
@@ -148,7 +156,9 @@ Set<Double> doubles = Set.of(2.0, 4.0, 6.0);
 Set<Number> numbers = union(integers, doubles);
 ```
 
-Properly used, wildcard types are nearly invisible to the users of a class. They cause methods to accept the parameters they should accept and reject those they should reject.If the user of a class has to think about wildcard types, there is probably something wrong with its API.
+Properly used, wildcard types are nearly invisible to the users of a class. They cause methods to accept the parameters they should accept and reject those they should reject. If the user of a class has to think about wildcard types, there is probably something wrong with its API.
+
+如果使用得当，通配符类型对类的使用者几乎是不可见的。这些通配符类型使得方法接受它们应该接受的参数，拒绝应该拒绝的参数。如果类的用户必须对通配符类型做出思考，很可能就是API哪里有问题了。
 
 Prior to Java 8, the type inference rules were not clever enough to handle the previous code fragment, which requires the compiler to use the contextually specified return type \(or target type\) to infer the type ofE. The target type of the union invocation shown earlier isSet&lt;Number&gt;. If you try to compile the fragment in an earlier version of Java \(with an appropriate replacement for the Set.of factory\), you’ll get a long, convoluted error message like this:
 
