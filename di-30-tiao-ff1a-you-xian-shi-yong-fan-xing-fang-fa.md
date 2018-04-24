@@ -160,5 +160,5 @@ Recursive type bounds can get much more complex, but luckily they rarely do. If 
 
 In summary, generic methods, like generic types, are safer and easier to use than methods requiring their clients to put explicit casts on input parameters and return values. Like types, you should make sure that your methods can be used without casts, which often means making them generic. And like types, you should generify existing methods whose use requires casts. This makes life easier for new users without breaking existing clients \(Item 26\).
 
-总而言之，泛型方法就像泛型类型，比起那些要求客户端将参数及返回值进行显示强转的方法，它们更安全更简单。就像类型一样，你应该保证你的方法不用强转就能用，这意味着要将这些方法泛型化，你也应该将现有方法泛型化，让新用户用起来更简单，而且不用破获现有客户端（条目26）。
+总而言之，泛型方法就像泛型类型，比起那些要求客户端将参数及返回值进行显示强转的方法，它们更安全更简单。就像类型一样，你应该保证你的方法不用强转就能用，这意味着要将这些方法泛型化，你也应该将现有方法泛型化，让新用户用起来更简单，而且不用破坏现有客户端（条目26）。
 
