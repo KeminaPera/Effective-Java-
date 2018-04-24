@@ -146,9 +146,9 @@ Both parameters, s1and s2, are E producers, so the PECS mnemonic tells us that t
 public static <E> Set<E> union(Set<? extends E> s1, Set<? extends E> s2)
 ```
 
-Note that the return type is still Set&lt;E&gt;. Do not use bounded wildcard types as return types.Rather than providing additional flexibility for your users, it would force them to use wildcard types in client code. With the revised declaration, this code will compile cleanly:
+Note that the return type is still Set&lt;E&gt;. **Do not use bounded wildcard types as return types. **Rather than providing additional flexibility for your users, it would force them to use wildcard types in client code. With the revised declaration, this code will compile cleanly:
 
-注意，返回类型仍然是Set&lt;E&gt;。返回类型不要用有限制通配符类型。因为这将强制客户端用通配符类型，而不是给它们提供额外的灵活性。使用修改后的声明，代码可以完美编译通过：
+注意，返回类型仍然是Set&lt;E&gt;。**返回类型不要用有限制通配符类型。**因为这将强制客户端用通配符类型，而不是给它们提供额外的灵活性。使用修改后的声明，代码可以完美编译通过：
 
 ```
 Set<Integer> integers = Set.of(1, 3, 5);
@@ -156,9 +156,9 @@ Set<Double> doubles = Set.of(2.0, 4.0, 6.0);
 Set<Number> numbers = union(integers, doubles);
 ```
 
-Properly used, wildcard types are nearly invisible to the users of a class. They cause methods to accept the parameters they should accept and reject those they should reject. If the user of a class has to think about wildcard types, there is probably something wrong with its API.
+Properly used, wildcard types are nearly invisible to the users of a class. They cause methods to accept the parameters they should accept and reject those they should reject. **If the user of a class has to think about wildcard types, there is probably something wrong with its API.**
 
-如果使用得当，通配符类型对类的使用者几乎是不可见的。这些通配符类型使得方法接受它们应该接受的参数，拒绝应该拒绝的参数。如果类的用户必须对通配符类型做出思考，很可能就是API哪里有问题了。
+如果使用得当，通配符类型对类的使用者几乎是不可见的。这些通配符类型使得方法接受它们应该接受的参数，拒绝应该拒绝的参数。**如果类的用户必须对通配符类型做出思考，很可能就是API哪里有问题了。**
 
 Prior to Java 8, the type inference rules were not clever enough to handle the previous code fragment, which requires the compiler to use the contextually specified return type \(or target type\) to infer the type of E. The target type of the union invocation shown earlier is Set&lt;Number&gt;. If you try to compile the fragment in an earlier version of Java \(with an appropriate replacement for the Set.of factory\), you’ll get a long, convoluted error message like this:
 
@@ -199,7 +199,9 @@ Here is a revised declaration that uses wildcard types:
 public static <T extends Comparable<? super T>> T max( List<? extends T> list)
 ```
 
-To get the revised declaration from the original, we applied the PECS heuristic twice. The straightforward application is to the parameter list. It produces T instances, so we change the type from List&lt;T&gt;toList&lt;? extends T&gt;. The tricky application is to the type parameter T. This is the first time we’ve seen a wildcard applied to a type parameter. Originally,Twas specified to extend Comparable&lt;T&gt;, but a comparable of T consumes T instances \(and produces integers indicating order relations\). Therefore, the parameterized type Comparable&lt;T&gt; is replaced by the bounded wildcard type Comparable&lt;? super T&gt;. Comparables are always consumers, so you should generally use Comparable&lt;? super T&gt;in preference to Comparable&lt;T&gt;.The same is true of comparators; therefore, you should generally use Comparator&lt;? super T&gt;in preference to Comparator&lt;T&gt;.
+To get the revised declaration from the original, we applied the PECS heuristic twice. The straightforward application is to the parameter list. It produces T instances, so we change the type from List&lt;T&gt;toList&lt;? extends T&gt;. The tricky application is to the type parameter T. This is the first time we’ve seen a wildcard applied to a type parameter. Originally,Twas specified to extend Comparable&lt;T&gt;, but a comparable of T consumes T instances \(and produces integers indicating order relations\). Therefore, the parameterized type Comparable&lt;T&gt; is replaced by the bounded wildcard type Comparable&lt;? super T&gt;. Comparables are always consumers, so you should generally **use Comparable&lt;? super T&gt; in preference to Comparable&lt;T&gt;**.The same is true of comparators; therefore, you should generally **use Comparator&lt;? super T&gt; in preference to Comparator&lt;T&gt;**.
+
+为了对原来的声明进行修改，我们应用了PECS
 
 The revised max declaration is probably the most complex method declaration in this book. Does the added complexity really buy you anything? Again, it does. Here is a simple example of a list that would be excluded by the original declaration but is permitted by the revised one:
 
@@ -217,7 +219,7 @@ public static <E> void swap(List<E> list, int i, int j);
 public static void swap(List<?> list, int i, int j);
 ```
 
-Which of these two declarations is preferable, and why? In a public API, the second is better because it’s simpler. You pass in a list—any list—and the method swaps the indexed elements. There is no type parameter to worry about. As a rule, if a type parameter appears only once in a method declaration, replace it with a wildcard.If it’s an unbounded type parameter, replace it with an unbounded wildcard; if it’s a bounded type parameter, replace it with a bounded wildcard.
+Which of these two declarations is preferable, and why? In a public API, the second is better because it’s simpler. You pass in a list—any list—and the method swaps the indexed elements. There is no type parameter to worry about. As a rule, **if a type parameter appears only once in a method declaration, replace it with a wildcard. **If it’s an unbounded type parameter, replace it with an unbounded wildcard; if it’s a bounded type parameter, replace it with a bounded wildcard.
 
 There’s one problem with the second declaration for swap. The straightforward implementation won’t compile:
 
