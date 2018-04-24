@@ -96,12 +96,22 @@ public void popAll(Collection<? super E> dst) {
 }
 ```
 
-With this change, both Stack and the client code compile cleanly. The lesson is clear.For maximum flexibility, use wildcard types on input parameters that represent producers or consumers.If an input parameter is both a producer and a consumer, then wildcard types will do you no good: you need an exact type match, which is what you get without any wildcards. Here is a mnemonic to help you remember which wildcard type to use:
+With this change, both Stack and the client code compile cleanly. 
 
-PECS stands for producer-extends, consumer-super. In other words, if a parameterized type represents a T producer, use&lt;? extends T&gt;; if it represents a T consumer, use&lt;? super T&gt;. In our Stack example, pushAll’s src parameter produces E instances for use by theStack, so the appropriate type for src is Iterable&lt;? extends E&gt;; popAll’s dst parameter consumes E instances from theStack, so the appropriate type for dst is Collection&lt;? super E&gt;. The PECS mnemonic captures the fundamental principle that guides the use of wild-card types. Naftalin and Wadler call it theGet and Put Principle\[Naftalin07, 2.4\].
+这么修改之后，Stack类和客户端代码都能编译通过，而且不会出现错误和警告。
+
+The lesson is clear. **For maximum flexibility, use wildcard types on input parameters that represent producers or consumers.** If an input parameter is both a producer and a consumer, then wildcard types will do you no good: you need an exact type match, which is what you get without any wildcards. Here is a mnemonic to help you remember which wildcard type to use:
+
+**结论很明显。为了最大的灵活性，请在那些表示生产者或者消费者的输入参数上使用通配符类型。**如果一个输入参数同时是生产者和消费者，那么通配符类型不会带来什么好处：你需要一个精确的类型匹配，而不能去用通配符。以下是一个助记符，它帮助你记住应该使用哪种通配符类型：
+
+**PECS stands for producer-extends, consumer-super.** In other words, if a parameterized type represents a T producer, use&lt;? extends T&gt;; if it represents a T consumer, use&lt;? super T&gt;. In our Stack example, pushAll’s src parameter produces E instances for use by the Stack, so the appropriate type for src is Iterable&lt;? extends E&gt;; popAll’s dst parameter consumes E instances from the Stack, so the appropriate type for dst is Collection&lt;? super E&gt;. The PECS mnemonic captures the fundamental principle that guides the use of wild-card types. Naftalin and Wadler call it the Get and Put Principle\[Naftalin07, 2.4\].
+
+**PECS代表for producer-extends, consumer-super。**换句话说，如果一个参数化类型代表一个T类型的生产者，则使用&lt;? extends T&gt;；如果一个参数化类型代表一个T类型的消费者，则使用&lt;? super T&gt;。在我们的Stack类的例子当中，pushAll方法的src参数为了Stack类生产E类型的实例，所以适合于src的类型是Iterable&lt;? extends E&gt;；popAll的dst参数从Stack类里消费E类型的实例，所以适合于dst的类型是Collection&lt;? super E&gt;。PECS助记符体现了使用通配符类型的基本原则。Naftalin和Wadler把它称为Get和Put原则\[Naftalin07, 2.4\]。
 
 With this mnemonic in mind, let’s take a look at some method and constructor declarations from previous items in this chapter.  
 The Chooser constructor in Item 28 has this declaration:
+
+记住这个助记符后，我们一起来看看本章前面条目里的一些方法声明和构造器声明。条目28里的Chooser类的构造器是这么声明的：
 
 ```
 public Chooser(Collection<T> choices)
