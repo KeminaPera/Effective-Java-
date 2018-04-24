@@ -160,9 +160,9 @@ Properly used, wildcard types are nearly invisible to the users of a class. They
 
 如果使用得当，通配符类型对类的使用者几乎是不可见的。这些通配符类型使得方法接受它们应该接受的参数，拒绝应该拒绝的参数。如果类的用户必须对通配符类型做出思考，很可能就是API哪里有问题了。
 
-Prior to Java 8, the type inference rules were not clever enough to handle the previous code fragment, which requires the compiler to use the contextually specified return type \(or target type\) to infer the type ofE. The target type of the union invocation shown earlier isSet&lt;Number&gt;. If you try to compile the fragment in an earlier version of Java \(with an appropriate replacement for the Set.of factory\), you’ll get a long, convoluted error message like this:
+Prior to Java 8, the type inference rules were not clever enough to handle the previous code fragment, which requires the compiler to use the contextually specified return type \(or target type\) to infer the type of E. The target type of the union invocation shown earlier is Set&lt;Number&gt;. If you try to compile the fragment in an earlier version of Java \(with an appropriate replacement for the Set.of factory\), you’ll get a long, convoluted error message like this:
 
-在Java 8之前，类引用规则还不够智能，不足以处理前面的代码片段
+在Java 8之前，类引用规则还不够智能，不足以处理前面的代码片段，其要求编译器根据上下文指定的返回类型（或目标类型）来推断E的类型。前面展示的union调用的目标类型是Set&lt;Number&gt;。如果你用早期的Java版本（以及合适的Set.of工厂方法的替代版本）来编译那段代码，你将会得到一条又长又复杂的错误信息，就像下面这样：
 
 ```
 Union.java:14: error: incompatible types
