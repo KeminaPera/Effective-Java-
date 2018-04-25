@@ -38,9 +38,9 @@ The Boolean.valueOf\(boolean\) method illustrates this technique: it never creat
 
 Boolean.valueOf\(boolean\)方法就诠释了这种技术：这个方法从不创建对象。这种技术类似于享元模式（Flyweight pattern）\[Gamma95\]。在相同对象经常被请求的情况下，特别是创建这些对象的开销还很大时，此技术能大幅提升性能。
 
-The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be _instance-controlled_.There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton \(Item 3\) or noninstantiable \(Item 4\). Also, it allows an immutable value class \(Item 17\) to make the guarantee that no two equal instances exist:_a.equals\(b\)_ if and only if _a == b._ This is the basis of the _Flyweight_ pattern \[Gamma95\]. Enum types \(Item 34\) provide this guarantee.
+The ability of static factory methods to return the same object from repeated invocations allows classes to maintain strict control over what instances exist at any time. Classes that do this are said to be instance-controlled.There are several reasons to write instance-controlled classes. Instance control allows a class to guarantee that it is a singleton \(Item 3\) or noninstantiable \(Item 4\). Also, it allows an immutable value class \(Item 17\) to make the guarantee that no two equal instances exist: a.equals\(b\) if and only if a == b_._ This is the basis of the Flyweight pattern \[Gamma95\]. Enum types \(Item 34\) provide this guarantee.
 
-静态工厂方法的这种能为重复调用返回相同对象的能力允许类能严格控制在某个时刻应该存在哪些实例。这种类被叫做实体控制类（_instance-controlled_）。编写实体控制类有几个原因。实体控制能让一个类确保它是单例（条目3）的或者不可初始化的（条目4）。而且，实体控制也能让不可变类确保不会存在两个相同的实例：_a.equals\(b\)_当且仅当_a==b。_这也是享元模式的基础。枚举类型（条目34）提供了这种保证。
+静态工厂方法的这种能为重复调用返回相同对象的能力使得该类能严格控制在某个时刻应该存在哪些实例。这种类被称为实体控制类（instance-controlled）。编写实体控制类有几个原因。实体控制能让一个类确保它是单例（条目3）的或者不可初始化的（条目4）。而且，实体控制也能让不可变类确保不会存在两个相同的实例：a.equals\(b\)当且仅当a == b_。_这也是享元模式的基础。枚举类型（条目34）提供了这种保证。
 
 **A third advantage of static factory methods is that, unlike constructors, they can return an object of any subtype of their return type. **This gives you great flexibility in choosing the class of the returned object.
 
