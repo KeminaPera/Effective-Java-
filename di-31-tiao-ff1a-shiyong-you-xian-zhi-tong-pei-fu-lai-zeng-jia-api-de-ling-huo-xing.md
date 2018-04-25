@@ -205,11 +205,15 @@ To get the revised declaration from the original, we applied the PECS heuristic 
 
 The revised max declaration is probably the most complex method declaration in this book. Does the added complexity really buy you anything? Again, it does. Here is a simple example of a list that would be excluded by the original declaration but is permitted by the revised one:
 
+修改后的max方法声明可能是本书最复杂的方法声明。增加的复杂度是否真的带来了好处呢？答案依旧是肯定的。以下是列表的一个简单例子，在原始的版本中不允许的，在修改后的版本则可以：
+
 ```
 List<ScheduledFuture<?>> scheduledFutures = ... ;
 ```
 
 The reason that you can’t apply the original method declaration to this list is that Scheduled Future does not implement Comparable&lt;ScheduledFuture&gt;. Instead, it is a sub interface ofDelayed, which extendsComparable&lt;Delayed&gt;. In other words, a Scheduled Future instance isn’t merely comparable to other Scheduled Future instances; it is comparable to any Delayed instance, and that’s enough to cause the original declaration to reject it. More generally, the wildcard is required to support types that do not implement Comparable\(or Comparator\) directly but extend a type that does.
+
+
 
 There is one more wildcard-related topic that bears discussing. There is a duality between type parameters and wildcards, and many methods can be declared using one or the other. For example, here are two possible declarations for a static method to swap two indexed items in a list. The first uses an unbounded type parameter \(Item 30\) and the second an unbounded wildcard:
 
