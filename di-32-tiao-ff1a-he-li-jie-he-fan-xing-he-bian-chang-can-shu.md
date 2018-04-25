@@ -6,5 +6,5 @@ Varargs methods \(Item 53\) and generics were both added to the platform in Java
 
 Recall from Item 28 that a non-reifiable type is one whose runtime representation has less information than its compile-time representation, and that nearly all generic and parameterized types are non-reifiable. If a method declares its varargs parameter to be of a non-reifiable type, the compiler generates a warning on the declaration. If the method is invoked on varargs parameters whose inferred type is non-reifiable, the compiler generates a warning on the invocation too. The warnings look something like this:
 
-
+回顾下条目28，不可具化类型是指运行时的表示比编译时的表示具有更少信息的类型，并且几乎所有的泛型和参数化类型都是不可具化的。如果一个方法将它的变长参数声明为不可具化类型，那么编译器会对这个声明产生一个警告。如果
 
