@@ -50,13 +50,13 @@ One application of this flexibility is that an API can return objects without ma
 
 这种灵活性的一个应用场景就是，API可以返回对象，同时又不用使类是公有的。在这种情况下，隐藏类的实现能让API变得更简洁紧凑。这种技术适用于基于接口的框架（interface-based frameworks，条目20），在这种框架中，接口为静态工厂方法提供了自然的返回类型。
 
-Prior to Java 8, interfaces couldn’t have static methods. By convention, static factory methods for an interface named _Type_ were put in a noninstantiable companion class\(Item 4\) named _Types_. For example, the Java Collections Framework has forty-five utility implementations of its interfaces, providing unmodifiable collections, synchronized collections, and the like. Nearly all of these implementations are exported via static factory methods in one noninstantiable class \(_java.util.Collections_\). The classes of the returned objects are all nonpublic.
+Prior to Java 8, interfaces couldn’t have static methods. By convention, static factory methods for an interface named _Type_ were put in a noninstantiable companion class\(Item 4\) named _Types_. For example, the Java Collections Framework has forty-five utility implementations of its interfaces, providing unmodifiable collections, synchronized collections, and the like. Nearly all of these implementations are exported via static factory methods in one noninstantiable class \(java.util.Collections\). The classes of the returned objects are all nonpublic.
+
+在Java 8之前，接口不能拥有静态方法。按照Java 8之前的传统惯例，接口Type的静态工厂方法被放在了不可实例化的伙伴类（companion class，条目4）Types类里。例如，Java集合框架的接口有45个便利实现，提供了不可修改集合，同步集合等。几乎所有的这些实现都是通过在一个不可实例化的类（java.util.Collections）中导出。所有返回对象的类都是非公有的。
 
 The Collections Framework API is much smaller than it would have been had it exported forty-five separate public classes, one for each convenience implementation. It is not just the bulk of the API that is reduced but the conceptual weight:the number and difficulty of the concepts that programmers must master in order to use the API. The programmer knows that the returned object has precisely the API specified by its interface, so there is no need to read additional class documentation for the implementation class. Furthermore, using such a static factory method requires the client to refer to the returned object by interface rather than implementation class, which is generally good practice \(Item 64\).
 
 As of Java 8, the restriction that interfaces cannot contain static methods was eliminated, so there is typically little reason to provide a noninstantiable companion class for an interface. Many public static members that would have been at home in such a class should instead be put in the interface itself. Note, however, that it may still be necessary to put the bulk of the implementation code behind these static methods in a separate package-private class. This is because Java 8 requires all static members of an interface to be public. Java 9 allows private static methods, but static fields and static member classes are still required to be public.
-
-在Java 8之前，接口不能拥有静态方法。按照Java 8之前的传统惯例，接口Type的静态工厂方法被放在了不可实例化的伙伴类（companion class，条目4）Types类里。例如，Java集合框架的接口有45个便利实现，提供了不可修改集合，同步集合等。几乎所有的这些实现都是通过在一个不可实例化的类（_java.util.Collections_）中导出。所有返回对象的类都是非公有的。
 
 这种集合框架API的实现方式比单独为导出45个公有类的方式要小得多，每个类对应一个便利实现。这不仅API数量的减少，而且也是概念意义上的减少——程序员为了用这个API而必须掌握的概念的数量和难度。程序员知道返回的对象是由它的接口精确指定的，从而没必要再去阅读这个对象实现类的参考文档了。而且，使用这种静态工厂方法时，要求客户端通过接口来引用返回对象而不是通过实现类，这是一种好的编程实践（条目64）。
 
