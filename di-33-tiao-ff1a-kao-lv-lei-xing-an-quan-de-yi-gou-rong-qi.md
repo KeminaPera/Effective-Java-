@@ -13,7 +13,7 @@ The API for the Favorites class is simple. It looks just like a simple map, exce
 public class Favorites {
     public <T> void putFavorite(Class<T> type, T instance);
     public <T> T getFavorite(Class<T> type);
-} 
+}
 ```
 
 Here is a sample program that exercises the Favorites class, storing, retrieving, and printing a favorite String, Integer, and Class instance:
@@ -30,7 +30,7 @@ public static void main(String[] args) {
     Class<?> favoriteClass = f.getFavorite(Class.class);
     System.out.printf("%s %x %s%n", favoriteString,
     favoriteInteger, favoriteClass.getName());
-} 
+}
 ```
 
 As you would expect, this program prints Java cafebabe Favorites. Note, incidentally, that Java’s printf method differs from C’s in that you should use %n where you’d use \n in C. The %n generates the applicable platform-specific line separator, which is \n on many but not all platforms.
@@ -47,266 +47,66 @@ public class Favorites {
     public <T> T getFavorite(Class<T> type) {
         return type.cast(favorites.get(type));
     }
-} 
+}
 ```
 
 There are a few subtle things going on here. Each Favorites instance is backed by a private Map&lt;Class&lt;?&gt;, Object&gt; called favorites. You might think that you couldn’t put anything into this Map because of the unbounded wildcard type, but the truth is quite the opposite. The thing to notice is that the wildcard type is nested: it’s not the type of the map that’s a wildcard type but the type of its key. This means that every key can have a different parameterized type: one can be Class&lt;String&gt;, the next Class&lt;Integer&gt;, and so on. That’s where the heterogeneity comes from.
 
-The next thing to notice is that the value type of the favorites Map is
+The next thing to notice is that the value type of the favorites Map is simply Object. In other words, the Map does not guarantee the type relationship between keys and values, which is that every value is of the type represented by its key. In fact, Java’s type system is not powerful enough to express this. But we know that it’s true, and we take advantage of it when the time comes to retrieve a favorite.
 
-simply Object. In other words, the Map does not guarantee the type
+The putFavorite implementation is trivial: it simply puts into favorites a mapping from the given Class object to the given favorite instance. As noted, this discards the “type linkage” between the key and the value; it loses the knowledge that the value is an instance of the key. But that’s OK, because the getFavorites method can and does reestablish this linkage.
 
-relationship between keys and values, which is that every value is
+The implementation of getFavorite is trickier than that of putFavorite. First, it gets from the favorites map the value corresponding to the given Class object. This is the correct object reference to return, but it has the wrong compile-time type: it is Object \(the value type of the favoritesmap\) and we need to return a T. So, the getFavorite implementation dynamically casts theobject reference to the type represented by the Class object, using Class’s cast method.
 
-of the type represented by its key. In fact, Java’s type system is not
+The cast method is the dynamic analogue of Java’s cast operator. It simply checks that its argument is an instance of the type represented by the Class object. If so, it returns the argument; otherwise it throws a ClassCastException. We know that the cast invocation in getFavorite won’t throw ClassCastException, assuming the client code compiled cleanly. That is to say, we know that the values in the favorites map always match the types of their keys.
 
-powerful enough to express this. But we know that it’s true, and we
+So what does the cast method do for us, given that it simply returns its argument? The signature of the cast method takes full advantage of the fact that class Class is generic. Its return type is the type parameter of the Class object:
 
-take advantage of it when the time comes to retrieve a favorite.
+```java
+public class Class<T> {
+    T cast(Object obj);
+} 
+```
 
-The putFavorite implementation is trivial: it simply puts
+This is precisely what’s needed by the getFavorite method. It is what allows us to make Favorites typesafe without resorting to an unchecked cast to T.
 
-into favorites a mapping from the given Class object to the given
+There are two limitations to the Favorites class that are worth noting. First, a malicious client could easily corrupt the type safety of a Favorites instance, by using a Class object in its raw form. But the resulting client code would generate an unchecked warning when it was compiled. This is no different from a normal collection implementations such as HashSet and HashMap. You can easily put a String into a HashSet&lt;Integer&gt; by using the raw type HashSet \(Item 26\). That said, you can have runtime type safety if you’re willing to pay for it. The way to ensure that Favorites never violates its type invariant is to have the putFavorite method check that instance isactually an instance of the type represented by type, and we already know how to do this. Just use a dynamic cast:
 
-favorite instance. As noted, this discards the “type linkage”
-
-between the key and the value; it loses the knowledge that the
-
-value is an instance of the key. But that’s OK, because
-
-the getFavorites method can and does reestablish this linkage.
-
-The implementation of getFavorite is trickier than that
-
-of putFavorite. First, it gets from the favorites map the value
-
-corresponding to the given Class object. This is the correct object
-
-reference to return, but it has the wrong compile-time type: it
-
-is Object \(the value type of the favoritesmap\) and we need to return
-
-a T. So, the getFavorite implementation dynamically casts theobject reference to the type represented by the Class object,
-
-using Class’s cast method.
-
-The cast method is the dynamic analogue of Java’s cast operator. It
-
-simply checks that its argument is an instance of the type
-
-represented by the Class object. If so, it returns the argument;
-
-otherwise it throws a ClassCastException. We know that the cast
-
-invocation in getFavorite won’t throw ClassCastException, assuming
-
-the client code compiled cleanly. That is to say, we know that the
-
-values in the favorites map always match the types of their keys.
-
-So what does the cast method do for us, given that it simply returns
-
-its argument? The signature of the cast method takes full
-
-advantage of the fact that class Class is generic. Its return type is
-
-the type parameter of the Class object:
-
-Click here to view code image
-
-public class Class&lt;T&gt; {
-
-T cast\(Object obj\);
-
-} T
-
-his is precisely what’s needed by the getFavorite method. It is
-
-what allows us to make Favorites typesafe without resorting to an
-
-unchecked cast to T.
-
-There are two limitations to the Favorites class that are worth
-
-noting. First, a malicious client could easily corrupt the type safety
-
-of a Favorites instance, by using a Class object in its raw form. But
-
-the resulting client code would generate an unchecked warning
-
-when it was compiled. This is no different from a normal collection
-
-implementations such as HashSet and HashMap. You can easily put
-
-a String into a HashSet&lt;Integer&gt; by using the raw type HashSet \(Item
-
-26\). That said, you can have runtime type safety if you’re willing to
-
-pay for it. The way to ensure that Favorites never violates its type
-
-invariant is to have the putFavorite method check that instance isactually an instance of the type represented by type, and we already
-
-know how to do this. Just use a dynamic cast:
-
-Click here to view code image
-
+```java
 // Achieving runtime type safety with a dynamic cast
+public <T> void putFavorite(Class<T> type, T instance) {
+    favorites.put(type, type.cast(instance));
+} 
+```
 
-public &lt;T&gt; void putFavorite\(Class&lt;T&gt; type, T instance\) {
+There are collection wrappers in java.util.Collections that play the same trick. They are called checkedSet, checkedList, checkedMap, and so forth. Their static factories take a Class object \(or two\) in addition to a collection \(or map\). The static factories are generic methods, ensuring that the compile-time types of the Class object and the collection match. The wrappers add reification to the collections they wrap. For example, the wrapper throws a ClassCastException at runtime if someone tries to put a Coin into your Collection&lt;Stamp&gt;. These wrappers are useful for tracking down client code that adds an incorrectly typed element to a collection, in an application that mixes generic and raw types.
 
-favorites.put\(type, type.cast\(instance\)\);
+The second limitation of the Favorites class is that it cannot be used on a non-reifiable type \(Item 28\). In other words, you can store your favorite String or String\[\], but not your favorite List&lt;String&gt;. If you try to store your favorite List&lt;String&gt;, your program won’t compile. The reason is that you can’t get a Class object for List&lt;String&gt;. The class literal List&lt;String&gt;.class is a syntax error, and it’s a good thing, too. List&lt;String&gt; and List&lt;Integer&gt; share a single Class object, which is List.class. It would wreak havoc with the internals of a Favorites object if the “type literals” List&lt;String&gt;.class and List&lt;Integer&gt;.classwere legal and returned the same object reference. There is no entirely satisfactory workaround for this limitation.The type tokens used by Favorites are unbounded: getFavorite and put-Favorite accept any Class object.
 
-} T
+Sometimes you may need to limit the types that can be passed to a method. This can be achieved with a bounded type token, which is simply a type token that places a bound on what type can be represented, using a bounded type parameter \(Item 30\) or a bounded wildcard \(Item 31\).
 
-here are collection wrappers in java.util.Collections that play the
+The annotations API \(Item 39\) makes extensive use of bounded type tokens. For example, here is the method to read an annotation at runtime. This method comes from the AnnotatedElement interface, which is implemented by the reflective types that represent classes, methods, fields, and other program elements:
 
-same trick. They are called checkedSet, checkedList, checkedMap, and
+```java
+public <T extends Annotation> T getAnnotation(Class<T> annotationType);
+```
 
-so forth. Their static factories take a Class object \(or two\) in
+The argument, annotationType, is a bounded type token representing an annotation type. The method returns the element’s annotation of that type, if it has one, or null, if it doesn’t. In essence, an annotated element is a typesafe heterogeneous container whose keys are annotation types.
 
-addition to a collection \(or map\). The static factories are generic
+Suppose you have an object of type Class&lt;?&gt; and you want to pass it to a method that requires a bounded type token, such as getAnnotation. You could cast the object to Class&lt;? extends Annotation&gt;, but this cast is unchecked, so it would generate a compile-time warning \(Item 27\). Luckily, class Class provides an instance method that performs this sort of cast safely \(and dynamically\). The method is called asSubclass, and it casts the Class object on which it is called to represent a subclass of the class represented by its argument. If the cast succeeds, the method returns its argument; if it fails, it throws a ClassCastException.Here’s how you use the asSubclass method to read an annotation whose type is unknown at compile time. This method compiles without error or warning:
 
-methods, ensuring that the compile-time types of the Class object
-
-and the collection match. The wrappers add reification to the
-
-collections they wrap. For example, the wrapper throws
-
-a ClassCastException at runtime if someone tries to put a Coin into
-
-your Collection&lt;Stamp&gt;. These wrappers are useful for tracking
-
-down client code that adds an incorrectly typed element to a
-
-collection, in an application that mixes generic and raw types.
-
-The second limitation of the Favorites class is that it cannot be used
-
-on a non-reifiable type \(Item 28\). In other words, you can store
-
-your favorite String or String\[\], but not your favorite List&lt;String&gt;. If
-
-you try to store your favorite List&lt;String&gt;, your program won’t
-
-compile. The reason is that you can’t get a Class object
-
-for List&lt;String&gt;. The class literal List&lt;String&gt;.class is a syntax error,
-
-and it’s a good thing, too. List&lt;String&gt; and List&lt;Integer&gt; share a
-
-single Class object, which is List.class. It would wreak havoc with
-
-the internals of a Favorites object if the “type
-
-literals” List&lt;String&gt;.class and List&lt;Integer&gt;.classwere legal and
-
-returned the same object reference. There is no entirely
-
-satisfactory workaround for this limitation.The type tokens used by Favorites are
-
-unbounded: getFavorite and put-Favorite accept any Class object.
-
-Sometimes you may need to limit the types that can be passed to a
-
-method. This can be achieved with a bounded type token, which is
-
-simply a type token that places a bound on what type can be
-
-represented, using a bounded type parameter \(Item 30\) or a
-
-bounded wildcard \(Item 31\).
-
-The annotations API \(Item 39\) makes extensive use of bounded
-
-type tokens. For example, here is the method to read an annotation
-
-at runtime. This method comes from the AnnotatedElement interface,
-
-which is implemented by the reflective types that represent classes,
-
-methods, fields, and other program elements:
-
-Click here to view code image
-
-public &lt;T extends Annotation&gt;
-
-T getAnnotation\(Class&lt;T&gt; annotationType\);
-
-The argument, annotationType, is a bounded type token representing
-
-an annotation type. The method returns the element’s annotation
-
-of that type, if it has one, or null, if it doesn’t. In essence, an
-
-annotated element is a typesafe heterogeneous container whose
-
-keys are annotation types.
-
-Suppose you have an object of type Class&lt;?&gt; and you want to pass it
-
-to a method that requires a bounded type token, such
-
-as getAnnotation. You could cast the object to Class&lt;? extends
-
-Annotation&gt;, but this cast is unchecked, so it would generate a
-
-compile-time warning \(Item 27\). Luckily, class Class provides an
-
-instance method that performs this sort of cast safely \(and
-
-dynamically\). The method is called asSubclass, and it casts
-
-the Class object on which it is called to represent a subclass of the
-
-class represented by its argument. If the cast succeeds, the method
-
-returns its argument; if it fails, it throws a ClassCastException.Here’s how you use the asSubclass method to read an annotation
-
-whose type is unknown at compile time. This method compiles
-
-without error or warning:
-
-Click here to view code image
-
+```java
 // Use of asSubclass to safely cast to a bounded type token
+static Annotation getAnnotation(AnnotatedElement element, String annotationTypeName) {
+    Class<?> annotationType = null; // Unbounded type token
+    try {
+        annotationType = Class.forName(annotationTypeName);
+    } catch (Exception ex) {
+        throw new IllegalArgumentException(ex);
+    } 
+    return element.getAnnotation(annotationType.asSubclass(Annotation.class));
+} 
+```
 
-static Annotation getAnnotation\(AnnotatedElement element,
-
-String annotationTypeName\) {
-
-Class&lt;?&gt; annotationType = null; // Unbounded type token
-
-try {
-
-annotationType = Class.forName\(annotationTypeName\);
-
-} catch \(Exception ex\) {
-
-throw new IllegalArgumentException\(ex\);
-
-} r
-
-eturn element.getAnnotation\(
-
-annotationType.asSubclass\(Annotation.class\)\);
-
-} I
-
-n summary, the normal use of generics, exemplified by the
-
-collections APIs, restricts you to a fixed number of type parameters
-
-per container. You can get around this restriction by placing the
-
-type parameter on the key rather than the container. You can
-
-use Class objects as keys for such typesafe heterogeneous
-
-containers. A Class object used in this fashion is called a type token.
-
-You can also use a custom key type. For example, you could have
-
-a DatabaseRow type representing a database row \(the container\), and
-
-a generic type Column&lt;T&gt; as its key.
+In summary, the normal use of generics, exemplified by the collections APIs, restricts you to a fixed number of type parameters per container. You can get around this restriction by placing the type parameter on the key rather than the container. You can use Class objects as keys for such typesafe heterogeneous containers. A Class object used in this fashion is called a type token. You can also use a custom key type. For example, you could have a DatabaseRow type representing a database row \(the container\), and a generic type Column&lt;T&gt; as its key.
 
