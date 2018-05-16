@@ -1,174 +1,56 @@
 ### 第33条：考虑类型安全的异构容器
 
-Common uses of generics include collections, such
+Common uses of generics include collections, such as Set&lt;E&gt; and Map&lt;K,V&gt;, and single-element containers, such as ThreadLocal&lt;T&gt; and AtomicReference&lt;T&gt;. In all of these uses, it is the container that is parameterized. This limits you to a fixed number of type parameters per container. Normally that is exactly what you want. A Set has a single type parameter, representing its element type; a Map has two, representing its key and value types; and so forth.
 
-as Set&lt;E&gt; and Map&lt;K,V&gt;, and single-element containers, such
+Sometimes, however, you need more flexibility. For example, a database row can have arbitrarily many columns, and it would be nice to be able to access all of them in a typesafe manner. Luckily, there is an easy way to achieve this effect. The idea is to parameterize the key instead of the container. Then present theparameterized key to the container to insert or retrieve a value. The generic type system is used to guarantee that the type of the value agrees with its key.
 
-as ThreadLocal&lt;T&gt; and AtomicReference&lt;T&gt;. In all of these uses, it is the
+As a simple example of this approach, consider a Favorites class that allows its clients to store and retrieve a favorite instance of arbitrarily many types. The Class object for the type will play the part of the parameterized key. The reason this works is that class Class is generic. The type of a class literal is not simply Class, but Class&lt;T&gt;. For example, String.class is of type Class&lt;String&gt;, and Integer.class is of type Class&lt;Integer&gt;. When a class literal is passed among methods to communicate both compile-time and runtime type information, it is called a type token \[Bracha04\].
 
-container that is parameterized. This limits you to a fixed number
+The API for the Favorites class is simple. It looks just like a simple map, except that the key is parameterized instead of the map. The client presents a Class object when setting and getting favorites. Here is the API:
 
-of type parameters per container. Normally that is exactly what
-
-you want. A Set has a single type parameter, representing its
-
-element type; a Map has two, representing its key and value types;
-
-and so forth.
-
-Sometimes, however, you need more flexibility. For example, a
-
-database row can have arbitrarily many columns, and it would be
-
-nice to be able to access all of them in a typesafe manner. Luckily,
-
-there is an easy way to achieve this effect. The idea is to
-
-parameterize the key instead of the container. Then present theparameterized key to the container to insert or retrieve a value.
-
-The generic type system is used to guarantee that the type of the
-
-value agrees with its key.
-
-As a simple example of this approach, consider a Favorites class
-
-that allows its clients to store and retrieve a favorite instance of
-
-arbitrarily many types. The Class object for the type will play the
-
-part of the parameterized key. The reason this works is that
-
-class Class is generic. The type of a class literal is not simply Class,
-
-but Class&lt;T&gt;. For example, String.class is of type Class&lt;String&gt;,
-
-and Integer.class is of type Class&lt;Integer&gt;. When a class literal is
-
-passed among methods to communicate both compile-time and
-
-runtime type information, it is called a type token \[Bracha04\].
-
-The API for the Favorites class is simple. It looks just like a simple
-
-map, except that the key is parameterized instead of the map. The
-
-client presents a Class object when setting and getting favorites.
-
-Here is the API:
-
-Click here to view code image
-
+```java
 // Typesafe heterogeneous container pattern - API
-
 public class Favorites {
+    public <T> void putFavorite(Class<T> type, T instance);
+    public <T> T getFavorite(Class<T> type);
+} 
+```
 
-public &lt;T&gt; void putFavorite\(Class&lt;T&gt; type, T instance\);
+Here is a sample program that exercises the Favorites class, storing, retrieving, and printing a favorite String, Integer, and Class instance:
 
-public &lt;T&gt; T getFavorite\(Class&lt;T&gt; type\);
-
-} H
-
-ere is a sample program that exercises the Favorites class, storing,
-
-retrieving, and printing a favorite String, Integer,
-
-and Class instance:
-
-Click here to view code image
-
+```java
 // Typesafe heterogeneous container pattern - client
+public static void main(String[] args) {
+    Favorites f = new Favorites();
+    f.putFavorite(String.class, "Java");
+    f.putFavorite(Integer.class, 0xcafebabe);
+    f.putFavorite(Class.class, Favorites.class);
+    String favoriteString = f.getFavorite(String.class);
+    int favoriteInteger = f.getFavorite(Integer.class);
+    Class<?> favoriteClass = f.getFavorite(Class.class);
+    System.out.printf("%s %x %s%n", favoriteString,
+    favoriteInteger, favoriteClass.getName());
+} 
+```
 
-public static void main\(String\[\] args\) {
+As you would expect, this program prints Java cafebabe Favorites. Note, incidentally, that Java’s printf method differs from C’s in that you should use %n where you’d use \n in C. The %n generates the applicable platform-specific line separator, which is \n on many but not all platforms.
 
-Favorites f = new Favorites\(\);
+A Favorites instance is typesafe: it will never return an Integer when you ask it for a String. It is also heterogeneous: unlike an ordinary map, all the keys are of different types. Therefore, we call Favorites a typesafe heterogeneous container. The implementation of Favorites is surprisingly tiny. Here it is, in its entirety:
 
-f.
-
-putFavorite\(String.class, "Java"\);f.
-
-putFavorite\(Integer.class, 0xcafebabe\);
-
-f.
-
-putFavorite\(Class.class, Favorites.class\);
-
-String favoriteString = f.getFavorite\(String.class\);
-
-int favoriteInteger = f.getFavorite\(Integer.class\);
-
-Class&lt;?&gt; favoriteClass = f.getFavorite\(Class.class\);
-
-System.out.printf\("%s %x %s%n", favoriteString,
-
-favoriteInteger, favoriteClass.getName\(\)\);
-
-} A
-
-s you would expect, this program prints Java cafebabe Favorites.
-
-Note, incidentally, that Java’s printf method differs from C’s in
-
-that you should use %n where you’d use \n in C. The %n generates the
-
-applicable platform-specific line separator, which is \n on many
-
-but not all platforms.
-
-A Favorites instance is typesafe: it will never return
-
-an Integer when you ask it for a String. It is also heterogeneous:
-
-unlike an ordinary map, all the keys are of different types.
-
-Therefore, we call Favorites a typesafe heterogeneous container.
-
-The implementation of Favorites is surprisingly tiny. Here it is, in
-
-its entirety:
-
-Click here to view code image
-
-// Typesafe heterogeneous container pattern -
-
-implementation
-
+```java
+// Typesafe heterogeneous container pattern -implementation
 public class Favorites {
+    private Map<Class<?>, Object> favorites = new HashMap<>();
+    public <T> void putFavorite(Class<T> type, T instance) {
+        favorites.put(Objects.requireNonNull(type), instance);
+    } 
+    public <T> T getFavorite(Class<T> type) {
+        return type.cast(favorites.get(type));
+    }
+} 
+```
 
-private Map&lt;Class&lt;?&gt;, Object&gt; favorites = new
-
-HashMap&lt;&gt;\(\);
-
-public &lt;T&gt; void putFavorite\(Class&lt;T&gt; type, T instance\) {
-
-favorites.put\(Objects.requireNonNull\(type\), instance\);
-
-} p
-
-ublic &lt;T&gt; T getFavorite\(Class&lt;T&gt; type\) {return type.cast\(favorites.get\(type\)\);
-
-}
-
-} T
-
-here are a few subtle things going on here.
-
-Each Favorites instance is backed by a private Map&lt;Class&lt;?&gt;,
-
-Object&gt; called favorites. You might think that you couldn’t put
-
-anything into this Map because of the unbounded wildcard type, but
-
-the truth is quite the opposite. The thing to notice is that the
-
-wildcard type is nested: it’s not the type of the map that’s a
-
-wildcard type but the type of its key. This means that every key can
-
-have a different parameterized type: one can be Class&lt;String&gt;, the
-
-next Class&lt;Integer&gt;, and so on. That’s where the heterogeneity
-
-comes from.
+There are a few subtle things going on here. Each Favorites instance is backed by a private Map&lt;Class&lt;?&gt;, Object&gt; called favorites. You might think that you couldn’t put anything into this Map because of the unbounded wildcard type, but the truth is quite the opposite. The thing to notice is that the wildcard type is nested: it’s not the type of the map that’s a wildcard type but the type of its key. This means that every key can have a different parameterized type: one can be Class&lt;String&gt;, the next Class&lt;Integer&gt;, and so on. That’s where the heterogeneity comes from.
 
 The next thing to notice is that the value type of the favorites Map is
 
@@ -427,6 +309,4 @@ You can also use a custom key type. For example, you could have
 a DatabaseRow type representing a database row \(the container\), and
 
 a generic type Column&lt;T&gt; as its key.
-
-
 
