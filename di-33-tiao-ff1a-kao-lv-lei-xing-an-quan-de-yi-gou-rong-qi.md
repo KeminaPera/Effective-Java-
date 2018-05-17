@@ -6,9 +6,11 @@ Common uses of generics include collections, such as Set&lt;E&gt; and Map&lt;K,V
 
 Sometimes, however, you need more flexibility. For example, a database row can have arbitrarily many columns, and it would be nice to be able to access all of them in a typesafe manner. Luckily, there is an easy way to achieve this effect. The idea is to parameterize the key instead of the container. Then present the parameterized key to the container to insert or retrieve a value. The generic type system is used to guarantee that the type of the value agrees with its key.
 
-然而，有时候你需要跟灵活些。比如，数据库的某一行会有任意多列，如果能用一种类型安全的方式去访问这些列就再好不过了。幸运的是，有个简单的办法可以做到这点。这个办法就是，将键参数化，而不是容器。然后将参数化了的键提交给容器去插入或者获取一个值。用泛型类型系统来保证值的类型与值对应的键的类型相符。
+然而，有时候你需要更灵活些。比如，数据库的某一行会有任意多列，如果能用一种类型安全的方式去访问这些列就再好不过了。幸运的是，有个简单的办法可以做到这点。这个办法就是，将键参数化，而不是容器。然后将参数化了的键提交给容器去插入或者获取一个值。用泛型类型系统来保证值的类型与值对应的键的类型相符。
 
 As a simple example of this approach, consider a Favorites class that allows its clients to store and retrieve a favorite instance of arbitrarily many types. The Class object for the type will play the part of the parameterized key. The reason this works is that class Class is generic. The type of a class literal is not simply Class, but Class&lt;T&gt;. For example, String.class is of type Class&lt;String&gt;, and Integer.class is of type Class&lt;Integer&gt;. When a class literal is passed among methods to communicate both compile-time and runtime type information, it is called a type token \[Bracha04\].
+
+下面针对上述的办法举一个简单的例子。考虑一个类，它叫Favorites，该类允许它的客户端存储和获取任意类型的favorite实例。某类型的Class对象将是参数化键的一部分。之所以可以这么做，是因为Class类是泛型的。
 
 The API for the Favorites class is simple. It looks just like a simple map, except that the key is parameterized instead of the map. The client presents a Class object when setting and getting favorites. Here is the API:
 
