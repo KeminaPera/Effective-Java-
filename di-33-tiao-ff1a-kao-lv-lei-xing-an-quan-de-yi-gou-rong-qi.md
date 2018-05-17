@@ -10,7 +10,7 @@ Sometimes, however, you need more flexibility. For example, a database row can h
 
 As a simple example of this approach, consider a Favorites class that allows its clients to store and retrieve a favorite instance of arbitrarily many types. The Class object for the type will play the part of the parameterized key. The reason this works is that class Class is generic. The type of a class literal is not simply Class, but Class&lt;T&gt;. For example, String.class is of type Class&lt;String&gt;, and Integer.class is of type Class&lt;Integer&gt;. When a class literal is passed among methods to communicate both compile-time and runtime type information, it is called a type token \[Bracha04\].
 
-下面针对上述的办法举一个简单的例子。考虑一个类，它叫Favorites，该类允许它的客户端存储和获取任意类型的favorite实例。某类型的Class对象将是参数化键的一部分。之所以可以这么做，是因为Class类是泛型的。从字面上来说，类的类型不是简单的Class，
+下面针对上述的办法举一个简单的例子。考虑一个类，它叫Favorites，该类允许它的客户端存储和获取任意类型的favorite实例。某类型的Class对象将是参数化键的一部分。之所以可以这么做，是因为Class类是泛型的。从字面上来说，类的类型不是简单的Class，而是Class&lt;T&gt;。例如，String.class的类型为Class&lt;String&gt;，Integer.class的类型是Class&lt;Integer&gt;。
 
 The API for the Favorites class is simple. It looks just like a simple map, except that the key is parameterized instead of the map. The client presents a Class object when setting and getting favorites. Here is the API:
 
