@@ -49,7 +49,7 @@ As you would expect, this program prints Java cafebabe Favorites. Note, incident
 
 A Favorites instance is typesafe: it will never return an Integer when you ask it for a String. It is also heterogeneous: unlike an ordinary map, all the keys are of different types. Therefore, we call Favorites a typesafe heterogeneous container. The implementation of Favorites is surprisingly tiny. Here it is, in its entirety:
 
-Favorites实例是类型安全的：当你请求一个String时，它永远不会返回个Integer给你。同时它也是异构的：
+Favorites实例是类型安全的：当你请求一个String时，它永远不会返回个Integer给你。同时它也是异构的：不像普通的map，它里面的所有键都是不同类型的。因而，我们把Favorites类称为类型安全的异构容器。Favorites类的实现非常简单。下面是它的全部代码：
 
 ```java
 // Typesafe heterogeneous container pattern -implementation
@@ -65,6 +65,8 @@ public class Favorites {
 ```
 
 There are a few subtle things going on here. Each Favorites instance is backed by a private Map&lt;Class&lt;?&gt;, Object&gt; called favorites. You might think that you couldn’t put anything into this Map because of the unbounded wildcard type, but the truth is quite the opposite. The thing to notice is that the wildcard type is nested: it’s not the type of the map that’s a wildcard type but the type of its key. This means that every key can have a different parameterized type: one can be Class&lt;String&gt;, the next Class&lt;Integer&gt;, and so on. That’s where the heterogeneity comes from.
+
+这里有几个微妙的地方。每个Favorites实例都带有一个私有域favorites，它的类型为Map&lt;Class&lt;?&gt;, Object&gt;。你可能会觉得
 
 The next thing to notice is that the value type of the favorites Map is simply Object. In other words, the Map does not guarantee the type relationship between keys and values, which is that every value is of the type represented by its key. In fact, Java’s type system is not powerful enough to express this. But we know that it’s true, and we take advantage of it when the time comes to retrieve a favorite.
 
