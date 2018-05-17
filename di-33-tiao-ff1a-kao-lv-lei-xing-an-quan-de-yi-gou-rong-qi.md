@@ -49,6 +49,8 @@ As you would expect, this program prints Java cafebabe Favorites. Note, incident
 
 A Favorites instance is typesafe: it will never return an Integer when you ask it for a String. It is also heterogeneous: unlike an ordinary map, all the keys are of different types. Therefore, we call Favorites a typesafe heterogeneous container. The implementation of Favorites is surprisingly tiny. Here it is, in its entirety:
 
+Favorites实例是类型安全的：当你请求一个String时，它永远不会返回个Integer给你。同时它也是异构的：
+
 ```java
 // Typesafe heterogeneous container pattern -implementation
 public class Favorites {
