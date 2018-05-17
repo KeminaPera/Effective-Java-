@@ -2,6 +2,8 @@
 
 Common uses of generics include collections, such as Set&lt;E&gt; and Map&lt;K,V&gt;, and single-element containers, such as ThreadLocal&lt;T&gt; and AtomicReference&lt;T&gt;. In all of these uses, it is the container that is parameterized. This limits you to a fixed number of type parameters per container. Normally that is exactly what you want. A Set has a single type parameter, representing its element type; a Map has two, representing its key and value types; and so forth.
 
+泛型常见的应用场景里包括了集合，例如Set&lt;E&gt;，和Map&lt;K,V&gt;，还包括了单元素的容器，例如ThreadLocal&lt;T&gt;和AtomicReference&lt;T&gt;。在这些应用场景里，
+
 Sometimes, however, you need more flexibility. For example, a database row can have arbitrarily many columns, and it would be nice to be able to access all of them in a typesafe manner. Luckily, there is an easy way to achieve this effect. The idea is to parameterize the key instead of the container. Then present theparameterized key to the container to insert or retrieve a value. The generic type system is used to guarantee that the type of the value agrees with its key.
 
 As a simple example of this approach, consider a Favorites class that allows its clients to store and retrieve a favorite instance of arbitrarily many types. The Class object for the type will play the part of the parameterized key. The reason this works is that class Class is generic. The type of a class literal is not simply Class, but Class&lt;T&gt;. For example, String.class is of type Class&lt;String&gt;, and Integer.class is of type Class&lt;Integer&gt;. When a class literal is passed among methods to communicate both compile-time and runtime type information, it is called a type token \[Bracha04\].
@@ -65,7 +67,7 @@ So what does the cast method do for us, given that it simply returns its argumen
 ```java
 public class Class<T> {
     T cast(Object obj);
-} 
+}
 ```
 
 This is precisely what’s needed by the getFavorite method. It is what allows us to make Favorites typesafe without resorting to an unchecked cast to T.
@@ -76,7 +78,7 @@ There are two limitations to the Favorites class that are worth noting. First, a
 // Achieving runtime type safety with a dynamic cast
 public <T> void putFavorite(Class<T> type, T instance) {
     favorites.put(type, type.cast(instance));
-} 
+}
 ```
 
 There are collection wrappers in java.util.Collections that play the same trick. They are called checkedSet, checkedList, checkedMap, and so forth. Their static factories take a Class object \(or two\) in addition to a collection \(or map\). The static factories are generic methods, ensuring that the compile-time types of the Class object and the collection match. The wrappers add reification to the collections they wrap. For example, the wrapper throws a ClassCastException at runtime if someone tries to put a Coin into your Collection&lt;Stamp&gt;. These wrappers are useful for tracking down client code that adds an incorrectly typed element to a collection, in an application that mixes generic and raw types.
@@ -105,7 +107,7 @@ static Annotation getAnnotation(AnnotatedElement element, String annotationTypeN
         throw new IllegalArgumentException(ex);
     } 
     return element.getAnnotation(annotationType.asSubclass(Annotation.class));
-} 
+}
 ```
 
 In summary, the normal use of generics, exemplified by the collections APIs, restricts you to a fixed number of type parameters per container. You can get around this restriction by placing the type parameter on the key rather than the container. You can use Class objects as keys for such typesafe heterogeneous containers. A Class object used in this fashion is called a type token. You can also use a custom key type. For example, you could have a DatabaseRow type representing a database row \(the container\), and a generic type Column&lt;T&gt; as its key.
