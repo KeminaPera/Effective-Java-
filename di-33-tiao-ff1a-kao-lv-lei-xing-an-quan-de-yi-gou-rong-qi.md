@@ -26,6 +26,8 @@ public class Favorites {
 
 Here is a sample program that exercises the Favorites class, storing, retrieving, and printing a favorite String, Integer, and Class instance:
 
+下面这个程序演示了如何通过Favorites类来存储，获取以及打印一个favorite的String，Integer和Class实例：
+
 ```java
 // Typesafe heterogeneous container pattern - client
 public static void main(String[] args) {
@@ -42,6 +44,8 @@ public static void main(String[] args) {
 ```
 
 As you would expect, this program prints Java cafebabe Favorites. Note, incidentally, that Java’s printf method differs from C’s in that you should use %n where you’d use \n in C. The %n generates the applicable platform-specific line separator, which is \n on many but not all platforms.
+
+正如你所料，这段程序打印出Java cafebabe Favorites。顺便说句，要注意的是，Java的printf方法与C的不同，在C语言里要用到\n的地方，对应地在Java里你应该用%n。%n能在指定的平台上生成恰当的行分隔符，而\n虽然用能在大多数平台上，但并不是全部平台都可以用。
 
 A Favorites instance is typesafe: it will never return an Integer when you ask it for a String. It is also heterogeneous: unlike an ordinary map, all the keys are of different types. Therefore, we call Favorites a typesafe heterogeneous container. The implementation of Favorites is surprisingly tiny. Here it is, in its entirety:
 
