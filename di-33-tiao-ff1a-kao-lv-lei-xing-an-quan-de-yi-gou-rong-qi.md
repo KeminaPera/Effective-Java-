@@ -66,6 +66,8 @@ public class Favorites {
 
 There are a few subtle things going on here. Each Favorites instance is backed by a private Map&lt;Class&lt;?&gt;, Object&gt; called favorites. You might think that you couldn’t put anything into this Map because of the unbounded wildcard type, but the truth is quite the opposite. The thing to notice is that the wildcard type is nested: it’s not the type of the map that’s a wildcard type but the type of its key. This means that every key can have a different parameterized type: one can be Class&lt;String&gt;, the next Class&lt;Integer&gt;, and so on. That’s where the heterogeneity comes from.
 
+
+
 这里有几个微妙的地方。每个Favorites实例都带有一个私有域favorites，它的类型为Map&lt;Class&lt;?&gt;, Object&gt;。你可能会觉得
 
 The next thing to notice is that the value type of the favorites Map is simply Object. In other words, the Map does not guarantee the type relationship between keys and values, which is that every value is of the type represented by its key. In fact, Java’s type system is not powerful enough to express this. But we know that it’s true, and we take advantage of it when the time comes to retrieve a favorite.
