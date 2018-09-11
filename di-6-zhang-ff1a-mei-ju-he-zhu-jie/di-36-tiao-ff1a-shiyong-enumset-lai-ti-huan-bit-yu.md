@@ -1,5 +1,7 @@
 If the elements of an enumerated type are used primarily in sets, it is traditional to use the int enum pattern \(Item 34\), assigning a different power of 2 to each constant:
 
+如果一个枚举类型的元素主要是用于集合，那么传统做法是采用int枚举模式（条目34），将2的不同倍数赋值给每个常量：
+
 **//** **Bit field enumeration constants - OBSOLETE!**
 
 ```java
@@ -14,6 +16,8 @@ public class Text {
 ```
 
 This representation lets you use the bitwise OR operation to combine several constants into a set, known as a _bit field_:
+
+下面的这种用法表示采用OR位运算来将几个常量组合到一个集合里，我们把这些常量称为位域（bit field）：
 
 ```java
 text.applyStyles(STYLE_BOLD | STYLE_ITALIC);
@@ -46,6 +50,5 @@ text.applyStyles(EnumSet.of(Style.BOLD, Style.ITALIC));
 
 Note that the applyStyles method takes a Set&lt;Style&gt;rather than an EnumSet&lt;Style&gt;. While it seems likely that all clients would pass an EnumSet to the method, it is generally good practice to accept the interface type rather than the implementation type \(Item 64\). This allows for the possibility of an unusual client to pass in some other Set implementation.
 
-In summary, **just because an enumerated type will be used in sets, there is no reason to represent it with bit fields. **The EnumSet class combines the conciseness and performance of bit fields with all the many advantages of enum types described inItem 34. The one real disadvantage of EnumSet is that it is not, as of Java 9, possible to create an immutable EnumSet, but this will likely be remedied in an upcoming release. In the meantime, you can wrap an EnumSet with Collections.unmodifiableSet, but conciseness and performance will suffer.  
-
+In summary, **just because an enumerated type will be used in sets, there is no reason to represent it with bit fields. **The EnumSet class combines the conciseness and performance of bit fields with all the many advantages of enum types described inItem 34. The one real disadvantage of EnumSet is that it is not, as of Java 9, possible to create an immutable EnumSet, but this will likely be remedied in an upcoming release. In the meantime, you can wrap an EnumSet with Collections.unmodifiableSet, but conciseness and performance will suffer.
 
