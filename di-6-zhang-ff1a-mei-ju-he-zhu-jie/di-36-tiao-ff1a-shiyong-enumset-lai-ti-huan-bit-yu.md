@@ -1,5 +1,7 @@
 If the elements of an enumerated type are used primarily in sets, it is traditional to use the int enum pattern \(Item 34\), assigning a different power of 2 to each constant:
 
+// **Bit field enumeration constants - OBSOLETE!**
+
 ```java
 public class Text {
     public static final int STYLE_BOLD = 1 << 0; // 1
