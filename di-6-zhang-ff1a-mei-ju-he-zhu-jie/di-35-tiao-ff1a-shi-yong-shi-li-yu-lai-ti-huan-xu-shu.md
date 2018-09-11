@@ -28,7 +28,7 @@ public enum Ensemble {
     SOLO(1), DUET(2), TRIO(3), QUARTET(4), QUINTET(5), 
     SEXTET(6), SEPTET(7), OCTET(8), DOUBLE_QUARTET(8), 
     NONET(9), DECTET(10), TRIPLE_QUARTET(12);
-    
+
     private final int numberOfMusicians;
     Ensemble(int size) { 
         this.numberOfMusicians = size; 
@@ -39,5 +39,7 @@ public enum Ensemble {
 }
 ```
 
+The Enum specification has this to say about ordinal: “Most programmers will have no use for this method. It is designed for use by general-purpose enum-based data structures such as EnumSet and EnumMap.” Unless you are writing code with this character, you are best off avoiding the ordinal method entirely.
 
+Enum规范里提到ordianl方法时是这么说的：“大多数程序员将用不到这个方法。设计这个方法是来用于像EnumSet和EnumMap这种基于枚举的通用数据结构的。“ 除非你编写的代码带有这种特征，否则最好都是要避免使用ordinal方法。
 
