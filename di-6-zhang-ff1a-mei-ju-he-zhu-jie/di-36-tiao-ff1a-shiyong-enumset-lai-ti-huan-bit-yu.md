@@ -8,7 +8,7 @@ public class Text {
     public static final int STYLE_ITALIC = 1 << 1; // 2
     public static final int STYLE_UNDERLINE = 1 << 2; // 4 
     public static final int STYLE_STRIKETHROUGH = 1 << 3; // 8
-    // Parameter is bitwise OR of zero or more STYLE_ constants
+    // Parameter is bitwise OR of zero or more STYLE_constants
     public void applyStyles(int styles) { ... } 
 }
 ```
