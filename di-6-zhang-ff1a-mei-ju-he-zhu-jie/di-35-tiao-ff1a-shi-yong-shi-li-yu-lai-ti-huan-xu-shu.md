@@ -19,3 +19,25 @@ Also, you can’t add a constant for an int value without adding constants for a
 
 同样，若是没有为所有涉及到的int值添加常量，你也是无法为某个int值添加常量的。例如，假设你想增加一个常量用来表示一个由12个演奏者组成的三重奏。由于没有由11个演奏者组成合奏组的标准，那么此时你不得不为一个用不到的int值\(11\)添加一个虚拟的常量。这么做顶多就只是显得不优雅。但如果有大量的int值都是用不到的，那么这么做就不切实际了。
 
+Luckily, there is a simple solution to these problems. Never derive a value associated with an enum from its ordinal; store it in an instance field instead:
+
+幸运的是，有个简单的办法可以解决这些问题。那就是，永远都不要经过某个枚举的ordinal方法来获取它的绑定值，而是要将这个值通过一个实例域来进行保存：
+
+```java
+public enum Ensemble {
+    SOLO(1), DUET(2), TRIO(3), QUARTET(4), QUINTET(5), 
+    SEXTET(6), SEPTET(7), OCTET(8), DOUBLE_QUARTET(8), 
+    NONET(9), DECTET(10), TRIPLE_QUARTET(12);
+    
+    private final int numberOfMusicians;
+    Ensemble(int size) { 
+        this.numberOfMusicians = size; 
+    }
+    public int numberOfMusicians() { 
+        return numberOfMusicians; 
+    }
+}
+```
+
+
+
