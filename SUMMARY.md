@@ -41,4 +41,5 @@
 * [第6章：枚举和注解](di-6-zhang-ff1a-mei-ju-he-zhu-jie.md)
   * [第34条：用枚举替换常量](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-34-tiao-ff1a-yong-mei-ju-ti-huan-chang-liang.md)
   * [第35条：使用实例域来替换序数](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-35-tiao-ff1a-shi-yong-shi-li-yu-lai-ti-huan-xu-shu.md)
+  * [第36条：使用EnumSet来替换Bit域](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-36-tiao-ff1a-shiyong-enumset-lai-ti-huan-bit-yu.md)
 
