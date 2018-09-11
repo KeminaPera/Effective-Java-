@@ -17,7 +17,5 @@ While this enum works, it is a maintenance nightmare. If the constants are reord
 
 Also, you can’t add a constant for an int value without adding constants for all intervening int values. For example, suppose you want to add a constant representing a triple quartet, which consists of twelve musicians. There is no standard term for an ensemble consisting of eleven musicians, so you are forced to add a dummy constant for the unused int value \(11\). At best, this is ugly. If many int values are unused, it’s impractical.
 
-  
-  
-
+同样，若是没有为所有涉及到的int值添加常量，你也是无法为某个int值添加常量的。例如，假设你想增加一个常量用来表示一个由12个演奏者组成的三重奏。由于没有由11个演奏者组成合奏组的标准，那么此时你不得不为一个用不到的int值\(11\)添加一个虚拟的常量。这么做顶多就只是显得不优雅。但如果有大量的int值都是用不到的，那么这么做就不切实际了。
 
