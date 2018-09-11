@@ -40,4 +40,5 @@
   * [第33条：考虑类型安全的异构容器](di-33-tiao-ff1a-kao-lv-lei-xing-an-quan-de-yi-gou-rong-qi.md)
 * [第6章：枚举和注解](di-6-zhang-ff1a-mei-ju-he-zhu-jie.md)
   * [第34条：用枚举替换常量](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-34-tiao-ff1a-yong-mei-ju-ti-huan-chang-liang.md)
+  * [第35条：使用实例域来替换序数](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-35-tiao-ff1a-shi-yong-shi-li-yu-lai-ti-huan-xu-shu.md)
 
