@@ -24,9 +24,9 @@ text.applyStyles(STYLE_BOLD | STYLE_ITALIC);
 ```
 
 The bit field representation also lets you perform set operations such as union and intersection efficiently using bitwise arithmetic. But bit fields have all the disadvantages of int enum constants and more. It is even harder to interpret a bit field than a  
- simple int enum constant when it is printed as a number. There is no easy way to iterate over all of the elements represented by a bit field. Finally, you have to predict the maximum number of bits you’ll ever need at the time you’re writing the API and choose a type for the bit field \(typically int or long\) accordingly. Once you’ve picked a type, you can’t exceed its width \(32 or 64 bits\) without changing the API.
+simple int enum constant when it is printed as a number. There is no easy way to iterate over all of the elements represented by a bit field. Finally, you have to predict the maximum number of bits you’ll ever need at the time you’re writing the API and choose a type for the bit field \(typically int or long\) accordingly. Once you’ve picked a type, you can’t exceed its width \(32 or 64 bits\) without changing the API.
 
-通过位运算，域表示法也允许你高效完成诸如并集，交集之类的操作。
+通过位运算，域表示法也允许你高效完成诸如并集，交集之类的操作。但同时位域也拥有着int枚举常量的所有缺点，甚至还更多。
 
 Some programmers who use enums in preference to int constants still cling to the use of bit fields when they need to pass around sets of constants. There is no reason to do this, because a better alternative exists. The java.util package provides the EnumSet class to efficiently represent sets of values drawn from a single enum type. This class implements the Set interface, providing all of the richness, type safety, and interoperability you get with any other Set implementation. But internally, each EnumSet is represented as a bit vector. If the underlying enum type has sixty-four or fewer elements—and most do—the entire EnumSet is represented with a single long, so its performance is comparable to that of a bit field. Bulk operations, such as removeAll and retainAll, are implemented using bitwise arithmetic, just as you’d do manually for bit fields. But you are insulated from the ugliness and error-proneness of manual bit twiddling: the EnumSet does the hard work for you.
 
