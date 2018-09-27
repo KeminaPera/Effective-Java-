@@ -1,41 +1,3 @@
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 If the elements of an enumerated type are used primarily in sets, it is traditional to use the int enum pattern \(Item 34\), assigning a different power of 2 to each constant:
 
 如果一个枚举类型的元素主要是用于集合，那么传统做法是采用int枚举模式（条目34），将2的不同倍数赋值给每个常量：
@@ -71,6 +33,8 @@ Some programmers who use enums in preference to int constants still cling to the
 相比使用int常量，有些程序员在使用枚举时会倾向于使用枚举，但当他们需要传入多组常量时，他们依旧会倾向于使用位域。其实不用这样的，因为有一个更好的办法。java.util包提供了EnumSet类，它可以更好地表示从一个枚举类型里提取的值的集合。这个类实现了Set接口，提供了丰富的功能，不仅类型安全，而且能让你与其它的Set实现类进行互用。但每个EnumSet的内部都表示成一个位矢量。
 
 Here is how the previous example looks when modified to use enums and enum sets instead of bit fields. It is shorter, clearer, and safer:
+
+当前面的例子改成使用枚举以及枚举集合来替换位域时，代码将变成下面这副模样。修改后的代码更简短，干净，而且安全：
 
 **// EnumSet - a modern replacement for bit fields**
 
