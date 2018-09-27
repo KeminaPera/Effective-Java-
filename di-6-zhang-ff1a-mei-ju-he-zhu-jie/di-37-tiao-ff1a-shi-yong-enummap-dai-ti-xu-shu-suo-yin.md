@@ -48,6 +48,6 @@ This program is shorter, clearer, safer, and comparable in speed to the original
 
 The previous program can be further shortened by using a stream \(Item 45\) to manage the map. Here is the simplest stream-based code that largely duplicates the behavior of the previous example:
 
-**// Naive stream-based approach - unlikely to produce an EnumMap!  
+**// Naive stream-based approach - unlikely to produce an EnumMap!    
 **
 
