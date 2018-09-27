@@ -50,6 +50,8 @@ public class Text {
 
 Here is client code that passes an EnumSet instance to the applyStyles method. The EnumSet class provides a rich set of static factories for easy set creation, one of which is illustrated in this code:
 
+下面这行客户端代码展示了如何往applyStyles方法里传入一个EnumSet实例。EnumSet类提供了一系列静态工厂以便于集合的创建，下面这行代码里就使用了其中一种。
+
 ```java
 text.applyStyles(EnumSet.of(Style.BOLD, Style.ITALIC));
 ```
