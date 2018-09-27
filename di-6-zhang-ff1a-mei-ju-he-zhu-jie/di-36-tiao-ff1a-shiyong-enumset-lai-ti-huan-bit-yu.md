@@ -56,7 +56,11 @@ Here is client code that passes an EnumSet instance to the applyStyles method. T
 text.applyStyles(EnumSet.of(Style.BOLD, Style.ITALIC));
 ```
 
-Note that the applyStyles method takes a Set&lt;Style&gt;rather than an EnumSet&lt;Style&gt;. While it seems likely that all clients would pass an EnumSet to the method, it is generally good practice to accept the interface type rather than the implementation type \(Item 64\). This allows for the possibility of an unusual client to pass in some other Set implementation.
+Note that the applyStyles method takes a Set&lt;Style&gt; rather than an EnumSet&lt;Style&gt;. While it seems likely that all clients would pass an EnumSet to the method, it is generally good practice to accept the interface type rather than the implementation type \(Item 64\). This allows for the possibility of an unusual client to pass in some other Set implementation.
 
-In summary, **just because an enumerated type will be used in sets, there is no reason to represent it with bit fields. **The EnumSet class combines the conciseness and performance of bit fields with all the many advantages of enum types described inItem 34. The one real disadvantage of EnumSet is that it is not, as of Java 9, possible to create an immutable EnumSet, but this will likely be remedied in an upcoming release. In the meantime, you can wrap an EnumSet with Collections.unmodifiableSet, but conciseness and performance will suffer.
+注意，applyStyles方法接收Set&lt;Style&gt;参数，而不是EnumSet&lt;Style&gt;。虽然看起来好像所有的客户端都将往这个方法里传入一个EnumSet，但通常来说，更好的实践是，让方法接收接口类型而不是实现类型（条目64）。这么做使得某些特殊的客户端可以传入一些别的Set实现类型。
+
+In summary, **just because an enumerated type will be used in sets, there is no reason to represent it with bit fields. **The EnumSet class combines the conciseness and performance of bit fields with all the many advantages of enum types described in Item 34. The one real disadvantage of EnumSet is that it is not, as of Java 9, possible to create an immutable EnumSet, but this will likely be remedied in an upcoming release. In the meantime, you can wrap an EnumSet with Collections.unmodifiableSet, but conciseness and performance will suffer.
+
+总的来说，**正是因为枚举类型将被用于集合，所以没理由要用位域来表示它。**EnumSet类不仅包含了位域的简洁性和性能优势，还包含了条目34里提到的枚举类型的所有优点。EnumSet的一大缺点是，到目前的Java9，都还无法创建一个不可变的EnumSet，但这个缺点可能会在接下来的发布版本中得到修正。与此同时，你可以用Collections.unmodifiableSet来包装EnumSet，但简洁性和性能将会受到影响。
 
