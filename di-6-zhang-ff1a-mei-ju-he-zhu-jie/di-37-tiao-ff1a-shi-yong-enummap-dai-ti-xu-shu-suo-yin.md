@@ -20,7 +20,7 @@ class Plant {
 
 Now suppose you have an array of plants representing a garden, and you want to list these plants organized by life cycle \(annual, perennial, or biennial\). To do this, you construct three sets, one for each life cycle, and iterate through the garden, placing each plant in the appropriate set. Some programmers would do this by putting the sets into an array indexed by the life cycle’s ordinal:
 
-现在假设你有一系列的植物用于表示一个植物园，同时，你需要让这些植物按照生命周期（一年生植物，多年生植物，或者两年生植物）。为了达到这种效果，你构建了三个集合，分别对应三种生命周期，然后遍历整个植物园，将每株植物放入合适的集合里。
+现在假设你有一系列的植物用于表示一个植物园，同时，你需要让这些植物按照生命周期（一年生植物，多年生植物，或者两年生植物）。为了达到这种效果，你构建了三个集合，分别对应三种生命周期，然后遍历整个植物园，将每株植物放入合适的集合里。有些程序员会将这三个集合放入一个列表里，然后这个列表通过生命周期的枚举的序数进行索引：
 
 **// Using ordinal\(\) to index into an array - DON'T DO THIS!**
 
