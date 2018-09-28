@@ -1,5 +1,7 @@
 Occasionally you may see code that uses the ordinal method \(Item 35\) to index into an array or list. For example, consider this simplistic class meant to represent a plant:
 
+有时候你会发现，有些代码通过使用ordinal方法（条目35）来索引一个数组或列表。举个例子，我们来看看下面这个简化的类，它表示了一株植物：
+
 ```java
 class Plant {
     enum LifeCycle { ANNUAL, PERENNIAL, BIENNIAL }
@@ -9,13 +11,16 @@ class Plant {
         this.name = name;
         this.lifeCycle = lifeCycle;
     }
-    @Override public String toString() { 
+    @Override 
+    public String toString() { 
         return name;
     } 
 }
 ```
 
 Now suppose you have an array of plants representing a garden, and you want to list these plants organized by life cycle \(annual, perennial, or biennial\). To do this, you construct three sets, one for each life cycle, and iterate through the garden, placing each plant in the appropriate set. Some programmers would do this by putting the sets into an array indexed by the life cycle’s ordinal:
+
+现在假设你有一系列的植物用于表示一个植物园，同时，你需要让这些植物按照生命周期（一年生植物，多年生植物，或者两年生植物）。为了达到这种效果，你构建了三个集合，分别对应三种生命周期，然后遍历整个植物园，将每株植物放入合适的集合里。
 
 **// Using ordinal\(\) to index into an array - DON'T DO THIS!**
 
