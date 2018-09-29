@@ -38,7 +38,7 @@ for (int i = 0; i < plantsByLifeCycle.length; i++) {
 
 This technique works, but it is fraught with problems. Because arrays are not compatible with generics \(Item 28\), the program requires an unchecked cast and will not compile cleanly. Because the array does not know what its index represents, you have to label the output manually. But the most serious problem with this technique is that when you access an array that is indexed by an enum’s ordinal, it is your responsibility to use the correct int value; ints do not provide the type safety of enums. If you use the wrong value, the program will silently do the wrong thing or—if you’re lucky—throw an ArrayIndexOutOfBoundsException. There is a much better way to achieve the same effect. The array is effectively serving as a map from the enum to a value, so you might as well use aMap. More specifically, there is a very fast Map implementation designed for use with enum keys, known as java.util.EnumMap. Here is how the program looks when it is rewritten to use EnumMap:
 
-这么做虽然也可以，但是里面隐藏着一些问题。由于数组无法与泛型兼容（条目28），所以在程序里需要进行未受检地强转，而且不能准确无误地进行编译。
+这么做虽然也可以，但是里面隐藏着一些问题。由于数组无法与泛型兼容（条目28），所以在程序里需要进行未受检地强转，而且不能准确无误地进行编译。同时，由于数组无法知道它的索引代表的是什么，所以你还必须
 
 **// Using an EnumMap to associate data with an enum**
 
