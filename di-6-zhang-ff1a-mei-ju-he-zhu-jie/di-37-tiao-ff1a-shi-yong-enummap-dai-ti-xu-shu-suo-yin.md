@@ -36,13 +36,13 @@ for (int i = 0; i < plantsByLifeCycle.length; i++) {
 }
 ```
 
-This technique works, but it is fraught with problems. Because arrays are not compatible with generics \(Item 28\), the program requires an unchecked cast and will not compile cleanly. Because the array does not know what its index represents, you have to label the output manually. But the most serious problem with this technique is that when you access an array that is indexed by an enum’s ordinal, it is your responsibility to use the correct int value; ints do not provide the type safety of enums. If you use the wrong value, the program will silently do the wrong thing or—if you’re lucky—throw an ArrayIndexOutOfBoundsException. 
-
-There is a much better way to achieve the same effect. The array is effectively serving as a map from the enum to a value, so you might as well use a Map. More specifically, there is a very fast Map implementation designed for use with enum keys, known as java.util.EnumMap. Here is how the program looks when it is rewritten to use EnumMap:
+This technique works, but it is fraught with problems. Because arrays are not compatible with generics \(Item 28\), the program requires an unchecked cast and will not compile cleanly. Because the array does not know what its index represents, you have to label the output manually. But the most serious problem with this technique is that when you access an array that is indexed by an enum’s ordinal, it is your responsibility to use the correct int value; ints do not provide the type safety of enums. If you use the wrong value, the program will silently do the wrong thing or—if you’re lucky—throw an ArrayIndexOutOfBoundsException.
 
 这么做虽然也可以，但是里面隐藏着一些问题。由于数组无法与泛型兼容（条目28），所以在程序里需要进行未受检地强转，而且不能准确无误地进行编译。同时，由于数组无法知道它的索引代表的是什么，所以你还必须手动为输出加上标签。但这种做法最严重的问题是，当你访问一个由枚举的序数来进行索引的数组时，你必须保证你使用的是正确的int值；而这些int值不提供枚举类型安全。如果你用了错误的值，程序将在不知什么时候会做出错误的行为，你够幸运的话，也许还会抛出ArrayIndexOutOfBoundsException异常。
 
-有个更好的办法来获得这种效果。这个数组的作用无非就是将枚举映射成一个值，所以你可能还是需要用到一个Map。java.util.EnumMap就是专门设计用于这种场景，它与枚举键一起用，是
+There is a much better way to achieve the same effect. The array is effectively serving as a map from the enum to a value, so you might as well use a Map. More specifically, there is a very fast Map implementation designed for use with enum keys, known as java.util.EnumMap. Here is how the program looks when it is rewritten to use EnumMap:
+
+有个更好的办法来获得这种效果。这个数组的作用无非就是将枚举映射成一个值，所以你可能还是需要用到一个Map。java.util.EnumMap类就是专门设计用于这种场景，它与枚举键一起用，是一个性能速度很快的Map接口的实现。下面的是使用EnumMap重写后的代码：
 
 **// Using an EnumMap to associate data with an enum**
 
@@ -55,9 +55,13 @@ for (Plant p : garden)
 System.out.println(plantsByLifeCycle);
 ```
 
-This program is shorter, clearer, safer, and comparable in speed to the original version. There is no unsafe cast; no need to label the output manually because the map keys are enums that know how to translate themselves to printable strings; and no possibility for error in computing array indices. The reason that EnumMap is comparable in speed to an ordinal-indexed array is that EnumMap uses such an array internally, but it hides this implementation detail from the programmer, combining the richness and type safety of a Map with the speed of an array. Note that the EnumMap constructor takes the Class object of the key type: this is abounded type token, which provides runtime generic type information \(Item 33\).
+This program is shorter, clearer, safer, and comparable in speed to the original version. There is no unsafe cast; no need to label the output manually because the map keys are enums that know how to translate themselves to printable strings; and no possibility for error in computing array indices. The reason that EnumMap is comparable in speed to an ordinal-indexed array is that EnumMap uses such an array internally, but it hides this implementation detail from the programmer, combining the richness and type safety of a Map with the speed of an array. Note that the EnumMap constructor takes the Class object of the key type: this is a bounded type token, which provides runtime generic type information \(Item 33\).
+
+相比原本的版本，这份代码更简短，安全，并且速度上也没有降低。重写后的代码没有不安全的强转，同时，由于map的键是枚举，所以知道如何将他们自身打印成合适的字符串；还有就是，在计算数组索引时不会出错。相较于原本基于索引的数组，EnumMap之所以在速度上具有可比性，是因为EnumMap在内部也使用了这样的一个数组，但对程序员隐藏了实现细节，不仅集合了Map的丰富功能和类型安全的优点，也集合了数组的速度优势。注意，EnumMap的构造器需要传入键类型的类对象，这样就限制了类型，提供了运行时的泛型类型信息（条目33）。
 
 The previous program can be further shortened by using a stream \(Item 45\) to manage the map. Here is the simplest stream-based code that largely duplicates the behavior of the previous example:
+
+前面的代码可以通过使用流（条目45）来管理这个map，从而进一步缩短代码。以下的代码就基于流，大幅减少了前面例子里的行为代码：
 
 **// Naive stream-based approach - unlikely to produce an EnumMap!    **
 
