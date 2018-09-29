@@ -36,9 +36,13 @@ for (int i = 0; i < plantsByLifeCycle.length; i++) {
 }
 ```
 
-This technique works, but it is fraught with problems. Because arrays are not compatible with generics \(Item 28\), the program requires an unchecked cast and will not compile cleanly. Because the array does not know what its index represents, you have to label the output manually. But the most serious problem with this technique is that when you access an array that is indexed by an enum’s ordinal, it is your responsibility to use the correct int value; ints do not provide the type safety of enums. If you use the wrong value, the program will silently do the wrong thing or—if you’re lucky—throw an ArrayIndexOutOfBoundsException. There is a much better way to achieve the same effect. The array is effectively serving as a map from the enum to a value, so you might as well use aMap. More specifically, there is a very fast Map implementation designed for use with enum keys, known as java.util.EnumMap. Here is how the program looks when it is rewritten to use EnumMap:
+This technique works, but it is fraught with problems. Because arrays are not compatible with generics \(Item 28\), the program requires an unchecked cast and will not compile cleanly. Because the array does not know what its index represents, you have to label the output manually. But the most serious problem with this technique is that when you access an array that is indexed by an enum’s ordinal, it is your responsibility to use the correct int value; ints do not provide the type safety of enums. If you use the wrong value, the program will silently do the wrong thing or—if you’re lucky—throw an ArrayIndexOutOfBoundsException. 
 
-这么做虽然也可以，但是里面隐藏着一些问题。由于数组无法与泛型兼容（条目28），所以在程序里需要进行未受检地强转，而且不能准确无误地进行编译。同时，由于数组无法知道它的索引代表的是什么，所以你还必须
+There is a much better way to achieve the same effect. The array is effectively serving as a map from the enum to a value, so you might as well use a Map. More specifically, there is a very fast Map implementation designed for use with enum keys, known as java.util.EnumMap. Here is how the program looks when it is rewritten to use EnumMap:
+
+这么做虽然也可以，但是里面隐藏着一些问题。由于数组无法与泛型兼容（条目28），所以在程序里需要进行未受检地强转，而且不能准确无误地进行编译。同时，由于数组无法知道它的索引代表的是什么，所以你还必须手动为输出加上标签。但这种做法最严重的问题是，当你访问一个由枚举的序数来进行索引的数组时，你必须保证你使用的是正确的int值；而这些int值不提供枚举类型安全。如果你用了错误的值，程序将在不知什么时候会做出错误的行为，你够幸运的话，也许还会抛出ArrayIndexOutOfBoundsException异常。
+
+有个更好的办法来获得这种效果。这个数组的作用无非就是将枚举映射成一个值，所以你可能还是需要用到一个Map。java.util.EnumMap就是专门设计用于这种场景，它与枚举键一起用，是
 
 **// Using an EnumMap to associate data with an enum**
 
