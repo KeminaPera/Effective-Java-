@@ -83,6 +83,8 @@ System.out.println(Arrays.stream(garden).collect(groupingBy(p -> p.lifeCycle,
 
 This optimization would not be worth doing in a toy program like this one but could be critical in a program that made heavy use of the map.
 
+这种优化
+
 The behavior of the stream-based versions differs slightly from that of the EmumMap version. The EnumMap version always makes a nested map for each plant lifecycle, while the stream-based versions only make a nested map if the garden contains one or more plants with that lifecycle. So, for example, if the garden contains annuals and perennials but no biennials, the size of plantsByLifeCycle will be three in the EnumMap version and two in both of the stream-based versions.
 
 You may see an array of arrays indexed \(twice!\) by ordinals used to represent a mapping from two enum values. For example, this program uses such an array to map two phases to a phase transition \(liquid to solid is freezing, liquid to gas is boiling, and so forth\):
