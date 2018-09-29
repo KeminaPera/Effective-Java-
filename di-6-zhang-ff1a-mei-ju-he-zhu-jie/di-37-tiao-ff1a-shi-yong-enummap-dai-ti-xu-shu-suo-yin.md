@@ -72,6 +72,8 @@ System.out.println(Arrays.stream(garden).collect(groupingBy(p -> p.lifeCycle)));
 The problem with this code is that it chooses its own map implementation, and in practice it won’t be an EnumMap, so it won’t match the space and time performance of the version with the explicit EnumMap. To rectify this problem, use the  
 three-parameter form of Collectors.groupingBy, which allows the caller to specify the map implementation using the mapFactory parameter:
 
+但这份代码的问题就在于，它选择了它自己的map实现，在实际中这个实现不会是EnumMap，所以它的空间和时间性能与显式使用EnumMap版本的代码不匹配。为了解决这个问题，可以使用Collectors.groupBy的另一种形式，它接收三个参数，允许调用方通过用mapFactory参数来指明使用哪种map实现：
+
 **// Using a stream and an EnumMap to associate data with an enum**
 
 ```java
