@@ -87,7 +87,11 @@ This optimization would not be worth doing in a toy program like this one but co
 
 The behavior of the stream-based versions differs slightly from that of the EmumMap version. The EnumMap version always makes a nested map for each plant lifecycle, while the stream-based versions only make a nested map if the garden contains one or more plants with that lifecycle. So, for example, if the garden contains annuals and perennials but no biennials, the size of plantsByLifeCycle will be three in the EnumMap version and two in both of the stream-based versions.
 
+在上述两份代码里，基于流的版本与EnumMap版本稍微有点不同。EnumMap版本的代码总是为每个植物生命周期创建一个嵌套的映射，而基于流的版本的代码仅在植物园里包含该生命周期的一个或者多个植物时才创建嵌套映射。所以，假如植物园只包含里一年生植物和多年生植物，而没有两年生植物的话，那么在EnumMap版本的代码里plantsByLifeCycle的大小将为3，而在基于流的版本里大小将为2。
+
 You may see an array of arrays indexed \(twice!\) by ordinals used to represent a mapping from two enum values. For example, this program uses such an array to map two phases to a phase transition \(liquid to solid is freezing, liquid to gas is boiling, and so forth\):
+
+你可能会看到，
 
 **// Using ordinal\(\) to index array of arrays - DON'T DO THIS!**
 
@@ -101,7 +105,7 @@ public enum Phase {
             { null, MELT, SUBLIME },
             { FREEZE, null, BOIL },
             { DEPOSIT, CONDENSE, null }
-    };
+        };
         // Returns the phase transition from one phase to another     
         public static Transition from(Phase from, Phase to) {
             return TRANSITIONS[from.ordinal()][to.ordinal()]; 
