@@ -91,7 +91,7 @@ The behavior of the stream-based versions differs slightly from that of the Emum
 
 You may see an array of arrays indexed \(twice!\) by ordinals used to represent a mapping from two enum values. For example, this program uses such an array to map two phases to a phase transition \(liquid to solid is freezing, liquid to gas is boiling, and so forth\):
 
-你可能会看到，
+你可能会看到，数组里的一个数组
 
 **// Using ordinal\(\) to index array of arrays - DON'T DO THIS!**
 
