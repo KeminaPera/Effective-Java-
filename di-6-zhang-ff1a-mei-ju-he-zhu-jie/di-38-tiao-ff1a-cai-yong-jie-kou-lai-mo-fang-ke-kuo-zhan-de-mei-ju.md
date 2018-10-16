@@ -1,0 +1,4 @@
+In almost all respects, enum types are superior to the typesafe enum pattern described in the first edition of this book \[Bloch01\]. On the face of it, one exception concerns extensibility, which was possible under the original pattern but is not supported by the language construct. In other words, using the pattern, it was possible to have one enumerated type extend another; using the language feature, it is not. This is no accident. For the most part, extensibility of enums turns out to be a bad idea. It is confusing that elements of an extension type are instances of the base type and not vice versa. There is no good way to enumerate over all of the elements of a base type and its extensions. Finally, extensibility would complicate many aspects of the design and implementation.
+
+从各个方面来看，枚举类型优于本书第一版所描述的类型安全枚举模式\[Bloch01\]。表面上看，有个涉及到扩展性的例外，原本的模式包含了，而语言级别的构造则不支持。也就是说，采用类型安全枚举模式，可以让一个枚举类型继承另一个；而采用语言特性，则做不到这点。
+
