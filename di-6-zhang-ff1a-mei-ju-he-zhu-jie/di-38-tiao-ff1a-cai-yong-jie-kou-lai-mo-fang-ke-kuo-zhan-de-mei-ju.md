@@ -6,3 +6,5 @@ That said, there is at least one compelling use case for extensible enumerated t
 
 也就是说，对于可扩展枚举类型，至少有一个具有说服力的场景，它就是操作码（opcode）。一个操作码就是一个枚举类型，它的元素代表了某些机器上的操作，例如条目34里提到的操作类型，这些操作类型分别表示一个简单计算器的各个功能。有时候，用户会很希望他们正在用的API能提供一系列的操作，然后通过有效地去扩展这些操作来获得他们自己的操作。
 
+Luckily, there is a nice way to achieve this effect using enum types. The basic idea is to take advantage of the fact that enum types can implement arbitrary interfaces by defining an interface for the opcode type and an enum that is the standard implementation of the interface. For example, here is an extensible version of the Operation type from Item 34:
+
