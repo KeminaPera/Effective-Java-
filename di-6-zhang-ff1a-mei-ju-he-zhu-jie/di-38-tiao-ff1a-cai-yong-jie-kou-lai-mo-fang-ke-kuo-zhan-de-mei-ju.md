@@ -10,7 +10,35 @@ Luckily, there is a nice way to achieve this effect using enum types. The basic 
 
 幸运的是，有个可以采用枚举类型来达到这种目的的好办法——我们可以利用
 
-// Emulated extensible enum using an interface
+**// Emulated extensible enum using an interface**
+
+```java
+public interface Operation {
+    double apply(double x, double y);
+}
+public enum BasicOperation implements Operation {
+    PLUS("+") {
+        public double apply(double x, double y) { return x + y; }
+    },
+    MINUS("-") {
+        public double apply(double x, double y) { return x - y; }
+    },
+    TIMES("*") {
+        public double apply(double x, double y) { return x * y; }
+    },
+    DIVIDE("/") {
+        public double apply(double x, double y) { return x / y; }
+    };
+    private final String symbol;
+    BasicOperation(String symbol) {
+        this.symbol = symbol;
+    } 
+    @Override 
+    public String toString() {
+        return symbol;
+    }
+}
+```
 
 
 
