@@ -40,5 +40,5 @@ public enum BasicOperation implements Operation {
 }
 ```
 
-While the enum type \(BasicOperation\) is not extensible, the interface type \(Operation\) is, and it is the interface type that is used to represent operations in APIs. You can define another enum type that implements this interface and use instances of this new type in place of the base type. For example, suppose you want to define an extension to the operation type shown earlier, consisting of the exponentiation and remainder operations. All you have to do is write an enum type that implements the Operation interface:
+While the enum type \(BasicOperation\) is not extensible, the interface type \(Operation\) is, and it is the interface type that is used to represent operations in APIs. You can define another enum type that implements this interface and use instances of this new type in place of the base type. For example, suppose you want to define an extension to the operation type shown earlier, consisting of the exponentiation and remainder operations. All you have to do is write an enum type that implements the Operation interface:
 
