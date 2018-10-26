@@ -8,7 +8,7 @@ That said, there is at least one compelling use case for extensible enumerated t
 
 Luckily, there is a nice way to achieve this effect using enum types. The basic idea is to take advantage of the fact that enum types can implement arbitrary interfaces by defining an interface for the opcode type and an enum that is the standard implementation of the interface. For example, here is an extensible version of the Operation type from Item 34:
 
-幸运的是，有个可以采用枚举类型来达到这种目的的好办法——我们可以利用
+幸运的是，有个可以采用枚举类型来达到这种目的的好办法——由于枚举类型可以实现任意个接口，所以，我们可以为操作类型定义一个接口，这样的话，一个枚举值就是这个接口的标准实现。以条目34的操作类型（Operation）为例，下面是该类型的可扩展实现版本：
 
 **// Emulated extensible enum using an interface**
 
