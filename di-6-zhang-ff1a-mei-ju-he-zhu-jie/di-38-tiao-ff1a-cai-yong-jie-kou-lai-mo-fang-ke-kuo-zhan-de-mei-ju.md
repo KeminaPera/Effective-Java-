@@ -40,9 +40,9 @@ public enum BasicOperation implements Operation {
 }
 ```
 
-While the enum type \(BasicOperation\) is not extensible, the interface type \(Operation\) is, and it is the interface type that is used to represent operations in APIs. You can define another enum type that implements this interface and use instances of this new type in place of the base type. For example, suppose you want to define an extension to the operation type shown earlier, consisting of the exponentiation and remainder operations. All you have to do is write an enum type that implements the Operation interface:
+While the enum type \(BasicOperation\) is not extensible, the interface type \(Operation\) is, and it is the interface type that is used to represent operations in APIs. You can define another enum type that implements this interface and use instances of this new type in place of the base type. For example, suppose you want to define an extension to the operation type shown earlier, consisting of the exponentiation and remainder operations. All you have to do is write an enum type that implements the _Operation_ interface:
 
-虽然枚举类型（_BasicOperation_）无法扩展，但它的接口类型（_Operation_）可以，并且这个接口类型用于在API里表示操作。你可以定义另一个实现这个接口的枚举类型并
+虽然枚举类型（_BasicOperation_）无法扩展，但它的接口类型（_Operation_）可以，并且这个接口类型用于在API里表示操作。你可以定义另一个实现这个接口的枚举类型并使用这个新的类型的实例来替换原本的基础类型。例如，假设你想定义一个前面所示的操作类型的扩展，这个扩展由幂运算和余运算组成。你所需做的就是写一个实现了Operation接口的枚举类型：
 
 **// Emulated extension enum**
 
@@ -70,6 +70,8 @@ public enum ExtendedOperation implements Operation {
 ```
 
 You can now use your new operations anywhere you could use the basic operations, provided that APIs are written to take the interface type \(_Operation_\), not the implementation \(_BasicOperation_\). Note that you don’t have to declare the abstract _apply_ method in the enum as you do in a nonextensible enum with instance-specific method implementations \(page 162\). This is because the abstract method \(_apply_\) is a member of the interface \(_Operation_\).
+
+现在你可以在任意可以使用基本运算的地方使用这两个新的运算，因为它们都实现了_Operation_接口类型，而不是实现_BasicOperation。_注意，你无需在枚举里声明_apply_方法，就像你不必在具有特定实例方法实现的不可扩展枚举里进行声明一样。这是因为，抽象方法（_apply_）是接口的一个成员（_Operation_）。
 
 Not only is it possible to pass a single instance of an “extension enum” anywhere a “base enum” is expected, but it is possible to pass in an entire extension enum type and use its elements in addition to or instead of those of the base type. For example, here is a version of the test program on page 163 that exercises all of the extended operations defined previously:
 
@@ -101,7 +103,7 @@ private static void test(Collection<? extends Operation> opSet, double x, double
 }
 ```
 
-The resulting code is a bit less complex, and the _test_ method is a bit more flexible: it allows the caller to combine operations from multiple implementation types. On the other hand, you forgo the ability to use _EnumSet_\(Item 36\) and _EnumMap_\(Item 37\) on the specified operations. 
+The resulting code is a bit less complex, and the _test_ method is a bit more flexible: it allows the caller to combine operations from multiple implementation types. On the other hand, you forgo the ability to use _EnumSet_\(Item 36\) and _EnumMap_\(Item 37\) on the specified operations.
 
 Both programs shown previously will produce this output when run with command line arguments 4 and 2:
 
