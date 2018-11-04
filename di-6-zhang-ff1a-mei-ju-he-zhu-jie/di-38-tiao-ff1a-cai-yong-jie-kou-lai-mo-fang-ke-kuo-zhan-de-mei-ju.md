@@ -75,6 +75,8 @@ You can now use your new operations anywhere you could use the basic operations,
 
 Not only is it possible to pass a single instance of an “extension enum” anywhere a “base enum” is expected, but it is possible to pass in an entire extension enum type and use its elements in addition to or instead of those of the base type. For example, here is a version of the test program on page 163 that exercises all of the extended operations defined previously:
 
+不仅可以在任意要求传入“基本枚举”的场景传入“扩展枚举”的实例，还可以传入整个扩展枚举类型，并使用扩展枚举类型的元素来增加或者替换那些基本类型。例如，下面这个测试程序测试来前面定义的所有扩展后的运算：
+
 ```java
 public static void main(String[] args) { 
     double x = Double.parseDouble(args[0]); 
@@ -87,9 +89,13 @@ private static <T extends Enum<T> & Operation> void test( Class<T> opEnumType, d
 }
 ```
 
-Note that the class literal for the extended operation type \(_ExtendedOperation.class_\) is passed from _main_ to _test_ to describe the set of extended operations. The class literal serves as abounded type token\(Item 33\). The admittedly complex declaration for the _opEnumType_ parameter \(_&lt;T extends Enum&lt;T&gt;& Operation&gt; Class&lt;T&gt;_\) ensures that the _Class_ object represents both an enum and a subtype of _Operation_, which is exactly what is required to iterate over the elements and perform the operation associated with each one.
+Note that the class literal for the extended operation type \(_ExtendedOperation.class_\) is passed from _main_ to _test_ to describe the set of extended operations. The class literal serves as a bounded type token\(Item 33\). The admittedly complex declaration for the _opEnumType_ parameter \(_&lt;T extends Enum&lt;T&gt;& Operation&gt; Class&lt;T&gt;_\) ensures that the _Class_ object represents both an enum and a subtype of _Operation_, which is exactly what is required to iterate over the elements and perform the operation associated with each one.
 
-A second alternative is to pass a _Collection&lt;? extends Operation&gt;_, which is abounded wildcard type\(Item 31\), instead of passing a class object:
+仔细看下，扩展操作类型的类字面值（_ExtendedOperation.class_）从_main_方法里传入_test_方法里，它描述了扩展操作集合。这个类字面值充当了有界类型的标记（条目33）。_opEnumType_参数的声明比较复杂（_&lt;T extends Enum&lt;T&gt;& Operation&gt; Class&lt;T&gt;_），但这确保了_Class_对象同时表示的是枚举和_Operation_的子类型，才能准确遍历所有的枚举元素并完成元素说代表的操作。
+
+A second alternative is to pass a _Collection&lt;? extends Operation&gt;_, which is a bounded wildcard type\(Item 31\), instead of passing a class object:
+
+第二种做法是传入_Collection&lt;? extends Operation&gt;，_它是一个有界通配符类型（条目31），而不是传入一个类对象：
 
 ```java
 public static void main(String[] args) {
@@ -105,7 +111,11 @@ private static void test(Collection<? extends Operation> opSet, double x, double
 
 The resulting code is a bit less complex, and the _test_ method is a bit more flexible: it allows the caller to combine operations from multiple implementation types. On the other hand, you forgo the ability to use _EnumSet_\(Item 36\) and _EnumMap_\(Item 37\) on the specified operations.
 
+这种方式下的代码会稍微复杂些，但同时_test_方法也会灵活些：它允许调用方将不同操作类型实现结合起来。不过，另一方面，你也放弃了在特定操作上使用_EnumSet_（条目36）和_EnumMap_（条目37）的能力。
+
 Both programs shown previously will produce this output when run with command line arguments 4 and 2:
+
+在命令行里运行前面所示的两段代码，并传入参数4和2，输出的结果将会是这样子的：
 
 ```
 4.000000 ^ 2.000000 = 16.000000 
@@ -114,8 +124,14 @@ Both programs shown previously will produce this output when run with command li
 
 A minor disadvantage of the use of interfaces to emulate extensible enums is that implementations cannot be inherited from one enum type to another. If the implementation code does not rely on any state, it can be placed in the interface, using default implementations \(Item 20\). In the case of our _Operation_ example, the logic to store and retrieve the symbol associated with an operation must be duplicated in _BasicOperation_ and _ExtendedOperation_. In this case it doesn’t matter because very little code is duplicated. If there were a larger amount of shared functionality, you could encapsulate it in a helper class or a static helper method to eliminate the code duplication.
 
+利用接口来模仿可扩展枚举有个小缺点，那就是这些接口实现彼此之前不能继承。如果接口实现代码不依赖于任何状态，那么可以用默认的实现来
+
 The pattern described in this item is used in the Java libraries. For example, the _java.nio.file.LinkOption_ enum type implements  
  the _CopyOption_ and _OpenOption_ interfaces.
 
+本条目里描述的模式被用于Java库。例如，_java.nio.file.LinkOption_枚举类型实现了_CopyOption_和_OpenOption_接口。
+
 In summary, **while you cannot write an extensible enum type, you can emulate it by writing an interface to accompany a basic enum type that implements the interface. **This allows clients to write their own enums \(or other types\) that implement the interface. Instances of these types can then be used wherever instances of the basic enum type can be used, assuming APIs are written in terms of the interface.
+
+总的来说，**虽然你无法编写一个可扩展枚举类型，但你可以通过编写一个接口以及一个实现了这个接口的基本枚举类型来模仿这一点。**这种做法允许客户端编写他们自己的实现了这个接口的枚举（或者其它类型）。这些实现了这个接口的类型的实例可以用于能使用基本枚举类型实例的任意场景。
 
