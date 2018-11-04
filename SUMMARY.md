@@ -44,4 +44,5 @@
   * [第36条：使用EnumSet来替换Bit域](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-36-tiao-ff1a-shiyong-enumset-lai-ti-huan-bit-yu.md)
   * [第37条：使用EnumMap代替序数索引](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-37-tiao-ff1a-shi-yong-enummap-dai-ti-xu-shu-suo-yin.md)
   * [第38条：采用接口来模仿可扩展的枚举](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-38-tiao-ff1a-cai-yong-jie-kou-lai-mo-fang-ke-kuo-zhan-de-mei-ju.md)
+  * [第39条：注解优先于命名模式](di-6-zhang-ff1a-mei-ju-he-zhu-jie/di-39-tiao-ff1a-zhu-jie-you-xian-yu-ming-ming-mo-shi.md)
 
