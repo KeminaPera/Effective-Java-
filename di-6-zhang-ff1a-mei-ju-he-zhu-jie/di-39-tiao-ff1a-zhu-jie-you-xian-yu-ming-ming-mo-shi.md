@@ -34,6 +34,33 @@ _Test_注解的声明就是它自身用_Retention_注解和_Target_注解进行�
 
 The comment before the _Test_ annotation declaration says, “Use only on parameterless static methods.” It would be nice if the compiler could enforce this, but it can’t, unless you write an annotation processor to do so. For more on this topic, see the documentation for _javax.annotation.processing_. In the absence of such an annotation processor, if you put a _Test_ annotation on the declaration of an instance method or on a method with one or more parameters, the test program will still compile, leaving it to the testing tool to deal with the problem at runtime.
 
-_Test_注解声明上面的注释说道，“只用于无参的静态方法。”如果编译器能强制这一点那自然是最好，但它不能，除非你写一个注解处理器来实现这一点。关于这个话题，请阅读_javax.annotation.processing_的文档。在没有提供相应的注解处理器的情况下，如果你将_Test_注解置于实例方法或者带有一个或多个参数的方法之上，测试程序还是可以编译，然后让测试工具在运行时处理这个问题。  
+_Test_注解声明上面的注释说道，“只用于无参的静态方法。”如果编译器能强制这一点那自然是最好，但它不能，除非你写一个注解处理器来实现这一点。关于这个话题，请阅读_javax.annotation.processing_的文档。在没有提供相应的注解处理器的情况下，如果你将_Test_注解置于实例方法或者带有一个或多个参数的方法之上，测试程序还是可以编译，然后让测试工具在运行时处理这个问题。
+
+**// Program containing marker annotations**
+
+```java
+public class Sample {
+    @Test 
+    public static void m1() { } // Test should pass 
+    public static void m2() { }
+    @Test 
+    public static void m3() { // Test should fail
+        throw new RuntimeException("Boom"); 
+    }
+    public static void m4() { }
+    @Test 
+    public void m5() { } // INVALID USE: nonstatic method
+    public static void m6() { }
+    @Test 
+    public static void m7() { // Test should fail
+        throw new RuntimeException("Crash"); 
+    }
+    public static void m8() { } 
+}
+```
+
+The _Sample_ class has seven static methods, four of which are annotated as tests. Two of these, _m3_ and _m7_, throw exceptions, and two, _m1_ and _m5_, do not. But one of the annotated methods that does not throw an exception, _m5_, is an instance method, so it is not a valid use of the annotation. In sum, _Sample_ contains four tests: one will pass, two will fail, and one is invalid. The four methods that are not annotated with the _Test_ annotation will be ignored by the testing tool.
+
+_Sample_类有7个静态方法，其中4个被注解为测试代码。在这4个方法里，方法_m3_和方法_m7_都抛出了异常，方法_m1_和方法m5则没有。在没有抛出异常的注解方法里，由于方法_m5_是个实例方法，所以此处的注解应用是无效的。总的来说，_Sample_包含了4个测试，一个会通过，两个会失败，一个是无效的。另外4个没有用_Test_注解的方法则将被测试工具忽略。  
 
 
