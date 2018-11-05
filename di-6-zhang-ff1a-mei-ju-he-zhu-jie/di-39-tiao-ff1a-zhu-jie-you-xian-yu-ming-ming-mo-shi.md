@@ -28,7 +28,12 @@ public @interface Test {
 }
 ```
 
-The declaration for the _Test_ annotation type is itself annotated with _Retention_ and _Target_ annotations. Such annotations on annotation type declarations are known as meta-annotations. The _@Retention\(RetentionPolicy.RUNTIME\)_ meta-annotation indicates that _Test_ annotations should be retained at runtime. Without it, _Test_ annotations would be invisible to the test tool. The _@Target.get\(ElementType.METHOD\) _meta-annotation indicates that the _Test_ annotation is legal only on method declarations: it cannot be applied to class declarations, field declarations, or other program elements.
+The declaration for the _Test_ annotation type is itself annotated with _Retention_ and _Target_ annotations. Such annotations on annotation type declarations are known as meta-annotations. The _@Retention\(RetentionPolicy.RUNTIME\)_ meta-annotation indicates that _Test_ annotations should be retained at runtime. Without it, _Test_ annotations would be invisible to the test tool. The _@Target.get\(ElementType.METHOD\) \_meta-annotation indicates that the \_Test_ annotation is legal only on method declarations: it cannot be applied to class declarations, field declarations, or other program elements.
 
 _Test_注解的声明就是它自身用_Retention_注解和_Target_注解进行了注解。这种注解类型声明上的注解被称为元注解（meta-annotation）。_@Retention\(RetentionPolicy.RUNTIME\)_元注解表明_Test_注解应该在运行时保留。如果没有加上这个注解，那么_Test_注解将对测试工具不可见。_@Target.get\(ElementType.METHOD\)_元注解表明_Test_注解只有用在方法声明上才是合法的，也就是它不能用于类声明，属性声明，或者其它的程序元素。
+
+The comment before the _Test_ annotation declaration says, “Use only on parameterless static methods.” It would be nice if the compiler could enforce this, but it can’t, unless you write an annotation processor to do so. For more on this topic, see the documentation for _javax.annotation.processing_. In the absence of such an annotation processor, if you put a _Test_ annotation on the declaration of an instance method or on a method with one or more parameters, the test program will still compile, leaving it to the testing tool to deal with the problem at runtime.
+
+_Test_注解声明上面的注释说道，“只用于无参的静态方法。”如果编译器能强制这一点那自然是最好，但它不能，除非你写一个注解处理器来实现这一点。关于这个话题，请阅读_javax.annotation.processing_的文档。在没有提供相应的注解处理器的情况下，如果你将_Test_注解置于实例方法或者带有一个或多个参数的方法之上，测试程序还是可以编译，然后让测试工具在运行时处理这个问题。  
+
 
