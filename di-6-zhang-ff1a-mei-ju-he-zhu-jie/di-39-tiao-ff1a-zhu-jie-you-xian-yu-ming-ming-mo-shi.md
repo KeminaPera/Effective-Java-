@@ -10,3 +10,25 @@ A third disadvantage of naming patterns is that they provide no good way to asso
 
 命名模式的第三个缺点是，它没法提供将参数值与程序元素关联起来的好办法。例如，假设你想让一类测试只有在抛出特定异常时才算成功。这个异常类型本质上是这个测试的参数。你可以某些具体的命名模式将异常类型名字编码进测试方法名字里，但这么做会显得不优雅而且还会让代码变得不够健壮（条目62）。编译器将无法知道要去校验用来命名异常的字符串是否真的起作用。如果被命名的类不存在或者并不是一个异常，那么在运行测试前你都将发现不到这个问题。
 
+Annotations \[JLS, 9.7\] solve all of these problems nicely, and JUnit adopted them starting with release 4. In this item, we’ll write our own toy testing framework to show how annotations work. Suppose you want to define an annotation type to designate simple tests that are run automatically and fail if they throw an exception. Here’s how such an annotation type, named _Test_, might look:
+
+而注解（Annotation）\[JLS, 9.7\] 可以完美地解决这些问题，并且JUnit从第4个release版本开始也采用了这种方式。在本条目里，我们将编写一个简易的测试框架来展示注解是如何运作的。假设你想定义一个注解类型来指定一些简单的测试可以自动运行并且在抛出异常时失败。以下是这个注解类型的代码，这个注解命名为_Test_：
+
+**// Marker annotation type declaration**
+
+```java
+import java.lang.annotation.*;
+/**
+* Indicates that the annotated method is a test method. 
+* Use only on parameterless static methods.
+*/
+@Retention(RetentionPolicy.RUNTIME) 
+@Target(ElementType.METHOD) 
+public @interface Test {
+}
+```
+
+The declaration for the _Test_ annotation type is itself annotated with _Retention_ and _Target_ annotations. Such annotations on annotation type declarations are known as meta-annotations. The _@Retention\(RetentionPolicy.RUNTIME\)_ meta-annotation indicates that _Test_ annotations should be retained at runtime. Without it, _Test_ annotations would be invisible to the test tool. The _@Target.get\(ElementType.METHOD\) _meta-annotation indicates that the _Test_ annotation is legal only on method declarations: it cannot be applied to class declarations, field declarations, or other program elements.
+
+_Test_注解的声明就是它自身用_Retention_注解和_Target_注解进行了注解。这种注解类型声明上的注解被称为元注解（meta-annotation）。_@Retention\(RetentionPolicy.RUNTIME\)_元注解表明_Test_注解应该在运行时保留。如果没有加上这个注解，那么_Test_注解将对测试工具不可见。_@Target.get\(ElementType.METHOD\)_元注解表明_Test_注解只有用在方法声明上才是合法的，也就是它不能用于类声明，属性声明，或者其它的程序元素。
+
