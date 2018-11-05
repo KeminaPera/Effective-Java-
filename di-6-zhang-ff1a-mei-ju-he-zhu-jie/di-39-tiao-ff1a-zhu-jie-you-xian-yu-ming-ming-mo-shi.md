@@ -96,6 +96,7 @@ public class RunTests {
 }
 ```
 
-The test runner tool takes a fully qualified class name on the command line and runs all of the class’s _Test_-annotated methods reflectively, by calling _Method.invoke_. The _isAnnotationPresent_ method tells the tool which methods to run. If a test method throws an exception, the reflection facility wraps it in an _InvocationTargetException_. The tool catches this exception and prints a failure report containing the original exception thrown by the test method, which is extracted from the _InvocationTargetException_ with the _getCause_ method.  
+The test runner tool takes a fully qualified class name on the command line and runs all of the class’s _Test_-annotated methods reflectively, by calling _Method.invoke_. The _isAnnotationPresent_ method tells the tool which methods to run. If a test method throws an exception, the reflection facility wraps it in an _InvocationTargetException_. The tool catches this exception and prints a failure report containing the original exception thrown by the test method, which is extracted from the _InvocationTargetException_ with the _getCause_ method.
 
+上面的测试运行工具在使用时需要往命令行里传入完全匹配的类名，并通过调用Method.invoke以反射的方式来运行相应类里加了_Test_注解的方法。_isAnnotationPresent_方法告诉工具要运行哪个方法。如果某个测试方法抛出了异常，那么反射机制将会把它包装成_InvocationTargetException_异常。工具会抓获这个异常并将测试方法抛出的原始异常打印出来，而这个原始异常则是通过_getCause_方法从_InvocationTargetException_抽离出来。
 
