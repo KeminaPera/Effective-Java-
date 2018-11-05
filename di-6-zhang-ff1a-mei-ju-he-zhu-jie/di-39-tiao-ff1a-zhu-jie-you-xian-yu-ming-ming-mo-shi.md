@@ -6,3 +6,7 @@ A second disadvantage of naming patterns is that there is no way to ensure that 
 
 命名模式的第二个缺点是，无法确保它们被用在恰当的程序元素里。例如，假设你调用了_TestSafetyMechanisms_类，以期望JUnit 3能自动测试这个类的所有方法，无论这些方法是如何命名的。同样，JUnit 3也不会报错，但它也同样不会执行测试代码。
 
+A third disadvantage of naming patterns is that they provide no good way to associate parameter values with program elements. For example, suppose you want to support a category of test that succeeds only if it throws a particular exception. The exception type is essentially a parameter of the test. You could encode the exception type name into the test method name using some elaborate naming pattern, but this would be ugly and fragile \(Item 62\). The compiler would have no way of knowing to check that the string that was supposed to name an exception actually did. If the named class didn’t exist or wasn’t an exception, you wouldn’t find out until you tried to run the test.
+
+命名模式的第三个缺点是，它没法提供将参数值与程序元素关联起来的好办法。例如，假设你想让一类测试只有在抛出特定异常时才算成功。这个异常类型本质上是这个测试的参数。你可以某些具体的命名模式将异常类型名字编码进测试方法名字里，但这么做会显得不优雅而且还会让代码变得不够健壮（条目62）。编译器将无法知道要去校验用来命名异常的字符串是否真的起作用。如果被命名的类不存在或者并不是一个异常，那么在运行测试前你都将发现不到这个问题。
+
