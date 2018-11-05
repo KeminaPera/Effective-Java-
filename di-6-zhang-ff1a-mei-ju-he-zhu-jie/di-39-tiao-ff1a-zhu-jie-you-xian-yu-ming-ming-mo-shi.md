@@ -100,3 +100,13 @@ The test runner tool takes a fully qualified class name on the command line and 
 
 上面的测试运行工具在使用时需要往命令行里传入完全匹配的类名，并通过调用Method.invoke以反射的方式来运行相应类里加了_Test_注解的方法。_isAnnotationPresent_方法告诉工具要运行哪个方法。如果某个测试方法抛出了异常，那么反射机制将会把它包装成_InvocationTargetException_异常。工具会抓获这个异常并将测试方法抛出的原始异常打印出来，而这个原始异常则是通过_getCause_方法从_InvocationTargetException_抽离出来。
 
+If an attempt to invoke a test method by reflection throws any exception other than _InvocationTargetException_, it indicates an invalid use of the _Test_ annotation that was not caught at compile time. Such uses include annotation of an instance method, of a method with one or more parameters, or of an inaccessible method. The second catch block in the test runner catches these Test usage errors and prints an appropriate error message. Here is the output that is printed if _RunTests_ is run onSample:
+
+```bash
+public static void Sample.m3() failed: RuntimeException: Boom Invalid @Test: public void Sample.m5()
+public static void Sample.m7() failed: RuntimeException: Crash Passed: 1, Failed: 3
+
+```
+
+
+
